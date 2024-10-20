@@ -1,0 +1,15 @@
+SampleCharacterAttackW:
+  Name: Sample Attack (White)
+  Description: Deal {Damage} damage.
+
+SampleCharacterAttackU:
+  Name: Sample Attack (Red)
+  Description: Deal {Damage} damage.
+
+SleepyStrikes:
+  Name: Sleepy Strikes
+  Description: |-
+    Deal {Damage} damage{DmgTimes}. 
+    Choose 1 of {Value2} random Common Attack cards to add to the hand. It has |Exile| and |Ethereal|.
+  DetailText: "{SelfName} cannot be generated this way."
+  Times: " {Value1} times"

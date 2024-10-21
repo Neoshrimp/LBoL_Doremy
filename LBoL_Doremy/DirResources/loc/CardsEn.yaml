@@ -62,3 +62,12 @@ DoremySimpleDreams:
   Description: Add either |Soporific Needles| or |Soporific Shield| to the hand.
   UpgradedDescription: Choose one of |Soporific Needles|, |Soporific Shield| or |Soporific Creativity| to add to the hand.
   FlavorText: 'Your dreams need not be complex to be special, they are special through virtue of being yours.'
+
+DoremyRecursiveDreamCatcher:
+  Name: Recursive Dream Catcher
+  Description: |-
+    Gain {Block} |Block|. 
+    {SelfName} can never gain |Copy| or lose |Echo|.
+    When {SelfName} is |Echo'ed|, set its cost to {Mana}.
+  FlavorText: 'Can never have too many!'
+

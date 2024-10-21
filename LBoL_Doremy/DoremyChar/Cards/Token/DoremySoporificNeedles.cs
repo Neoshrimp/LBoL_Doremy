@@ -60,7 +60,10 @@ namespace LBoL_Doremy.DoremyChar.Cards.Token
             if(args.ActionSource != this)
                 yield break;
 
-            yield return DebuffAction<DC_NightmareSE>(args.Target, (int)args.DamageInfo.Damage);
+            var dmgLevel = (int)args.DamageInfo.Amount;
+
+            if(dmgLevel > 0)
+                yield return DebuffAction<DC_NightmareSE>(args.Target, dmgLevel);
         }
     }
 }

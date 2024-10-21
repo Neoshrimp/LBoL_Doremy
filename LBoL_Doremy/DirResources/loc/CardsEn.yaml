@@ -6,10 +6,59 @@ SampleCharacterAttackU:
   Name: Sample Attack (Red)
   Description: Deal {Damage} damage.
 
-SleepyStrikes:
+DoremySleepyStrikes:
   Name: Sleepy Strikes
   Description: |-
     Deal {Damage} damage{DmgTimes}. 
-    Choose 1 of {Value2} random Common Attack cards to add to the hand. It has |Exile| and |Ethereal|.
+    Choose 1 of {Value2} random Common Attack cards to add to the hand. It gains |Exile| and |Ethereal|.
   DetailText: "{SelfName} cannot be generated this way."
   Times: " {Value1} times"
+  FlavorText: "You've heard of sleepwalking, now get ready for sleepboxing!"
+
+
+DoremyProcrastinate:
+  Name: Procrastinate
+  Description: |-
+    Gain {Block} Block. 
+    At the start of the {PlayerName}'s next turn, choose 1 of {Value1} random non-Rare Attack cards to add to the hand. It gains |Ethereal|.
+  DetailText: Card generation happens after draw step.
+  FlavorText: "I'll finish this splash text latter, I'm tired RN."
+
+
+DoremyOutCold:
+  Name: Out Cold
+  Description: |-
+    Gain {Block} block. 
+    Apply {Value1} |Nightmare| to a random enemy. 
+    |Overdraft| {Value2}.
+  FlavorText: "I could sleep through a hurricane like this."
+
+DoremySoporificSheath:
+  Name: Soporific Sheath
+  Description: |-
+    |When {SelfName} enters the hand or is Exiled|: Add {Value1} |{NeedleName}| to the hand.
+  FlavorText: '"You are already asleep"'
+
+
+DoremySoporificNeedles:
+  Name: Soporific Needles
+  Description: |-
+    Deal {Damage} damage and apply |Nightmare| equal to the damage dealt.
+  FlavorText: 'Still just as sharp.' 
+
+DoremySoporificShield:
+  Name: Soporific Shield
+  Description: Gain {Block} |Block|.
+  UpgradedDescription: Gain {Shield} |Barrier|.
+  FlavorText: 'Still just as sturdy.'     
+
+DoremySoporificCreativity:
+  Name: Soporific Creativity
+  Description: Draw {Value1} cards. Apply {Value2} |Nightmare| to each enemy.
+  FlavorText: 'Still just as inspiring.'
+
+DoremySimpleDreams:
+  Name: Simple Dreams
+  Description: Add either |Soporific Needles| or |Soporific Shield| to the hand.
+  UpgradedDescription: Choose one of |Soporific Needles|, |Soporific Shield| or |Soporific Creativity| to add to the hand.
+  FlavorText: 'Your dreams need not be complex to be special, they are special through virtue of being yours.'

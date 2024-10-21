@@ -1,6 +1,6 @@
 ﻿using LBoL.Base;
 using LBoL.ConfigData;
-using LBoL_Doremy.DoremyChar.PlayerUnit;
+using LBoL_Doremy.DoremyChar.DoremyPU;
 using LBoLEntitySideloader;
 using System;
 using System.Collections.Generic;

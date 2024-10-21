@@ -1,4 +1,8 @@
-SampleCharacterTurnGainSpiritSe:
-  Name: Turn Gain Spirit
-  Description: At the start of {PlayerName}'s turn, gain {Level} |Spirit|.
+DoremyProcrastinateSE:
+  Name: Procrastinate
+  Description:  At the start of the {PlayerName}'s next turn, after draw step, choose 1 of {Level} random non-Rare Attack cards to add to the hand. It gains |Ethereal|.
 
+DC_NightmareSE:
+  Name: Nightmare
+  Description: When {SelfName} level exceeds {OwnerName}'s life, defeat {OwnerName}.
+  Brief: When {SelfName} level exceeds afflicted unit's life, defeat the afflicted unit. {SelfName} is considered a <color="#8ab5c8">Special</color> effect.

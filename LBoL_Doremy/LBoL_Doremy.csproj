@@ -320,7 +320,6 @@
 
 
     <ItemGroup>
-      <Folder Include="DirResources\imgs\" />
       <Folder Include="Resources\" />
     </ItemGroup>
 

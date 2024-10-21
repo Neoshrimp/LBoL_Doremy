@@ -1,7 +1,7 @@
 ﻿using LBoL.Base;
 using LBoL.ConfigData;
 using LBoL.Core.Cards;
-using LBoL_Doremy.DoremyChar.PlayerUnit;
+using LBoL_Doremy.DoremyChar.DoremyPU;
 using LBoL_Doremy.StaticResources;
 using LBoLEntitySideloader;
 using LBoLEntitySideloader.Entities;
@@ -32,6 +32,7 @@ namespace LBoL_Doremy.RootTemplates
         public override CardConfig MakeConfig()
         {
             var con = PreConfig();
+            con.Index = CardIndexGenerator.GetUniqueIndex(con);
 
             return con;
         }

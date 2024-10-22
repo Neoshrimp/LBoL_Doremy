@@ -20,10 +20,10 @@ DoremyRestEasySE:
 DoremyDreamLayerKeywordSE:
   Name: Dream Layer
   Description: |-
-    At the end of {PlayerName}'s turn, if this card is in the hand, and give it {DL} and then shuffle it into the draw pile.
+    At the end of {PlayerName}'s turn, if this card is in the hand, give it {DL} and then shuffle it into the draw pile.
     This card can accumulate {DL}.
   Brief: |-
-    At the end of {PlayerName}'s turn, if this card is in the hand, and give it {DL} and then shuffle it into the draw pile.
+    At the end of {PlayerName}'s turn, if this card is in the hand, give it {DL} and then shuffle it into the draw pile.
     This card can accumulate {DL}.
 
 DoremyDLKwSE:

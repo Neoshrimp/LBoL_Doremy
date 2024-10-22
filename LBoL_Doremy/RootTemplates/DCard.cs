@@ -1,5 +1,6 @@
 ﻿using LBoL.Base;
 using LBoL.ConfigData;
+using LBoL.Core;
 using LBoL.Core.Cards;
 using LBoL_Doremy.DoremyChar.DoremyPU;
 using LBoL_Doremy.StaticResources;
@@ -9,6 +10,7 @@ using LBoLEntitySideloader.Resource;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using UnityEngine;
 
 namespace LBoL_Doremy.RootTemplates
 {
@@ -117,5 +119,14 @@ namespace LBoL_Doremy.RootTemplates
 
     public abstract class DCard : Card
     {
+        public string DL { get => DColorUtils.DL; }
+
+        public string LightBlue { get => DColorUtils.LightBlue; }
+
+        public string UIBlue { get => DColorUtils.UIBlue; }
+
+        public string CC { get => DColorUtils.CC; }
+
+
     }
 }

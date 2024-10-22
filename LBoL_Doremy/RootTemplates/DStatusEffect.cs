@@ -1,6 +1,7 @@
 ﻿using LBoL.Base;
 using LBoL.ConfigData;
 using LBoL.Core.StatusEffects;
+using LBoL_Doremy.DoremyChar.DoremyPU;
 using LBoL_Doremy.StaticResources;
 using LBoLEntitySideloader;
 using LBoLEntitySideloader.Attributes;
@@ -70,5 +71,13 @@ namespace LBoL_Doremy.RootTemplates
 
     
     public abstract class DStatusEffect : StatusEffect
-    { }
+    { 
+        public string DL { get => DColorUtils.DL; }
+
+        public string LightBlue { get => DColorUtils.LightBlue; }
+
+        public string UIBlue { get => DColorUtils.UIBlue; }
+
+        public string CC { get => DColorUtils.CC; }
+    }
 }

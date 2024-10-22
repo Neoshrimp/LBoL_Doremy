@@ -71,3 +71,15 @@ DoremyRecursiveDreamCatcher:
     When {SelfName} is |Echo'ed|, set its cost to {Mana}.
   FlavorText: 'Can never have too many!'
 
+
+DoremyDreamshield:
+  Name: Dreamshield
+  Description: |-
+    |When this card gains {DL}|: Gain {Block} |Block| and draw an {LightBlue}additional{CC} card at the start of {PlayerName}'s next turn.
+  FlavorText: '"No mind to break."'
+
+DoremyRestEasy:
+  Name: Rest Easy
+  Description: |-
+    Whenever a card gains {DL}, it costs {Value1} random mana less this combat.
+  FlavorText: '"Yukkuri shiteitte ne!"'

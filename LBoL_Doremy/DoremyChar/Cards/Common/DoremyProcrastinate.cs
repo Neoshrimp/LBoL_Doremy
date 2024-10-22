@@ -55,7 +55,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
         public override StatusEffectConfig PreConfig()
         {
             var con = DefaultConfig();
-            con.Type = StatusEffectType.Special;
+            con.Type = StatusEffectType.Positive;
             con.CountStackType = StackType.Max;
             con.IsStackable = false;
             con.HasCount = false;

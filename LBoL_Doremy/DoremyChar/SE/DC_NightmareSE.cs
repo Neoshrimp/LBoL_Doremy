@@ -1,5 +1,4 @@
-﻿using ExportModImgs;
-using HarmonyLib;
+﻿using HarmonyLib;
 using LBoL.ConfigData;
 using LBoL.Core;
 using LBoL.Core.Battle;
@@ -70,7 +69,10 @@ namespace LBoL_Doremy.DoremyChar.SE
         IEnumerable<BattleAction> DoKill()
         {
             if (CheckKill())
+            {
+                NotifyActivating();
                 yield return new ForceKillAction(NightmareSource, Owner);
+            }
         }
 
         private IEnumerable<BattleAction> HealingReceived(HealEventArgs args)

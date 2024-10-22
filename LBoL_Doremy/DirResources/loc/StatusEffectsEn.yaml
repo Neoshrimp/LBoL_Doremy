@@ -9,7 +9,7 @@ DC_NightmareSE:
 
 DoremyExtraDrawSE:
   Name: Extra Draw
-  Description: At the start of {OwnerName}'s turn, draw {Level} additional card{Level:plural
+  Description: At the start of {OwnerName}'s next turn, draw {Level} additional card{Level:plural
     one='' other='s'}.
   Brief: At the start of {OwnerName}'s next turn, draw additional cards.
 
@@ -18,7 +18,7 @@ DoremyRestEasySE:
   Description: Whenever a card gains {DL}, it costs {Level} random mana less this combat.
 
 DoremyDreamLayerKeywordSE:
-  Name: Dream Layer
+  Name: DreamLayer
   Description: |-
     At the end of {PlayerName}'s turn, if this card is in the hand, give it {DL} and then shuffle it into the draw pile.
     This card can accumulate {DL}.
@@ -29,6 +29,6 @@ DoremyDreamLayerKeywordSE:
 DoremyDLKwSE:
   Name: "{DL}"
   Description: |-
-    {DL} enhances various effects of cards with |Dream Layer|. Any card can be considered to have gained {DL} but only cards with |Dream Layer| can accumulate it.
+    {DL} enhances various effects of cards with |DreamLayer|. Any card can be considered to have gained {DL} but only cards with |Dream Layer| can accumulate it.
   Brief: |-
-    {DL} enhances various effects of cards with |Dream Layer|. Any card can be considered to have gained {DL} but only cards with |Dream Layer| can accumulate it.
+    {DL} enhances various effects of cards with |DreamLayer|. Any card can be considered to have gained {DL} but only cards with |Dream Layer| can accumulate it.

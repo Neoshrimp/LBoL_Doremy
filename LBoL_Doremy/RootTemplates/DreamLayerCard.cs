@@ -41,8 +41,11 @@ namespace LBoL_Doremy.RootTemplates
 
         private IEnumerable<BattleAction> OnPlayerTurnEnding(UnitEventArgs args)
         {
-            yield return new ApplyDLAction(this);
-            yield return new MoveCardToDrawZoneAction(this, DrawZoneTarget.Random);
+            if (Zone == LBoL.Core.Cards.CardZone.Hand)
+            { 
+                yield return new ApplyDLAction(this);
+                yield return new MoveCardToDrawZoneAction(this, DrawZoneTarget.Random);
+            }
         }
 
         [HarmonyPatch]

@@ -33,12 +33,15 @@ namespace LBoL_Doremy.DoremyChar.Keywords
 
 
 
+
+
     public sealed class DoremyDLKwSEDef : DStatusEffectDef
     {
         public override Sprite LoadSprite() => null;
         public override StatusEffectConfig PreConfig()
         {
             var con = DefaultConfig();
+            con.RelativeEffects = new List<string>() { nameof(DoremyDreamLayerKeywordSE) };
             return con;
         }
     }

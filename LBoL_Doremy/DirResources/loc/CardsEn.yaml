@@ -83,3 +83,10 @@ DoremyRestEasy:
   Description: |-
     Whenever a card gains {DL}, it costs {Value1} random mana less this combat.
   FlavorText: '"Yukkuri shiteitte ne!"'
+
+DoremySleepingBearsWrath:
+  Name: Sleeping Bear's Wrath
+  Description: |-
+    Deal {Damage} damage to each enemy. 
+    For each {DL}, deal {Value1} additional damage.
+  FlavorText: This'll get you through tougher times, and teach them not to poke you.

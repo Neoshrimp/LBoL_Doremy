@@ -126,6 +126,8 @@ namespace LBoL_Doremy.RootTemplates
         public string UIBlue { get => DColorUtils.UIBlue; }
 
         public string CC { get => DColorUtils.CC; }
+        public string SS => " ";
+
 
 
     }

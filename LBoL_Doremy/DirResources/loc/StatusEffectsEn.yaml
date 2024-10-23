@@ -17,7 +17,7 @@ DoremyRestEasySE:
   Name: Rest Easy
   Description: Whenever a card gains {DL}, it costs {Level} random mana less this combat.
 
-DoremyDreamLayerKeywordSE:
+DC_DreamLayerKeywordSE:
   Name: DreamLayer
   Description: |-
     At the end of {PlayerName}'s turn, if this card is in the hand, give it {DL} and then shuffle it into the draw pile.
@@ -26,9 +26,19 @@ DoremyDreamLayerKeywordSE:
     At the end of {PlayerName}'s turn, if this card is in the hand, give it {DL} and then shuffle it into the draw pile.
     This card can accumulate {DL}.
 
-DoremyDLKwSE:
+DC_DLKwSE:
   Name: "{DL}"
   Description: |-
     {DL} enhances various effects of cards with |DreamLayer|. Any card can be considered to have gained {DL} but only cards with |Dream Layer| can accumulate it.
   Brief: |-
     {DL} enhances various effects of cards with |DreamLayer|. Any card can be considered to have gained {DL} but only cards with |Dream Layer| can accumulate it.
+
+DoremyDefensiveDaydreamingSE:
+  Name: Defensive Daydreaming
+  Description: |-
+    Whenever a card is added to combat, {OwnerName} gains {Level} |Barrier|.
+
+DoremyGatherDreamsSE:
+  Name: Gather Dreams
+  Description: |-
+    At the end of the {OwnerName}'s turn, choose up to 1 of {Count} random cards to shuffle into the draw pile. Repeat {Level} time{Level:plural one='' other='s'}.

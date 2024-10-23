@@ -90,3 +90,94 @@ DoremySleepingBearsWrath:
     Deal {Damage} damage to each enemy. 
     For each {DL}, deal {Value1} additional damage.
   FlavorText: This'll get you through tougher times, and teach them not to poke you.
+
+DoremyUndisturbedSlumber:
+  Name: Undisturbed Slumber
+  Description: |-
+    Gain {Shield} |Barrier|. 
+    Apply {Value1} |Nightmare| to each enemy.
+  FlavorText: |-
+    "She's just sleeping there... MEANCINGLY."
+
+DoremyDeepDefense:
+  Name: Deep Defense
+  Description: |-
+    Gain {Block} |Block|. 
+    Choose a card in the hand, it gains {DL}.
+  UpgradedDescription: |-
+    Gain {Block} |Block|. 
+    Choose a card in the hand, it gains {DL} twice.
+  FlavorText: |-
+    Spiraling deeper and deeper, its easily to loss track of your target.
+
+DoremyDreamblast:
+  Name: Dreamblast
+  Description: |-
+    Deal {Damage} damage. 
+    Apply {NM2Apply} |Nightmare|. 
+    For each {DL}, deal {Value2} additional damage and apply {Value2} additional |Nightmare|.
+  FlavorText: |-
+    Known to cause cramps in the target when they wake up.
+
+DoremyKedamaTranquilizer:
+  Name: Kedama Tranquilizer
+  Description: |-
+    Apply {Value1} |Nightmare| to the target enemy.
+  FlavorText: |-
+    Not rated for larger creatures, but hey, you can always just use more, right?
+
+DoremyDreamedOnceMore:
+  Name: Dreamed Once More
+  Description: |-
+    Gain {Block} |Block|. 
+    Return a card from the discard pile to the hand. If it has |DreamLayer|, add a |Copy| with |Exile| to the hand.
+  DetailText: "{DL} level is copied."
+  FlavorText: |-
+    Again!
+
+DoremyRecurringNightmare:
+  Name: Recurring Nightmare
+  Description: |-
+    Apply {Value1} |Nightmare| to each enemy. 
+    Whenever a card which was added during the combat, is played, return {SelfName} from the discard pile to the hand.
+  DetailText: "{SelfName} effect cannot be triggered by generated {SelfName}."
+  FlavorText: |-
+    Perhaps you should see Dr. Komeiji about those repressed traumas?
+
+DoremyDefensiveDaydreaming:
+  Name: Defensive Daydreaming
+  Description: |-
+    Whenever a card is added to combat, gain {Value1} |Barrier|.
+  FlavorText: |-
+    Huh? What was that? You hit me? Oh, sorry, I wasn't paying attention.
+
+DoremyDreamOn:
+  Name: Dream On
+  Description: |-
+    Deal {Damage} damage. 
+    Apply {Value1} |Nightmare|. 
+    If a card has been added to hand this turn, gain {Mana}. 
+  FlavorText: |-
+    "Sing with me."
+
+DoremyGatherDreams:
+  Name: Gather Dreams
+  Description: |-
+    At the end of the {PlayerName}'s turn, choose up to 1 of {Value1} random cards to shuffle into the draw pile.
+  FlavorText: |-
+    Who is this "Nihlry", and why are so many of these dreams from them?
+
+DoremyFantasyExpress:
+  Name: Fantasy Express
+  Description: |-
+    Deal {Damage} damage.
+    Apply {NM2Apply} |Nightmare|. 
+    For each card created by {PlayerName} this combat , deal {Value2} additional damage and apply {Value2} additional |Nightmare|.
+    Created card count:{SS}{LightBlue}{CreatedCountString}{CC}.
+  UpgradedDescription: |-
+    Deal {Damage} damage.
+    Apply {NM2Apply} |Nightmare|. 
+    For each card created this combat, deal {Value2} additional damage and apply {Value2} additional |Nightmare|.
+    Created card count:{SS}{LightBlue}{CreatedCountString}{CC}.
+  FlavorText: |-
+    Choo Choo goes the Pain Train.

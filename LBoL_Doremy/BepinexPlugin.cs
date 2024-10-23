@@ -1,5 +1,7 @@
 ﻿using BepInEx;
+using BepInEx.Configuration;
 using HarmonyLib;
+using LBoL_Doremy.DoremyChar.CreatedCardTracking;
 using LBoL_Doremy.RootTemplates;
 using LBoLEntitySideloader;
 using LBoLEntitySideloader.Entities;
@@ -40,6 +42,7 @@ namespace LBoL_Doremy
                 WatermarkWrapper.ActivateWatermark();
 
             CardIndexGenerator.PromiseClearIndexSet();
+            BattleHandlers.RegisterAll();
         }
 
         private void OnDestroy()
@@ -48,6 +51,21 @@ namespace LBoL_Doremy
                 harmony.UnpatchSelf();
         }
 
+        KeyboardShortcut debugBind = new KeyboardShortcut(KeyCode.Y, new KeyCode[] { KeyCode.LeftShift });
 
+        private void Update()
+        {
+            if (debugBind.IsDown())
+            {
+                try
+                {
+                    log.LogDebug(BattleHandlers.CreatedCount);
+                }
+                catch (System.Exception)
+                {
+                    log.LogWarning("deenuts");
+                }
+            }
+        }
     }
 }

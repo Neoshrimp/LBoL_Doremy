@@ -1,6 +1,10 @@
 ﻿using LBoL.Base;
 using LBoL.ConfigData;
+using LBoL.Core;
+using LBoL.Core.Battle;
+using LBoL.Core.Cards;
 using LBoL.Core.StatusEffects;
+using LBoL.Core.Units;
 using LBoL_Doremy.DoremyChar.DoremyPU;
 using LBoL_Doremy.StaticResources;
 using LBoLEntitySideloader;
@@ -79,5 +83,23 @@ namespace LBoL_Doremy.RootTemplates
         public string UIBlue { get => DColorUtils.UIBlue; }
 
         public string CC { get => DColorUtils.CC; }
+
+        protected void ReactOnCardsAddedEvents(Unit unit, Func<Card[], GameEventArgs, IEnumerable<BattleAction>> reactor)
+        {
+            ReactOnCardsAddedEvents(unit, reactor, (GameEventPriority)Config.Order);
+        }
+
+
+        protected void ReactOnCardsAddedEvents(Unit unit, Func<Card[], GameEventArgs, IEnumerable<BattleAction>> reactor, GameEventPriority priority)
+        {
+            Func<CardsAddingToDrawZoneEventArgs, IEnumerable<BattleAction>> drawZoneReactor = args => reactor(args.Cards, args);
+
+            Func<CardsEventArgs, IEnumerable<BattleAction>> otherReactors = args => reactor(args.Cards, args);
+
+            unit.ReactBattleEvent(Battle.CardsAddedToDiscard, otherReactors, priority);
+            unit.ReactBattleEvent(Battle.CardsAddedToDrawZone, drawZoneReactor, priority);
+            unit.ReactBattleEvent(Battle.CardsAddedToExile, otherReactors, priority);
+            unit.ReactBattleEvent(Battle.CardsAddedToHand, otherReactors, priority);
+        }
     }
 }

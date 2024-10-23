@@ -11,23 +11,23 @@ namespace LBoL_Doremy.DoremyChar.Keywords
 {
     public static class DoremyKw
     {
-        public static CardKeyword DreamLayer = new CardKeyword(nameof(DoremyDreamLayerKeywordSE), KwDescPos.First);
+        public static CardKeyword DreamLayer = new CardKeyword(nameof(DC_DreamLayerKeywordSE), KwDescPos.First);
     }
 
-    public sealed class DoremyDreamLayerKeywordSEDef : DStatusEffectDef
+    public sealed class DC_DreamLayerKeywordSEDef : DStatusEffectDef
     {
 
         public override Sprite LoadSprite() => null;
         public override StatusEffectConfig PreConfig()
         {
             var con = DefaultConfig();
-            con.RelativeEffects = new List<string>() { nameof(DoremyDLKwSE) };
+            con.RelativeEffects = new List<string>() { nameof(DC_DLKwSE) };
             return con;
         }
     }
 
-    [EntityLogic(typeof(DoremyDreamLayerKeywordSEDef))]
-    public sealed class DoremyDreamLayerKeywordSE : DStatusEffect
+    [EntityLogic(typeof(DC_DreamLayerKeywordSEDef))]
+    public sealed class DC_DreamLayerKeywordSE : DStatusEffect
     {
     }
 
@@ -35,19 +35,19 @@ namespace LBoL_Doremy.DoremyChar.Keywords
 
 
 
-    public sealed class DoremyDLKwSEDef : DStatusEffectDef
+    public sealed class DC_DLKwSEDef : DStatusEffectDef
     {
         public override Sprite LoadSprite() => null;
         public override StatusEffectConfig PreConfig()
         {
             var con = DefaultConfig();
-            con.RelativeEffects = new List<string>() { nameof(DoremyDreamLayerKeywordSE) };
+            con.RelativeEffects = new List<string>() { nameof(DC_DreamLayerKeywordSE) };
             return con;
         }
     }
 
-    [EntityLogic(typeof(DoremyDLKwSEDef))]
-    public sealed class DoremyDLKwSE : DStatusEffect
+    [EntityLogic(typeof(DC_DLKwSEDef))]
+    public sealed class DC_DLKwSE : DStatusEffect
     {
         public override string Name => base.Name.RuntimeFormat(FormatWrapper);
     }

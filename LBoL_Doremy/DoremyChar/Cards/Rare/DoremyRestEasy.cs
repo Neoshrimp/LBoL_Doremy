@@ -33,8 +33,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
 
             con.Value1 = 1;
 
-            con.RelativeEffects = new List<string>() { nameof(DoremyDLKwSE) };
-            con.UpgradedRelativeEffects = new List<string>() { nameof(DoremyDLKwSE) };
+            con.RelativeEffects = new List<string>() { nameof(DC_DLKwSE) };
+            con.UpgradedRelativeEffects = new List<string>() { nameof(DC_DLKwSE) };
 
 
             return con;

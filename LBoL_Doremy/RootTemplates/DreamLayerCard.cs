@@ -2,6 +2,7 @@
 using LBoL.Core;
 using LBoL.Core.Battle;
 using LBoL.Core.Battle.BattleActions;
+using LBoL.Core.Cards;
 using LBoL.Presentation.UI.Widgets;
 using LBoL_Doremy.Actions;
 using LBoL_Doremy.DoremyChar.Actions;
@@ -30,6 +31,7 @@ namespace LBoL_Doremy.RootTemplates
             this.AddCustomKeyword(DoremyKw.DreamLayer);
         }
 
+
         public virtual bool ShowDreamLevel { get => true; }
 
         public virtual void OnDLChanged(DreamLevelArgs args) {}
@@ -47,6 +49,19 @@ namespace LBoL_Doremy.RootTemplates
                 yield return new MoveCardToDrawZoneAction(this, DrawZoneTarget.Random);
             }
         }
+
+
+        [HarmonyPatch(typeof(Card), nameof(Card.CloneBattleCard))]
+        class CloneBattleCard_Patch
+        {
+            static void Postfix(Card __instance, Card __result)
+            {
+                if(__instance is DreamLayerCard source && __result is DreamLayerCard copy)
+                    copy.DreamLevel = source.DreamLevel;
+            }
+        }
+
+
 
         [HarmonyPatch]
         internal class BoostCardWidgetPatch

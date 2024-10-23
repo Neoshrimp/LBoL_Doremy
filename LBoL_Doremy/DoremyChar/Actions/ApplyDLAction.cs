@@ -27,9 +27,9 @@ namespace LBoL_Doremy.DoremyChar.Actions
             if (Args.target is DreamLayerCard dlc)
             {
                 dlc.DreamLevel += Args.dreamLevelDelta;
-                dlc.NotifyActivating();
+                dlc.NotifyChanged();
             }
-            Args.target.NotifyChanged();
+            Args.target.NotifyActivating();
         }
 
         public override void PostEventPhase()

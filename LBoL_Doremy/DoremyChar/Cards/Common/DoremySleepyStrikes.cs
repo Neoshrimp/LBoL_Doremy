@@ -63,7 +63,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
                 {
                     Source = this
                 };
-                yield return new InteractionAction(interaction, false);
+                yield return new InteractionAction(interaction);
                 Card selectedCard = interaction.SelectedCard;
                 selectedCard.IsEthereal = true;
                 selectedCard.IsExile = true;

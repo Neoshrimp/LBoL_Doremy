@@ -33,6 +33,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             con.Value1 = 3;
 
             con.Keywords = Keyword.Initial;
+            con.UpgradedKeywords = Keyword.Initial;
+
 
 
             return con;

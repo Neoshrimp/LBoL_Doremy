@@ -42,3 +42,8 @@ DoremyGatherDreamsSE:
   Name: Gather Dreams
   Description: |-
     At the end of the {OwnerName}'s turn, choose up to 1 of {Count} random cards to shuffle into the draw pile. Repeat {Level} time{Level:plural one='' other='s'}.
+
+DoremyFantasticalMightSE:
+  Name: Fantastical Might
+  Description: |-
+    Cards added in combat deal {Level} more damage and give {Count} more |Block| and |Barrier|.

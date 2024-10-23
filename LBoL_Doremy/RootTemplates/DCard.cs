@@ -128,6 +128,10 @@ namespace LBoL_Doremy.RootTemplates
         public string CC { get => DColorUtils.CC; }
         public string SS => " ";
 
+        public string BrB => StringDecorator.Decorate($"|{(IsUpgraded ? LBoL.Core.Keywords.GetDisplayWord(Keyword.Shield).Name : LBoL.Core.Keywords.GetDisplayWord(Keyword.Block).Name)}|");
+
+        public int BlockOrShield => IsUpgraded ? Shield.Shield : Block.Block;
+
 
 
     }

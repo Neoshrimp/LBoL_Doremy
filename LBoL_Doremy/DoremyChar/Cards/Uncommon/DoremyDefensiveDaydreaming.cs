@@ -26,10 +26,10 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             con.TargetType = TargetType.Self;
 
             con.Colors = new List<ManaColor>() { ManaColor.White };
-            con.Cost = new ManaGroup() { White = 2 };
+            con.Cost = new ManaGroup() { White = 2, Any = 1 };
 
             con.Value1 = 3;
-            con.UpgradedValue1 = 5;
+            con.UpgradedValue1 = 4;
 
 
             return con;
@@ -67,7 +67,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 
         private IEnumerable<BattleAction> OnCardsAdded(Card[] cards, GameEventArgs args)
         {
-            if (cards.Length > 0)
+            foreach(var c in cards)
             {
                 NotifyActivating();
                 yield return new CastBlockShieldAction(Owner, 0, shield: Level, BlockShieldType.Direct, cast: false);

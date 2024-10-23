@@ -181,3 +181,67 @@ DoremyFantasyExpress:
     Created card count:{SS}{LightBlue}{CreatedCountString}{CC}.
   FlavorText: |-
     Choo Choo goes the Pain Train.
+
+DoremyThreeLayeredPhantasm:
+  Name: Three-Layered Phantasm
+  Description: |-
+    Deal {Damage} damage. 
+    Choose {Value1} of {Value2} random Attack cards to add to the hand. They cost {LightBlue}1{CC} random mana less, and gain |Ethereal| and |Exile|.
+  FlavorText: |-
+    Technically there's only two layers until you upgrade it.
+
+
+DoremyWhiteNoise:
+  Name: White Noise
+  Description: |-
+    Add a random Ability card to the hand. It |temporarily costs| {Mana}.
+  FlavorText: |-
+    Some humans in the outside world use it to help them sleep, maybe you should add some to your Danmaku?
+
+DoremyFantasticalMight:
+  Name: Fantastical Might
+  Description: |-
+    Cards added in combat deal {Value1} more damage and give {Value2} more |Block| and |Barrier|.
+  FlavorText: |-
+    Only gives less block than damage because of my crippling addiction to multi-block cards.
+
+DoremyLabyrinthineConfusion:
+  Name: Labyrinthine Confusion
+  Description: |-
+    Gain {BlockOrShield} {BrB}.
+    Apply {NM2Apply} |Nightmare| to each enemy. 
+    For each card in {PlayerName}'s hand that was added this combat, gain {Value1} {BrB} and apply {Value2} |Nightmare| to each enemy.
+  FlavorText: |-
+    Wait, was the exit to the dream this way, or- (Psychedelic added to deck.)
+
+DoremyRapidEyeMovements:
+  Name: Rapid Eye Movements
+  Description: |-
+    Gain {Block} |Block|. 
+    Choose {Value1} of {Value2} |Movements| to add to the hand.
+  FlavorText: |-
+    R.E.M.I. for short.
+
+DoremyConfoundingMovement:
+  Name: Confounding Movement
+  Description: |-
+    Apply {Value1} |Temporary Firepower Down| to each enemy.
+
+DoremyDefensiveMovement:
+  Name: Defensive Movement
+  Description: |-
+    Gain {Shield} |Barrier|.
+
+DoremyEnergeticMovement:
+  Name: Energetic Movement
+  Description: |-
+    Draw {Value1} cards. 
+    Gain {Mana}.
+
+DoremyDiverseDreaming:
+  Name: Diverse Dreaming
+  Description: |-
+    Add 1 random Attack, Defense and Skill card to the hand. They gain |Ethereal| and |Exile|.
+    Add {Value1} |{Ritual}| to the hand.
+  FlavorText: |-
+    Why choose when you can add them all?

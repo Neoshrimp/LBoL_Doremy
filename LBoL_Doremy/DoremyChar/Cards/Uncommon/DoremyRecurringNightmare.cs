@@ -23,12 +23,14 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             con.Rarity = Rarity.Uncommon;
 
             con.Type = LBoL.Base.CardType.Skill;
-            con.TargetType = TargetType.AllEnemies;
+            con.TargetType = TargetType.SingleEnemy;
 
             con.Colors = new List<ManaColor>() { ManaColor.White };
             con.Cost = new ManaGroup() { Any = 0 };
 
             con.Value1 = 6;
+            con.UpgradedValue1 = 9;
+
 
 
             con.RelativeEffects = new List<string>() { nameof(DC_NightmareSE) };
@@ -59,8 +61,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
-            foreach (var e in UnitSelector.AllEnemies.GetUnits(Battle))
-                yield return DebuffAction<DC_NightmareSE>(e, Value1);
+            yield return DebuffAction<DC_NightmareSE>(selector.SelectedEnemy, Value1);
         }
     }
 }

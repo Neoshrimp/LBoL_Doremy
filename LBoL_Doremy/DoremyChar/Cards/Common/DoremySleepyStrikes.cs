@@ -43,8 +43,6 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
     [EntityLogic(typeof(DoremySleepyStrikesDef))]
     public sealed class DoremySleepyStrikes : DCard
     {
-        public string DmgTimes { get => IsUpgraded ? LocalizeProperty("Times").RuntimeFormat(FormatWrapper) : ""; }
-
         protected override void SetGuns()
         {
             CardGuns = new Guns(GunName, Value1);

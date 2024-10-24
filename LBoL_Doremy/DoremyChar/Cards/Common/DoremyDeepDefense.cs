@@ -29,7 +29,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
             con.Cost = new ManaGroup() { Blue = 1, Any = 1 };
 
             con.Block = 12;
-            con.UpgradedBlock = 17;
+            //con.UpgradedBlock = 17;
 
 
 

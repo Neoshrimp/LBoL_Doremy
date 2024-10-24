@@ -11,6 +11,7 @@ using LBoLEntitySideloader.CustomHandlers;
 using LBoL_Doremy.DoremyChar.Actions;
 using System.ComponentModel.Design;
 using LBoL.Core.StatusEffects;
+using LBoL.Core.Battle.BattleActions;
 
 namespace LBoL_Doremy.DoremyChar.CreatedCardTracking
 {
@@ -108,16 +109,26 @@ namespace LBoL_Doremy.DoremyChar.CreatedCardTracking
 
 
 
+
+        [HarmonyPatch(typeof(StartPlayerTurnAction), nameof(StartPlayerTurnAction.GetPhases))]
+        class StartPlayerTurnAction_Patch
+        {
+            static void Prefix()
+            {
+                var hist = CardCreationTurnHistory;
+                hist.Clear();
+            }
+        }
+
+
+
         [HarmonyPatch(typeof(BattleController), nameof(BattleController.EndPlayerTurn))]
         class BattleController_EndPlayerTurn_Patch
         {
             static void Postfix(BattleController __instance)
             {
                 var hist = GetCardCreationTurnHistory(__instance);
-                hist.addedToExile.Clear();
-                hist.addedToDrawZone.Clear();
-                hist.addedToHand.Clear();
-                hist.addedToDiscard.Clear();
+                hist.Clear();
             }
         }
 
@@ -162,6 +173,16 @@ namespace LBoL_Doremy.DoremyChar.CreatedCardTracking
         public List<Card> addedToDrawZone = new List<Card>();
         public List<Card> addedToHand = new List<Card>();
         public List<Card> addedToDiscard = new List<Card>();
+
+        public int Total => addedToExile.Count + addedToDrawZone.Count + addedToHand.Count + addedToDiscard.Count;
+
+        public void Clear()
+        {
+            this.addedToExile.Clear();
+            this.addedToDrawZone.Clear();
+            this.addedToHand.Clear();
+            this.addedToDiscard.Clear();
+        }
 
     }
 }

@@ -28,7 +28,7 @@ namespace LBoL_Doremy.DoremyChar.Keywords
             return new HashSet<CardKeyword>();
         }
 
-        public static bool HasCsutomKeyword(this Card card, CardKeyword keyword) 
+        public static bool HasCustomKeyword(this Card card, CardKeyword keyword) 
         {
             return GetKeywords(card).Contains(keyword);
         }

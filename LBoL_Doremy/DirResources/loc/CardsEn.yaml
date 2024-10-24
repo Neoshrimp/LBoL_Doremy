@@ -245,3 +245,20 @@ DoremyDiverseDreaming:
     Add {Value1} |{Ritual}| to the hand.
   FlavorText: |-
     Why choose when you can add them all?
+
+DoremyDreamEater:
+  Name: Dream Eater
+  Description: |-
+    Deal {Damage} damage. Deal additional damage equal to the target's |Nightmare|. 
+    For each card that was added this turn, {SelfName} costs {Mana} less.
+  FlavorText: |-
+    "What a thrill..."
+
+DoremyPhantasmalDouble:
+  Name: Phantasmal Double
+  Description: |-
+    Deal {Damage} damage{DmgTimes}.
+    Choose a card in the hand. Add a copy of it to the hand. If the target card is an |Ability| card or has |Exile|, it becomes a |Copy|.
+  Times: " {Value1} times"
+  FlavorText: |-
+    One dream self, one real self.

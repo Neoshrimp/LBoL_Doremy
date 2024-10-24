@@ -1,7 +1,9 @@
 ﻿using LBoL.Base;
 using LBoL.ConfigData;
 using LBoL.Core;
+using LBoL.Core.Battle;
 using LBoL.Core.Cards;
+using LBoL.Presentation;
 using LBoL_Doremy.DoremyChar.DoremyPU;
 using LBoL_Doremy.StaticResources;
 using LBoLEntitySideloader;
@@ -9,6 +11,7 @@ using LBoLEntitySideloader.Entities;
 using LBoLEntitySideloader.Resource;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using UnityEngine;
 
@@ -117,7 +120,7 @@ namespace LBoL_Doremy.RootTemplates
 
     }
 
-    public abstract class DCard : Card
+    public abstract class DCard  : Card
     {
         public string DL { get => DColorUtils.DL; }
 
@@ -131,6 +134,10 @@ namespace LBoL_Doremy.RootTemplates
         public string BrB => StringDecorator.Decorate($"|{(IsUpgraded ? LBoL.Core.Keywords.GetDisplayWord(Keyword.Shield).Name : LBoL.Core.Keywords.GetDisplayWord(Keyword.Block).Name)}|");
 
         public int BlockOrShield => IsUpgraded ? Shield.Shield : Block.Block;
+        public string DmgTimes { get => Value1 > 1 ? LocalizeProperty("Times").RuntimeFormat(FormatWrapper) : ""; }
+
+        [MaybeNull]
+        protected BattleController RealBattle => this.Battle ?? GameMaster.Instance?.CurrentGameRun?.Battle;
 
 
 

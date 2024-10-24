@@ -30,11 +30,10 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 
 
             con.Block = 0;
-
             con.Shield = 0;
 
             con.Value1 = 7;
-            con.UpgradedValue1 = 10;
+            //con.UpgradedValue1 = 10;
 
             con.Value2 = 2;
 

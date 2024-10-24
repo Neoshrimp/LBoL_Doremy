@@ -22,7 +22,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
             con.Colors = new List<ManaColor>() { ManaColor.Blue };
             con.Cost = ManaGroup.Empty;
 
-            con.Block = 8;
+            con.Block = 6;
 
             con.Value1 = 1;
 

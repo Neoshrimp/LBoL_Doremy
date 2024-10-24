@@ -29,6 +29,10 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
             con.UpgradedValue1 = 8;
 
 
+            con.Keywords = Keyword.Exile;
+            con.UpgradedKeywords = Keyword.Exile;
+
+
             con.RelativeEffects = new List<string>() { nameof(DC_NightmareSE) };
             con.UpgradedRelativeEffects = new List<string>() { nameof(DC_NightmareSE) };
 

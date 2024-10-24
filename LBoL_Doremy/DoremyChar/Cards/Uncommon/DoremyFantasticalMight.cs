@@ -5,6 +5,7 @@ using LBoL.Core.Battle;
 using LBoL.Core.Cards;
 using LBoL.Core.Units;
 using LBoL_Doremy.CreatedCardTracking;
+using LBoL_Doremy.DoremyChar.SE;
 using LBoL_Doremy.RootTemplates;
 using LBoLEntitySideloader.Attributes;
 using System;
@@ -34,8 +35,6 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 
             con.Value2 = 2;
             con.UpgradedValue2 = 3;
-
-
 
 
 

@@ -24,8 +24,10 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
             con.Type = LBoL.Base.CardType.Defense;
             con.TargetType = TargetType.Self;
 
-            con.Colors = new List<ManaColor>() { ManaColor.White };
-            con.Cost = new ManaGroup() { Any = 1 };
+            con.Colors = new List<ManaColor>() { ManaColor.White, ManaColor.Blue };
+            con.Cost = new ManaGroup() { Hybrid = 1, HybridColor = 0/*ManaUtils.HybridNum("HWU")*/ };
+            con.UpgradedCost = new ManaGroup() { Any = 1 };
+
 
             con.Mana = new ManaGroup() { Any = 1 };
 

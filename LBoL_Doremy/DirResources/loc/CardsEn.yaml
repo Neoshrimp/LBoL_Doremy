@@ -138,7 +138,7 @@ DoremyDreamedOnceMore:
 DoremyRecurringNightmare:
   Name: Recurring Nightmare
   Description: |-
-    Apply {Value1} |Nightmare| to each enemy. 
+    Apply {Value1} |Nightmare| to a single enemy. 
     Whenever a card which was added during the combat, is played, return {SelfName} from the discard pile to the hand.
   DetailText: "{SelfName} effect cannot be triggered by generated {SelfName}."
   FlavorText: |-
@@ -264,7 +264,7 @@ DoremyPhantasmalDouble:
     One dream self, one real self.
 
 DoremyHypnagogicEffluvium:
-  Name: HypnagogicEffluvium
+  Name: Hypnagogic Effluvium
   Description: |-
     Apply {Value1} Weak and {Value2} |Nightmare| to each enemy.
   FlavorText: |-
@@ -342,7 +342,7 @@ DoremyForgetfulDaze:
     |Scry| {Scry}.
     For each card sent to the discard pile while |Scrying|, gain {Value1} |Block|.
   FlavorText: |-
-    Slow, but it sure can draw a lot of cards.
+    What was I drawing again?
 
 DoremyRunawayDream:
   Name: Runaway Dream

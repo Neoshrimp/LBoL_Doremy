@@ -37,6 +37,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             con.Value1 = 1;
             con.UpgradedValue1 = 2;
 
+            con.UpgradedKeywords = Keyword.Accuracy;
+
 
             con.RelativeKeyword = Keyword.CopyHint | Keyword.Ability;
             con.UpgradedRelativeKeyword = Keyword.CopyHint | Keyword.Ability;

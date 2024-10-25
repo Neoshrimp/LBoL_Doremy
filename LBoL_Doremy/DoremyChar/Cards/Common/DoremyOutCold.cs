@@ -15,7 +15,8 @@ using System.Text;
 
 namespace LBoL_Doremy.DoremyChar.Cards.Common
 {
-    public sealed class DoremyOutColdDef : DCardDef
+    // unused
+    public /*sealed*/ class DoremyOutColdDef : DCardDef
     {
         public override CardConfig PreConfig()
         {
@@ -43,8 +44,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
     }
 
 
-    [EntityLogic(typeof(DoremyOutColdDef))]
-    public sealed class DoremyOutCold : DCard
+    //[EntityLogic(typeof(DoremyOutColdDef))]
+    public /*sealed*/ class DoremyOutCold : DCard
     {
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {

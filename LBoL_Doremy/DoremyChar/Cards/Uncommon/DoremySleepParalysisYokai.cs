@@ -30,7 +30,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 
 
             con.Value1 = 3;
-            con.UpgradedValue1 = 5;
+            //con.UpgradedValue1 = 5;
 
 
             con.RelativeEffects = new List<string>() { nameof(TempFirepowerNegative), nameof(DC_NightmareSE) };

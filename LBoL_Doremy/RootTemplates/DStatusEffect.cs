@@ -84,6 +84,10 @@ namespace LBoL_Doremy.RootTemplates
 
         public string CC { get => DColorUtils.CC; }
 
+
+        public string DoTimes { get => TimesVal > 1 ? LocalizeProperty("Times").RuntimeFormat(FormatWrapper) : ""; }
+        public virtual int TimesVal => Level;
+
         protected void ReactOnCardsAddedEvents(Unit unit, Func<Card[], GameEventArgs, IEnumerable<BattleAction>> reactor)
         {
             ReactOnCardsAddedEvents(unit, reactor, (GameEventPriority)Config.Order);

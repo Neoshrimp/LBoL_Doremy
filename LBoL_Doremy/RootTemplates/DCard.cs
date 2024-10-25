@@ -134,10 +134,12 @@ namespace LBoL_Doremy.RootTemplates
         public string BrB => StringDecorator.Decorate($"|{(IsUpgraded ? LBoL.Core.Keywords.GetDisplayWord(Keyword.Shield).Name : LBoL.Core.Keywords.GetDisplayWord(Keyword.Block).Name)}|");
 
         public int BlockOrShield => IsUpgraded ? Shield.Shield : Block.Block;
-        public string DmgTimes { get => Value1 > 1 ? LocalizeProperty("Times").RuntimeFormat(FormatWrapper) : ""; }
 
-        [MaybeNull]
-        protected BattleController RealBattle => this.Battle ?? GameMaster.Instance?.CurrentGameRun?.Battle;
+        public string DoTimes { get => TimesVal > 1 ? LocalizeProperty("Times").RuntimeFormat(FormatWrapper) : ""; }
+        public virtual int TimesVal => Value1;
+
+        // trick to display concrete values on right-click card zoom in widget while in Battle
+        [MaybeNull] protected BattleController RealBattle => this.Battle ?? GameMaster.Instance?.CurrentGameRun?.Battle;
 
 
 

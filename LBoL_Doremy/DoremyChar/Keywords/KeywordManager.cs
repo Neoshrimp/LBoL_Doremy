@@ -1,7 +1,9 @@
 ﻿using HarmonyLib;
+using LBoL.Base;
 using LBoL.Core;
 using LBoL.Core.Cards;
 using LBoL.Core.StatusEffects;
+using LBoL.EntityLib.EnemyUnits.Character;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -89,6 +91,28 @@ namespace LBoL_Doremy.DoremyChar.Keywords
             }
         }
 
+
+
+        [HarmonyPatch(typeof(Card), nameof(Card.Description), MethodType.Getter)]
+        class DescCheckCustomKw_Patch
+        {
+
+            static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
+            {
+                return new CodeMatcher(instructions)
+                    .MatchEndForward(new CodeInstruction(OpCodes.Call, AccessTools.DeclaredPropertyGetter(typeof(Card), nameof(Card.Keywords))))
+                    .Advance(1)
+                    .InsertAndAdvance(new CodeInstruction(OpCodes.Ldarg_0))
+                    .InsertAndAdvance(new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(DescCheckCustomKw_Patch), nameof(DescCheckCustomKw_Patch.CheckCustomKws))))
+                    
+                    .InstructionEnumeration();
+            }
+
+            private static bool CheckCustomKws(Keyword keywords, Card card)
+            {
+                return keywords != Keyword.None || card.AllCustomKeywords().Count > 0;
+            }
+        }
 
 
 

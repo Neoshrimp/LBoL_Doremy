@@ -1,6 +1,8 @@
 DoremyProcrastinateSE:
   Name: Procrastinate
-  Description:  At the start of the {PlayerName}'s next turn, after draw step, choose 1 of {Level} random non-Rare Attack cards to add to the hand. It gains |Ethereal|.
+  Description:  At the start of the {PlayerName}'s next turn, after draw step, add cop{Count:plural
+    one='y' other='ies'} of {QueuedCards} to the hand.
+  Nothing: nothing
 
 DC_NightmareSE:
   Name: Nightmare
@@ -9,8 +11,7 @@ DC_NightmareSE:
 
 DoremyExtraDrawSE:
   Name: Extra Draw
-  Description: At the start of {OwnerName}'s next turn, draw {Level} additional card{Level:plural
-    one='' other='s'}.
+  Description: At the start of {OwnerName}'s next turn, draw {Level} additional card{Level:plural one='' other='s'}.
   Brief: At the start of {OwnerName}'s next turn, draw additional cards.
 
 DoremyRestEasySE:
@@ -47,3 +48,19 @@ DoremyFantasticalMightSE:
   Name: Fantastical Might
   Description: |-
     Cards added in combat deal {Level} more damage and give {Count} more |Block| and |Barrier|.
+
+DoremyDreamBalloonFlightSE:
+  Name: Dream Balloon Flight
+  Description: |-
+    Whenever a card gains {DL}, draw {Level} additional card{Level:plural one='' other='s'} at the start of the {OwnerName}'s next turn.
+
+DoremyBorderofDreamsSE:
+  Name: Border of Dreams
+  Description: |-
+    Whenever a card gains {DL}, {OwnerName} gains {Level} |Block|.
+
+DoremyRunawayDreamSE:
+  Name: Runaway Dream
+  Description: |-
+    After a card with |DreamLayer| is played, it gains {DL}{DoTimes}.
+  Times: " {Level} times"

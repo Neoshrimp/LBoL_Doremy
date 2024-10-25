@@ -30,14 +30,18 @@ namespace LBoL_Doremy.DoremyChar.CreatedCardTracking
         {
             get
             {
-                var battle = EventManager.Battle;
-                if(battle == null)
-                    return new CreatedCount();
-                var rez = GetInfo(battle)?.createdCount;
-                if (rez == null)
-                    return new CreatedCount();
-                return rez;
+                return GetCreatedCount(EventManager.Battle);
             }
+        }
+
+        public static CreatedCount GetCreatedCount(BattleController battle)
+        {
+            if (battle == null)
+                return new CreatedCount();
+            var rez = GetInfo(battle)?.createdCount;
+            if (rez == null)
+                return new CreatedCount();
+            return rez;
         }
 
         public static CardCreationTurnHistory GetCardCreationTurnHistory(BattleController battle)

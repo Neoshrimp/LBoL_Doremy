@@ -1,9 +1,11 @@
 ﻿using HarmonyLib;
 using LBoL.Base;
 using LBoL.ConfigData;
+using LBoL.Core;
 using LBoL.Core.Battle;
 using LBoL.Core.Battle.BattleActions;
 using LBoL.Core.Cards;
+using LBoL.EntityLib.Cards.Neutral.White;
 using LBoL_Doremy.DoremyChar.SE;
 using LBoL_Doremy.RootTemplates;
 using LBoLEntitySideloader.Attributes;
@@ -23,19 +25,13 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
             con.TargetType = TargetType.Self;
 
             con.Colors = new List<ManaColor>() { ManaColor.White };
-            con.Cost = new ManaGroup() { White = 1 };
+            con.Cost = new ManaGroup() { Any = 1 };
 
-            con.Mana = new ManaGroup() { White = 1 };
+            con.Mana = new ManaGroup() { Any = 1 };
 
-            con.Block = 8;
-            con.UpgradedBlock = 11;
+            con.Block = 6;
+            con.UpgradedBlock = 8;
 
-
-            con.Keywords = Keyword.Exile | Keyword.Echo;
-            con.UpgradedKeywords = Keyword.Exile | Keyword.Echo;
-
-            con.RelativeKeyword = Keyword.CopyHint;
-            con.UpgradedRelativeKeyword = Keyword.CopyHint;
 
 
             return con;
@@ -48,42 +44,38 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
     public sealed class DoremyRecursiveDreamCatcher : DCard
     {
 
+        public string Plus => IsUpgraded ? "+" : "";
 
-        [HarmonyPatch(typeof(Card), nameof(Card.EchoCloneAction))]
-        class EchoClone_Patch
+
+        protected override void OnEnterBattle(BattleController battle)
         {
-            static void Postfix(Card __instance, BattleAction __result)
+            ReactBattleEvent(battle.CardUsed, OnSelfUsed);
+        }
+
+        private IEnumerable<BattleAction> OnSelfUsed(CardUsingEventArgs args)
+        {
+            if(args.Card != this)
+                yield break;
+            yield return new RemoveCardAction(this);
+        }
+
+        protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
+        {
+            foreach (var a in base.Actions(selector, consumingMana, precondition))
+                yield return a;
+            if (consumingMana.Total > ManaGroup.Empty.Total)
             {
-                if (__instance is DoremyRecursiveDreamCatcher dc && __result is AddCardsToHandAction addAction)
-                {
-                    var copy = addAction.Args.Cards.First();
-                    copy.TurnCostDelta = ManaGroup.Empty;
-                    copy.BaseCost = dc.Mana;
-                    copy.FreeCost = false;
-                }
+                var card = Library.CreateCard<DoremyRecursiveDreamCatcher>();
+                card.GameRun = GameRun;
+                if (IsUpgraded)
+                    card.Upgrade();
+                yield return new AddCardsToHandAction(card);
             }
         }
 
-        [HarmonyPatch(typeof(Card), nameof(Card.IsEcho), MethodType.Setter)]
-        class Echo_Patch
-        {
-            static void Postfix(Card __instance)
-            {
-                if (__instance is DoremyRecursiveDreamCatcher)
-                    __instance.SetKeyword(Keyword.Echo, true);
-            }
-        }
 
-        [HarmonyPatch(typeof(Card), nameof(Card.IsCopy), MethodType.Setter)]
-        class Copy_Patch
-        {
-            static void Postfix(Card __instance)
-            {
-                if(__instance is DoremyRecursiveDreamCatcher)
-                    __instance.SetKeyword(Keyword.Copy, false);
 
-            }
-        }
+
 
 
     }

@@ -9,10 +9,10 @@ SampleCharacterAttackU:
 DoremySleepyStrikes:
   Name: Sleepy Strikes
   Description: |-
-    Deal {Damage} damage{DmgTimes}. 
+    Deal {Damage} damage{DoTimes}. 
     Choose 1 of {Value2} random Common Attack cards to add to the hand. It gains |Exile| and |Ethereal|.
   DetailText: "{SelfName} cannot be generated this way."
-  Times: " {Value1} times"
+  Times: " {TimesVal} times"
   FlavorText: "You've heard of sleepwalking, now get ready for sleepboxing!"
 
 
@@ -20,7 +20,7 @@ DoremyProcrastinate:
   Name: Procrastinate
   Description: |-
     Gain {Block} Block. 
-    At the start of the {PlayerName}'s next turn, choose 1 of {Value1} random non-Rare Attack cards to add to the hand. It gains |Ethereal|.
+    |Exile| up to {Value1} cards in the hand. At the start of the {PlayerName}'s next turn, add |Copies| of the exiled cards to the hand.
   DetailText: Card generation happens after draw step.
   FlavorText: "I'll finish this splash text latter, I'm tired RN."
 
@@ -67,8 +67,8 @@ DoremyRecursiveDreamCatcher:
   Name: Recursive Dream Catcher
   Description: |-
     Gain {Block} |Block|. 
-    {SelfName} can never gain |Copy| or lose |Echo|.
-    When {SelfName} is |Echo'ed|, set its cost to {Mana}.
+    If mana was paid to play {SelfName}, add |Recursive Dream Catcher{Plus}| to the hand.
+    Remove {SelfName} from combat after playing it.
   FlavorText: 'Can never have too many!'
 
 
@@ -257,8 +257,96 @@ DoremyDreamEater:
 DoremyPhantasmalDouble:
   Name: Phantasmal Double
   Description: |-
-    Deal {Damage} damage{DmgTimes}.
+    Deal {Damage} damage{DoTimes}.
     Choose a card in the hand. Add a copy of it to the hand. If the target card is an |Ability| card or has |Exile|, it becomes a |Copy|.
-  Times: " {Value1} times"
+  Times: " {TimesVal} times"
   FlavorText: |-
     One dream self, one real self.
+
+DoremyHypnagogicEffluvium:
+  Name: HypnagogicEffluvium
+  Description: |-
+    Apply {Value1} Weak and {Value2} |Nightmare| to each enemy.
+  FlavorText: |-
+    Just a fancy way of saying tranq gas.
+
+DoremyDreamBalloonFlight:
+  Name: Dream Balloon Flight
+  Description: |-
+    Whenever a card gains {DL}, draw an {LightBlue}additional{CC} card at the start of the {PlayerName}'s next turn.
+  FlavorText: |-
+    Get your Drawportunity back today with one simple trick!
+
+DoremyRudeAwakening:
+  Name: Rude Awekening
+  Description: |-
+    Gain {Fp2Apply} |Firepower|. For each {DL}, Gain {Value2} additional Firepower
+  FlavorText: |-
+    What can I say, I'm not a morning person.
+
+DoremyBorderofDreams:
+  Name: Border of Dreams
+  Description: |-
+    Whenever a card gains {DL}, gain {Value1} |Block|.
+  FlavorText: |-
+    "You're at the border of dreams now, motherfucker."
+
+DoremyTranqBarrage:
+  Name: Tranq Barrage
+  Description: |-
+    Apply {Value1} |Nightmare| to a random enemy {ApplyTimes} time{ApplyTimes:plural one='' other='s'}. Whenever a card gains {DL} this turn, apply |Nightmare| again.
+  FlavorText: |-
+    Told you using more would work.
+
+DoremyMelatoninMagic:
+  Name: Melatonin Magic
+  Description: |-
+    Gain {Mana}. Draw {Value1} cards. Cards drawn this way gain {DL}.
+  FlavorText: |-
+    This simple medicine from the Outside World helps humans and yokai go to sleep faster.
+
+DoremySleepParalysisYokai:
+  Name: Sleep Paralysis Yokai
+  Description: |-
+    Each enemy losses life equal to half its |Nightmare|. 
+    When this card gains {DL}, apply |Temporary Firepower Down| to each enemy equal to {DL} stacks{DreamLevelCappedDesc}, up to a maximum of {Value1}.
+  FlavorText: |-
+    Not to be confused with the pile of clothes in the corner of your room.
+
+DoremyOppressiveNightmare:
+  Name: Oppressive Nightmare
+  Description: |-
+    Whenever a card is activated this turn, apply {Value1} |Nightmare| to all enemies.
+  FlavorText: |-
+    A Choking aura.
+
+DoremyCreepingBullet:
+  Name: Creeping Bullet
+  Description: |-
+    Deal {Damage} damage. 
+    Apply {Value1} Nightmare. 
+    For each {DL}, {SelfName} costs {Mana} less.
+  FlavorText: |-
+    Sneaking up to ruin your 1CC
+
+DoremyDreamDraw:
+  Name: Dream Draw
+  Description: |-
+    Draw a number of cards equal to {DL} stacks.
+  FlavorText: |-
+    Slow, but it sure can draw a lot of cards.
+
+DoremyForgetfulDaze:
+  Name: Forgetful Daze
+  Description: |-
+    |Scry| {Scry}.
+    For each card sent to the discard pile while |Scrying|, gain {Value1} |Block|.
+  FlavorText: |-
+    Slow, but it sure can draw a lot of cards.
+
+DoremyRunawayDream:
+  Name: Runaway Dream
+  Description: |-
+    After a card with |DreamLayer| is played, it gains {DL}.
+  FlavorText: |-
+    Only in dreams is a running fridge faster than you.

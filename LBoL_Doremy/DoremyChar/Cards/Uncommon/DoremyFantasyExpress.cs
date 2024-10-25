@@ -48,13 +48,13 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
     [EntityLogic(typeof(DoremyFantasyExpressDef))]
     public sealed class DoremyFantasyExpress : DCard
     {
-        protected override int AdditionalDamage => Value2 * (Battle != null ? CreatedCount : 0);
+        protected override int AdditionalDamage => Value2 * CreatedCount;
 
-        public string CreatedCountString => EventManager.Battle == null ? "N/A" : CreatedCount.ToString();
+        public string CreatedCountString => RealBattle == null ? "N/A" : CreatedCount.ToString();
 
-        int CreatedCount { get => IsUpgraded ? BattleHandlers.CreatedCount.Total : BattleHandlers.CreatedCount.byPlayer; }
+        int CreatedCount { get => IsUpgraded ? BattleHandlers.GetCreatedCount(RealBattle).Total : BattleHandlers.GetCreatedCount(RealBattle).byPlayer; }
 
-        public int NM2Apply { get => Value1 + Value2 * (Battle != null ? CreatedCount : 0); }
+        public int NM2Apply { get => Value1 + Value2 * CreatedCount; }
 
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {

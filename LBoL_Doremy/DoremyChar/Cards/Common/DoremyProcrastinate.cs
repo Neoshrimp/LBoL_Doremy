@@ -10,7 +10,9 @@ using LBoL.Core.Units;
 using LBoL_Doremy.RootTemplates;
 using LBoLEntitySideloader.Attributes;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace LBoL_Doremy.DoremyChar.Cards.Common
@@ -30,7 +32,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
 
             con.Block = 18;
             con.UpgradedBlock = 22;
-            con.Value1 = 3;
+
+            con.Value1 = 2;
 
             return con;
         }
@@ -39,12 +42,35 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
     [EntityLogic(typeof(DoremyProcrastinateDef))]
     public sealed class DoremyProcrastinate : DCard
     {
+
+        public override Interaction Precondition()
+        {
+            var hand = Battle.HandZone.Where(c => c != this);
+            if (hand.FirstOrDefault() == null)
+                return null;
+            return new SelectCardInteraction(0, 2, hand);
+        }
+
+
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
             foreach (var a in base.Actions(selector, consumingMana, precondition))
                 yield return a;
 
-            yield return BuffAction<DoremyProcrastinateSE>(level: Value1);
+            IEnumerable<Card> cards = new List<Card>();
+            if (precondition is SelectCardInteraction interaction)
+            {
+                cards = interaction.SelectedCards;
+                yield return new ExileManyCardAction(cards);
+                if (cards.FirstOrDefault() != null)
+                {
+                    yield return BuffAction<DoremyProcrastinateSE>();
+                    var status = Battle.Player.StatusEffects.FirstOrDefault(se => se.SourceCard == this) as DoremyProcrastinateSE;
+                    if (status != null)
+                        status.UpdateCards2Bounce(cards);
+                }
+            }
+
         }
     }
 
@@ -56,10 +82,11 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
         {
             var con = DefaultConfig();
             con.Type = StatusEffectType.Positive;
-            con.CountStackType = StackType.Max;
+
             con.IsStackable = false;
-            con.HasCount = false;
-            con.HasLevel = true;
+            con.HasCount = true;
+            con.HasLevel = false;
+
 
             return con;
         }
@@ -69,14 +96,35 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
     [EntityLogic(typeof(DoremyProcrastinateSEDef))]
     public sealed class DoremyProcrastinateSE : DStatusEffect
     {
+
+        List<Card> _cards2Bounce = new List<Card>();
+        public IReadOnlyList<Card> Cards2Bounce { get => _cards2Bounce.AsReadOnly(); }
+
+        public void UpdateCards2Bounce(IEnumerable<Card> cards)
+        {
+            _cards2Bounce.AddRange(cards.Where(c => !c.IsCopy));
+            Count = Cards2Bounce.Count;
+            NotifyChanged();
+        }
+
+
+        public string QueuedCards
+        {
+            get
+            {
+                if (Cards2Bounce.Count == 0)
+                    return LocalizeProperty("Nothing");
+                return string.Join(", ", Cards2Bounce.Select(c => StringDecorator.Decorate($"|{c.Name}{(c.IsUpgraded ? "+" : "")}|")));
+            }
+        }
+
         protected override void OnAdded(Unit unit)
         {
             if (unit is PlayerUnit pu)
             {
                 ReactOwnerEvent(pu.TurnStarted, TurnStarted);
             }
-
-
+            Count = 0;
         }
 
         private IEnumerable<BattleAction> TurnStarted(UnitEventArgs args)
@@ -85,19 +133,11 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
                 yield break;
 
             NotifyActivating();
-            var cards = Battle.RollCards(new CardWeightTable(RarityWeightTable.NoneRare, OwnerWeightTable.Valid, CardTypeWeightTable.CanBeLoot), Level, cc => cc.Type == CardType.Attack);
 
-            if (cards.Length != 0)
-            {
-                MiniSelectCardInteraction interaction = new MiniSelectCardInteraction(cards)
-                {
-                    Source = this
-                };
-                yield return new InteractionAction(interaction, false);
-                Card selectedCard = interaction.SelectedCard;
-                selectedCard.IsEthereal = true;
-                yield return new AddCardsToHandAction(new Card[] { selectedCard });
-            }
+            yield return new AddCardsToHandAction(Cards2Bounce.Select(c => c.CloneBattleCard()));
+            _cards2Bounce.Clear();
+            Count = 0;
+
             yield return new RemoveStatusEffectAction(this);
         }
     }

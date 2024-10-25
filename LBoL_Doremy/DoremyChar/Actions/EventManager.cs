@@ -16,7 +16,19 @@ namespace LBoL_Doremy.DoremyChar.Actions
     {
         static ConditionalWeakTable<BattleController, DoremyEvents> cwt_doremyEvents = new ConditionalWeakTable<BattleController, DoremyEvents>();
 
-        public static BattleController Battle { get => GameMaster.Instance?.CurrentGameRun?.Battle; }
+        public static BattleController Battle
+        {
+            get
+            {
+                var rez = GameMaster.Instance?.CurrentGameRun?.Battle;
+                if (rez == null)
+                    battle_ref.TryGetTarget(out rez);
+                return rez;
+            }
+        }
+
+        static WeakReference<BattleController> battle_ref;
+
 
 
         public static DLEvents DLEvents
@@ -46,6 +58,8 @@ namespace LBoL_Doremy.DoremyChar.Actions
             static void Prefix(BattleController __instance)
             {
                 var battle = __instance;
+
+                battle_ref = new WeakReference<BattleController>(__instance);
 
                 cwt_doremyEvents.Add(battle, new DoremyEvents());
 

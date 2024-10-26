@@ -15,5 +15,7 @@ namespace LBoL_Doremy.StaticResources
         internal static DirectorySource playerImgsSource = new DirectorySource(LBoL_Doremy.PInfo.GUID, "playerImgs");
         internal static IResourceSource imgsSource = imgsDirSource;
 
+        internal static DirectorySource extraImgs = new DirectorySource(LBoL_Doremy.PInfo.GUID, "extraImgs");
+
     }
 }

@@ -2,6 +2,7 @@
 using BepInEx.Configuration;
 using HarmonyLib;
 using LBoL_Doremy.DoremyChar.CreatedCardTracking;
+using LBoL_Doremy.ExtraAssets;
 using LBoL_Doremy.RootTemplates;
 using LBoLEntitySideloader;
 using LBoLEntitySideloader.Entities;
@@ -43,6 +44,7 @@ namespace LBoL_Doremy
 
             CardIndexGenerator.PromiseClearIndexSet();
             BattleHandlers.RegisterAll();
+            ExtraAssetManager.RegisterLoad();
         }
 
         private void OnDestroy()

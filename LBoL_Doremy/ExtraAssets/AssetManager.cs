@@ -26,10 +26,10 @@ namespace LBoL_Doremy.ExtraAssets
         private static async void DoLoadAsync()
         {
             DoremyAssets = new DoremyAssets();
-            DoremyAssets.CreatedIcon =  await ResourceLoader.LoadSpriteAsync("CreatedIcon.png", Sources.extraImgs);
-            DoremyAssets.DreamLevel = await ResourceLoader.LoadSpriteAsync("DreamLevel.png", Sources.extraImgs);
+            DoremyAssets.createdIcon =  await ResourceLoader.LoadSpriteAsync("CreatedIcon.png", Sources.extraImgs);
+            DoremyAssets.dreamLevel = await ResourceLoader.LoadSpriteAsync("DreamLevel.png", Sources.extraImgs);
 
-
+            DoremyAssets.purpleBar = await ResourceLoader.LoadSpriteAsync("PurpleBar.png", Sources.extraImgs);
 
         }
 
@@ -38,10 +38,10 @@ namespace LBoL_Doremy.ExtraAssets
 
     public class DoremyAssets
     {
-        private Sprite createdIcon;
-        private Sprite dreamLevel;
+        public Sprite createdIcon;
+        public Sprite dreamLevel;
+        public Sprite purpleBar;
 
-        public Sprite CreatedIcon { get => createdIcon; set => createdIcon = value; }
-        public Sprite DreamLevel { get => dreamLevel; set => dreamLevel = value; }
+
     }
 }

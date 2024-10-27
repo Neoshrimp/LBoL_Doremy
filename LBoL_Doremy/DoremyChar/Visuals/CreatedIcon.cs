@@ -29,7 +29,7 @@ namespace LBoL_Doremy.DoremyChar.Visuals
                 go.transform.localPosition += new Vector3(0, 285, 0);
 
                 var img = go.GetComponent<Image>();
-                img.sprite = AssetManager.DoremyAssets.CreatedIcon;
+                img.sprite = AssetManager.DoremyAssets.createdIcon;
 
                 go.SetActive(true);
 

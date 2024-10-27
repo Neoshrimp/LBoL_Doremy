@@ -33,6 +33,14 @@ DoremyOutCold:
     |Overdraft| {Value2}.
   FlavorText: "I could sleep through a hurricane like this."
 
+DoremySleepwalking:
+  Name: Sleepwalking
+  Description: |-
+    Apply {Value1} |Weak| to a single enemy. 
+    Choose a card in the hand that was created this combat, it |temporarily costs| {Mana}. 
+  FlavorText: |-
+    You'e head of sleepboxing, now get- wait...
+
 DoremySoporificSheath:
   Name: Soporific Sheath
   Description: |-
@@ -208,9 +216,10 @@ DoremyFantasticalMight:
 DoremyLabyrinthineConfusion:
   Name: Labyrinthine Confusion
   Description: |-
-    Gain {BlockOrShield} {BrB}.
-    Apply {NM2Apply} |Nightmare| to each enemy. 
-    For each card in {PlayerName}'s hand that was added this combat, gain {Value1} {BrB} and apply {Value2} |Nightmare| to each enemy.
+    |For each card in {PlayerName}'s hand that was added this combat|:
+    Gain {Block} |Block| and apply {NM2Apply} |Nightmare| to each enemy.{TimesHint}
+  Times: |-
+    ({LightBlue}{GenCount}{CC} time{GenCount:plural one='' other='s'})
   FlavorText: |-
     Wait, was the exit to the dream this way, or- (Psychedelic added to deck.)
 
@@ -294,14 +303,16 @@ DoremyBorderofDreams:
 DoremyTranqBarrage:
   Name: Tranq Barrage
   Description: |-
-    Apply {Value1} |Nightmare| to a random enemy {ApplyTimes} time{ApplyTimes:plural one='' other='s'}. Whenever a card gains {DL} this turn, apply |Nightmare| again.
+    Apply {Value1} |Nightmare| to a random enemy {ApplyTimes} time{ApplyTimes:plural one='' other='s'}. For each time a card has gained {DL} since the end of {PlayerName}'s previous turn, apply |Nightmare| again.
+  DetailText: |-
+    {DL} gained at the end of a turn by |DreamLayer| cards counts.
   FlavorText: |-
     Told you using more would work.
 
 DoremyMelatoninMagic:
   Name: Melatonin Magic
   Description: |-
-    Gain {Mana}. Draw {Value1} cards. Cards drawn this way gain {DL}.
+    Gain {Mana}. Draw {Value1} cards. |DreamLayer| cards drawn this way gain {DL}.
   FlavorText: |-
     This simple medicine from the Outside World helps humans and yokai go to sleep faster.
 

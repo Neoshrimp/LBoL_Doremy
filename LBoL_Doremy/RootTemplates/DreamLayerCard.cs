@@ -38,8 +38,10 @@ namespace LBoL_Doremy.RootTemplates
 
         protected override void OnEnterBattle(BattleController battle)
         {
-            ReactBattleEvent(battle.Player.TurnEnding, OnPlayerTurnEnding);
+            ReactBattleEvent(battle.Player.TurnEnding, OnPlayerTurnEnding, (GameEventPriority)dreamLayerPriority);
         }
+
+        public static int dreamLayerPriority = 10;
 
         private IEnumerable<BattleAction> OnPlayerTurnEnding(UnitEventArgs args)
         {

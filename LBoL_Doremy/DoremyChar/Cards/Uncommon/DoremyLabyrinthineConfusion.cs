@@ -29,10 +29,11 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             con.Cost = new ManaGroup() { White = 2 };
 
 
-            con.Block = 0;
-            con.Shield = 0;
+            con.Block = 7;
+            con.UpgradedBlock = 10;
 
-            con.Value1 = 7;
+
+            //con.Value1 = 7;
             //con.UpgradedValue1 = 10;
 
             con.Value2 = 2;
@@ -48,20 +49,22 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
     [EntityLogic(typeof(DoremyLabyrinthineConfusionDef))]
     public sealed class DoremyLabyrinthineConfusion : DCard
     {
-        protected override int AdditionalBlock => IsUpgraded ? 0 : Value1 * GenCount;
-        protected override int AdditionalShield => IsUpgraded ? Value1 * GenCount : 0;
-
+        
         int GenCount => Battle == null ? 0 : Battle.HandZone.Where(c => c.WasGenerated() && c != this).Count();
 
-        public int NM2Apply => Value2 * GenCount;
+        public string TimesHint => Battle == null ? "" : "\n"+LocalizeProperty("Times").RuntimeFormat(FormatWrapper);
+
+        public int NM2Apply => Value2;
 
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
-            foreach (var a in base.Actions(selector, consumingMana, precondition))
-                yield return a;
+            for (int i = 0; i < GenCount; i++)
+            {
+                yield return DefenseAction(cast: false);
+                foreach (var e in UnitSelector.AllEnemies.GetUnits(Battle))
+                    yield return DebuffAction<DC_NightmareSE>(e, NM2Apply, occupationTime: 0.07f);
+            }
 
-            foreach (var e in UnitSelector.AllEnemies.GetUnits(Battle))
-                yield return DebuffAction<DC_NightmareSE>(e, NM2Apply);
         }
     }
 

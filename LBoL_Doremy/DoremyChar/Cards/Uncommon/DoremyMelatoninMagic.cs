@@ -55,7 +55,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
         {
             if(args.ActionSource != this)
                 yield break;
-            yield return new ApplyDLAction(args.Card);
+            if(args.Card.HasCustomKeyword(DoremyKw.DreamLayer))
+                yield return new ApplyDLAction(args.Card);
         }
 
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)

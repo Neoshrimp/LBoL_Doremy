@@ -25,7 +25,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
             con.TargetType = TargetType.Self;
 
             con.Colors = new List<ManaColor>() { ManaColor.White, ManaColor.Blue };
-            con.Cost = new ManaGroup() { Hybrid = 1, HybridColor = 0/*ManaUtils.HybridNum("HWU")*/ };
+            con.Cost = new ManaGroup() { Hybrid = 1, HybridColor = 0 };
             con.UpgradedCost = new ManaGroup() { Any = 1 };
 
 
@@ -65,6 +65,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
         {
             foreach (var a in base.Actions(selector, consumingMana, precondition))
                 yield return a;
+
             if (consumingMana.Total > ManaGroup.Empty.Total)
             {
                 var card = Library.CreateCard<DoremyRecursiveDreamCatcher>();
@@ -72,6 +73,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
                 if (IsUpgraded)
                     card.Upgrade();
                 yield return new AddCardsToHandAction(card);
+                //card.SetBaseCost(Config.Cost);
             }
         }
 

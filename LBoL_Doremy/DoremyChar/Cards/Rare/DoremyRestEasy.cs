@@ -68,7 +68,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
     {
         protected override void OnAdded(Unit unit)
         {
-            unit.HandleBattleEvent(EventManager.DLEvents.appliedDL, OnAppliedDL);
+            HandleOwnerEvent(EventManager.DLEvents.appliedDL, OnAppliedDL);
         }
 
         private void OnAppliedDL(DreamLevelArgs args)

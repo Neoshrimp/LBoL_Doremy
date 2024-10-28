@@ -68,7 +68,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
     {
         protected override void OnAdded(Unit unit)
         {
-            unit.ReactBattleEvent(EventManager.DLEvents.appliedDL, OnDLGained);
+            ReactOwnerEvent(EventManager.DLEvents.appliedDL, OnDLGained);
         }
 
         private IEnumerable<BattleAction> OnDLGained(DreamLevelArgs arg)

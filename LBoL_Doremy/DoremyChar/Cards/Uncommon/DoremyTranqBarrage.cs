@@ -52,7 +52,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
         protected override void OnEnterBattle(BattleController battle)
         {
             //HandleBattleEvent(battle.Player.TurnStarting, args => DLCount = 0);
-            HandleBattleEvent(battle.Player.TurnEnding, args => DLCount = 0, (GameEventPriority)(DreamLayerCard.dreamLayerPriority-1));
+            HandleBattleEvent(DreamLayerCard.GetDreamLayerEvent(battle), args => DLCount = 0, (GameEventPriority)(DreamLayerCard.dreamLayerPriority-1));
 
             HandleBattleEvent(EventManager.DLEvents.appliedDL, args => DLCount++);
 

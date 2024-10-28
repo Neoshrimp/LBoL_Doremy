@@ -44,7 +44,7 @@ namespace LBoL_Doremy
 
             CardIndexGenerator.PromiseClearIndexSet();
             BattleHandlers.RegisterAll();
-            AssetManager.RegisterLoad();
+            AssetManager.DoLoadAsync();
         }
 
         private void OnDestroy()

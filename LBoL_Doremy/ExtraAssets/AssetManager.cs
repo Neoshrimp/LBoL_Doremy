@@ -16,21 +16,36 @@ namespace LBoL_Doremy.ExtraAssets
 {
     public static class AssetManager
     {
-
-        public static DoremyAssets DoremyAssets { get; private set; }
-        public static void RegisterLoad()
-        {
-            EntityManager.AddPostLoadAction(DoLoadAsync);
+        static DoremyAssets doremyAssets;
+        public static DoremyAssets DoremyAssets 
+        { 
+            get 
+            { 
+                if (!finishedLoading) 
+                {
+                    Log.LogError("Additional Doremy assets did not finish loading.");
+                } 
+                return doremyAssets; 
+            } 
+            private set => doremyAssets = value; 
         }
 
-        private static async void DoLoadAsync()
+        /*public static void RegisterLoad()
         {
-            DoremyAssets = new DoremyAssets();
-            DoremyAssets.createdIcon =  await ResourceLoader.LoadSpriteAsync("CreatedIcon.png", Sources.extraImgs);
-            DoremyAssets.dreamLevel = await ResourceLoader.LoadSpriteAsync("DreamLevel.png", Sources.extraImgs);
+            EntityManager.AddPostLoadAction(DoLoadAsync);
+        }*/
 
-            DoremyAssets.purpleBar = await ResourceLoader.LoadSpriteAsync("PurpleBar.png", Sources.extraImgs);
+        static bool finishedLoading = false;
 
+        public static async void DoLoadAsync()
+        {
+            finishedLoading = false;
+            doremyAssets = new DoremyAssets();
+            doremyAssets.createdIcon =  await ResourceLoader.LoadSpriteAsync("CreatedIcon.png", Sources.extraImgs);
+            doremyAssets.dreamLevel = await ResourceLoader.LoadSpriteAsync("DreamLevel.png", Sources.extraImgs);
+
+            doremyAssets.purpleBar = await ResourceLoader.LoadSpriteAsync("PurpleBar.png", Sources.extraImgs);
+            finishedLoading = true;
         }
 
 

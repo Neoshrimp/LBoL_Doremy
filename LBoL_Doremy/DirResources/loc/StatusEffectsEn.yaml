@@ -6,7 +6,9 @@ DoremyProcrastinateSE:
 
 DC_NightmareSE:
   Name: Nightmare
-  Description: When {SelfName} level exceeds {OwnerName}'s life, defeat {OwnerName}.
+  Description: |-
+    When {SelfName} level exceeds {OwnerName}'s life, defeat {OwnerName}.
+    {Count} actual life remaining.
   Brief: When {SelfName} level exceeds afflicted unit's life, defeat the afflicted unit. {SelfName} is considered a {UIBlue}Special{CC} effect.
 
 DoremyExtraDrawSE:
@@ -64,3 +66,18 @@ DoremyRunawayDreamSE:
   Description: |-
     After a card with |DreamLayer| is played, it gains {DL}{DoTimes}.
   Times: " {Level} times"
+
+DoremyOppressiveNightmareSE:
+  Name: Oppressive Nightmare
+  Description: |-
+    This turn, whenever a card is played, auto-activated or given {DL}, apply {Level} |Nightmare| to all enemies.
+
+DoremyHorrifyingPotentialSE:
+  Name: Horrifying Potential
+  Description: |-
+    Whenever a card gains {DL} or a card is created, apply {Level} |Nightmare| to each enemy.
+
+DoremyComatoseFormSE:
+  Name: Comatose Form
+  Description: |-
+    Whenever a card gains {DL}, add a |Copy| of it to the hand. If the card has |DreamLayer| it is not considered a |Copy|.

@@ -96,14 +96,14 @@ namespace LBoL_Doremy.RootTemplates
 
         protected void ReactOnCardsAddedEvents(Unit unit, Func<Card[], GameEventArgs, IEnumerable<BattleAction>> reactor, GameEventPriority priority)
         {
-            Func<CardsAddingToDrawZoneEventArgs, IEnumerable<BattleAction>> drawZoneReactor = args => reactor(args.Cards, args);
+            EventSequencedReactor<CardsAddingToDrawZoneEventArgs> drawZoneReactor = args => reactor(args.Cards, args);
 
-            Func<CardsEventArgs, IEnumerable<BattleAction>> otherReactors = args => reactor(args.Cards, args);
+            EventSequencedReactor<CardsEventArgs> otherReactors = args => reactor(args.Cards, args);
 
-            unit.ReactBattleEvent(Battle.CardsAddedToDiscard, otherReactors, priority);
-            unit.ReactBattleEvent(Battle.CardsAddedToDrawZone, drawZoneReactor, priority);
-            unit.ReactBattleEvent(Battle.CardsAddedToExile, otherReactors, priority);
-            unit.ReactBattleEvent(Battle.CardsAddedToHand, otherReactors, priority);
+            ReactOwnerEvent(Battle.CardsAddedToDiscard, otherReactors, priority);
+            ReactOwnerEvent(Battle.CardsAddedToDrawZone, drawZoneReactor, priority);
+            ReactOwnerEvent(Battle.CardsAddedToExile, otherReactors, priority);
+            ReactOwnerEvent(Battle.CardsAddedToHand, otherReactors, priority);
         }
     }
 }

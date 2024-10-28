@@ -11,6 +11,8 @@ using LBoL_Doremy.RootTemplates;
 using LBoLEntitySideloader.Attributes;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
+using System.Reflection.Emit;
 using System.Text;
 using TMPro;
 using UnityEngine;
@@ -25,7 +27,8 @@ namespace LBoL_Doremy.DoremyChar.SE
             var con = DefaultConfig();
             con.Type = LBoL.Base.StatusEffectType.Special;
 
-            
+            con.HasCount = true;
+            con.CountStackType = LBoL.Base.StackType.Keep;
 
             return con;
         }
@@ -46,7 +49,7 @@ namespace LBoL_Doremy.DoremyChar.SE
         }
 
         public readonly static string nightmareBarGoName = "NightmareBar";
-        public readonly static string actualHpGoName = "ActualHp";
+        //public readonly static string actualHpGoName = "ActualHp";
 
 
         public void UpdateOrCreateNightmareBar()
@@ -58,28 +61,18 @@ namespace LBoL_Doremy.DoremyChar.SE
                 var hpBarGo = hpBar.gameObject;
 
                 var nBarGo = hpBarGo.transform.Find(nightmareBarGoName)?.gameObject;
-                GameObject actualHpGo = null;
-
                 if (nBarGo == null)
                 {
                     nBarGo = GameObject.Instantiate(hpBarGo.transform.Find("HealthBarHealth").gameObject, hpBarGo.transform, worldPositionStays: true);
                     nBarGo.name = nightmareBarGoName;
                     nBarGo.GetComponent<Image>().sprite = AssetManager.DoremyAssets.purpleBar;
 
-                    //actualHpGo = GameObject.Instantiate(hpBarGo.transform.Find("HealthText.HealthTmp").gameObject, nBarGo.transform);
-                    //actualHpGo.name = actualHpGoName;
-                }
-                else
-                {
-                    actualHpGo = nBarGo.transform.Find("actualHpGoName").gameObject;
                 }
 
                 var nBarImage = nBarGo.GetComponent<Image>();
 
-                nBarImage.fillAmount = ((Level - 1) / (float)Owner.Hp) * hpBar.healthImage.fillAmount;
+                nBarImage.fillAmount = (Math.Max(0, Level - 1) / (float)Owner.Hp) * hpBar.healthImage.fillAmount;
 
-                //var txt = actualHpGo.GetComponent<TextMeshProUGUI>();
-                //txt.text = Owner.Hp + 1 - Level;
             }
         }
             
@@ -118,6 +111,7 @@ namespace LBoL_Doremy.DoremyChar.SE
 
         public bool CheckKill()
         {
+            Count = Math.Max(0, Owner.Hp + 1 - Level);
             return Level > Owner.Hp;
         }
 
@@ -165,6 +159,41 @@ namespace LBoL_Doremy.DoremyChar.SE
                 }
             }
         }
+
+
+
+        [HarmonyPatch]
+        class UncapCountAndLevel_Patch
+        {
+
+            static IEnumerable<MethodBase> TargetMethods()
+            {
+                yield return AccessTools.PropertySetter(typeof(StatusEffect), nameof(StatusEffect.Count));
+                yield return AccessTools.PropertySetter(typeof(StatusEffect), nameof(StatusEffect.Level));
+                yield return AccessTools.Method(typeof(StatusEffect), nameof(StatusEffect.Stack));
+                yield return AccessTools.Method(typeof(StatusEffect), nameof(StatusEffect.ClampMax));
+
+            }
+
+
+
+            static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+            {
+                var matcher = new CodeMatcher(instructions);
+                matcher.Start();
+                while (matcher.IsValid)
+                { 
+                    matcher.MatchEndForward(new CodeInstruction(OpCodes.Ldc_I4, 999));
+                    if(matcher.IsValid)
+                        matcher.SetInstruction(new CodeInstruction(OpCodes.Ldc_I4, int.MaxValue));
+                }
+
+                return matcher.InstructionEnumeration();
+            }
+
+
+        }
+
 
 
     }

@@ -9,6 +9,8 @@ using LBoL_Doremy.DoremyChar.Actions;
 using LBoL_Doremy.DoremyChar.Keywords;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace LBoL_Doremy.RootTemplates
@@ -38,12 +40,13 @@ namespace LBoL_Doremy.RootTemplates
 
         protected override void OnEnterBattle(BattleController battle)
         {
-            ReactBattleEvent(battle.Player.TurnEnding, OnPlayerTurnEnding, (GameEventPriority)dreamLayerPriority);
+            ReactBattleEvent(GetDreamLayerEvent(battle), OnPlayerTurnEnd, (GameEventPriority)dreamLayerPriority);
         }
 
         public static int dreamLayerPriority = 10;
+        public static GameEvent<UnitEventArgs> GetDreamLayerEvent(BattleController battle) => battle.Player.TurnEnding;
 
-        private IEnumerable<BattleAction> OnPlayerTurnEnding(UnitEventArgs args)
+        private IEnumerable<BattleAction> OnPlayerTurnEnd(UnitEventArgs args)
         {
             if (Zone == LBoL.Core.Cards.CardZone.Hand)
             { 
@@ -81,5 +84,20 @@ namespace LBoL_Doremy.RootTemplates
             }
         }
 
+
+        static HashSet<string> allDreamLayerCards;
+        public static HashSet<string> AllDreamLayerCards
+        {
+            get
+            {
+                if (allDreamLayerCards == null)
+                {
+                    allDreamLayerCards = new HashSet<string>();
+                    var ass = typeof(DreamLayerCard).Assembly;
+                    ass.ExportedTypes.Where(t => t.IsSubclassOf(typeof(DreamLayerCard))).Select(t => t.Name).Do(id => allDreamLayerCards.Add(id));
+                }
+                return allDreamLayerCards;
+            }
+        }
     }
 }

@@ -1,10 +1,27 @@
-SampleCharacterAttackW:
-  Name: Sample Attack (White)
+DoremyCavalierAttackW:
+  Name: Counting Sheep
   Description: Deal {Damage} damage.
+  FlavorText: |-
+    Unfortunately, this card only has one sheep.
 
-SampleCharacterAttackU:
-  Name: Sample Attack (Red)
+DoremyCavalierAttackU:
+  Name: Forced Naptime
   Description: Deal {Damage} damage.
+  FlavorText: |-
+    "2, 4, 6, 8, you've been staying up too late!"
+
+
+DoremyCavalierDefenseW:
+  Name: Pillow Protection
+  Description: Gain {Block} |Block|.
+  FlavorText: |-
+    Not the best way to block Danmaku, but it's so fluffy!
+
+DoremyCavalierDefenseU:
+  Name: Dream Catcher
+  Description: Gain {Block} |Block|.
+  FlavorText: |-
+    It's almost always good to remove starter cards like this from your deck.
 
 DoremySleepyStrikes:
   Name: Sleepy Strikes
@@ -327,7 +344,7 @@ DoremySleepParalysisYokai:
 DoremyOppressiveNightmare:
   Name: Oppressive Nightmare
   Description: |-
-    Whenever a card is activated this turn, apply {Value1} |Nightmare| to all enemies.
+    This turn, whenever a card is played, auto-activated or given {DL}, apply {Value1} |Nightmare| to all enemies.
   FlavorText: |-
     A Choking aura.
 
@@ -361,3 +378,54 @@ DoremyRunawayDream:
     After a card with |DreamLayer| is played, it gains {DL}.
   FlavorText: |-
     Only in dreams is a running fridge faster than you.
+
+DoremyEverDeepeningDreams:
+  Name: Ever Deepening Dreams
+  Description: |-
+    Choose {Value1} of 3 random cards with |DreamLayer| to add to the hand. It |temporarily costs| {Mana} and enters with {Value2} stack{Value2:plural one='' other='s'} of {DL} .
+  FlavorText: |-
+    Off the deep end.
+
+DoremyUniversalDreamLayer:
+  Name: Universal Dream Layer
+  Description: |-
+    deeznuts
+  FlavorText: |-
+    Everyone stands to improve a little from a good night's rest.
+
+DoremyHorrifyingPotential:
+  Name: Horrifying Potential
+  Description: |-
+    Whenever a card gains {DL} or a card is created, apply {Value1} |Nightmare| to each enemy.
+  FlavorText: |-
+    The threat alone should prove sufficient.
+
+DoremyNightmareFuel:
+  Name: Nightmare Fuel
+  Description: |-
+    Add |Nightmare| Status to the draw pile. Add |{Ritual1Name}| and |{Ritual2Name}| to the hand.
+  FlavorText: |-
+    Eating your own nightmares for energy, like a Baku Ouroboros.
+
+DoremyComatoseForm:
+  Name: Comatose Form
+  Description: |-
+    Whenever a card gains {DL}, add a |Copy| of it to the hand. If the card has |DreamLayer| it is not considered a |Copy|.
+  FlavorText: |-
+    Dreaming of adventures past.
+
+DoremyTheresNoNeedToWakeUp:
+  Name: There's No Need To Wake Up
+  Description: |-
+    Double each enemy's |Nightmare|.
+  UpgradedDescription: |-
+    Triple each enemy's |Nightmare|.
+  FlavorText: |-
+    So go to sleep forever.
+
+DoremyPropheticVisions:
+  Name: Prophetic Visions
+  Description: |-
+    Choose up to {Value1} card{Value1:plural one='' other='s'} in the draw pile and add |Copies| of them the hand.
+  FlavorText: |-
+    A message from the divine or just Doremy messing with you?

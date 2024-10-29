@@ -1,6 +1,6 @@
 DoremyProcrastinateSE:
   Name: Procrastinate
-  Description:  At the start of the {PlayerName}'s next turn, after draw step, add cop{Count:plural
+  Description: At the start of the {PlayerName}'s next turn, after draw step, add cop{Count:plural
     one='y' other='ies'} of {QueuedCards} to the hand.
   Nothing: nothing
 
@@ -80,4 +80,24 @@ DoremyHorrifyingPotentialSE:
 DoremyComatoseFormSE:
   Name: Comatose Form
   Description: |-
-    Whenever a card gains {DL}, add a |Copy| of it to the hand. If the card has |DreamLayer| it is not considered a |Copy|.
+    Whenever a card gains {DL}, add {Level} |Cop{Level:plural one='y' other='ies'}| of it to the hand. If the card has |DreamLayer| it is not considered a |Copy|.
+
+DoremyUniversalDreamLayerSE:
+  Name: Universal Dream Layer
+  Description: |-
+    At the end of {OwnerName}'s turn, |Upgrade| up to {Level} card{Level:plural one='' other='s'} in the hand. {Level:plural one='It' other='They'} gain{Level:plural one='s' other=''} {DL} and {Level:plural one='is' other='are'} shuffled into the draw pile.
+
+DoremyPerfectPhantasmsSE:
+  Name: Perfect Phantasms
+  Description: |-
+    Whenever a card is created in combat, |Upgrade| it.
+
+DoremyCreativeDreamingSE:
+  Name: Creative Dreaming
+  Description: |-
+    At the start of {OwnerName}'s turn, add {Level} random |Ability| card{Level:plural one='' other='s'} to the hand. It gains |Ethereal|.
+
+DoremyDreamsOfABetterTomorrowSE:
+  Name: Dreams Of A Better Tomorrow
+  Description: |-
+    At the end of the combat, {QueuedEffects}.

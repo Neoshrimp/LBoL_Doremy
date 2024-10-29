@@ -1,4 +1,4 @@
-DoremyCavalierAttackW:
+﻿DoremyCavalierAttackW:
   Name: Counting Sheep
   Description: Deal {Damage} damage.
   FlavorText: |-
@@ -9,7 +9,6 @@ DoremyCavalierAttackU:
   Description: Deal {Damage} damage.
   FlavorText: |-
     "2, 4, 6, 8, you've been staying up too late!"
-
 
 DoremyCavalierDefenseW:
   Name: Pillow Protection
@@ -53,7 +52,7 @@ DoremyOutCold:
 DoremySleepwalking:
   Name: Sleepwalking
   Description: |-
-    Apply {Value1} |Weak| to a single enemy. 
+    Apply {Value1} |Weak|. 
     Choose a card in the hand that was created this combat, it |temporarily costs| {Mana}. 
   FlavorText: |-
     You'e head of sleepboxing, now get- wait...
@@ -163,7 +162,7 @@ DoremyDreamedOnceMore:
 DoremyRecurringNightmare:
   Name: Recurring Nightmare
   Description: |-
-    Apply {Value1} |Nightmare| to a single enemy. 
+    Apply {Value1} |Nightmare|. 
     Whenever a card which was added during the combat, is played, return {SelfName} from the discard pile to the hand.
   DetailText: "{SelfName} effect cannot be triggered by generated {SelfName}."
   FlavorText: |-
@@ -322,7 +321,7 @@ DoremyTranqBarrage:
   Description: |-
     Apply {Value1} |Nightmare| to a random enemy {ApplyTimes} time{ApplyTimes:plural one='' other='s'}. For each time a card has gained {DL} since the end of {PlayerName}'s previous turn, apply |Nightmare| again.
   DetailText: |-
-    {DL} gained at the end of a turn by |DreamLayer| cards counts.
+    {DL} gained at the end of a turn by |DreamLayer| cards(or other means) counts.
   FlavorText: |-
     Told you using more would work.
 
@@ -389,7 +388,7 @@ DoremyEverDeepeningDreams:
 DoremyUniversalDreamLayer:
   Name: Universal Dream Layer
   Description: |-
-    deeznuts
+    At the end of {PlayerName}'s turn, |Upgrade| up to {Value1} card{Value1:plural one='' other='s'} in the hand. {Value1:plural one='It' other=They'} gain{Value1:plural one='s' other=''} {DL} and {Value1:plural one='is' other='are'} shuffled into the draw pile.
   FlavorText: |-
     Everyone stands to improve a little from a good night's rest.
 
@@ -411,6 +410,8 @@ DoremyComatoseForm:
   Name: Comatose Form
   Description: |-
     Whenever a card gains {DL}, add a |Copy| of it to the hand. If the card has |DreamLayer| it is not considered a |Copy|.
+  DetailText: |-
+    Copies of cards, gaining {DL} at the end of the turn, are not discarded during the discard step.
   FlavorText: |-
     Dreaming of adventures past.
 
@@ -429,3 +430,65 @@ DoremyPropheticVisions:
     Choose up to {Value1} card{Value1:plural one='' other='s'} in the draw pile and add |Copies| of them the hand.
   FlavorText: |-
     A message from the divine or just Doremy messing with you?
+
+DoremyPerfectPhantasms:
+  Name: Perfect Phantasms
+  Description: |-
+    Whenever a card is created in combat, |Upgrade| it.{UpgradeDesc}
+  UpgradeTxt: " |Upgrade| all cards which were created this combat."
+  FlavorText: |-
+    Legally distinct from Faithful Meditation
+
+DoremySeemlessVision:
+  Name: Seemless Vision
+  Description: |-
+    Apply {Value1} Nightmare to each enemy. 
+    All cards in the hand that were created this combat |temporarily cost| {Mana} less.
+  UpgradedDescription: |-
+    Apply {Value1} Nightmare to each enemy. 
+    All cards in the hand that were created this combat |temporarily cost| {Value2} random mana less.
+  FlavorText: |-
+    Flowing from one dream to another, without the dreamer even noticing.
+
+DoremyCreativeDreaming:
+  Name: Creative Dreaming
+  Description: |-
+    At the start of {PlayerName}'s turn, add a random |Ability| to the hand. It gains |Ethereal|.
+  FlavorText: |-
+    Don't let AI take our jobs.
+
+DoremyDreamsOfABetterTomorrow:
+  Name: Dreams Of A Better Tomorrow
+  Description: |-
+    Choose {Value1} of 3 random |Dreams|. Gain their effects. 
+    Only the first {SelfName} used will take effect each combat.
+  DetailText: |-
+    {SelfName} cannot be generated in combat.
+  FlavorText: |-
+    "I have a dream"
+
+DOBToptionMaxHp:
+  Name: Dreams Of A Healthier Tomorrow
+  Description: |-
+    At the end of combat, {BriefDesc}.
+  Brief: |-
+    gain {Value1} maximum life
+
+DOBToptionGold:
+  Name: Dreams Of A Wealthier Tomorrow
+  Description: |-
+    At the end of combat, {BriefDesc}.
+  Brief: |-
+    gain {Value1} <sprite="Point" name="Gold">
+
+DOBToptionP:
+  Name: Dreams Of A Stronger Tomorrow
+  Description: |-
+    At the end of combat, {BriefDesc}.
+  Brief: |-
+    gain {Value1} <sprite="Point" name="Power">
+
+DOBToptionTool:
+  Name: Dreams Of A Better Equiped Tomorrow
+  Description: |-
+    Add a random Common |Tool| with |Limited【1】| to the library. 

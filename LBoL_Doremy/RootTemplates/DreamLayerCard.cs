@@ -40,17 +40,19 @@ namespace LBoL_Doremy.RootTemplates
 
         protected override void OnEnterBattle(BattleController battle)
         {
-            ReactBattleEvent(GetDreamLayerEvent(battle), OnPlayerTurnEnd, (GameEventPriority)dreamLayerPriority);
+            // 2DO sort reaction order by hand order
+            ReactBattleEvent(GetBounceEvent(battle), OnPlayerTurnEnd, (GameEventPriority)bouncePriority);
         }
 
-        public static int dreamLayerPriority = 10;
-        public static GameEvent<UnitEventArgs> GetDreamLayerEvent(BattleController battle) => battle.Player.TurnEnding;
+        public static int bouncePriority = 10;
+        public static GameEvent<UnitEventArgs> GetBounceEvent(BattleController battle) => battle.Player.TurnEnding;
 
+        
         private IEnumerable<BattleAction> OnPlayerTurnEnd(UnitEventArgs args)
         {
             if (Zone == LBoL.Core.Cards.CardZone.Hand)
             { 
-                yield return new ApplyDLAction(this);
+                yield return new ApplyDLAction(this, isEndOfTurnBounce: true);
                 yield return new MoveCardToDrawZoneAction(this, DrawZoneTarget.Random);
             }
         }

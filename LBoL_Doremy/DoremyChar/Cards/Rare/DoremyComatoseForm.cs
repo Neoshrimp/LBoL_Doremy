@@ -110,15 +110,19 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
         }
 
 
-        private IEnumerable<BattleAction> OnDLApplied(DreamLevelArgs arg)
+        private IEnumerable<BattleAction> OnDLApplied(DreamLevelArgs args)
         {
-            if(!arg.target.IsCopy)
+            if(!args.target.IsCopy)
             {
+                NotifyActivating();
                 for (int i = 0; i < Level; i++)
                 { 
-                    var card = arg.target.CloneBattleCard();
+                    var card = args.target.CloneBattleCard();
                     if (card.HasCustomKeyword(DoremyKw.DreamLayer))
                         card.IsCopy = false;
+
+                    if (args.isEndOfTurnBounce)
+                        card.IsTempRetain = true;
 
                     yield return new AddCardsToHandAction(card);
                 }

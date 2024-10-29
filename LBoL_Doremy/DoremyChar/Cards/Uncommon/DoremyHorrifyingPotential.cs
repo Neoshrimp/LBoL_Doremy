@@ -69,7 +69,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
         protected override void OnAdded(Unit unit)
         {
             ReactOwnerEvent(EventManager.DLEvents.appliedDL, OnDLApplied);
-            ReactOnCardsAddedEvents(unit, OnCardsAdded);
+            ReactOnCardsAddedEvents(OnCardsAdded);
         }
 
         private IEnumerable<BattleAction> ApplyNightmare()

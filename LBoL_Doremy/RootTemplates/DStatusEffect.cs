@@ -88,13 +88,13 @@ namespace LBoL_Doremy.RootTemplates
         public string DoTimes { get => TimesVal > 1 ? LocalizeProperty("Times").RuntimeFormat(FormatWrapper) : ""; }
         public virtual int TimesVal => Level;
 
-        protected void ReactOnCardsAddedEvents(Unit unit, Func<Card[], GameEventArgs, IEnumerable<BattleAction>> reactor)
+        protected void ReactOnCardsAddedEvents(Func<Card[], GameEventArgs, IEnumerable<BattleAction>> reactor)
         {
-            ReactOnCardsAddedEvents(unit, reactor, (GameEventPriority)Config.Order);
+            ReactOnCardsAddedEvents(reactor, (GameEventPriority)Config.Order);
         }
 
 
-        protected void ReactOnCardsAddedEvents(Unit unit, Func<Card[], GameEventArgs, IEnumerable<BattleAction>> reactor, GameEventPriority priority)
+        protected void ReactOnCardsAddedEvents(Func<Card[], GameEventArgs, IEnumerable<BattleAction>> reactor, GameEventPriority priority)
         {
             EventSequencedReactor<CardsAddingToDrawZoneEventArgs> drawZoneReactor = args => reactor(args.Cards, args);
 

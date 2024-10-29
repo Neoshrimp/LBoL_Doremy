@@ -12,9 +12,20 @@ namespace LBoL_Doremy.DoremyChar.Actions
     {
         public ApplyDLAction(Card target, int dreamLevel = 1)
         {
-            Args = new DreamLevelArgs();
-            Args.target = target;
-            Args.dreamLevelDelta = dreamLevel;
+            Args = new DreamLevelArgs
+            {
+                target = target,
+                dreamLevelDelta = dreamLevel
+            };
+        }
+
+        public ApplyDLAction(Card target, bool isEndOfTurnBounce, int dreamLevel = 1 )
+        {
+            Args = new DreamLevelArgs(isEndOfTurnBounce)
+            {
+                target = target,
+                dreamLevelDelta = dreamLevel
+            };
         }
 
         public override void PreEventPhase()

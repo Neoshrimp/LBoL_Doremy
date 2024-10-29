@@ -62,7 +62,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
     {
         protected override void OnAdded(Unit unit)
         {
-            ReactOnCardsAddedEvents(unit, OnCardsAdded);
+            ReactOnCardsAddedEvents(OnCardsAdded);
         }
 
         private IEnumerable<BattleAction> OnCardsAdded(Card[] cards, GameEventArgs args)

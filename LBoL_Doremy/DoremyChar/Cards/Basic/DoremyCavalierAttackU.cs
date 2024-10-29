@@ -17,6 +17,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Basic
         {
             var con = DefaultConfig();
             con.Rarity = Rarity.Common;
+            con.IsPooled = false;
 
             con.Type = LBoL.Base.CardType.Attack;
             con.TargetType = TargetType.SingleEnemy;

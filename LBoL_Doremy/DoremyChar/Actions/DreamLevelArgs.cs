@@ -8,6 +8,14 @@ namespace LBoL_Doremy.Actions
         public Card target;
         public int dreamLevelDelta = 1;
 
+        public bool isEndOfTurnBounce = false;
+
+        public DreamLevelArgs() { }
+
+        public DreamLevelArgs(bool isEndOfTurnBounce)
+        {
+            this.isEndOfTurnBounce = isEndOfTurnBounce;
+        }
 
         public override string GetBaseDebugString()
         {

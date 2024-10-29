@@ -49,10 +49,12 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 
         public int ApplyTimes => DLCount + 1;
 
+        public static int countResetPriorityOffset = -5;
+
         protected override void OnEnterBattle(BattleController battle)
         {
             //HandleBattleEvent(battle.Player.TurnStarting, args => DLCount = 0);
-            HandleBattleEvent(DreamLayerCard.GetDreamLayerEvent(battle), args => DLCount = 0, (GameEventPriority)(DreamLayerCard.dreamLayerPriority-1));
+            HandleBattleEvent(DreamLayerCard.GetBounceEvent(battle), args => DLCount = 0, (GameEventPriority)(DreamLayerCard.bouncePriority+countResetPriorityOffset));
 
             HandleBattleEvent(EventManager.DLEvents.appliedDL, args => DLCount++);
 

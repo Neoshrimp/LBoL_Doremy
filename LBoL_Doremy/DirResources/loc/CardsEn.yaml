@@ -409,7 +409,7 @@ DoremyNightmareFuel:
 DoremyComatoseForm:
   Name: Comatose Form
   Description: |-
-    Whenever a card gains {DL}, add a |Copy| of it to the hand. If the card has |DreamLayer| it is not considered a |Copy|.
+    Whenever a card gains {DL}, add a |Copy| of it to the hand. The original card gains |Copy| keyword unless it has |DreamLayer|.
   DetailText: |-
     Copies of cards, gaining {DL} at the end of the turn, are not discarded during the discard step.
   FlavorText: |-

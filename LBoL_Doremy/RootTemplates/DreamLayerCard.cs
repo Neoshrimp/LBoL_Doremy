@@ -3,10 +3,12 @@ using LBoL.Core;
 using LBoL.Core.Battle;
 using LBoL.Core.Battle.BattleActions;
 using LBoL.Core.Cards;
+using LBoL.Presentation;
 using LBoL.Presentation.UI.Widgets;
 using LBoL_Doremy.Actions;
 using LBoL_Doremy.DoremyChar.Actions;
 using LBoL_Doremy.DoremyChar.Keywords;
+using LBoLEntitySideloader.CustomHandlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,20 +43,31 @@ namespace LBoL_Doremy.RootTemplates
         protected override void OnEnterBattle(BattleController battle)
         {
             // 2DO sort reaction order by hand order
-            ReactBattleEvent(GetBounceEvent(battle), OnPlayerTurnEnd, (GameEventPriority)bouncePriority);
+            //ReactBattleEvent(GetBounceEvent(battle), OnPlayerTurnEnd, (GameEventPriority)bouncePriority);
         }
 
         public static int bouncePriority = 10;
         public static GameEvent<UnitEventArgs> GetBounceEvent(BattleController battle) => battle.Player.TurnEnding;
 
-        
-        private IEnumerable<BattleAction> OnPlayerTurnEnd(UnitEventArgs args)
+
+        public static void RegisterEndOfTurnHandlers()
         {
-            if (Zone == LBoL.Core.Cards.CardZone.Hand)
+            CHandlerManager.RegisterBattleEventHandler(b => GetBounceEvent(b), OnPlayerTurnEnd, null, (GameEventPriority)bouncePriority);
+        }
+
+        private static void OnPlayerTurnEnd(UnitEventArgs args)
+        {
+            var battle = GameMaster.Instance?.CurrentGameRun?.Battle;
+            if (battle == null)
+                return;
+
+
+            foreach (var card in battle.HandZone.Where(c => c.HasCustomKeyword(DoremyKw.DreamLayer)))
             { 
-                yield return new ApplyDLAction(this, isEndOfTurnBounce: true);
-                yield return new MoveCardToDrawZoneAction(this, DrawZoneTarget.Random);
+                battle.React(new ApplyDLAction(card, isEndOfTurnBounce: true), card, ActionCause.Card);
+                battle.React(new MoveCardToDrawZoneAction(card, DrawZoneTarget.Random), card, ActionCause.Card);
             }
+
         }
 
 

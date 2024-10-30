@@ -19,7 +19,7 @@ namespace LBoL_Doremy.Actions
 
         public override string GetBaseDebugString()
         {
-            return $"Applying {dreamLevelDelta} Dream Level to {target.Name}";
+            return $"Applying {dreamLevelDelta} Dream Level to {target?.Name ?? "many"}";
         }
     }
 }

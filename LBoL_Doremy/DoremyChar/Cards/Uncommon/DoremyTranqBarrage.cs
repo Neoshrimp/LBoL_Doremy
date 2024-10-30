@@ -4,6 +4,7 @@ using LBoL.ConfigData;
 using LBoL.Core;
 using LBoL.Core.Battle;
 using LBoL_Doremy.DoremyChar.Actions;
+using LBoL_Doremy.DoremyChar.CreatedCardTracking;
 using LBoL_Doremy.DoremyChar.Keywords;
 using LBoL_Doremy.DoremyChar.SE;
 using LBoL_Doremy.RootTemplates;
@@ -45,20 +46,11 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
     [EntityLogic(typeof(DoremyTranqBarrageDef))]
     public sealed class DoremyTranqBarrage : DCard
     {
-        int DLCount { get; set; }
 
-        public int ApplyTimes => DLCount + 1;
+        public int ApplyTimes => (Battle != null ? BattleHistoryHandlers.DLHistory.applyTurnCount : 0) + 1;
 
         public static int countResetPriorityOffset = -5;
 
-        protected override void OnEnterBattle(BattleController battle)
-        {
-            //HandleBattleEvent(battle.Player.TurnStarting, args => DLCount = 0);
-            HandleBattleEvent(DreamLayerCard.GetBounceEvent(battle), args => DLCount = 0, (GameEventPriority)(DreamLayerCard.bouncePriority+countResetPriorityOffset));
-
-            HandleBattleEvent(EventManager.DLEvents.appliedDL, args => DLCount++);
-
-        }
 
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {

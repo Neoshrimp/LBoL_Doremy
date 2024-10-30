@@ -52,7 +52,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 
         public string CreatedCountString => RealBattle == null ? "N/A" : CreatedCount.ToString();
 
-        int CreatedCount { get => IsUpgraded ? BattleHandlers.GetCreatedCount(RealBattle).Total : BattleHandlers.GetCreatedCount(RealBattle).byPlayer; }
+        int CreatedCount { get => IsUpgraded ? BattleHistoryHandlers.GetCreatedCount(RealBattle).Total : BattleHistoryHandlers.GetCreatedCount(RealBattle).byPlayer; }
 
         public int NM2Apply { get => Value1 + Value2 * CreatedCount; }
 

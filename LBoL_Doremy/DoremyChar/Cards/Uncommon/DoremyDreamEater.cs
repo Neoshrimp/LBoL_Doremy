@@ -49,7 +49,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
     public sealed class DoremyDreamEater : DCard
     {
 
-        protected override ManaGroup AdditionalCost => Battle == null ? ManaGroup.Empty : Mana * -BattleHandlers.CardCreationTurnHistory.Total;
+        protected override ManaGroup AdditionalCost => Battle == null ? ManaGroup.Empty : Mana * -BattleHistoryHandlers.CardCreationTurnHistory.Total;
 
 
 

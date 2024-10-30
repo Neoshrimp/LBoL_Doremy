@@ -80,7 +80,7 @@ DoremyHorrifyingPotentialSE:
 DoremyComatoseFormSE:
   Name: Comatose Form
   Description: |-
-    Whenever a card gains {DL}, add {Level} |Cop{Level:plural one='y' other='ies'}| of it to the hand. If the card has |DreamLayer| it is not considered a |Copy|.
+    Whenever a card gains {DL}, add {Level} |Cop{Level:plural one='y' other='ies'}| of it to the hand. The original card gains |Copy| keyword unless it has |DreamLayer|.
 
 DoremyUniversalDreamLayerSE:
   Name: Universal Dream Layer

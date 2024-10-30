@@ -43,7 +43,9 @@ namespace LBoL_Doremy
                 WatermarkWrapper.ActivateWatermark();
 
             CardIndexGenerator.PromiseClearIndexSet();
-            BattleHandlers.RegisterAll();
+            BattleHistoryHandlers.RegisterAll();
+            DreamLayerCard.RegisterEndOfTurnHandlers();
+
             AssetManager.DoLoadAsync();
         }
 
@@ -61,7 +63,7 @@ namespace LBoL_Doremy
             {
                 try
                 {
-                    log.LogDebug(BattleHandlers.CreatedCount);
+                    log.LogDebug(BattleHistoryHandlers.CreatedCount);
                 }
                 catch (System.Exception)
                 {

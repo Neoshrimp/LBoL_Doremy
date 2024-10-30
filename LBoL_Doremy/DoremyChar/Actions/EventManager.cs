@@ -31,22 +31,15 @@ namespace LBoL_Doremy.DoremyChar.Actions
 
 
 
-        public static DLEvents DLEvents
-        {
-            get
-            {
-                return GetDoremyEvents().dLEvents;
-            }
-        }
+        public static DLEvents DLEvents => GetDoremyEvents(Battle).dLEvents;
 
-
-        static DoremyEvents GetDoremyEvents() 
+        public static DoremyEvents GetDoremyEvents(BattleController battle) 
         {
-            if (Battle == null)
+            if (battle == null)
             {
                 throw new InvalidOperationException("Trying to use DLEvents outside of Battle.");
             }
-            if (cwt_doremyEvents.TryGetValue(Battle, out var doremyEvents))
+            if (cwt_doremyEvents.TryGetValue(battle, out var doremyEvents))
                 return doremyEvents;
 
             throw new InvalidOperationException("Battle instance was not registered in CWT.");

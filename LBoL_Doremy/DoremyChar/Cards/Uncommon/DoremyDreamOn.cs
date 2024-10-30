@@ -55,7 +55,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
         {
             get
             {
-                return Battle != null && BattleHandlers.GetCardCreationTurnHistory(Battle).addedToHand.NotEmpty();
+                return Battle != null && BattleHistoryHandlers.GetCardCreationTurnHistory(Battle).addedToHand.NotEmpty();
             }
         }
 

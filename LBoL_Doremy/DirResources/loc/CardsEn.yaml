@@ -471,22 +471,19 @@ DOBToptionMaxHp:
   Name: Dreams Of A Healthier Tomorrow
   Description: |-
     At the end of combat, {BriefDesc}.
-  Brief: |-
-    gain {Value1} maximum life
+  Brief: "gain {Value1} maximum life"
 
 DOBToptionGold:
   Name: Dreams Of A Wealthier Tomorrow
   Description: |-
     At the end of combat, {BriefDesc}.
-  Brief: |-
-    gain {Value1} <sprite="Point" name="Gold">
+  Brief: 'gain {Value1} <sprite="Point" name="Gold">'
 
 DOBToptionP:
   Name: Dreams Of A Stronger Tomorrow
   Description: |-
     At the end of combat, {BriefDesc}.
-  Brief: |-
-    gain {Value1} <sprite="Point" name="Power">
+  Brief: 'gain {Value1} <sprite="Point" name="Power">'
 
 DOBToptionTool:
   Name: Dreams Of A Better Equiped Tomorrow

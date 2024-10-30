@@ -61,46 +61,48 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
     [EntityLogic(typeof(DoremyDreamsOfABetterTomorrowDef))]
     public sealed class DoremyDreamsOfABetterTomorrow : DCard
     {
-        public override Interaction Precondition()
-        {
-            if(!CanActivate)
-                return null;
-
-            var options = EnumerateRelativeCards().ToList();
-            var i = GameRun.BattleCardRng.NextInt(0, options.Count - 1);
-
-            options.RemoveAt(i);
-
-            return new SelectCardInteraction(1, Value1, options);
-        }
 
         public override string Description =>  CanActivate ? base.Description : StringDecorator.Decorate("|d:" + base.Description + "|") ;
 
 
         bool _canActivate = true;
-        bool CanActivate
+        public bool CanActivate
         {
             get
             {
                 if (Battle == null)
                     return true;
                 if(_canActivate)
-                    _canActivate = Battle.BattleCardUsageHistory.All(c => c.Id != Id);
+                    _canActivate = !Battle.BattleCardUsageHistory.Any(c => c.Id == Id);
 
                 return _canActivate;
             }
+            internal set => _canActivate = value;
         }
 
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
-            if (precondition is SelectCardInteraction interaction)
+
+
+            if (!CanActivate)
+                yield break;
+
+            var options = EnumerateRelativeCards().ToList();
+            var i = GameRun.BattleCardRng.NextInt(0, options.Count - 1);
+
+            options.RemoveAt(i);
+
+            var selection = new SelectCardInteraction(1, Value1, options) { CanCancel = false };
+            yield return new InteractionAction(selection);
+
+            if (selection.SelectedCards != null)
             {
-                var tool = interaction.SelectedCards.FirstOrDefault(c => c is DOBToptionTool) as DOBToptionTool;
+                var tool = selection.SelectedCards.FirstOrDefault(c => c is DOBToptionTool) as DOBToptionTool;
                 if(tool != null)
                     foreach (var a in tool.EffectActions())
                         yield return a;
 
-                var cards = interaction.SelectedCards.Where(c => !(c is DOBToptionTool));
+                var cards = selection.SelectedCards.Where(c => !(c is DOBToptionTool));
                 if (cards.FirstOrDefault() != null)
                 {
                     yield return BuffAction<DoremyDreamsOfABetterTomorrowSE>();
@@ -108,8 +110,18 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
                     if (status != null)
                         status.UpdateCards(cards);
                 }
+                
+                // update desc
+                Battle.EnumerateAllCards().Where(c => c.Id == Id)
+                    .Cast<DoremyDreamsOfABetterTomorrow>()
+                    .Do(c => { c.CanActivate = false; c.NotifyChanged(); });
             }
             
+        }
+
+        public override IEnumerable<BattleAction> AfterUseAction()
+        {
+            return base.AfterUseAction();
         }
     }
 
@@ -184,7 +196,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
     [EntityLogic(typeof(DOBToptionMaxHpDef))]
     public sealed class DOBToptionMaxHp : DCard, IOptionCard
     {
-        public string BriefDesc => LocalizeProperty("Brief", true, true).RuntimeFormat(FormatWrapper);
+        public string BriefDesc => LocalizeProperty("Brief", true, true).RuntimeFormat(FormatWrapper).FirstToLower();
 
         public IEnumerable<BattleAction> EffectActions()
         {
@@ -207,7 +219,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
     [EntityLogic(typeof(DOBToptionGoldDef))]
     public sealed class DOBToptionGold : DCard, IOptionCard
     {
-        public string BriefDesc => LocalizeProperty("Brief", true, true).RuntimeFormat(FormatWrapper);
+        public string BriefDesc => LocalizeProperty("Brief", true, true).RuntimeFormat(FormatWrapper).FirstToLower();
 
         public IEnumerable<BattleAction> EffectActions()
         {
@@ -229,7 +241,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
     [EntityLogic(typeof(DOBToptionPDef))]
     public sealed class DOBToptionP : DCard, IOptionCard
     {
-        public string BriefDesc => LocalizeProperty("Brief", true, true).RuntimeFormat(FormatWrapper);
+
+        public string BriefDesc => LocalizeProperty("Brief", true, true).RuntimeFormat(FormatWrapper).FirstToLower();
 
         public IEnumerable<BattleAction> EffectActions()
         {
@@ -254,11 +267,13 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
 
         public IEnumerable<BattleAction> EffectActions()
         {
-            var card = Battle.RollCard(new CardWeightTable(RarityWeightTable.OnlyCommon, OwnerWeightTable.Valid, CardTypeWeightTable.OnlyTool), cc => cc.Rarity == Rarity.Common);
+            var card = RealBattle.RollCard(new CardWeightTable(RarityWeightTable.OnlyCommon, OwnerWeightTable.Valid, CardTypeWeightTable.OnlyTool));
 
-            card.DeckCounter = 1;
-
-            yield return new AddCardsToDeckAction(card);
+            if (card != null)
+            { 
+                card.DeckCounter = 1;
+                yield return new AddCardsToDeckAction(card);
+            }
         }
     }
 

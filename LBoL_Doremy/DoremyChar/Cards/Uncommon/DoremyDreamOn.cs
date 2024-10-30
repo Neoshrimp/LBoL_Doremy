@@ -11,7 +11,7 @@ using LBoLEntitySideloader.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using LBoL_Doremy.DoremyChar.CreatedCardTracking;
+using LBoL_Doremy.DoremyChar.BattleTracking;
 
 namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 {

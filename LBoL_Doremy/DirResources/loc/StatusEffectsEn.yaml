@@ -101,3 +101,21 @@ DoremyDreamsOfABetterTomorrowSE:
   Name: Dreams Of A Better Tomorrow
   Description: |-
     At the end of the combat, {QueuedEffects}.
+
+DoremyCatnapSE:
+  Name: Catnap
+  Description: |-
+    No cards can be played.
+  ExtraDescription: |-
+    No cards can be played during the next turn.
+  NapMsg: "ZZzzzzzz.."
+
+DoremyInfectiousNightmaresSE:
+  Name: Infectious Nightmares
+  Description: |-
+    When {OwnerName} is defeated, a random enemy gains |Nightmare| equal to the |Nightmare| {OwnerName} had.
+
+DoremyFastAsleepSE:
+  Name: Fast Asleep
+  Description: |-
+   Whenever a card would be shuffled into the draw pile by |DreamLayer| effect, it is placed on top of the draw pile instead.

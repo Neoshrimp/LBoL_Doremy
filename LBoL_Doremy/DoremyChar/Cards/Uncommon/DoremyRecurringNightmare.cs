@@ -10,7 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using LBoL.Core.Battle.BattleActions;
-using LBoL_Doremy.DoremyChar.CreatedCardTracking;
+using LBoL_Doremy.DoremyChar.BattleTracking;
 using LBoL_Doremy.CreatedCardTracking;
 
 namespace LBoL_Doremy.DoremyChar.Cards.Uncommon

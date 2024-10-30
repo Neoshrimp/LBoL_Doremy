@@ -4,7 +4,7 @@ using LBoL.ConfigData;
 using LBoL.Core;
 using LBoL.Core.Battle;
 using LBoL_Doremy.DoremyChar.Actions;
-using LBoL_Doremy.DoremyChar.CreatedCardTracking;
+using LBoL_Doremy.DoremyChar.BattleTracking;
 using LBoL_Doremy.DoremyChar.Keywords;
 using LBoL_Doremy.DoremyChar.SE;
 using LBoL_Doremy.RootTemplates;
@@ -47,7 +47,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
     public sealed class DoremyTranqBarrage : DCard
     {
 
-        public int ApplyTimes => (Battle != null ? BattleHistoryHandlers.DLHistory.applyTurnCount : 0) + 1;
+        public int ApplyTimes => (Battle == null ? 0 : BattleHistoryHandlers.DLHistory.applyTurnCount) + 1;
 
         public static int countResetPriorityOffset = -5;
 

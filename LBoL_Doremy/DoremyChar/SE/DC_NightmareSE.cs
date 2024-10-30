@@ -5,6 +5,7 @@ using LBoL.Core.Battle;
 using LBoL.Core.Battle.BattleActions;
 using LBoL.Core.StatusEffects;
 using LBoL.Core.Units;
+using LBoL.Presentation.UI.Widgets;
 using LBoL.Presentation.Units;
 using LBoL_Doremy.ExtraAssets;
 using LBoL_Doremy.RootTemplates;
@@ -42,11 +43,17 @@ namespace LBoL_Doremy.DoremyChar.SE
             NightmareSource = unit;
             ReactOwnerEvent(unit.DamageReceived, DamageReceived, (GameEventPriority)(-99));
             ReactOwnerEvent(unit.HealingReceived, HealingReceived, (GameEventPriority)(-99));
+            // ui bar
+            ReactOwnerEvent(unit.BlockShieldGained, BlockShieldGained, (GameEventPriority)(-99));
+            ReactOwnerEvent(unit.BlockShieldLost, BlockShieldLost, (GameEventPriority)(-99));
+
 
             UpdateOrCreateNightmareBar();
 
             React(DoKill());
         }
+
+
 
         public readonly static string nightmareBarGoName = "NightmareBar";
         //public readonly static string actualHpGoName = "ActualHp";
@@ -70,18 +77,48 @@ namespace LBoL_Doremy.DoremyChar.SE
                 }
 
                 var nBarImage = nBarGo.GetComponent<Image>();
-
-                nBarImage.fillAmount = (Math.Max(0, Level - 1) / (float)Owner.Hp) * hpBar.healthImage.fillAmount;
+                var targetHpFill = PrecalculateHpBarFill(hpBar, Owner.Hp, Owner.MaxHp, Owner.Shield, Owner.Block);
+                nBarImage.fillAmount = (Math.Clamp(Level - 1, 0, Owner.Hp) / (float)Owner.Hp) * targetHpFill;
 
             }
         }
-            
+
+
+        static float PrecalculateHpBarFill(HealthBar healthBar, int hp, int maxHp, int shield, int block)
+        {
+            int curHp = healthBar._hp;
+            float num = (float)hp / (float)maxHp;
+            float num2 = 0.3f;
+            if (1f - num > 0.3f)
+            {
+                num2 = 1f - num;
+            }
+            if (1f - num > 0.6f)
+            {
+                num2 = 0.6f;
+            }
+            float hpBarFill = num;
+            float num4 = 0f;
+            float num5 = 0f;
+            if (shield + block != 0)
+            {
+                float num6 = num2 * (float)(shield + block) / ((float)(shield + block) + 20f);
+                float num7 = num6 * (float)shield / (float)(shield + block);
+                float num8 = num6 * (float)block / (float)(shield + block);
+                if (num6 > 1f - num)
+                {
+                    hpBarFill = 1f - num6;
+                }
+                num4 = hpBarFill + num7;
+                num5 = num4 + num8;
+            }
+            return hpBarFill;
+        }
 
         public override void NotifyChanged()
         {
             base.NotifyChanged();
             UpdateOrCreateNightmareBar();
-
         }
 
         private Unit _nightmareSource;
@@ -111,9 +148,11 @@ namespace LBoL_Doremy.DoremyChar.SE
 
         public bool CheckKill()
         {
-            Count = Math.Max(0, Owner.Hp + 1 - Level);
+            Count = Math.Clamp(Owner.Hp + 1 - Level, 0, Owner.Hp);
             return Level > Owner.Hp;
         }
+
+
 
         IEnumerable<BattleAction> DoKill()
         {
@@ -132,6 +171,18 @@ namespace LBoL_Doremy.DoremyChar.SE
         private IEnumerable<BattleAction> DamageReceived(DamageEventArgs args)
         {
             return DoKill();
+        }
+
+        private IEnumerable<BattleAction> BlockShieldLost(BlockShieldEventArgs args)
+        {
+            NotifyChanged();
+            yield break;
+        }
+
+        private IEnumerable<BattleAction> BlockShieldGained(BlockShieldEventArgs args)
+        {
+            NotifyChanged();
+            yield break;
         }
 
         [HarmonyPatch]

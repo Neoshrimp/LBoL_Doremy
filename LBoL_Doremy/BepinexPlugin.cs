@@ -1,7 +1,7 @@
 ﻿using BepInEx;
 using BepInEx.Configuration;
 using HarmonyLib;
-using LBoL_Doremy.DoremyChar.CreatedCardTracking;
+using LBoL_Doremy.DoremyChar.BattleTracking;
 using LBoL_Doremy.ExtraAssets;
 using LBoL_Doremy.RootTemplates;
 using LBoLEntitySideloader;
@@ -55,7 +55,7 @@ namespace LBoL_Doremy
                 harmony.UnpatchSelf();
         }
 
-        KeyboardShortcut debugBind = new KeyboardShortcut(KeyCode.Y, new KeyCode[] { KeyCode.LeftShift });
+       /* KeyboardShortcut debugBind = new KeyboardShortcut(KeyCode.Y, new KeyCode[] { KeyCode.LeftShift });
 
         private void Update()
         {
@@ -70,6 +70,6 @@ namespace LBoL_Doremy
                     log.LogWarning("deenuts");
                 }
             }
-        }
+        }*/
     }
 }

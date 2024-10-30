@@ -15,6 +15,7 @@ using LBoL.EntityLib.EnemyUnits.Normal.Yinyangyus;
 using LBoL_Doremy.DoremyChar.Cards.Common;
 using LBoL_Doremy.DoremyChar.Cards.Token;
 using LBoL_Doremy.RootTemplates;
+using LBoL_Doremy.Utils;
 using LBoLEntitySideloader;
 using LBoLEntitySideloader.Attributes;
 using System;

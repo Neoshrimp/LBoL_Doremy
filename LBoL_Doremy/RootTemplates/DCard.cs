@@ -6,6 +6,7 @@ using LBoL.Core.Cards;
 using LBoL.Presentation;
 using LBoL_Doremy.DoremyChar.DoremyPU;
 using LBoL_Doremy.StaticResources;
+using LBoL_Doremy.Utils;
 using LBoLEntitySideloader;
 using LBoLEntitySideloader.Entities;
 using LBoLEntitySideloader.Resource;

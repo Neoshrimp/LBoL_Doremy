@@ -489,3 +489,35 @@ DOBToptionTool:
   Name: Dreams Of A Better Equiped Tomorrow
   Description: |-
     Add a random Common |Tool| with |Limited【1】| to the library. 
+
+DoremyCatnap:
+  Name: Catnap
+  Description: |-
+    End {PlayerName}'s turn. Then, take an extra turn. |Block| is not lost at the start of that extra turn, but no cards can be played during that turn.
+  FlavorText: |-
+    "Five more minutes Mom"
+
+DoremyInfectiousNightmares:
+  Name: Infectious Nightmares
+  Description: |-
+    Apply {Value1} |Nightmare| to a single enemy. 
+    When that enemy is defeated, a random enemy gains |Nightmare| equal to the |Nightmare| the defeated enemy had.
+  FlavorText: |-
+    "The plague, the infection, the madness that haunts the corpses of Gensokyo"
+
+DoremyFastAsleep:
+  Name: Fast Asleep
+  Description: |-
+   Whenever a card would be shuffled into the draw pile by |DreamLayer| effect, it is placed on top of the draw pile instead.
+  FlavorText: |-
+    Be careful not to clog up your draws with this one.
+
+DoremyPhantasmalKiller:
+  Name: Phantasmal Killer
+  Description: |-
+   Deal {Damage} damage{DoTimes}.
+   Apply |Nightmare| equal to the unblocked damage dealt.
+   Each enemy loses life equal to its |Nightmare|.
+  Times: " {TimesVal} times"
+  FlavorText: |-
+    Death by dreams

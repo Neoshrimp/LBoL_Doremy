@@ -3,7 +3,7 @@ using LBoL.ConfigData;
 using LBoL.Core;
 using LBoL.Core.Battle;
 using LBoL.Presentation;
-using LBoL_Doremy.DoremyChar.CreatedCardTracking;
+using LBoL_Doremy.DoremyChar.BattleTracking;
 using LBoL_Doremy.DoremyChar.SE;
 using LBoL_Doremy.RootTemplates;
 using LBoLEntitySideloader.Attributes;

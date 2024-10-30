@@ -7,6 +7,7 @@ using LBoL.Core.StatusEffects;
 using LBoL.Core.Units;
 using LBoL_Doremy.DoremyChar.DoremyPU;
 using LBoL_Doremy.StaticResources;
+using LBoL_Doremy.Utils;
 using LBoLEntitySideloader;
 using LBoLEntitySideloader.Attributes;
 using LBoLEntitySideloader.Entities;

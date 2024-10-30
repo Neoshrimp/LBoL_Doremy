@@ -7,6 +7,7 @@ using LBoL.Presentation;
 using LBoL.Presentation.UI.Widgets;
 using LBoL_Doremy.Actions;
 using LBoL_Doremy.DoremyChar.Actions;
+using LBoL_Doremy.DoremyChar.Cards.Rare;
 using LBoL_Doremy.DoremyChar.Keywords;
 using LBoLEntitySideloader.CustomHandlers;
 using System;
@@ -65,7 +66,10 @@ namespace LBoL_Doremy.RootTemplates
             foreach (var card in battle.HandZone.Where(c => c.HasCustomKeyword(DoremyKw.DreamLayer)))
             { 
                 battle.React(new ApplyDLAction(card, isEndOfTurnBounce: true), card, ActionCause.Card);
-                battle.React(new MoveCardToDrawZoneAction(card, DrawZoneTarget.Random), card, ActionCause.Card);
+                var zoneTarget = DrawZoneTarget.Random;
+                if(battle.Player.HasStatusEffect<DoremyFastAsleepSE>())
+                    zoneTarget = DrawZoneTarget.Top;
+                battle.React(new MoveCardToDrawZoneAction(card, zoneTarget), card, ActionCause.Card);
             }
 
         }

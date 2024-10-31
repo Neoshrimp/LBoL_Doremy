@@ -119,3 +119,8 @@ DoremyFastAsleepSE:
   Name: Fast Asleep
   Description: |-
    Whenever a card would be shuffled into the draw pile by |DreamLayer| effect, it is placed on top of the draw pile instead.
+
+DoremyDeepNavyOverdriveSE:
+  Name: Deep Navy Overdrive
+  Description: |-
+    Until the end of the turn, all cards created in combat |temporarily cost| {Mana}.

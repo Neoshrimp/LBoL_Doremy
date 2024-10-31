@@ -1,7 +1,12 @@
 ﻿using LBoL.Base;
 using LBoL.ConfigData;
+using LBoL.EntityLib.Cards.Neutral.NoColor;
 using LBoL.EntityLib.Exhibits.Shining;
 using LBoL.EntityLib.UltimateSkills;
+using LBoL_Doremy.DoremyChar.Cards.Basic;
+using LBoL_Doremy.DoremyChar.Cards.Common;
+using LBoL_Doremy.DoremyChar.Exhibits;
+using LBoL_Doremy.DoremyChar.Ults;
 using LBoL_Doremy.RootTemplates;
 using LBoL_Doremy.StaticResources;
 using LBoLEntitySideloader;
@@ -36,6 +41,7 @@ namespace LBoL_Doremy.DoremyChar.DoremyPU
 
         public override PlayerUnitConfig MakeConfig()
         {
+
             var con = new PlayerUnitConfig(
                 Id: "",
                 ShowOrder: 0,
@@ -44,18 +50,26 @@ namespace LBoL_Doremy.DoremyChar.DoremyPU
                 ModleName: nameof(DoremyCavalier),
                 NarrativeColor: Color,
                 IsSelectable: true,
+                // 2do TEMP
                 MaxHp: 69,
                 InitialMana: new ManaGroup() { White = 2, Blue = 2 },
                 InitialMoney: 42,
                 InitialPower: 34,
                 // 2do TEMP
-                UltimateSkillA: nameof(ReimuUltR),
-                UltimateSkillB: nameof(ReimuUltW),
-                ExhibitA: nameof(ReimuR),
-                ExhibitB: nameof(ReimuW),
-                DeckA: new List<string>(),
-                DeckB: new List<string>(),
-                DifficultyA: 1,
+                UltimateSkillA: nameof(DoremyCavalierUUlt),
+                UltimateSkillB: nameof(DoremyCavalierWUlt),
+                ExhibitA: nameof(DoremyCavalierUEx),
+                ExhibitB: nameof(DoremyCavalierWEx),
+                DeckA: new string[] { nameof(Shoot), nameof(Shoot), nameof(Boundary), nameof(Boundary), 
+                    nameof(DoremyCavalierAttackU), nameof(DoremyCavalierAttackU),
+                    nameof(DoremyCavalierDefenseW), nameof(DoremyCavalierDefenseW), nameof(DoremyCavalierDefenseW), 
+                    nameof(DoremyDreamblast) },
+                DeckB: new string[] { nameof(Shoot), nameof(Shoot), nameof(Boundary), nameof(Boundary),
+                    nameof(DoremyCavalierAttackW), nameof(DoremyCavalierAttackW),
+                    nameof(DoremyCavalierDefenseU), nameof(DoremyCavalierDefenseU), nameof(DoremyCavalierDefenseU),
+                    nameof(DoremySleepyStrikes) },
+                // 2do diff
+                DifficultyA: 2,
                 DifficultyB: 1);
             return con;
         }

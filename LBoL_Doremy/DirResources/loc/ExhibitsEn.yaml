@@ -1,14 +1,15 @@
-SampleCharacterExhibitA:
-  Name: First exhibit
+DoremyCavalierUEx:
+  Name: Sweet™ Sleep Pillow
   Description: |-
-    Adds {Mana} to the mana base. Cards unique to |SampleCharacter| are added to the card pool.
-    At the start of the first turn each combat, add a |Rainbow| to the hand.
-  FlavorText: Flavor text for the first Exhibit.
+    Add {BaseMana} to the mana base. Cards unique to |Doremy| are added to the card pool.
+    At the end of the {PlayerName}'s turn, if no Attack cards were played that turn, gain {Value1} |Barrier|.
+  FlavorText: |-
+    A registered trademark.
 
-SampleCharacterExhibitB:
-  Name: Second Exhibit
+DoremyCavalierWEx:
+  Name: Dream Soul
   Description: |-
-    Adds {Mana} to the mana base. Cards unique to |SampleCharacter| are added to the card pool.
-    At the end of {PlayerName}'s turn, increase this exhibit's counter by {Value1}.
-    Resets at the end of combat.
-  FlavorText: Some lore accurate description about how this item was used
+    Adds {BaseMana} to the mana base. Cards unique to |Doremy| are added to the card pool.
+    When a card is |created| by another card for the <i>first time</i> each combat, the created card |temporarily costs| {Mana}.
+  FlavorText: |-
+    deeznuts

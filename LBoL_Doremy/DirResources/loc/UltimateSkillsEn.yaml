@@ -1,15 +1,16 @@
-SampleCharacterUltA:
-  Title: Title
-  Content: Ultimate A 
+DoremyCavalierUUlt:
+  Title: '"Losing Oneself in a Dream"'
+  Content: Dream Sign
   Description: |-
-    Deal {Damage} damage.
+    Apply {Value1} |Nightmare| to each enemy.
+    Deal damage to each enemy equal to its |Nightmare|.
     |Accurate|
 
-SampleCharacterUltB:
-  Title: Title
-  Content: Ultimate B
+DoremyCavalierWUlt:
+  Title: '"Lucent Genesis"'
+  Content: Ruler of Dreams
   Description: |-
-    Deal {Damage} damage.
-    Apply {Value1} |Weak|.
-    |Accurate|
+    Choose colours, at least {Value1} origins to form a card pool
+    Choose one of 5 random cards from the pool.
+    Mana of any color can be spend to pay its mana cost.
 

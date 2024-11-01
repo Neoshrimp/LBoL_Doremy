@@ -28,8 +28,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Basic
 
 
 
-            con.RelativeKeyword = Keyword.Basic;
-            con.UpgradedRelativeKeyword = Keyword.Basic;
+            con.Keywords = Keyword.Basic;
+            con.UpgradedKeywords = Keyword.Basic;
 
             return con;
         }

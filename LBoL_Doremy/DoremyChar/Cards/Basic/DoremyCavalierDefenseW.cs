@@ -26,10 +26,10 @@ namespace LBoL_Doremy.DoremyChar.Cards.Basic
 
             con.Block = 10;
             con.UpgradedBlock = 13;
+            
 
-
-            con.RelativeKeyword = Keyword.Basic;
-            con.UpgradedRelativeKeyword = Keyword.Basic;
+            con.Keywords = Keyword.Basic;
+            con.UpgradedKeywords = Keyword.Basic;
 
             return con;
         }

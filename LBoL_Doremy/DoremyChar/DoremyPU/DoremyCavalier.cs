@@ -50,12 +50,10 @@ namespace LBoL_Doremy.DoremyChar.DoremyPU
                 ModleName: nameof(DoremyCavalier),
                 NarrativeColor: Color,
                 IsSelectable: true,
-                // 2do TEMP
-                MaxHp: 69,
+                MaxHp: 70,
                 InitialMana: new ManaGroup() { White = 2, Blue = 2 },
-                InitialMoney: 42,
-                InitialPower: 34,
-                // 2do TEMP
+                InitialMoney: 100,
+                InitialPower: 0,
                 UltimateSkillA: nameof(DoremyCavalierUUlt),
                 UltimateSkillB: nameof(DoremyCavalierWUlt),
                 ExhibitA: nameof(DoremyCavalierUEx),

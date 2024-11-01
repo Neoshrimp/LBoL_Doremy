@@ -80,6 +80,9 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 
         private IEnumerable<BattleAction> OnTurnEnd(UnitEventArgs args)
         {
+            if (Battle.BattleShouldEnd)
+                yield break;
+
             var hand = Battle.HandZone.Where((Card card) => card.CanUpgradeAndPositive);
 
             SelectCardInteraction selection = null;
@@ -90,7 +93,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 
             if (selection != null)
             { 
-                yield return new InteractionAction(selection, true);
+                yield return new InteractionAction(selection, false);
                 if (selection.SelectedCards != null && selection.SelectedCards.Count > 0)
                 {
                     NotifyActivating();

@@ -34,7 +34,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Token
             con.UpgradedDamage = 8;
 
             con.Keywords = Keyword.Exile | Keyword.Retain;
-            con.UpgradedKeywords = Keyword.Exile | Keyword.Retain;
+            con.UpgradedKeywords = Keyword.Exile | Keyword.Retain | Keyword.Accuracy;
 
 
             con.RelativeEffects = new List<string>() { nameof(DC_NightmareSE) };

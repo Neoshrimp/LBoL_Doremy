@@ -4,6 +4,7 @@ using LBoL.Core;
 using LBoL.Core.Battle;
 using LBoL.Core.Battle.BattleActions;
 using LBoL.Core.StatusEffects;
+using LBoL.EntityLib.Cards.Neutral.White;
 using LBoL_Doremy.Actions;
 using LBoL_Doremy.DoremyChar.Keywords;
 using LBoL_Doremy.DoremyChar.SE;
@@ -53,10 +54,14 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
             foreach (var e in selector.GetEnemies(Battle))
+            {
+                if (Battle.BattleShouldEnd)
+                    yield break;
                 if (e.TryGetStatusEffect<DC_NightmareSE>(out var nightmare))
                 { 
                     yield return new DamageAction(Battle.Player, e, DamageInfo.HpLose(nightmare.Level / 2f));
                 }
+            }
         }
 
         public override void OnDLChanged(DreamLevelArgs args)

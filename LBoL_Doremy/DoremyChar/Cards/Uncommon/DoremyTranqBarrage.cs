@@ -55,7 +55,11 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
             for (int i = 0; i < ApplyTimes; i++)
-                yield return DebuffAction<DC_NightmareSE>(selector.GetEnemy(Battle), Value1);
+            { 
+                if (Battle.BattleShouldEnd)
+                    yield break;
+                yield return DebuffAction<DC_NightmareSE>(UnitSelector.RandomEnemy.GetEnemy(Battle), Value1);
+            }
         }
     }
 }

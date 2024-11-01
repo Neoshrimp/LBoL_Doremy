@@ -76,6 +76,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 
         private IEnumerable<BattleAction> OnTurnEnding(UnitEventArgs args)
         {
+            if (Battle.BattleShouldEnd)
+                yield break;
             for (int i = 0; i < Level; i++)
             {
                 var cards = Battle.RollCards(new CardWeightTable(RarityWeightTable.BattleCard, OwnerWeightTable.Valid, CardTypeWeightTable.CanBeLoot), Count);

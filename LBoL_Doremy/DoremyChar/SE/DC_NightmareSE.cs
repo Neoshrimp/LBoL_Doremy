@@ -3,12 +3,15 @@ using LBoL.ConfigData;
 using LBoL.Core;
 using LBoL.Core.Battle;
 using LBoL.Core.Battle.BattleActions;
+using LBoL.Core.Cards;
 using LBoL.Core.StatusEffects;
 using LBoL.Core.Units;
+using LBoL.EntityLib.StatusEffects.Enemy;
 using LBoL.Presentation.UI.Widgets;
 using LBoL.Presentation.Units;
 using LBoL_Doremy.ExtraAssets;
 using LBoL_Doremy.RootTemplates;
+using LBoL_Doremy.Utils;
 using LBoLEntitySideloader.Attributes;
 using System;
 using System.Collections.Generic;
@@ -38,9 +41,14 @@ namespace LBoL_Doremy.DoremyChar.SE
     [EntityLogic(typeof(DC_NightmareSEDef))]
     public sealed class DC_NightmareSE : DStatusEffect
     {
+
+        protected override void OnAdding(Unit unit)
+        {
+            base.OnAdding(unit);
+        }
         protected override void OnAdded(Unit unit)
         {
-            NightmareSource = unit;
+            NightmareSource = Battle.Player;
             ReactOwnerEvent(unit.DamageReceived, DamageReceived, (GameEventPriority)(-99));
             ReactOwnerEvent(unit.HealingReceived, HealingReceived, (GameEventPriority)(-99));
             // ui bar
@@ -53,7 +61,18 @@ namespace LBoL_Doremy.DoremyChar.SE
             React(DoKill());
         }
 
-
+/*        private IEnumerable<BattleAction> OnSelfAdded(StatusEffectApplyEventArgs args)
+        {
+            if (args.Effect != this)
+                yield break;
+            var source = args.ActionSource;
+            if (source.TrickleDownActionSource() is Card)
+                NightmareSource = Battle.Player;
+            else if (source is UltimateSkill || source is Exhibit)
+                NightmareSource = Battle.Player;
+            else if (source is Unit u)
+                NightmareSource = u;
+        }*/
 
         public readonly static string nightmareBarGoName = "NightmareBar";
         //public readonly static string actualHpGoName = "ActualHp";
@@ -243,6 +262,34 @@ namespace LBoL_Doremy.DoremyChar.SE
             }
 
 
+        }
+
+
+        //[HarmonyPatch(typeof(DeathExplode), nameof(DeathExplode.OnDying), MethodType.Enumerator)]
+        class DeathExplode_DoubleDmgFix_Patch
+        {
+
+            static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
+            {
+                return new CodeMatcher(instructions)
+                    .MatchEndForward(new CodeInstruction(OpCodes.Ldstr, "2"))
+                    .MatchEndBackwards(new CodeInstruction(OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(DieEventArgs), nameof(DieEventArgs.Source))))
+
+                    .Advance(1)
+                    .InsertAndAdvance(new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(DeathExplode_DoubleDmgFix_Patch), nameof(DeathExplode_DoubleDmgFix_Patch.CheckSourceType))))
+
+                    .MatchEndForward(OpCodes.Beq)
+                    .InsertAndAdvance(new CodeInstruction(OpCodes.Pop))
+                    .InsertAndAdvance(new CodeInstruction(OpCodes.Ldc_I4_0))
+
+                    .InstructionEnumeration();
+            }
+
+            private static int CheckSourceType(Unit source)
+            {
+                Log.LogDebug($"deez {source}");
+                return source is EnemyUnit ? 1 : 0;
+            }
         }
 
 

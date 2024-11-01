@@ -64,10 +64,10 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
     {
         protected override void OnAdded(Unit unit)
         {
-            ReactOwnerEvent(unit.TurnStarting, OnTurnStarting);
+            ReactOwnerEvent(unit.TurnStarted, OnTurnStart, (GameEventPriority)8);
         }
 
-        private IEnumerable<BattleAction> OnTurnStarting(UnitEventArgs args)
+        private IEnumerable<BattleAction> OnTurnStart(UnitEventArgs args)
         {
 
             for (int i = 0; i <Level; i++)

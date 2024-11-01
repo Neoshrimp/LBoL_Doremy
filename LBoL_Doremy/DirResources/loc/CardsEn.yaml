@@ -126,11 +126,12 @@ DoremyUndisturbedSlumber:
 DoremyDeepDefense:
   Name: Deep Defense
   Description: |-
-    Gain {Block} |Block|. 
-    Choose a card in the hand, it gains {DL}.
-  UpgradedDescription: |-
-    Gain {Block} |Block|. 
-    Choose a card in the hand, it gains {DL} twice.
+    Gain {Block} |Block|.
+    {DebutDesc}
+  Debut: |-
+    |Debut|: Choose a card in the hand, it gains {DL}.
+  UpgradedDebut: |-
+    |Debut|: Choose a card in the hand, it gains {DL} twice.
   FlavorText: |-
     Spiraling deeper and deeper, its easily to loss track of your target.
 

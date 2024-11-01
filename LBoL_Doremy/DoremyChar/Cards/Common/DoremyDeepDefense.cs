@@ -31,6 +31,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
             con.Block = 12;
             //con.UpgradedBlock = 17;
 
+            con.Keywords = Keyword.Debut;
+            con.UpgradedKeywords = Keyword.Debut;
 
 
             con.RelativeEffects = new List<string>() { nameof(DC_DLKwSE) };
@@ -47,10 +49,28 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
     {
 
 
+        public string DebutDesc
+        {
+            get
+            {
+                var dkey = "Debut";
+                if (IsUpgraded)
+                    dkey = "UpgradedDebut";
+
+                var desc = LocalizeProperty(dkey, true).RuntimeFormat(FormatWrapper);
+                if (!DebutActive)
+                    desc = StringDecorator.Decorate(string.Concat("|d:", desc, "|"));
+
+                return desc;
+            }
+        }
+
         public override Interaction Precondition()
         {
             var hand = base.Battle.HandZone.Where(c => c != this);
             if (hand.FirstOrDefault() == null)
+                return null;
+            if (!DebutActive)
                 return null;
             return new SelectHandInteraction(1, 1, hand);
         }

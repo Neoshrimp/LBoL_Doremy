@@ -108,8 +108,8 @@ namespace LBoL_Doremy.RootTemplates
 
                 Owner: nameof(DoremyCavalier),
 
-                ImageId: "",
-                UpgradeImageId: "",
+                ImageId: null,
+                UpgradeImageId: null,
                 Unfinished: false,
                 Illustrator: null,
                 SubIllustrator: new List<string>());

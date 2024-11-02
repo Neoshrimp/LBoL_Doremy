@@ -529,3 +529,14 @@ DoremyDeepNavyOverdrive:
    Until the end of the turn, all cards created in combat |temporarily cost| {Mana}.
   FlavorText: |-
     Deep dark fantasy
+
+DC_ManaOption:
+  Name: Colour Select
+  Description: |-
+   {C2Mana}
+
+DC_OriginOption:
+  Name: Origin Select
+  Description: |-
+   {OriginName}
+  Neutral: Neutral

@@ -13,4 +13,5 @@ DoremyCavalierWUlt:
     Choose colours, at least {Value1} origins to form a card pool
     Choose one of 5 random cards from the pool.
     Mana of any color can be spend to pay its mana cost.
+  CancelChat: Only {0} cards were found which match the criteria.
 

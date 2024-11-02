@@ -93,7 +93,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
 
             options.RemoveAt(i);
 
-            var selection = new SelectCardInteraction(1, Value1, options) { CanCancel = false };
+            var selection = new SelectCardInteraction(1, Value1, options) { CanCancel = false, Source = this };
             yield return new InteractionAction(selection);
 
             if (selection.SelectedCards != null)

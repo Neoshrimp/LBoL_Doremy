@@ -540,3 +540,24 @@ DC_OriginOption:
   Description: |-
    {OriginName}
   Neutral: Neutral
+
+DoremyDreamTeam:
+  Name: Dream Team
+  Description: |-
+   Add a random |Dreamy Teammate| to the hand.
+  UpgradedDescription: |-
+   Choose 1 of {Value1} random |Dreamy Teammates| to add to the hand.
+  FlavorText: |-
+    "Let'sa Go!" "Okey Dokey."
+
+DoremyDreamyReimu:
+  Name: Dreamy Reimu
+  Description: |-
+    {FriendS}Whenever {PlayerName} plays a card created in combat, gain {Value1} |TempFirepower| and |TempSpirit|.
+    {FriendP}Add an |Yin-Ying Orb| to the hand. Gain {LightBlue}1{CC} |Fleeting Fantasy|.
+  ExtraDescription1: |-
+    {FriendA}Draw a card for each card |Exiled| this turn ({LightBlue}{ToDraw}{CC}).
+  ExtraDescription2: |-
+    {FriendU}Whenever {PlayerName} gains |Block| or |Barrier| this turn, deal {Value2} damage to each enemy.
+  FlavorText: |-
+    The wealthiest of all Dream Inhabitants.

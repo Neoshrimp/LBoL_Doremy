@@ -124,3 +124,8 @@ DoremyDeepNavyOverdriveSE:
   Name: Deep Navy Overdrive
   Description: |-
     Until the end of the turn, all cards created in combat |temporarily cost| {Mana}.
+
+DoremyDreamyReimuSE:
+  Name: Dreamy Reimu
+  Description: |-
+    Whenever {PlayerName} gains |Block| or |Barrier| this turn, deal {Count} damage to each enemy.

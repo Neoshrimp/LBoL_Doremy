@@ -3,6 +3,7 @@ using LBoL.ConfigData;
 using LBoL.Core;
 using LBoL.Core.Battle;
 using LBoL.Core.Cards;
+using LBoL.EntityLib.Exhibits.Shining;
 using LBoL.Presentation;
 using LBoL_Doremy.DoremyChar.DoremyPU;
 using LBoL_Doremy.StaticResources;
@@ -125,7 +126,7 @@ namespace LBoL_Doremy.RootTemplates
     {
         public string DL { get => DColorUtils.DL; }
 
-        public string LightBlue { get => DColorUtils.LightBlue; }
+        public string LB { get => DColorUtils.LightBlue; }
 
         public string UIBlue { get => DColorUtils.UIBlue; }
 
@@ -139,9 +140,35 @@ namespace LBoL_Doremy.RootTemplates
         public string DoTimes { get => TimesVal > 1 ? LocalizeProperty("Times").RuntimeFormat(FormatWrapper) : ""; }
         public virtual int TimesVal => Value1;
 
+
+        public override void Initialize()
+        {
+            base.Initialize();
+            FormatWrapper = new DFormatterCard(this, (CardFormatWrapper)FormatWrapper);
+
+        }
+
         // trick to display concrete values on right-click card zoom in widget while in Battle
         [MaybeNull] protected BattleController RealBattle => this.Battle ?? GameMaster.Instance?.CurrentGameRun?.Battle;
 
+
+        protected void ReactOnCardsAddedEvents(BattleController battle, Func<Card[], GameEventArgs, IEnumerable<BattleAction>> reactor)
+        {
+            ReactOnCardsAddedEvents(battle, reactor, (GameEventPriority)Config.Order);
+        }
+
+
+        protected void ReactOnCardsAddedEvents(BattleController battle, Func<Card[], GameEventArgs, IEnumerable<BattleAction>> reactor, GameEventPriority priority)
+        {
+            EventSequencedReactor<CardsAddingToDrawZoneEventArgs> drawZoneReactor = args => reactor(args.Cards, args);
+
+            EventSequencedReactor<CardsEventArgs> otherReactors = args => reactor(args.Cards, args);
+
+            ReactBattleEvent(battle.CardsAddedToDiscard, otherReactors, priority);
+            ReactBattleEvent(battle.CardsAddedToDrawZone, drawZoneReactor, priority);
+            ReactBattleEvent(battle.CardsAddedToExile, otherReactors, priority);
+            ReactBattleEvent(battle.CardsAddedToHand, otherReactors, priority);
+        }
 
 
     }

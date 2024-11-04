@@ -54,7 +54,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 
         public string TimesHint => Battle == null ? "" : "\n"+LocalizeProperty("Times").RuntimeFormat(FormatWrapper);
 
-        public int NM2Apply => Value2;
+        public NightmareInfo NM2Apply => Value2;
 
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {

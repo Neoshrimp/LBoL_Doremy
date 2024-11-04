@@ -45,13 +45,15 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
     [EntityLogic(typeof(DoremyUndisturbedSlumberDef))]
     public sealed class DoremyUndisturbedSlumber : DCard
     {
+
+        public NightmareInfo NM2Apply => Value1;
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
             foreach (var a in base.Actions(selector, consumingMana, precondition))
                 yield return a;
 
             foreach (var e in UnitSelector.AllEnemies.GetUnits(Battle))
-                yield return DebuffAction<DC_NightmareSE>(e, Value1);
+                yield return DebuffAction<DC_NightmareSE>(e, NM2Apply, occupationTime: 0f);
         }
     }
 }

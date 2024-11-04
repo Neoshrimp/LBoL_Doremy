@@ -11,6 +11,7 @@ using LBoL_Doremy.RootTemplates;
 using LBoLEntitySideloader.Attributes;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
@@ -51,7 +52,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
         {
 
 
-            var interaction = new SelectCardInteraction(1, Value1, EnumerateRelativeCards())
+            var interaction = new SelectCardInteraction(1, Value1, EnumerateRelativeCards().ToList())
             {
                 Source = this
             };

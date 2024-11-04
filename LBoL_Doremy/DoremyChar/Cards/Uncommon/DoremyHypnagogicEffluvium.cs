@@ -47,13 +47,16 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
     [EntityLogic(typeof(DoremyHypnagogicEffluviumDef))]
     public sealed class DoremyHypnagogicEffluvium : DCard
     {
+
+        public NightmareInfo NM2Apply => Value2;
+
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
 
             foreach (var e in UnitSelector.AllEnemies.GetEnemies(Battle))
             {
-                yield return DebuffAction<Weak>(e, duration: Value1);
-                yield return DebuffAction<DC_NightmareSE>(e, Value2);
+                yield return DebuffAction<Weak>(e, duration: Value1, occupationTime: 0f);
+                yield return DebuffAction<DC_NightmareSE>(e, Value2, occupationTime: 0f);
             }
         }
 

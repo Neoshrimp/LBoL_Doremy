@@ -129,3 +129,11 @@ DoremyDreamyReimuSE:
   Name: Dreamy Reimu
   Description: |-
     Whenever {PlayerName} gains |Block| or |Barrier| this turn, deal {Count} damage to each enemy.
+
+DoremySleepShieldSE:
+  Name: Devourer of Dreams
+  Description: |-
+    {OwnerName}'s |Barrier| is replenished to {Level} at the end of her turn. {SelfName} is <b>removed</b> when {OwnerName} takes life damage.
+  Brief: |-
+    {OwnerName}'s |Barrier| is replenished to {SelfName} level at the end of her turn. {SelfName} is <b>removed</b> when {OwnerName} takes life damage.
+    

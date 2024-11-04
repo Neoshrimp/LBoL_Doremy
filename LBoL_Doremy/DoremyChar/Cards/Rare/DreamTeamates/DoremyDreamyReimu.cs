@@ -62,29 +62,24 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare.DreamTeamates
 
 
     [EntityLogic(typeof(DoremyDreamyReimuDef))]
-    public sealed class DoremyDreamyReimu : DCard
+    public sealed class DoremyDreamyReimu : DTeammate
     {
-
-        public override FriendCostInfo FriendU => new FriendCostInfo(base.UltimateCost, FriendCostType.Active);
         protected override void OnEnterBattle(BattleController battle)
         {
-            wasSummoned = false;
             ReactBattleEvent(battle.CardUsed, OnCardUsed);
         }
 
-        bool wasSummoned = false;
 
         private IEnumerable<BattleAction> OnCardUsed(CardUsingEventArgs args)
         {
-            if (this.Zone == CardZone.Hand && Summoned && wasSummoned && args.Card.WasGenerated())
+            if (IsAbilityActive && args.Card != this && args.Card.WasGenerated())
             {
                 if (Battle.BattleShouldEnd)
                     yield break;
                 yield return BuffAction<TempFirepower>(1, occupationTime: 0.07f);
                 yield return BuffAction<TempSpirit>(1, occupationTime: 0.07f);
             }
-            if (args.Card == this)
-                wasSummoned = true;
+
         }
 
         public override IEnumerable<BattleAction> OnTurnEndingInHand()
@@ -94,6 +89,9 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare.DreamTeamates
 
         public override IEnumerable<BattleAction> GetPassiveActions()
         {
+            if (Battle.BattleShouldEnd)
+                yield break;
+
             Loyalty += PassiveCost;
             NotifyActivating();
             var orb = Library.CreateCard<YinyangCard>();

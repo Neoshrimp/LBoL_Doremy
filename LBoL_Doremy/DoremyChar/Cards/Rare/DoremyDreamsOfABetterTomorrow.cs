@@ -163,7 +163,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
         {
             get
             {
-                return string.Join(", ", EndOfBattleCards.Cast<IOptionCard>().Select(op => LightBlue + op.BriefDesc + CC));
+                return string.Join(", ", EndOfBattleCards.Cast<IOptionCard>().Select(op => LB + op.BriefDesc + CC));
             }
         }
 

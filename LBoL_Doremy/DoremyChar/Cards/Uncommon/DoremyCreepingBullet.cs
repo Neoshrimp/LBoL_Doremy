@@ -46,6 +46,9 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
     [EntityLogic(typeof(DoremyCreepingBulletDef))]
     public sealed class DoremyCreepingBullet : DreamLayerCard
     {
+
+        public NightmareInfo NM2Apply => Value1;
+
         protected override ManaGroup AdditionalCost => Mana * -DreamLevel;
 
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
@@ -53,7 +56,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             foreach (var a in base.Actions(selector, consumingMana, precondition))
                 yield return a;
 
-            yield return DebuffAction<DC_NightmareSE>(selector.SelectedEnemy, Value1);
+            yield return DebuffAction<DC_NightmareSE>(selector.SelectedEnemy, NM2Apply);
         }
     }
 }

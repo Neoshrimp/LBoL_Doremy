@@ -51,6 +51,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
     [EntityLogic(typeof(DoremyDreamOnDef))]
     public sealed class DoremyDreamOn : DCard
     {
+        public NightmareInfo NM2Apply => Value1;
+
         public override bool Triggered
         {
             get
@@ -64,7 +66,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             foreach (var a in base.Actions(selector, consumingMana, precondition))
                 yield return a;
 
-            yield return DebuffAction<DC_NightmareSE>(selector.SelectedEnemy, Value1);
+            yield return DebuffAction<DC_NightmareSE>(selector.SelectedEnemy, NM2Apply);
 
             if (base.PlayInTriggered)
             {

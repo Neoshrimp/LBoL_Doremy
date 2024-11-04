@@ -43,10 +43,13 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
     [EntityLogic(typeof(DoremyInfectiousNightmaresDef))]
     public sealed class DoremyInfectiousNightmares : DCard
     {
+        public NightmareInfo NM2Apply => Value1;
+
+
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
             yield return DebuffAction<DoremyInfectiousNightmaresSE>(selector.SelectedEnemy);
-            yield return DebuffAction<DC_NightmareSE>(selector.SelectedEnemy, Value1);
+            yield return DebuffAction<DC_NightmareSE>(selector.SelectedEnemy, NM2Apply);
         }
     }
 

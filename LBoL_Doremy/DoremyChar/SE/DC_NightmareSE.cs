@@ -15,6 +15,7 @@ using LBoL_Doremy.Utils;
 using LBoLEntitySideloader.Attributes;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
@@ -41,6 +42,10 @@ namespace LBoL_Doremy.DoremyChar.SE
     [EntityLogic(typeof(DC_NightmareSEDef))]
     public sealed class DC_NightmareSE : DStatusEffect
     {
+        public static IEnumerable<Unit> NightmareAddingUnits(BattleController battle)
+        {
+            return battle.AllAliveUnits.Concat(new Unit[] { DFormatterCard.FakeUnit });
+        }
 
         protected override void OnAdding(Unit unit)
         {

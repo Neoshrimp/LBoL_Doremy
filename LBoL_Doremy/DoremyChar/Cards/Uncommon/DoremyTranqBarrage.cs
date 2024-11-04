@@ -51,6 +51,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 
         public static int countResetPriorityOffset = -5;
 
+        public NightmareInfo NM2Apply => Value1;
 
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
@@ -58,7 +59,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             { 
                 if (Battle.BattleShouldEnd)
                     yield break;
-                yield return DebuffAction<DC_NightmareSE>(UnitSelector.RandomEnemy.GetEnemy(Battle), Value1);
+                yield return DebuffAction<DC_NightmareSE>(UnitSelector.RandomEnemy.GetEnemy(Battle), NM2Apply, occupationTime: 0.05f);
             }
         }
     }

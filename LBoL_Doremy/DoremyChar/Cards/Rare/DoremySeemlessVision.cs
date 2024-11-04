@@ -52,10 +52,12 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
     [EntityLogic(typeof(DoremySeemlessVisionDef))]
     public sealed class DoremySeemlessVision : DCard
     {
+        public NightmareInfo NM2Apply => Value1;
+
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
             foreach(var e in UnitSelector.AllEnemies.GetEnemies(Battle))
-                yield return DebuffAction<DC_NightmareSE>(e, Value1);
+                yield return DebuffAction<DC_NightmareSE>(e, NM2Apply, occupationTime: 0f);
 
             foreach (var c in Battle.HandZone.Where(c => c.WasGenerated() && c.Cost.Amount > 0))
             {

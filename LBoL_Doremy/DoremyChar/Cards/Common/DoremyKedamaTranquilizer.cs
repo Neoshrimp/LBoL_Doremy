@@ -43,12 +43,13 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
     public sealed class DoremyKedamaTranquilizer : DCard
     {
 
+        public NightmareInfo NM2Apply => Value1;
 
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
             // 2do add gun id
             yield return PerformAction.Gun(Battle.Player, selector.SelectedEnemy, "Simple1");
-            yield return DebuffAction<DC_NightmareSE>(selector.SelectedEnemy, Value1);
+            yield return DebuffAction<DC_NightmareSE>(selector.SelectedEnemy, NM2Apply);
         }
     }
 }

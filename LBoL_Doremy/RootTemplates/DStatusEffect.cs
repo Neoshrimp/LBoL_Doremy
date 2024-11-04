@@ -79,7 +79,7 @@ namespace LBoL_Doremy.RootTemplates
     { 
         public string DL { get => DColorUtils.DL; }
 
-        public string LightBlue { get => DColorUtils.LightBlue; }
+        public string LB { get => DColorUtils.LightBlue; }
 
         public string UIBlue { get => DColorUtils.UIBlue; }
 

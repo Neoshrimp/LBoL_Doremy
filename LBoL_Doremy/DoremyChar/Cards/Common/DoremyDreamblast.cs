@@ -48,7 +48,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
 
         protected override int AdditionalDamage => Value2 * DreamLevel;
 
-        public int NM2Apply { get => Value1 + Value2 * DreamLevel;  }
+        public NightmareInfo NM2Apply { get => Value1 + Value2 * DreamLevel; }
+
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
             foreach (var a in base.Actions(selector, consumingMana, precondition))

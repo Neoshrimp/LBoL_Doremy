@@ -49,12 +49,14 @@ namespace LBoL_Doremy.DoremyChar.Cards.Token
     [EntityLogic(typeof(DoremySoporificCreativityDef))]
     public sealed class DoremySoporificCreativity : DCard
     {
+        public NightmareInfo NM2Apply => Value2;
+
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
             yield return new DrawManyCardAction(Value1);
 
             foreach(var e in UnitSelector.AllEnemies.GetUnits(Battle))
-                yield return DebuffAction<DC_NightmareSE>(e, Value2);
+                yield return DebuffAction<DC_NightmareSE>(e, NM2Apply);
         }
     }
 }

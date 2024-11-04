@@ -46,7 +46,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
     {
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
-            var cards = EnumerateRelativeCards();
+            var cards = EnumerateRelativeCards().ToList();
 
             if (cards.Count() != 0)
             {

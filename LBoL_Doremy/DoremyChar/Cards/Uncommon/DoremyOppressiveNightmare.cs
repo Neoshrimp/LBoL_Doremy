@@ -46,6 +46,9 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
     [EntityLogic(typeof(DoremyOppressiveNightmareDef))]
     public sealed class DoremyOppressiveNightmare : DCard
     {
+
+        public NightmareInfo NM2Apply => Value1;
+
         public static int buffPriority = 10;
         protected override void OnEnterBattle(BattleController battle)
         {
@@ -82,6 +85,9 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
     [EntityLogic(typeof(DoremyOppressiveNightmareSEDef))]
     public sealed class DoremyOppressiveNightmareSE : DStatusEffect
     {
+
+
+
         protected override void OnAdded(Unit unit)
         {
             Duration = 1;

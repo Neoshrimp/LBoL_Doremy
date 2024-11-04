@@ -54,7 +54,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 
         int CreatedCount { get => IsUpgraded ? BattleHistoryHandlers.GetCreatedCount(RealBattle).Total : BattleHistoryHandlers.GetCreatedCount(RealBattle).byPlayer; }
 
-        public int NM2Apply { get => Value1 + Value2 * CreatedCount; }
+        public NightmareInfo NM2Apply { get => Value1 + Value2 * CreatedCount; }
 
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {

@@ -45,6 +45,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
     [EntityLogic(typeof(DoremyRecurringNightmareDef))]
     public sealed class DoremyRecurringNightmare : DCard
     {
+        public NightmareInfo NM2Apply => Value1;
+
         protected override void OnEnterBattle(BattleController battle)
         {
             ReactBattleEvent(Battle.CardUsed, OnCardUsed);
@@ -61,7 +63,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
-            yield return DebuffAction<DC_NightmareSE>(selector.SelectedEnemy, Value1);
+            yield return DebuffAction<DC_NightmareSE>(selector.SelectedEnemy, NM2Apply);
         }
     }
 }

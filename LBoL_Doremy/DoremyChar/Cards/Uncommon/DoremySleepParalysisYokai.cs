@@ -50,7 +50,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 
         public int DreamLevelCapped => Math.Min(Value1, DreamLevel);
 
-        public string DreamLevelCappedDesc => Battle == null ? "" : $" ({LightBlue}{DreamLevelCapped}{CC})";
+        public string DreamLevelCappedDesc => Battle == null ? "" : $" ({LB}{DreamLevelCapped}{CC})";
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
             foreach (var e in selector.GetEnemies(Battle))

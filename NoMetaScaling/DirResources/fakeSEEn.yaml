@@ -1,0 +1,10 @@
+NoMoreMetaScalingLocSE:
+  Name: deez
+  Description: nuts
+  CancelExplain: "{0} was canceled because {1} was created, copied or bounced from exile <b>by another card</b>."
+  Healing: Healing
+  Power: Power gain
+  Money: Money gain
+  MaxHp: MaxHp gain
+  UpgradeACard: Deck card upgrade
+  CancelDeez: I'M A DEGENERATE

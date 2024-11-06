@@ -3,6 +3,7 @@ using HarmonyLib;
 using LBoLEntitySideloader;
 using LBoLEntitySideloader.Entities;
 using LBoLEntitySideloader.Resource;
+using NoMetaScaling.Core;
 using System.Reflection;
 using UnityEngine;
 
@@ -20,10 +21,7 @@ namespace NoMetaScalling
 
         internal static BepInEx.Logging.ManualLogSource log;
 
-        internal static IResourceSource embeddedSource = new EmbeddedSource(Assembly.GetExecutingAssembly());
-        internal static DirectorySource directorySource = new DirectorySource(NoMetaScalling.PInfo.GUID, "");
 
-        internal static BatchLocalization cardBatchLoc = new BatchLocalization(directorySource, typeof(StatusEffectTemplate), "fakeSE");
 
 
         private void Awake()
@@ -39,6 +37,10 @@ namespace NoMetaScalling
 
             if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey(AddWatermark.API.GUID))
                 WatermarkWrapper.ActivateWatermark();
+
+            CardTracker.RegisterHandlers();
+            ActionCancel.RegisterHandlers();
+            PissHandlers.RegisterHandlers();
         }
 
         private void OnDestroy()

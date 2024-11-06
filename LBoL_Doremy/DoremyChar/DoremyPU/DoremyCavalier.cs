@@ -68,7 +68,7 @@ namespace LBoL_Doremy.DoremyChar.DoremyPU
                     nameof(DoremySleepyStrikes) },
                 // 2do diff
                 DifficultyA: 2,
-                DifficultyB: 1);
+                DifficultyB: 3);
             return con;
         }
     }

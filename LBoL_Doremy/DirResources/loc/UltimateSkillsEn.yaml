@@ -10,8 +10,12 @@ DoremyCavalierWUlt:
   Title: '"Lucent Genesis"'
   Content: Ruler of Dreams
   Description: |-
-    Choose colours, at least {Value1} origins to form a card pool
-    Choose one of 5 random cards from the pool.
+    At least {MinOrigins} origins,
+    at least {MinTypes} card types to form a card pool
+    Randomly roll {Value1} cards from the pool. <b>The number is modified by the choices made.</b>
+    Choose one of the rolled cards, add it to the hand.
     Mana of any color can be spend to pay its mana cost.
   CancelChat: Only {0} cards were found which match the criteria.
-
+  ChooseOrigin: "Roll mod per number of origins picked: +0, +1, +3, +6, +10, +15"
+  ChooseType: Choose at least |e:{MinTypes}| card types.
+  RollAmount: "\n(roll count: |e:{RollAmount}|, pool size: |e:{PoolSize}|)"

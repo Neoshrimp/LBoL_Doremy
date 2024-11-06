@@ -535,13 +535,19 @@ DoremyDeepNavyOverdrive:
 DC_ManaOption:
   Name: Colour Select
   Description: |-
-   {C2Mana}
+    {C2Mana}
 
 DC_OriginOption:
   Name: Origin Select
   Description: |-
-   {OriginName}
+    {OriginName}
   Neutral: Neutral
+
+DC_TypeOption:
+  Name: Type Select
+  Description: |-
+    {CTypeDesc}
+    Roll modifier: {RollModDesc}
 
 DoremyDreamTeam:
   Name: Dream Team
@@ -620,3 +626,5 @@ DoremyDreamyDoremy:
   FlavorText: |-
     Doremy Sweet used Double Team!
     Doremy Sweet's evasion rose!
+
+

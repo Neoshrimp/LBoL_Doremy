@@ -4,6 +4,7 @@ using LBoL.ConfigData;
 using LBoL.Core;
 using LBoL.Core.Battle;
 using LBoL.Core.Cards;
+using LBoL.EntityLib.Cards.Enemy;
 using LBoL_Doremy.CreatedCardTracking;
 using LBoL_Doremy.DoremyChar.Keywords;
 using LBoL_Doremy.DoremyChar.SE;
@@ -57,7 +58,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
             foreach(var e in UnitSelector.AllEnemies.GetEnemies(Battle))
-                yield return DebuffAction<DC_NightmareSE>(e, NM2Apply, occupationTime: 0f);
+                yield return NightmareAction(e, NM2Apply, 0f);
+
 
             foreach (var c in Battle.HandZone.Where(c => c.WasGenerated() && c.Cost.Amount > 0))
             {

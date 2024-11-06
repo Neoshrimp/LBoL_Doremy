@@ -53,6 +53,9 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
             foreach(var a in base.Actions(selector, consumingMana, precondition))
                 yield return a;
 
+            if (Battle.BattleShouldEnd)
+                yield break;
+
             var cards = Battle.RollCards(new CardWeightTable(RarityWeightTable.OnlyCommon, OwnerWeightTable.Valid, CardTypeWeightTable.CanBeLoot), Value2, cc => cc.Type == CardType.Attack && cc.Id != Id);
 
             if (cards.Length != 0)

@@ -22,6 +22,7 @@ using LBoL.EntityLib.Cards.Character.Marisa;
 using LBoL.EntityLib.Cards.Neutral.NoColor;
 using LBoL_Doremy.DoremyChar.SE;
 using System.Linq;
+using LBoL_Doremy.DoremyChar.Actions;
 
 namespace LBoL_Doremy.DoremyChar.Cards.Rare.DreamTeamates
 {
@@ -70,36 +71,28 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare.DreamTeamates
         public const int nightmareMultPriority = 20;
         protected override void OnEnterBattle(BattleController battle)
         {
-            ReactBattleEvent(battle.CardUsed, OnCardUsed);  
+            ReactBattleEvent(battle.CardUsed, OnCardUsed);
 
-            foreach (var u in DC_NightmareSE.NightmareAddingUnits(battle))
-                HandleBattleEvent(u.StatusEffectAdding, OnNightmareAdding, (GameEventPriority)nightmareMultPriority);
+            HandleBattleEvent(EventManager.NMEvents.nigtmareApplying, OnNMApplying);
 
-            HandleBattleEvent(battle.EnemySpawned, OnSpawned);
         }
 
-        private void OnSpawned(UnitEventArgs args)
+        private void OnNMApplying(NightmareArgs args)
         {
-            if (args.Unit.IsAlive)
-                HandleBattleEvent(args.Unit.StatusEffectAdding, OnNightmareAdding, (GameEventPriority)nightmareMultPriority);
-        }
-
-        private void OnNightmareAdding(StatusEffectApplyEventArgs args)
-        {
-            var se = args.Effect;
-            if (IsAbilityActive 
-                && se is DC_NightmareSE nightmare 
-                && Battle.Player.HasStatusEffect<Burst>() 
+            if (IsAbilityActive
+                && args.source is PlayerUnit
+                && args.source.HasStatusEffect<Burst>()
                 && !args._modifiers.Any(wr => {
-                if (wr.TryGetTarget(out var modifier))
-                    return modifier is DoremyDreamyMarisa;
-                return false;
-            }))
+                    if (wr.TryGetTarget(out var modifier))
+                        return modifier is DoremyDreamyMarisa;
+                    return false;
+                }))
             {
-                nightmare.Level *= 2;
+                args.level *= 2f;
                 args.AddModifier(this);
             }
         }
+
 
         private IEnumerable<BattleAction> OnCardUsed(CardUsingEventArgs args)
         {

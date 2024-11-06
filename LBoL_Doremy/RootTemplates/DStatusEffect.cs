@@ -5,6 +5,7 @@ using LBoL.Core.Battle;
 using LBoL.Core.Cards;
 using LBoL.Core.StatusEffects;
 using LBoL.Core.Units;
+using LBoL_Doremy.DoremyChar.Actions;
 using LBoL_Doremy.DoremyChar.DoremyPU;
 using LBoL_Doremy.StaticResources;
 using LBoL_Doremy.Utils;
@@ -88,6 +89,9 @@ namespace LBoL_Doremy.RootTemplates
 
         public string DoTimes { get => TimesVal > 1 ? LocalizeProperty("Times").RuntimeFormat(FormatWrapper) : ""; }
         public virtual int TimesVal => Level;
+
+        public NightmareAction NightmareAction(Unit target, NightmareInfo level, float occupationTime = 0.15f) => new NightmareAction(Battle.Player, target, level, occupationTime);
+
 
         protected void ReactOnCardsAddedEvents(Func<Card[], GameEventArgs, IEnumerable<BattleAction>> reactor)
         {

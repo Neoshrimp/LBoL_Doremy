@@ -1,8 +1,12 @@
-﻿using JetBrains.Annotations;
+﻿using HarmonyLib;
+using JetBrains.Annotations;
+using LBoL.Base.Extensions;
 using LBoL.Core;
 using LBoL.Core.Cards;
 using LBoL.Core.Units;
 using LBoL.EntityLib.EnemyUnits.Normal;
+using LBoL.EntityLib.StatusEffects.Basic;
+using LBoL_Doremy.DoremyChar.Actions;
 using LBoL_Doremy.DoremyChar.SE;
 using System;
 using System.Collections.Generic;
@@ -13,14 +17,20 @@ namespace LBoL_Doremy.RootTemplates
 
     public struct NightmareInfo
     {
-        public int toApply;
+        public float toApply;
 
-        public static implicit operator int(NightmareInfo nightmareInfo) => nightmareInfo.toApply;
+        public static explicit operator int(NightmareInfo nightmareInfo) => nightmareInfo.toApply.RoundToInt(MidpointRounding.AwayFromZero);
+
+
+        public static implicit operator float(NightmareInfo nightmareInfo) => nightmareInfo.toApply;
 
         public static implicit operator NightmareInfo(int _int) => new NightmareInfo(_int);
 
+        public static implicit operator NightmareInfo(float _float) => new NightmareInfo(_float);
 
-        public NightmareInfo(int toApply)
+
+
+        public NightmareInfo(float toApply)
         {
             this.toApply = toApply;
         }
@@ -60,13 +70,15 @@ namespace LBoL_Doremy.RootTemplates
             this.card = card;
         }
 
+
+
         public override string FormatArgument(object arg, string format)
         {
             if (arg is NightmareInfo nm)
             {
                 var battle = card.Battle;
                 if (battle == null)
-                    return WrappedFormatNumber(nm, nm, format);
+                    return WrappedFormatNumber((int)nm, (int)nm, format);
 
                 var target = card.PendingTarget;
                 if (target == null)
@@ -75,20 +87,15 @@ namespace LBoL_Doremy.RootTemplates
                 }
 
 
-                var nightmare = Library.CreateStatusEffect<DC_NightmareSE>();
-                nightmare.Level = nm;
-                var statusEffectArgs = new StatusEffectApplyEventArgs()
+                var nigtmareEventArgs = new NightmareArgs()
                 {
-                    Effect = nightmare,
-                    Unit = target,
-                    ActionSource = card,
-                    Cause = LBoL.Core.Battle.ActionCause.OnlyCalculate
+                    source = battle.Player,
+                    target = target,
+                    level = nm,
                 };
+                EventManager.GetDoremyEvents(battle).nightmareEvents.nigtmareApplying.Execute(nigtmareEventArgs);
 
-                target.StatusEffectAdding.Execute(statusEffectArgs);
-
-
-                return WrappedFormatNumber(nm, statusEffectArgs.Effect.Level, format);
+                return WrappedFormatNumber((int)nm, (int)nigtmareEventArgs.level, format);
 
             }
 

@@ -78,7 +78,9 @@ DoremySoporificShield:
 
 DoremySoporificCreativity:
   Name: Soporific Creativity
-  Description: Draw {Value1} cards. Apply {NM2Apply} |Nightmare| to each enemy.
+  Description: |-
+    Draw {Value1} cards.
+    Apply {NM2Apply} |Nightmare| to each enemy.
   FlavorText: 'Still just as inspiring.'
 
 DoremySimpleDreams:

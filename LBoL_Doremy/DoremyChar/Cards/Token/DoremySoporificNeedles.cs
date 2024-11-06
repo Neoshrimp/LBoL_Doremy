@@ -62,8 +62,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Token
 
             var dmgLevel = (int)args.DamageInfo.Amount;
 
-            if(dmgLevel > 0)
-                yield return DebuffAction<DC_NightmareSE>(args.Target, dmgLevel);
+            if (dmgLevel > 0)
+                yield return NightmareAction(args.Target, dmgLevel);
         }
     }
 }

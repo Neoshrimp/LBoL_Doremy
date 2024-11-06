@@ -49,7 +49,10 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
             yield return DebuffAction<DoremyInfectiousNightmaresSE>(selector.SelectedEnemy);
-            yield return DebuffAction<DC_NightmareSE>(selector.SelectedEnemy, NM2Apply);
+            if (Battle.BattleShouldEnd)
+                yield break;
+
+            yield return NightmareAction(selector.SelectedEnemy, NM2Apply, 0f);
         }
     }
 
@@ -79,7 +82,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
                 yield break;
 
             if (args.Unit.TryGetStatusEffect<DC_NightmareSE>(out var nightmare))
-                yield return DebuffAction<DC_NightmareSE>(UnitSelector.RandomEnemy.GetEnemy(Battle), nightmare.Level);
+                yield return NightmareAction(UnitSelector.RandomEnemy.GetEnemy(Battle), nightmare.Level);
         }
     }
 }

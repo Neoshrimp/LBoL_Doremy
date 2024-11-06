@@ -59,7 +59,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             { 
                 if (Battle.BattleShouldEnd)
                     yield break;
-                yield return DebuffAction<DC_NightmareSE>(UnitSelector.RandomEnemy.GetEnemy(Battle), NM2Apply, occupationTime: 0.05f);
+                yield return NightmareAction(UnitSelector.RandomEnemy.GetEnemy(Battle), NM2Apply, occupationTime: 0.05f);
             }
         }
     }

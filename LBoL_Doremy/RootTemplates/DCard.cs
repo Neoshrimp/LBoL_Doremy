@@ -3,8 +3,10 @@ using LBoL.ConfigData;
 using LBoL.Core;
 using LBoL.Core.Battle;
 using LBoL.Core.Cards;
+using LBoL.Core.Units;
 using LBoL.EntityLib.Exhibits.Shining;
 using LBoL.Presentation;
+using LBoL_Doremy.DoremyChar.Actions;
 using LBoL_Doremy.DoremyChar.DoremyPU;
 using LBoL_Doremy.StaticResources;
 using LBoL_Doremy.Utils;
@@ -169,6 +171,8 @@ namespace LBoL_Doremy.RootTemplates
             ReactBattleEvent(battle.CardsAddedToExile, otherReactors, priority);
             ReactBattleEvent(battle.CardsAddedToHand, otherReactors, priority);
         }
+
+        public NightmareAction NightmareAction(Unit target, NightmareInfo level, float occupationTime = 0.15f) => new NightmareAction(Battle.Player, target, level, occupationTime);
 
 
     }

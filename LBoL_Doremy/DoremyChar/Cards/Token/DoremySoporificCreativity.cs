@@ -55,8 +55,12 @@ namespace LBoL_Doremy.DoremyChar.Cards.Token
         {
             yield return new DrawManyCardAction(Value1);
 
-            foreach(var e in UnitSelector.AllEnemies.GetUnits(Battle))
-                yield return DebuffAction<DC_NightmareSE>(e, NM2Apply);
+            foreach (var e in UnitSelector.AllEnemies.GetUnits(Battle))
+            {
+                if (Battle.BattleShouldEnd)
+                    yield break;
+                yield return NightmareAction(e, NM2Apply, 0f);
+            }
         }
     }
 }

@@ -49,7 +49,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
         {
             // 2do add gun id
             yield return PerformAction.Gun(Battle.Player, selector.SelectedEnemy, "Simple1");
-            yield return DebuffAction<DC_NightmareSE>(selector.SelectedEnemy, NM2Apply);
+            yield return NightmareAction(selector.SelectedEnemy, NM2Apply);
         }
     }
 }

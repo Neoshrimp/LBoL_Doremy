@@ -61,7 +61,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             foreach (var a in base.Actions(selector, consumingMana, precondition))
                 yield return a;
 
-            yield return DebuffAction<DC_NightmareSE>(selector.SelectedEnemy, NM2Apply);
+            yield return NightmareAction(selector.SelectedEnemy, NM2Apply);
         }
 
     }

@@ -63,7 +63,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
-            yield return DebuffAction<DC_NightmareSE>(selector.SelectedEnemy, NM2Apply);
+            yield return NightmareAction(selector.SelectedEnemy, NM2Apply);
         }
     }
 }

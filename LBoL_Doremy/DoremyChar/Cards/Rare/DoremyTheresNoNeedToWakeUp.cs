@@ -53,7 +53,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
             {
                 if (e.TryGetStatusEffect<DC_NightmareSE>(out var nightmare))
                 {
-                    yield return DebuffAction<DC_NightmareSE>(e, nightmare.Level * Value1);
+                    yield return NightmareAction(e, nightmare.Level * Value2, 0.05f);
                 }
             }
         }

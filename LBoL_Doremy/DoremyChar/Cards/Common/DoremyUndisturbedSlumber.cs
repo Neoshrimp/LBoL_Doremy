@@ -1,4 +1,5 @@
-﻿using LBoL.Base;
+﻿using BepInEx.Logging;
+using LBoL.Base;
 using LBoL.ConfigData;
 using LBoL.Core;
 using LBoL.Core.Battle;
@@ -53,7 +54,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
                 yield return a;
 
             foreach (var e in UnitSelector.AllEnemies.GetUnits(Battle))
-                yield return DebuffAction<DC_NightmareSE>(e, NM2Apply, occupationTime: 0f);
+                yield return NightmareAction(e, NM2Apply, 0f);
+
         }
     }
 }

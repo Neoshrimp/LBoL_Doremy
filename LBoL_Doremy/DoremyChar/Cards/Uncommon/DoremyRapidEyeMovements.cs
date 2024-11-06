@@ -48,20 +48,22 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
     [EntityLogic(typeof(DoremyRapidEyeMovementsDef))]
     public sealed class DoremyRapidEyeMovements : DCard
     {
+
+        public override Interaction Precondition()
+        {
+            return new SelectCardInteraction(1, Value1, EnumerateRelativeCards());
+        }
+
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
 
-
-            var interaction = new SelectCardInteraction(1, Value1, EnumerateRelativeCards().ToList())
+            if (precondition is SelectCardInteraction interaction && interaction.SelectedCards.Count > 0)
             {
-                Source = this
-            };
-            yield return new InteractionAction(interaction, false);
-
-            foreach (var c in interaction.SelectedCards)
-            {
-                yield return new AddCardsToHandAction(new Card[] { c });
+                yield return new AddCardsToHandAction(interaction.SelectedCards);
             }
+
+
+
         }
     }
 }

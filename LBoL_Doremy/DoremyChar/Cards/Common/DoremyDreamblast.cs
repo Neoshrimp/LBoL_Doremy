@@ -2,6 +2,8 @@
 using LBoL.ConfigData;
 using LBoL.Core;
 using LBoL.Core.Battle;
+using LBoL.Core.Units;
+using LBoL_Doremy.DoremyChar.Actions;
 using LBoL_Doremy.DoremyChar.Keywords;
 using LBoL_Doremy.DoremyChar.SE;
 using LBoL_Doremy.RootTemplates;
@@ -55,7 +57,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
             foreach (var a in base.Actions(selector, consumingMana, precondition))
                 yield return a;
 
-            yield return DebuffAction<DC_NightmareSE>(selector.SelectedEnemy, NM2Apply);
+            yield return NightmareAction(selector.SelectedEnemy, NM2Apply);
+
         }
     }
 }

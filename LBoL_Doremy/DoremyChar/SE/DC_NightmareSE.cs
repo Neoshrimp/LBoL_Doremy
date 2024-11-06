@@ -42,23 +42,20 @@ namespace LBoL_Doremy.DoremyChar.SE
     [EntityLogic(typeof(DC_NightmareSEDef))]
     public sealed class DC_NightmareSE : DStatusEffect
     {
-        public static IEnumerable<Unit> NightmareAddingUnits(BattleController battle)
-        {
-            return battle.AllAliveUnits.Concat(new Unit[] { DFormatterCard.FakeUnit });
-        }
 
-        protected override void OnAdding(Unit unit)
-        {
-            base.OnAdding(unit);
-        }
+
+        // ForceKill removes other statusEffects and resets their properties.
+        // That happens in the middle reactor resolution which might cause them to fail seemingly mysteriously.
+        // Example, TiangouOrderSe.
+        public const int killPriority = (int)GameEventPriority.Lowest;
+
         protected override void OnAdded(Unit unit)
         {
-            NightmareSource = Battle.Player;
-            ReactOwnerEvent(unit.DamageReceived, DamageReceived, (GameEventPriority)(-99));
-            ReactOwnerEvent(unit.HealingReceived, HealingReceived, (GameEventPriority)(-99));
+            ReactOwnerEvent(unit.DamageReceived, DamageReceived, (GameEventPriority)killPriority);
+            ReactOwnerEvent(unit.HealingReceived, HealingReceived, (GameEventPriority)killPriority);
             // ui bar
-            ReactOwnerEvent(unit.BlockShieldGained, BlockShieldGained, (GameEventPriority)(-99));
-            ReactOwnerEvent(unit.BlockShieldLost, BlockShieldLost, (GameEventPriority)(-99));
+            ReactOwnerEvent(unit.BlockShieldGained, BlockShieldGained, (GameEventPriority)killPriority);
+            ReactOwnerEvent(unit.BlockShieldLost, BlockShieldLost, (GameEventPriority)killPriority);
 
 
             UpdateOrCreateNightmareBar();
@@ -157,7 +154,7 @@ namespace LBoL_Doremy.DoremyChar.SE
                 } 
                 return _nightmareSource;
             }
-            private set => _nightmareSource = value;
+            set => _nightmareSource = value;
         }
 
         
@@ -165,6 +162,9 @@ namespace LBoL_Doremy.DoremyChar.SE
         public override bool Stack(StatusEffect other)
         {
             var rez = base.Stack(other);
+
+            if (other is DC_NightmareSE otherNM)
+                NightmareSource = otherNM.NightmareSource;
             React(DoKill());
 
             return rez;
@@ -270,7 +270,7 @@ namespace LBoL_Doremy.DoremyChar.SE
         }
 
 
-        //[HarmonyPatch(typeof(DeathExplode), nameof(DeathExplode.OnDying), MethodType.Enumerator)]
+        [HarmonyPatch(typeof(DeathExplode), nameof(DeathExplode.OnDying), MethodType.Enumerator)]
         class DeathExplode_DoubleDmgFix_Patch
         {
 
@@ -292,7 +292,6 @@ namespace LBoL_Doremy.DoremyChar.SE
 
             private static int CheckSourceType(Unit source)
             {
-                Log.LogDebug($"deez {source}");
                 return source is EnemyUnit ? 1 : 0;
             }
         }

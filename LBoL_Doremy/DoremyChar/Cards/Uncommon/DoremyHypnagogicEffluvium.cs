@@ -56,7 +56,9 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             foreach (var e in UnitSelector.AllEnemies.GetEnemies(Battle))
             {
                 yield return DebuffAction<Weak>(e, duration: Value1, occupationTime: 0f);
-                yield return DebuffAction<DC_NightmareSE>(e, Value2, occupationTime: 0f);
+                if (Battle.BattleShouldEnd)
+                    yield break;
+                yield return NightmareAction(e, NM2Apply, 0f);
             }
         }
 

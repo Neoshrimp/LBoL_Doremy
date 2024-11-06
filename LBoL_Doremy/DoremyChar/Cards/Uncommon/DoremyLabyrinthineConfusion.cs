@@ -62,7 +62,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             {
                 yield return DefenseAction(cast: false);
                 foreach (var e in UnitSelector.AllEnemies.GetUnits(Battle))
-                    yield return DebuffAction<DC_NightmareSE>(e, NM2Apply, occupationTime: 0.07f);
+                    yield return NightmareAction(e, NM2Apply, 0.05f);
             }
 
         }

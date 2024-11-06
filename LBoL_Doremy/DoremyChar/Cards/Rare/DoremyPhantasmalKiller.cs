@@ -112,9 +112,9 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
                 }
             }
 
-            foreach(var kv in NMperUnit)
-                if(kv.Value > 0)
-                    yield return DebuffAction<DC_NightmareSE>(kv.Key, kv.Value);
+            foreach (var kv in NMperUnit)
+                if (kv.Value > 0)
+                    yield return NightmareAction(kv.Key, kv.Value);
 
         }
 

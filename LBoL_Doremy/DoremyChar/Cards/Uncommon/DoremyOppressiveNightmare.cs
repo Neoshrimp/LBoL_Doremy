@@ -33,6 +33,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 
 
             con.Value1 = 3;
+            con.UpgradedValue1 = 5;
+
 
             con.RelativeEffects = new List<string>() { nameof(DC_NightmareSE) };
             con.UpgradedRelativeEffects = new List<string>() { nameof(DC_NightmareSE) };
@@ -102,7 +104,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
         {
             NotifyActivating();
             foreach (var e in UnitSelector.AllEnemies.GetEnemies(Battle))
-                yield return DebuffAction<DC_NightmareSE>(e, Level, occupationTime: 0.07f);
+                yield return NightmareAction(e, Level, 0f);
         }
 
         private IEnumerable<BattleAction> OnDLApplied(DreamLevelArgs arg)

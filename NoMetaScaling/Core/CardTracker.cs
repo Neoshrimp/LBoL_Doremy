@@ -86,7 +86,7 @@ namespace NoMetaScaling.Core
         {
             if (args.ActionSource.TrickleDownActionSource() is Card card)
             {
-                GetBanData(card.Battle).bannedCards.Add(args.Card);
+                GetBanData(Battle).bannedCards.Add(args.Card);
             }
         }
 
@@ -96,7 +96,7 @@ namespace NoMetaScaling.Core
             if (args.ActionSource.TrickleDownActionSource() is Card card)
             {
                 foreach (var c in cards)
-                    GetBanData(card.Battle).bannedCards.Add(c);
+                    GetBanData(Battle).bannedCards.Add(c);
             }
         }
 

@@ -19,6 +19,6 @@ Also removes P drops from second wave onwards of Clownpiece summons.
 *Change log*
 
 ------
-
+`0.5.1` Minor fix for nasty bug.
 
 `0.5.0` Initial release.

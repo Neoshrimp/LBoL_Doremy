@@ -44,19 +44,16 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
     [EntityLogic(typeof(DoremySimpleDreamsDef))]
     public sealed class DoremySimpleDreams : DCard
     {
+        public override Interaction Precondition()
+        {
+            return new SelectCardInteraction(1, 1, EnumerateRelativeCards());
+        }
+
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
-            var cards = EnumerateRelativeCards().ToList();
-
-            if (cards.Count() != 0)
+            if (precondition is SelectCardInteraction selection && selection.SelectedCards.Count > 0)
             {
-                MiniSelectCardInteraction interaction = new MiniSelectCardInteraction(cards)
-                {
-                    Source = this
-                };
-                yield return new InteractionAction(interaction, false);
-                Card selectedCard = interaction.SelectedCard;
-                yield return new AddCardsToHandAction(new Card[] { selectedCard });
+                yield return new AddCardsToHandAction(selection.SelectedCards);
             }
         }
 

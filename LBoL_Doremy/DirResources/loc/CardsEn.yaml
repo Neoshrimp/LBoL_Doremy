@@ -149,7 +149,7 @@ DoremyDreamblast:
 DoremyKedamaTranquilizer:
   Name: Kedama Tranquilizer
   Description: |-
-    Apply {NM2Apply} |Nightmare| to the target enemy.
+    Apply {NM2Apply} |Nightmare|.
   FlavorText: |-
     Not rated for larger creatures, but hey, you can always just use more, right?
 
@@ -569,7 +569,7 @@ DoremyDreamTeamNextPage:
 DoremyDreamyReimu:
   Name: Dreamy Reimu
   Description: |-
-    {FriendS}Whenever {PlayerName} plays a card created in combat, gain {Value1} |TempFirepower| and |TempSpirit|.
+    {FriendS}Whenever a card created in combat, {PlayerName} gains {Value1} |TempFirepower| and |TempSpirit|.
     {FriendP}Add an |Yin-Ying Orb| to the hand. Gain {LB}1{CC} |Fleeting Fantasy|.
   ExtraDescription1: |-
     {FriendA}Draw a card for each card |Exiled| this turn ({LB}{ToDraw}{CC}).
@@ -598,7 +598,7 @@ DoremyDreamySakuya:
   ExtraDescription1: |-
     {FriendA}Discard any number of cards and draw that many cards.
   ExtraDescription2: |-
-    {FriendU}After the turn ends, take an extra turn.
+    {FriendU}After the turn ends, take an extra turn. |Time Limit| {Mana}.
   FlavorText: |-
     "You know, I'm something of an "Illusion World" myself" -The Dream World
 

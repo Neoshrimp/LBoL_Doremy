@@ -29,8 +29,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             con.Cost = new ManaGroup() { Hybrid = 2, HybridColor = 0 };
 
 
-            con.Value1 = 1;
-            con.UpgradedValue1 = 2;
+            con.Value1 = 2;
+            con.UpgradedValue1 = 3;
 
 
             con.RelativeEffects = new List<string>() { nameof(DC_NightmareSE) };

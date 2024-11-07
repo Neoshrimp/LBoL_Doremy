@@ -25,6 +25,7 @@ using System.Linq;
 using LBoL.EntityLib.Cards.Character.Sakuya;
 using LBoL.EntityLib.StatusEffects.Sakuya;
 using LBoLEntitySideloader;
+using LBoL.EntityLib.StatusEffects.ExtraTurn;
 
 namespace LBoL_Doremy.DoremyChar.Cards.Rare.DreamTeamates
 {
@@ -50,6 +51,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare.DreamTeamates
             con.PassiveCost = 2;
             con.ActiveCost = -3;
             con.UltimateCost = -6;
+
+            con.Mana = new ManaGroup() { Any = 1 };
 
 
             con.RelativeKeyword = Keyword.AutoExile;
@@ -115,7 +118,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare.DreamTeamates
 
         public override bool DiscardCard => true;
 
-        public override bool DoOverrideFriendU => false;
+        //public override bool DoOverrideFriendU => false;
 
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
@@ -139,8 +142,10 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare.DreamTeamates
             else
             {
                 base.Loyalty += base.UltimateCost;
-                UltimateUsed = true;
+                //UltimateUsed = true;
                 yield return BuffAction<ExtraTurn>(1);
+                yield return DebuffAction<TimeIsLimited>(Battle.Player,1);
+
             }
         }
 

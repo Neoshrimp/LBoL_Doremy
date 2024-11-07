@@ -57,6 +57,9 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
 
+            foreach (var a in base.Actions(selector, consumingMana, precondition))
+                yield return a;
+
             if (precondition is SelectCardInteraction interaction && interaction.SelectedCards.Count > 0)
             {
                 yield return new AddCardsToHandAction(interaction.SelectedCards);

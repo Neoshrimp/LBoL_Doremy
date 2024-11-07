@@ -51,8 +51,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare.DreamTeamates
             con.Cost = new ManaGroup() { Any = 2 };
             con.UpgradedCost = new ManaGroup() { Any = 0 };
 
-            con.Value1 = 30;
-            con.Value2 = 15;
+            con.Value1 = 13;
+            con.Value2 = 9;
 
             con.Loyalty = 4;
             con.PassiveCost = 2;
@@ -111,7 +111,15 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare.DreamTeamates
             else
             {
                 base.Loyalty += base.UltimateCost;
-                var cards = Battle.RollCardsWithoutManaLimit(new CardWeightTable(RarityWeightTable.BattleCard, OwnerWeightTable.AllOnes, CardTypeWeightTable.OnlyFriend), 2);
+
+                var pool = GameRun.CreateValidCardsPool(weightTable: new CardWeightTable(RarityWeightTable.BattleCard, OwnerWeightTable.AllOnes, CardTypeWeightTable.OnlyFriend), manaLimit: null, colorLimit: false, applyFactors: false, battleRolling: true, filter: null);
+
+                CardConfig.FromId(nameof(DoremyDreamTeam)).RelativeCards.Where(id => id != nameof(DoremyDreamTeamNextPage)).Select(id => TypeFactory<Card>.TryGetType(id)).Where(t => t != null)
+                    .Do(t => pool.Add(t, RarityWeightTable.BattleCard.Rare));
+
+                var cards = pool.SampleMany(GameRun.BattleCardRng, 2).Select(t => Library.CreateCard(t)).ToList();
+                cards.Do(c => c.GameRun = GameRun);
+                //var cards = Battle.RollCardsWithoutManaLimit(new CardWeightTable(RarityWeightTable.BattleCard, OwnerWeightTable.AllOnes, CardTypeWeightTable.OnlyFriend), 2);
                 cards.Do(c => c.Summon());
 
                 yield return new AddCardsToHandAction(cards);

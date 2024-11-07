@@ -16,6 +16,7 @@ namespace LBoL_Doremy
     [BepInPlugin(LBoL_Doremy.PInfo.GUID, LBoL_Doremy.PInfo.Name, LBoL_Doremy.PInfo.version)]
     [BepInDependency(LBoLEntitySideloader.PluginInfo.GUID, BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency(AddWatermark.API.GUID, BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("neo.lbol.modifiers.noMetaScaling", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInProcess("LBoL.exe")]
     public class BepinexPlugin : BaseUnityPlugin
     {

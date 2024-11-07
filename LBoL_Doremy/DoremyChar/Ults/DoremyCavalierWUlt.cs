@@ -48,10 +48,8 @@ namespace LBoL_Doremy.DoremyChar.Ults
             return new UltimateSkillConfig(
                 "",
                 10,
-                //PowerCost: 120,
-                //PowerPerLevel: 120,
-                PowerCost: 100,
-                PowerPerLevel: 100,
+                PowerCost: 110,
+                PowerPerLevel: 110,
                 MaxPowerLevel: 2,
                 RepeatableType: UsRepeatableType.OncePerTurn,
                 //RepeatableType: UsRepeatableType.FreeToUse,
@@ -399,7 +397,7 @@ namespace LBoL_Doremy.DoremyChar.Ults
         public static string[] Type2Img = new string[] { "", nameof(FinalSpark), nameof(NiuqiDefense), nameof(PerfectServant), nameof(BailianBlack),  nameof(MeilingFriend), nameof(ToolHeal), nameof(Nightmare), nameof(Drunk)};
 
 
-        public static int[] Type2RollMod = new int[] { 0, 1, 1, 0, -1, -1, -3, 2, 2,};
+        public static int[] Type2RollMod = new int[] { 0, 2, 1, 0, -1, -1, -3, 2, 2,};
 
 
         public string RollModDesc => GameEntityFormatWrapper.WrappedFormatNumber(0, RollMod, "");

@@ -32,7 +32,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare.DreamTeamates
             var con = DefaultConfig();
             con.Rarity = Rarity.Rare;
 
-            con.Type = CardType.Skill;
+            con.Type = CardType.Ability;
             con.TargetType = TargetType.Nobody;
 
             con.Colors = new List<ManaColor>() { ManaColor.White };
@@ -40,7 +40,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare.DreamTeamates
 
 
             con.Value1 = 1;
-            con.UpgradedValue1 = 3;
+            con.UpgradedValue1 = 2;
 
             var teamArray = new string[]
             {

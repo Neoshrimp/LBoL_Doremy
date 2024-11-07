@@ -17,6 +17,7 @@ using System.Text;
 using Unity.Collections.LowLevel.Unsafe;
 using LBoL.Core.Units;
 using LBoL_Doremy.CreatedCardTracking;
+using System.Linq;
 
 namespace LBoL_Doremy.DoremyChar.Cards.Rare.DreamTeamates
 {
@@ -66,9 +67,22 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare.DreamTeamates
     {
         protected override void OnEnterBattle(BattleController battle)
         {
-            ReactBattleEvent(battle.CardUsed, OnCardUsed);
+            //ReactBattleEvent(battle.CardUsed, OnCardUsed);
+            ReactOnCardsAddedEvents(battle, OnCardsAdded);
         }
 
+        private IEnumerable<BattleAction> OnCardsAdded(Card[] cards, GameEventArgs args)
+        {
+            if (!IsAbilityActive)
+                yield break;
+            foreach (var c in cards.Where(c => c != this))
+            {
+                if (Battle.BattleShouldEnd)
+                    yield break;
+                yield return BuffAction<TempFirepower>(1, occupationTime: 0.07f);
+                yield return BuffAction<TempSpirit>(1, occupationTime: 0.07f);
+            }
+        }
 
         private IEnumerable<BattleAction> OnCardUsed(CardUsingEventArgs args)
         {

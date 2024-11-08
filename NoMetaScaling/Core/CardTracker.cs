@@ -14,6 +14,7 @@ using LBoL.Core.StatusEffects;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using NoMetaScalling;
 
 namespace NoMetaScaling.Core
 {
@@ -35,7 +36,7 @@ namespace NoMetaScaling.Core
 
         public static bool WasGenerated(this Card card) => card.InstanceId > startingId;
 
-        public static bool ShouldBeBanned(this Card card) => Battle == null ? false : GetBanData(Battle).bannedCards.Contains(card);
+        public static bool IsBanned(this Card card) => Battle == null ? false : GetBanData(Battle).bannedCards.Contains(card);
 
 
         static ConditionalWeakTable<BattleController, BanData> cwt_banData = new ConditionalWeakTable<BattleController, BanData>();
@@ -92,11 +93,20 @@ namespace NoMetaScaling.Core
 
         private static void OnCardCreated(Card[] cards, GameEventArgs args)
         {
-            // maybe allow first time gen from a real card
-            if (args.ActionSource.TrickleDownActionSource() is Card card)
+
+            Log.LogDebug(args.ActionSource);
+            Log.LogDebug(args.Cause);
+
+
+            if (args.ActionSource.TrickleDownActionSource() is Card sourceCard)
             {
                 foreach (var c in cards)
+                {
+                    if (!sourceCard.IsBanned() && sourceCard.InvokedEcho() && sourceCard.IsNaturalEcho())
+                        continue;
+
                     GetBanData(Battle).bannedCards.Add(c);
+                }
             }
         }
 

@@ -48,7 +48,7 @@ namespace NoMetaScaling.Core
             if (battle == null)
                 return true;
 
-            if (ARTracker.lastActionSource?.TrickleDownActionSource() is Card card && card.ShouldBeBanned())
+            if (ARTracker.lastActionSource?.TrickleDownActionSource() is Card card && card.IsBanned())
             {
                 DoYap(card, cancelTarget);
                 return false;
@@ -67,7 +67,7 @@ namespace NoMetaScaling.Core
 
         private static void OnPlayerHealing(HealEventArgs args)
         {
-            if (args.ActionSource?.TrickleDownActionSource() is Card card && card.ShouldBeBanned())
+            if (args.ActionSource?.TrickleDownActionSource() is Card card && card.IsBanned())
             {
                 CardTracker.Battle.React(new Reactor(DoChat(card, NoMoreMetaScalingLocSE.LocalizeProp("Healing"))), null, ActionCause.None);
                 args.CancelBy(args.ActionSource);
@@ -114,7 +114,7 @@ namespace NoMetaScaling.Core
             static void Postfix(GainPowerAction __instance)
             {
                 var args = __instance.Args;
-                if (args.ActionSource?.TrickleDownActionSource() is Card card && card.ShouldBeBanned())
+                if (args.ActionSource?.TrickleDownActionSource() is Card card && card.IsBanned())
                 {
                     __instance.React(new Reactor(DoChat(card, NoMoreMetaScalingLocSE.LocalizeProp("Power"))));
                     args.CancelBy(args.ActionSource);

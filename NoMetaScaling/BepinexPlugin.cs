@@ -3,7 +3,10 @@ using HarmonyLib;
 using LBoLEntitySideloader;
 using LBoLEntitySideloader.Entities;
 using LBoLEntitySideloader.Resource;
+using NoMetaScaling;
 using NoMetaScaling.Core;
+using NoMetaScaling.Core.EnemyGroups;
+using NoMetaScaling.Core.Trackers;
 using System.Reflection;
 using UnityEngine;
 
@@ -31,6 +34,8 @@ namespace NoMetaScalling
             // very important. Without this the entry point MonoBehaviour gets destroyed
             DontDestroyOnLoad(gameObject);
             gameObject.hideFlags = HideFlags.HideAndDontSave;
+
+            PConfig.DoBinds(Config);
 
             EntityManager.RegisterSelf();
             harmony.PatchAll();

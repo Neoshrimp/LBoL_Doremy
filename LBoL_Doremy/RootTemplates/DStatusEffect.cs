@@ -5,6 +5,7 @@ using LBoL.Core.Battle;
 using LBoL.Core.Cards;
 using LBoL.Core.StatusEffects;
 using LBoL.Core.Units;
+using LBoL.Presentation;
 using LBoL_Doremy.DoremyChar.Actions;
 using LBoL_Doremy.DoremyChar.DoremyPU;
 using LBoL_Doremy.StaticResources;
@@ -15,6 +16,7 @@ using LBoLEntitySideloader.Entities;
 using LBoLEntitySideloader.Resource;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using UnityEngine;
 
@@ -91,6 +93,8 @@ namespace LBoL_Doremy.RootTemplates
         public virtual int TimesVal => Level;
 
         public NightmareAction NightmareAction(Unit target, NightmareInfo level, float occupationTime = 0.15f) => new NightmareAction(Battle.Player, target, level, occupationTime);
+
+        [MaybeNull] protected BattleController RealBattle => this.Battle ?? GameMaster.Instance?.CurrentGameRun?.Battle;
 
 
         protected void ReactOnCardsAddedEvents(Func<Card[], GameEventArgs, IEnumerable<BattleAction>> reactor)

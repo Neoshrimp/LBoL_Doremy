@@ -48,6 +48,8 @@ namespace LBoL_Doremy.DoremyChar.Actions
 
             React(applyNMAction, Args.ActionSource, Args.Cause);
 
+            if (applyNMAction.IsCanceled)
+                Args.ForceCancelBecause(applyNMAction.CancelCause);
 
             Args.CanCancel = false;
 

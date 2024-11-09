@@ -8,37 +8,41 @@ using LBoL.Core;
 using LBoLEntitySideloader.CustomHandlers;
 using LBoL.Core.Battle.BattleActions;
 using LBoL.Core.Cards;
-using NoMetaScaling.Core;
 using LBoL.Presentation;
 using LBoL.Core.Battle;
 using NoMetaScalling;
 using UnityEngine;
+using NoMetaScaling.Core.Trackers;
+using NoMetaScaling.Core.Loc;
 
 namespace NoMetaScaling.Core
 {
     public static class ActionCancel
     {
-        static IEnumerable<BattleAction> DoChat(GameEntity source, string cancelTarget)
+        static IEnumerable<BattleAction> DoChat(GameEntity source, string cancelTarget, BanReason reason)
         {
+            Log.LogDebug(reason);
             var player = GameMaster.Instance.CurrentGameRun?.Player;
             if (player == null)
                 yield break;
+
 
             if (UnityEngine.Random.Range(0, 1f) > 0.96f)
                 yield return PerformAction.Chat(player, $"I'M A DEGENERATE", 1.75f);
             else
             {
-                var chatString = string.Format(NoMoreMetaScalingLocSE.LocalizeProp("CancelExplain", true), cancelTarget, source.Name);
-                yield return PerformAction.Chat(player, chatString, 7f);
+                //var chatString = string.Format(NoMoreMetaScalingLocSE.LocalizeProp("CancelExplain", true), cancelTarget, source.Name);
+                var chatString = $"{source.Name}: {reason}";
+                yield return PerformAction.Chat(player, chatString, 3f/*7f*/);
             }
 
 
         }
 
-        static void DoYap(Card card, string cancelTarget)
+        static void DoYap(GameEntity source, string cancelTarget, BanReason reason)
         {
-            foreach (var a in DoChat(card, cancelTarget))
-                 CardTracker.Battle.RequestDebugAction(a, "Yapping");
+            foreach (var a in DoChat(source, cancelTarget, reason))
+                 BattleCWT.Battle.RequestDebugAction(a, "Yapping");
         }
 
         static bool PrefixCancel(GameRunController gr, string cancelTarget)
@@ -47,10 +51,9 @@ namespace NoMetaScaling.Core
 
             if (battle == null)
                 return true;
-
-            if (ARTracker.lastActionSource?.TrickleDownActionSource() is Card card && card.IsBanned())
+            if(CardTracker.IsEntityBanned(ARTracker.lastActionSource, out var reason))
             {
-                DoYap(card, cancelTarget);
+                DoYap(ARTracker.lastActionSource, cancelTarget, reason);
                 return false;
             }
 
@@ -67,9 +70,9 @@ namespace NoMetaScaling.Core
 
         private static void OnPlayerHealing(HealEventArgs args)
         {
-            if (args.ActionSource?.TrickleDownActionSource() is Card card && card.IsBanned())
+            if (CardTracker.IsEntityBanned(ARTracker.lastActionSource, out var reason))
             {
-                CardTracker.Battle.React(new Reactor(DoChat(card, NoMoreMetaScalingLocSE.LocalizeProp("Healing"))), null, ActionCause.None);
+                BattleCWT.Battle.React(new Reactor(DoChat(ARTracker.lastActionSource, NoMoreMetaScalingLocSE.LocalizeProp("Healing"), reason)), null, ActionCause.None);
                 args.CancelBy(args.ActionSource);
             }
         }
@@ -114,9 +117,10 @@ namespace NoMetaScaling.Core
             static void Postfix(GainPowerAction __instance)
             {
                 var args = __instance.Args;
-                if (args.ActionSource?.TrickleDownActionSource() is Card card && card.IsBanned())
+
+                if (CardTracker.IsEntityBanned(args.ActionSource, out var reason))
                 {
-                    __instance.React(new Reactor(DoChat(card, NoMoreMetaScalingLocSE.LocalizeProp("Power"))));
+                    __instance.React(new Reactor(DoChat(args.ActionSource, NoMoreMetaScalingLocSE.LocalizeProp("Power"), reason)));
                     args.CancelBy(args.ActionSource);
                 }
             }

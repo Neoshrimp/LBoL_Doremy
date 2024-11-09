@@ -47,7 +47,9 @@ namespace LBoL_Doremy
             BattleHistoryHandlers.RegisterAll();
             DreamLayerCard.RegisterEndOfTurnHandlers();
 
+
             AssetManager.DoLoadAsync();
+            
         }
 
         private void OnDestroy()

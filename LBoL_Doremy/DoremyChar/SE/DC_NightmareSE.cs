@@ -60,7 +60,7 @@ namespace LBoL_Doremy.DoremyChar.SE
 
             UpdateOrCreateNightmareBar();
 
-            React(DoKill());
+            React(CheckAndDoKill());
         }
 
 /*        private IEnumerable<BattleAction> OnSelfAdded(StatusEffectApplyEventArgs args)
@@ -150,7 +150,7 @@ namespace LBoL_Doremy.DoremyChar.SE
                 if (_nightmareSource == null) 
                 {
                     Log.LogWarning($"{this.Name} doesn't have NightmareSource set. Defaulting to PlayerUnit.");
-                    return Battle.Player;
+                    return RealBattle.Player;
                 } 
                 return _nightmareSource;
             }
@@ -165,7 +165,12 @@ namespace LBoL_Doremy.DoremyChar.SE
 
             if (other is DC_NightmareSE otherNM)
                 NightmareSource = otherNM.NightmareSource;
-            React(DoKill());
+
+            React(CheckAndDoKill());
+
+            if (Level <= 0)
+                React(new RemoveStatusEffectAction(this));
+                
 
             return rez;
         }
@@ -178,7 +183,7 @@ namespace LBoL_Doremy.DoremyChar.SE
 
 
 
-        IEnumerable<BattleAction> DoKill()
+        IEnumerable<BattleAction> CheckAndDoKill()
         {
             if (CheckKill())
             {
@@ -189,12 +194,12 @@ namespace LBoL_Doremy.DoremyChar.SE
 
         private IEnumerable<BattleAction> HealingReceived(HealEventArgs args)
         {
-            return DoKill();
+            return CheckAndDoKill();
         }
 
         private IEnumerable<BattleAction> DamageReceived(DamageEventArgs args)
         {
-            return DoKill();
+            return CheckAndDoKill();
         }
 
         private IEnumerable<BattleAction> BlockShieldLost(BlockShieldEventArgs args)
@@ -226,7 +231,7 @@ namespace LBoL_Doremy.DoremyChar.SE
                 if (unit.Battle != null && unit.TryGetStatusEffect<DC_NightmareSE>(out var nightmareSE))
                 {
                     nightmareSE.UpdateOrCreateNightmareBar();
-                    foreach (var a in nightmareSE.DoKill())
+                    foreach (var a in nightmareSE.CheckAndDoKill())
                         // technically is not correct and will react outside of action stack where SetMaxHp was invoked.
                         // but currently there's no action for setting max hp so w/e
                         // ALSO action source will be null

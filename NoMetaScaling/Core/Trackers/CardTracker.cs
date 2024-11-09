@@ -42,7 +42,7 @@ namespace NoMetaScaling.Core.Trackers
             {
                 if (!isSEReal.isReal)
                 {
-                    reason = BanReason.StatusEffectIsFake;
+                    reason = BanReason.StatusEffectWasFake;
                     return true;
                 }
                 return false;
@@ -97,32 +97,35 @@ namespace NoMetaScaling.Core.Trackers
                 var copyTargetsToTaint = new HashSet<Card>();
                 foreach (var addedCard in cards)
                 {
-
-                    Log.LogDebug($"before {addedCard.Name} tainted:{addedCard.IsTainted()};banned:{addedCard.IsBanned(out var r)} {r}");
                     bool doBan = true;
-                    BanReason reason = BanReason.CardIsGenerated;
+                    BanReason reason = BanReason.CardWasGenerated;
 
                     // natural echo clause
                     if (!sourceCard.IsBanned(out var _) && sourceCard.InvokedEcho() && sourceCard.IsNaturalEcho())
                         continue;
 
-
+                    // 2do is this even necessary?
+                    // all it does it enables fake moons and some imaginary alpha=>beta=>omega meta scaling
+                    // in turn of making exceptions and tainting/banning dependent on unclear play order. 
+                    // tainting is sort of half ban for future copies. it's necessary cuz genius dev put meta scaling on debut
+                    // also lilly
                     if (PConfig.BanLevel <= BanLevel.NonPooledAndCopiesAllowed)
                     {
                         if (!addedCard.Config.IsPooled)
                         {
+                            // 2do if copied should obey copy rules instead
                             GetBanData(Battle).TaintCard(addedCard);
                             doBan = false;
                         }
                         else
-                            reason = BanReason.GeneratedCardIsPooled;
+                            reason = BanReason.CarrdWasGeneratedAndIsPooled;
                     }
 
                     // copying is superset of echoing
                     if (PConfig.BanLevel <= BanLevel.OnlyCopiesAllowed)
                     {
                         // if Copying happened, that is if a card created by CloneBattleCard was added to battlefield
-                        if (GetCopyHistory(Battle).WasCopiedAndForget(addedCard, out var copyPair))
+                        if (GetCopyHistory(Battle).IfWasCopiedForget(addedCard, out var copyPair))
                         {
                             if (!sourceCard.IsBanned(out var _))
                             {
@@ -130,26 +133,27 @@ namespace NoMetaScaling.Core.Trackers
                                     doBan = false;
                                 else
                                 {
-                                    if (sourceCard.IsOnlyTainted())
-                                        reason = BanReason.CopyTargetIsTainted;
+                                    if (copyPair.original.IsOnlyTainted())
+                                        reason = BanReason.CopyTargetWasTainted;
                                     else
-                                        reason = BanReason.CopyTargetIsBanned;
+                                        reason = BanReason.CopyTargetWasBanned;
                                 }
 
                                 if (sourceCard.IsTainted())
                                 {
                                     copyTargetsToTaint.Add(copyPair.original);
                                 }
-                                // all copies get tainted
-                                GetBanData(Battle).TaintCard(addedCard);
+                                // taint spreads
+                                if(sourceCard.IsTainted() || copyPair.original.IsTainted())
+                                    GetBanData(Battle).TaintCard(addedCard);
                             }
                             else
-                                reason = BanReason.CopySourceIsBanned;
+                                reason = BanReason.CopySourceWasBanned;
 
                         }
                     }
-                    else if (GetCopyHistory(Battle).WasCopiedAndForget(addedCard, out var _))
-                        reason = BanReason.CardIsCopied;
+                    else if (GetCopyHistory(Battle).IfWasCopiedForget(addedCard, out var _))
+                        reason = BanReason.CardWasCopied;
 
 
 
@@ -158,13 +162,13 @@ namespace NoMetaScaling.Core.Trackers
                     else
                         reason = BanReason.NotBanned;
 
-                    Log.LogDebug($"after {addedCard.Name} tainted:{addedCard.IsTainted()};banned:{addedCard.IsBanned(out var _)};notbanned{reason}");
+                    Log.LogDebug($"{addedCard.Name} tainted:{addedCard.IsTainted()}; banned:{addedCard.IsBanned(out var _)}; {reason}");
 
                 }
                 copyTargetsToTaint.Do(c =>
                 {
                     GetBanData(Battle).TaintCard(c);
-                    Log.LogDebug($"target {c.Name} tainted:{c.IsTainted()};banned:{c.IsBanned(out var r)};notbanned{r}");
+                    Log.LogDebug($"copy target {c.Name} tainted:{c.IsTainted()}; banned:{c.IsBanned(out var r)}; {r}");
                 });
                 
             }
@@ -188,16 +192,16 @@ namespace NoMetaScaling.Core.Trackers
         // common
         NotBanned,
         WasAlreadyUsed,
-        StatusEffectIsFake,
+        StatusEffectWasFake,
         // level 0
-        GeneratedCardIsPooled,
+        CarrdWasGeneratedAndIsPooled,
         // level 1
-        CopySourceIsBanned,
-        CopyTargetIsTainted,
-        CopyTargetIsBanned,
+        CopySourceWasBanned,
+        CopyTargetWasTainted,
+        CopyTargetWasBanned,
         // strict
-        CardIsCopied,
-        CardIsGenerated,
+        CardWasCopied,
+        CardWasGenerated,
         // should not be there
         Other
     }

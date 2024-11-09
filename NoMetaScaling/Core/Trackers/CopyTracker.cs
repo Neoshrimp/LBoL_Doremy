@@ -23,8 +23,6 @@ namespace NoMetaScaling.Core.Trackers
         }
 
 
-
-
     }
 
     public class CopyHistory
@@ -33,16 +31,18 @@ namespace NoMetaScaling.Core.Trackers
 
         public void AddCopyPair(CopyPair copyPair) => cardsCopied.Add(copyPair);
 
-        public bool WasCopiedAndForget(Card potentialCopy, out CopyPair copyPair)
+        public bool WasCopied(Card potentialCopy, out CopyPair copyPair)
         {
             var rez = cardsCopied.TryGetValue(new CopyPair(null, potentialCopy), out copyPair);
-
-            if(rez)
-                cardsCopied.Remove(copyPair);
-
             return rez;
+        }
 
-
+        public bool IfWasCopiedForget(Card potentialCopy, out CopyPair copyPair)
+        {
+            var rez = WasCopied(potentialCopy, out copyPair);
+            if (rez)
+                cardsCopied.Remove(copyPair);
+            return rez;
         }
 
 

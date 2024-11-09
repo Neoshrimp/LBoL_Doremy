@@ -54,21 +54,21 @@ namespace LBoL_Doremy.DoremyChar.DoremyPU
                 InitialMana: new ManaGroup() { White = 2, Blue = 2 },
                 InitialMoney: 100,
                 InitialPower: 0,
-                UltimateSkillA: nameof(DoremyCavalierUUlt),
-                UltimateSkillB: nameof(DoremyCavalierWUlt),
-                ExhibitA: nameof(DoremyCavalierUEx),
-                ExhibitB: nameof(DoremyCavalierWEx),
-                DeckA: new string[] { nameof(Shoot), nameof(Shoot), nameof(Boundary), nameof(Boundary), 
-                    nameof(DoremyCavalierAttackU), nameof(DoremyCavalierAttackU),
-                    nameof(DoremyCavalierDefenseW), nameof(DoremyCavalierDefenseW), nameof(DoremyCavalierDefenseW), 
-                    nameof(DoremyDreamblast) },
-                DeckB: new string[] { nameof(Shoot), nameof(Shoot), nameof(Boundary), nameof(Boundary),
+                UltimateSkillA: nameof(DoremyCavalierWUlt),
+                UltimateSkillB: nameof(DoremyCavalierUUlt),
+                ExhibitA: nameof(DoremyCavalierWEx),
+                ExhibitB: nameof(DoremyCavalierUEx),
+                DeckA: new string[] { nameof(Shoot), nameof(Shoot), nameof(Boundary), nameof(Boundary),
                     nameof(DoremyCavalierAttackW), nameof(DoremyCavalierAttackW),
                     nameof(DoremyCavalierDefenseU), nameof(DoremyCavalierDefenseU), nameof(DoremyCavalierDefenseU),
                     nameof(DoremySleepyStrikes) },
+                DeckB: new string[] { nameof(Shoot), nameof(Shoot), nameof(Boundary), nameof(Boundary),
+                    nameof(DoremyCavalierAttackU), nameof(DoremyCavalierAttackU),
+                    nameof(DoremyCavalierDefenseW), nameof(DoremyCavalierDefenseW), nameof(DoremyCavalierDefenseW),
+                    nameof(DoremyDreamblast) },
                 // 2do diff
-                DifficultyA: 2,
-                DifficultyB: 3);
+                DifficultyA: 3,
+                DifficultyB: 2);
             return con;
         }
     }

@@ -1,0 +1,18 @@
+﻿on BepinexPlugin:
+[BepInDependency(NoMetaScalinAPI.GUID, BepInDependency.DependencyFlags.SoftDependency)]
+
+in BepinexPlugin.Awake:
+if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey(NoMetaScalinAPI.GUID))
+    NoMetaScalinAPIWrap.InteractWithNoMetaScaling();
+
+
+    
+public class NoMetaScalinAPIWrap
+{
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public static void InteractWithNoMetaScaling()
+    {
+        // API calls
+    }
+}
+

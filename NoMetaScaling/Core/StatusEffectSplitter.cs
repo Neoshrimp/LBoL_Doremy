@@ -15,15 +15,13 @@ using LBoL.EntityLib.Cards.Neutral.Green;
 using LBoL.EntityLib.Cards.Neutral.Red;
 using LBoL.EntityLib.Cards.Neutral.TwoColor;
 using LBoL.EntityLib.StatusEffects.Neutral.Red;
+using NoMetaScaling.Core.API;
 using NoMetaScalling;
 
 namespace NoMetaScaling.Core
 {
     public static class StatusEffectSplitter
     {
-
-        internal static HashSet<string> splitableSE_CARD_ids = new HashSet<string>() { nameof(RangziFanshu), nameof(MeihongPower) };
-
         [HarmonyPatch(typeof(ApplyStatusEffectAction), nameof(ApplyStatusEffectAction.PreEventPhase))]
         class ApplyStatusEffectAction_PreEvent_Patch
         {
@@ -38,7 +36,7 @@ namespace NoMetaScaling.Core
 
                 if (action.Args.ActionSource?.TrickleDownActionSource() is Card card)
                 {
-                    if (splitableSE_CARD_ids.Contains(card.Id))
+                    if (ExposedStatics.splitableSE_CARD_ids.Contains(card.Id))
                     {
                         AttachIsSEReal(args.Effect, isReal: !card.IsBanned(out var _));
                     }

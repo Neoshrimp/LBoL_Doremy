@@ -19,6 +19,7 @@ using static NoMetaScaling.Core.BattleCWT;
 using LBoLEntitySideloader.Resource;
 using LBoLEntitySideloader;
 using NoMetaScaling.Core.Trackers;
+using NoMetaScaling.Core.API;
 
 namespace NoMetaScaling.Core
 {
@@ -93,16 +94,15 @@ namespace NoMetaScaling.Core
             GetBanData(Battle).BanCard(args.Card, BanReason.CardWasAlreadyUsed);
         }
 
-
-
-        internal static HashSet<string> banExcemptIds = new HashSet<string>();
-
         private static void OnCardCreated(Card[] cards, GameEventArgs args)
         {
             if (args.ActionSource.TrickleDownActionSource() is Card sourceCard)
             {
                 foreach (var addedCard in cards)
                 {
+                    if (ExposedStatics.exemptFromBan.Contains(addedCard.Id))
+                        continue;
+
                     bool doBan = true;
                     BanReason reason = BanReason.CardWasGenerated;
 
@@ -136,7 +136,7 @@ namespace NoMetaScaling.Core
 
                     if (doBan)
                     {
-                        if (banExcemptIds.Contains(addedCard.Id) && !BanData.CopiedReasons.Contains(reason))
+                        if (ExposedStatics.dontBanUnlessCopied.Contains(addedCard.Id) && !BanData.CopiedReasons.Contains(reason))
                         { }
                         else
                             GetBanData(Battle).BanCard(addedCard, reason);

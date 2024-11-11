@@ -5,6 +5,7 @@ using LBoLEntitySideloader.Entities;
 using LBoLEntitySideloader.Resource;
 using NoMetaScaling;
 using NoMetaScaling.Core;
+using NoMetaScaling.Core.API;
 using NoMetaScaling.Core.EnemyGroups;
 using System.Reflection;
 using UnityEngine;
@@ -45,6 +46,8 @@ namespace NoMetaScalling
             CardFilter.RegisterHandlers();
             ActionCancel.RegisterHandlers();
             EnemyGroupHandlers.RegisterHandlers();
+
+            NoMetaScalinAPI.SelectivelyBanMetaScalingSatusEffect("SanaePowerPotato");
         }
 
         private void OnDestroy()

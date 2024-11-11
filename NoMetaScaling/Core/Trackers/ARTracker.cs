@@ -4,6 +4,7 @@ using LBoL.Core.Battle;
 using NoMetaScalling;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace NoMetaScaling.Core.Trackers
@@ -13,8 +14,19 @@ namespace NoMetaScaling.Core.Trackers
         internal static GameEntity lastActionSource = null;
 
 
+
+        [HarmonyPatch(typeof(ActionResolver), nameof(ActionResolver.Resolve))]
+        class Resolve_Patch
+        {
+            static void Prefix(BattleAction root)
+            {
+                lastActionSource = root.Source;
+            }
+        }
+
+
         [HarmonyPatch(typeof(ActionResolver), nameof(ActionResolver.InternalResolve))]
-        class ActionResolver_Patch
+        class InternalResolve_Patch
         {
             static void Prefix(BattleAction action)
             {
@@ -28,6 +40,7 @@ namespace NoMetaScaling.Core.Trackers
         {
             static void Postfix()
             {
+                Log.LogDebug("end deez");
                 lastActionSource = null;
             }
         }

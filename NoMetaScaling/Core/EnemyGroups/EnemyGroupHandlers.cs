@@ -9,6 +9,7 @@ using LBoL.Presentation;
 using LBoLEntitySideloader;
 using LBoLEntitySideloader.BattleModifiers.Actions;
 using LBoLEntitySideloader.CustomHandlers;
+using NoMetaScaling.Core.API;
 using NoMetaScalling;
 using System;
 using System.Collections.Generic;
@@ -21,9 +22,9 @@ namespace NoMetaScaling.Core.EnemyGroups
     {
         public static void RegisterHandlers()
         {
-            SummonerInfo.AddSummoner(nameof(Rin), 21);
-            SummonerInfo.AddSummoner(nameof(Kokoro), 9);
-            SummonerInfo.AddSummoner(nameof(Clownpiece), 3);
+            NoMetaScalinAPI.AddOrOverwriteSummoner(nameof(Rin), 21);
+            NoMetaScalinAPI.AddOrOverwriteSummoner(nameof(Kokoro), 9);
+            NoMetaScalinAPI.AddOrOverwriteSummoner(nameof(Clownpiece), 3);
 
             CHandlerManager.RegisterBattleEventHandler(bt => bt.BattleStarted, OnBattleStarted);
         }
@@ -33,20 +34,20 @@ namespace NoMetaScaling.Core.EnemyGroups
         {
             var battle = GameMaster.Instance.CurrentGameRun.Battle;
 
-            var summoners = battle.AllAliveEnemies.Where(e => SummonerInfo.summonerInfo.ContainsKey(e.Id));
+            var summoners = battle.AllAliveEnemies.Where(e => ExposedStatics.summonerInfo.ContainsKey(e.Id));
 
-            foreach(var summoner in summoners)
-                battle.React(new ApplySEnoTriggers(typeof(MaxSummonsSE), summoner, SummonerInfo.summonerInfo[summoner.Id].limit), null, ActionCause.None);
+            foreach (var summoner in summoners)
+            {
+                var limit = ExposedStatics.summonerInfo[summoner.Id].limit;
+                if(limit >= 0)
+                    battle.React(new ApplySEnoTriggers(typeof(MaxSummonsSE), summoner, limit), null, ActionCause.None);
+            }
         }
 
     }
 
     public struct SummonerInfo
     {
-        internal static Dictionary<string, SummonerInfo> summonerInfo = new Dictionary<string, SummonerInfo>();
-
-        public static void AddSummoner(string summonerId, int summonLimit) => summonerInfo.AlwaysAdd(summonerId, new SummonerInfo(summonerId, summonLimit));
-
         public string id;
         public int limit;
 

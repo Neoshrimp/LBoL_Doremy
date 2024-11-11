@@ -22,11 +22,12 @@ using MonoMod.Utils;
 
 namespace NoMetaScaling.Core
 {
+    // 2do actionless reactors lose their source at the end of combat, SanaePowerPotato
     public static class ActionCancel
     {
         static IEnumerable<BattleAction> DoChat(GameEntity source, string cancelTarget, BanReason reason)
         {
-            Log.LogDebug(reason);
+            //Log.LogDebug(reason);
             var player = GameMaster.Instance.CurrentGameRun?.Player;
             if (player == null)
                 yield break;
@@ -56,8 +57,12 @@ namespace NoMetaScaling.Core
             if (battle == null)
                 return true;
 
+            
+
             if (actionSource == null)
                 actionSource = ARTracker.lastActionSource;
+
+            //Log.LogDebug(actionSource);
 
             if(CardFilter.IsEntityBanned(actionSource, out var reason))
             {
@@ -185,6 +190,18 @@ namespace NoMetaScaling.Core
                     __instance.React(new Reactor(DoChat(args.ActionSource, NoMoreMetaScalingLocSE.LocalizeProp("Power"), reason)));
                     args.CancelBy(args.ActionSource);
                 }
+            }
+        }
+
+
+
+
+        [HarmonyPatch(typeof(GameRunController), nameof(GameRunController.GainPower))]
+        class GainPower_Patch
+        {
+            static bool Prefix(GameRunController __instance)
+            {
+                return PrefixCancel(__instance, NoMoreMetaScalingLocSE.LocalizeProp("Power"));
             }
         }
 

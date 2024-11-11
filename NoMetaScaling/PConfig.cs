@@ -11,7 +11,7 @@ namespace NoMetaScaling
 
         public static void DoBinds(ConfigFile configFile)
         {
-            banLevel = configFile.Bind(banSection, "BanLevel", BanLevel.NonPooledAndCopiesAllowed, "Ban strictness.");
+            banLevel = configFile.Bind(banSection, "BanLevel", BanLevel.RealCopiesAllowed, "Ban strictness.");
         }
 
         static ConfigEntry<BanLevel> banLevel;
@@ -26,8 +26,8 @@ namespace NoMetaScaling
 
     public enum BanLevel
     {
-        NonPooledAndCopiesAllowed,
-        OnlyCopiesAllowed,
+        //NonPooledAndCopiesAllowed,
+        RealCopiesAllowed,
         Strict
     }
 }

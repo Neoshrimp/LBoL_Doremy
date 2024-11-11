@@ -14,6 +14,11 @@ using NoMetaScalling;
 using UnityEngine;
 using NoMetaScaling.Core.Trackers;
 using NoMetaScaling.Core.Loc;
+using System.Reflection;
+using LBoL.Presentation.UI.Panels;
+using System.IO;
+using LBoLEntitySideloader.ReflectionHelpers;
+using MonoMod.Utils;
 
 namespace NoMetaScaling.Core
 {
@@ -31,9 +36,8 @@ namespace NoMetaScaling.Core
                 yield return PerformAction.Chat(player, $"I'M A DEGENERATE", 1.75f);
             else
             {
-                //var chatString = string.Format(NoMoreMetaScalingLocSE.LocalizeProp("CancelExplain", true), cancelTarget, source.Name);
-                var chatString = $"{source.Name}: {reason}";
-                yield return PerformAction.Chat(player, chatString, 3f/*7f*/);
+                var chatString = NoMoreMetaScalingLocSE.GetBanChatString(source, cancelTarget, reason);
+                yield return PerformAction.Chat(player, chatString, 6f);
             }
 
 
@@ -45,13 +49,17 @@ namespace NoMetaScaling.Core
                  BattleCWT.Battle.RequestDebugAction(a, "Yapping");
         }
 
-        static bool PrefixCancel(GameRunController gr, string cancelTarget)
+        static bool PrefixCancel(GameRunController gr, string cancelTarget, GameEntity actionSource = null)
         {
             var battle = gr.Battle;
 
             if (battle == null)
                 return true;
-            if(CardTracker.IsEntityBanned(ARTracker.lastActionSource, out var reason))
+
+            if (actionSource == null)
+                actionSource = ARTracker.lastActionSource;
+
+            if(CardFilter.IsEntityBanned(actionSource, out var reason))
             {
                 DoYap(ARTracker.lastActionSource, cancelTarget, reason);
                 return false;
@@ -70,7 +78,7 @@ namespace NoMetaScaling.Core
 
         private static void OnPlayerHealing(HealEventArgs args)
         {
-            if (CardTracker.IsEntityBanned(ARTracker.lastActionSource, out var reason))
+            if (CardFilter.IsEntityBanned(ARTracker.lastActionSource, out var reason))
             {
                 BattleCWT.Battle.React(new Reactor(DoChat(ARTracker.lastActionSource, NoMoreMetaScalingLocSE.LocalizeProp("Healing"), reason)), null, ActionCause.None);
                 args.CancelBy(args.ActionSource);
@@ -98,15 +106,69 @@ namespace NoMetaScaling.Core
         }
 
 
-
-        [HarmonyPatch(typeof(GameRunController), nameof(GameRunController.GainMoney))]
+        [HarmonyPatch]
         class GainMoney_Patch
         {
+
+            static IEnumerable<MethodBase> TargetMethods()
+            {
+                yield return AccessTools.Method(typeof(GameRunController), nameof(GameRunController.GainMoney));
+                yield return AccessTools.Method(typeof(GameRunController), nameof(GameRunController.InternalGainMoney));
+
+            }
+
+
             static bool Prefix(GameRunController __instance)
             {
-                return PrefixCancel(__instance, NoMoreMetaScalingLocSE.LocalizeProp("Money"));
+                var rez = PrefixCancel(__instance, NoMoreMetaScalingLocSE.LocalizeProp("Money"));
+                return rez;
             }
         }
+
+
+        [HarmonyPatch(typeof(GainMoneyAction), nameof(GainMoneyAction.ResolvePhase))]
+        class GainMoneyAction_Patch
+        {
+            static FieldInfo f_Money = null;
+            static FieldInfo F_Money
+            {
+                get
+                {
+                    if (f_Money == null) 
+                    {
+                        f_Money = AccessTools.Field(typeof(GainMoneyAction), ConfigReflection.BackingWrap(nameof(GainMoneyAction.Money)));
+                    }
+                    return f_Money;
+                }
+            }
+
+            static bool Prefix(GainMoneyAction __instance)
+            {
+                var rez = PrefixCancel(__instance.Battle.GameRun, NoMoreMetaScalingLocSE.LocalizeProp("Money"), __instance.Source);
+
+                if (!rez)
+                    F_Money.SetValue(__instance, 0);
+
+                return rez;
+            }
+        }
+
+
+
+        [HarmonyPatch(typeof(GameRunVisualPanel), nameof(GameRunVisualPanel.ViewGainMoney))]
+        class ViewGainMoney_Patch
+        {
+            static bool Prefix(GainMoneyAction action)
+            {
+                if (action.Money <= 0)
+                    return false;
+                return true;
+            }
+        }
+
+
+
+
 
 
 
@@ -118,7 +180,7 @@ namespace NoMetaScaling.Core
             {
                 var args = __instance.Args;
 
-                if (CardTracker.IsEntityBanned(args.ActionSource, out var reason))
+                if (CardFilter.IsEntityBanned(args.ActionSource, out var reason))
                 {
                     __instance.React(new Reactor(DoChat(args.ActionSource, NoMoreMetaScalingLocSE.LocalizeProp("Power"), reason)));
                     args.CancelBy(args.ActionSource);

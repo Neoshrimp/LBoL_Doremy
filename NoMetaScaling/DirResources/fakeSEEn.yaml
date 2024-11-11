@@ -1,10 +1,25 @@
 NoMoreMetaScalingLocSE:
   Name: deez
   Description: nuts
-  CancelExplain: "{0} was canceled because {1} was created, copied or bounced from exile <b>by another card</b>."
+  CancelExplain: "{0} was canceled because {1} {2}."
   Healing: Healing
   Power: Power gain
   Money: Money gain
   MaxHp: MaxHp gain
   UpgradeACard: Deck card upgrade
-  CancelDeez: I'M A DEGENERATE
+  ReasonCardWasAlreadyUsed: was already played
+  ReasonCopySourceWasBanned: was copied by a banned card
+  ReasonCopyTargetWasBanned: the original copy was banned
+  ReasonCardWasCopied: was copied <b>by another card</b>
+  ReasonCardWasGenerated: was created <b>by another card</b>
+  ReasonStatusEffectWasFake: effect was added by a banned card
+
+MaxSummonsSE:
+  Name: Summon drop limiter
+  Description: |-
+    Only the following {Level} summon{Level:plural one='s' other=''} will drop <sprite="Point" name="Power"> upon being defeated.
+  NoLevelDesc: |-
+    Summons won't drop any <sprite="Point" name="Power">.
+
+
+

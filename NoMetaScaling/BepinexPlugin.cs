@@ -6,7 +6,6 @@ using LBoLEntitySideloader.Resource;
 using NoMetaScaling;
 using NoMetaScaling.Core;
 using NoMetaScaling.Core.EnemyGroups;
-using NoMetaScaling.Core.Trackers;
 using System.Reflection;
 using UnityEngine;
 
@@ -43,7 +42,7 @@ namespace NoMetaScalling
             if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey(AddWatermark.API.GUID))
                 WatermarkWrapper.ActivateWatermark();
 
-            CardTracker.RegisterHandlers();
+            CardFilter.RegisterHandlers();
             ActionCancel.RegisterHandlers();
             PissHandlers.RegisterHandlers();
         }

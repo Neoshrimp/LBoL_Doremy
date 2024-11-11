@@ -44,5 +44,15 @@ namespace NoMetaScaling.Core.Loc
         }
 
         public static string LocalizeProp(string key, bool decorate = false, bool required = true) => Instance.LocalizeProperty(key, decorate, required);
+
+        public static string LocReason(BanReason reason) => LocalizeProp($"Reason{reason}", true);
+
+        public static string GetBanChatString(GameEntity source, string cancelTarget, BanReason reason)
+        {
+            var chatString = string.Format(LocalizeProp("CancelExplain", true), cancelTarget, source.Name, LocReason(reason));
+
+            return chatString;
+        }
+
     }
 }

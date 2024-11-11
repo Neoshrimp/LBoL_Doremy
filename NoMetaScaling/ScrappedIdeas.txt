@@ -1,0 +1,235 @@
+using HarmonyLib;
+using LBoL.Core.Battle;
+using LBoL.Core;
+using LBoL.Core.Cards;
+using LBoL.Core.Units;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using Unity.IO.LowLevel.Unsafe;
+using LBoL.Presentation;
+using LBoLEntitySideloader.CustomHandlers;
+using LBoL.Core.StatusEffects;
+using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
+using UnityEngine;
+using NoMetaScalling;
+using System.Linq;
+using static NoMetaScaling.Core.BattleCWT;
+using LBoLEntitySideloader.Resource;
+using LBoLEntitySideloader;
+
+namespace NoMetaScaling.Core.Trackers
+{
+    public static class CardTracker
+    {
+
+
+        [return: MaybeNull]
+        public static GameEntity TrickleDownActionSource(this GameEntity actionSource)
+        {
+            var rez = actionSource;
+            if (actionSource is StatusEffect se && se.SourceCard != null)
+                rez = se.SourceCard;
+            return rez;
+
+        }
+
+        public static bool IsEntityBanned(GameEntity gameEntity, out BanReason reason)
+        {
+            reason = BanReason.NotBanned;
+            if (gameEntity is StatusEffect se && StatusEffectSplitter.TryGetIsSEReal(se, out var isSEReal))
+            {
+                if (!isSEReal.isReal)
+                {
+                    reason = BanReason.StatusEffectWasFake;
+                    return true;
+                }
+                return false;
+            }
+
+            if (gameEntity?.TrickleDownActionSource() is Card card)
+                return card.IsBanned(out reason);
+
+            return false;
+                
+        }
+
+        public static bool WasGenerated(this Card card) => card.InstanceId > startingId;
+
+        public static bool IsBanned(this Card card, out BanReason reason)
+        {
+            if (Battle == null)
+            {
+                reason = BanReason.NotBanned;
+                return false;
+            }
+            return GetBanData(Battle).IsBanned(card, out reason);
+        }
+
+        public static bool IsTainted(this Card card) => Battle == null ? false : GetBanData(Battle).IsTainted(card);
+
+        public static bool IsOnlyTainted(this Card card) => Battle == null ? false : GetBanData(Battle).IsOnlyTainted(card);
+
+
+        
+
+
+
+        public static void RegisterHandlers()
+        {
+
+            RegisterCommonHandlers(OnCardCreated);
+            CHandlerManager.RegisterBattleEventHandler(bt => bt.CardUsed, OnCardUsed, null, (GameEventPriority)9999);
+
+        }
+
+        private static void OnCardUsed(CardUsingEventArgs args)
+        {
+            GetBanData(Battle).BanCard(args.Card, BanReason.WasAlreadyUsed);
+        }
+
+
+        private static void OnCardCreated(Card[] cards, GameEventArgs args)
+        {
+            if (args.ActionSource.TrickleDownActionSource() is Card sourceCard)
+            {
+                var copyTargetsToTaint = new HashSet<Card>();
+                foreach (var addedCard in cards)
+                {
+                    bool doBan = true;
+                    BanReason reason = BanReason.CardWasGenerated;
+
+                    // natural echo clause
+                    if (!sourceCard.IsBanned(out var _) && sourceCard.InvokedEcho() && sourceCard.IsNaturalEcho())
+                        continue;
+
+                    // 2do is this even necessary?
+                    // all it does it enables fake moons and some imaginary alpha=>beta=>omega meta scaling
+                    // in turn of making exceptions and tainting/banning dependent on unclear play order. 
+                    // tainting is sort of half ban for future copies. it's necessary cuz genius dev put meta scaling on debut
+                    // also lilly
+                    if (PConfig.BanLevel <= BanLevel.NonPooledAndCopiesAllowed)
+                    {
+                        if (!addedCard.Config.IsPooled)
+                        {
+                            // 2do if copied should obey copy rules instead
+                            GetBanData(Battle).TaintCard(addedCard);
+                            doBan = false;
+                        }
+                        else
+                            reason = BanReason.CarrdWasGeneratedAndIsPooled;
+                    }
+
+                    // copying is superset of echoing
+                    if (PConfig.BanLevel <= BanLevel.RealCopiesAllowed)
+                    {
+                        // if Copying happened, that is if a card created by CloneBattleCard was added to battlefield
+                        if (GetCopyHistory(Battle).IfWasCopiedForget(addedCard, out var copyPair))
+                        {
+                            if (!sourceCard.IsBanned(out var _))
+                            {
+                                if (!copyPair.original.IsTainted())
+                                    doBan = false;
+                                else
+                                {
+                                    if (copyPair.original.IsOnlyTainted())
+                                        reason = BanReason.CopyTargetWasTainted;
+                                    else
+                                        reason = BanReason.CopyTargetWasBanned;
+                                }
+
+                                if (sourceCard.IsTainted())
+                                {
+                                    copyTargetsToTaint.Add(copyPair.original);
+                                }
+                                // taint spreads
+                                if(sourceCard.IsTainted() || copyPair.original.IsTainted())
+                                    GetBanData(Battle).TaintCard(addedCard);
+                            }
+                            else
+                                reason = BanReason.CopySourceWasBanned;
+
+                        }
+                    }
+                    else if (GetCopyHistory(Battle).IfWasCopiedForget(addedCard, out var _))
+                        reason = BanReason.CardWasCopied;
+
+
+
+                    if (doBan)
+                        GetBanData(Battle).BanCard(addedCard, reason);
+                    else
+                        reason = BanReason.NotBanned;
+
+                    Log.LogDebug($"{addedCard.Name} tainted:{addedCard.IsTainted()}; banned:{addedCard.IsBanned(out var _)}; {reason}");
+
+                }
+                copyTargetsToTaint.Do(c =>
+                {
+                    GetBanData(Battle).TaintCard(c);
+                    Log.LogDebug($"copy target {c.Name} tainted:{c.IsTainted()}; banned:{c.IsBanned(out var r)}; {r}");
+                });
+                
+            }
+        }
+
+        static void RegisterCommonHandlers(Action<Card[], GameEventArgs> handler, GameEventPriority priority = GameEventPriority.ConfigDefault)
+        {
+            GameEventHandler<CardsAddingToDrawZoneEventArgs> drawZoneReactor = args => handler(args.Cards, args);
+            GameEventHandler<CardsEventArgs> otherReactors = args => handler(args.Cards, args);
+
+            CHandlerManager.RegisterBattleEventHandler(bt => bt.CardsAddedToExile, otherReactors, null, priority);
+            CHandlerManager.RegisterBattleEventHandler(bt => bt.CardsAddedToDrawZone, drawZoneReactor, null, priority);
+            CHandlerManager.RegisterBattleEventHandler(bt => bt.CardsAddedToHand, otherReactors, null, priority);
+            CHandlerManager.RegisterBattleEventHandler(bt => bt.CardsAddedToDiscard, otherReactors, null, priority);
+        }
+
+    }
+
+    public enum BanReason
+    {
+        // common
+        NotBanned,
+        WasAlreadyUsed,
+        StatusEffectWasFake,
+        // level 0
+        CarrdWasGeneratedAndIsPooled,
+        // level 1
+        CopySourceWasBanned,
+        CopyTargetWasTainted,
+        CopyTargetWasBanned,
+        // strict
+        CardWasCopied,
+        CardWasGenerated,
+        // should not be there
+        Other
+    }
+
+    public class BanData
+    {
+        public void BanCard(Card card, BanReason reason) => bannedCards.AlwaysAdd(card, reason);
+
+        public bool IsBanned(Card card, out BanReason reason)
+        {
+            reason = BanReason.NotBanned;
+            var rez = bannedCards.TryGetValue(card, out var actualReason);
+            if (rez)
+                reason = actualReason;
+            return rez;
+        }
+
+        public void TaintCard(Card card) => taintedCards.Add(card);
+
+        // any banned is tainted, tainted is superset of banned
+        public bool IsTainted(Card card) => taintedCards.Contains(card) || IsBanned(card, out var _);
+
+        public bool IsOnlyTainted(Card card) => taintedCards.Contains(card);
+
+
+        Dictionary<Card, BanReason> bannedCards = new Dictionary<Card, BanReason>();
+
+        HashSet<Card> taintedCards = new HashSet<Card>();
+
+    }
+}

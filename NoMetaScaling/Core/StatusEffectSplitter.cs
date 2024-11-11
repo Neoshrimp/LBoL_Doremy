@@ -13,8 +13,8 @@ using LBoL.Core.Units;
 using LBoL.EntityLib.Cards.Misfortune;
 using LBoL.EntityLib.Cards.Neutral.Green;
 using LBoL.EntityLib.Cards.Neutral.Red;
+using LBoL.EntityLib.Cards.Neutral.TwoColor;
 using LBoL.EntityLib.StatusEffects.Neutral.Red;
-using NoMetaScaling.Core.Trackers;
 using NoMetaScalling;
 
 namespace NoMetaScaling.Core

@@ -17,9 +17,9 @@ NoMoreMetaScalingLocSE:
 MaxSummonsSE:
   Name: Summon drop limiter
   Description: |-
-    Only the following {Level} summon{Level:plural one='s' other=''} will drop <sprite="Point" name="Power"> upon being defeated.
+    Only the next {Level} summon{Level:plural one='' other='s'} will drop <sprite="Point" name="Power"> upon being defeated.
   NoLevelDesc: |-
-    Summons won't drop any <sprite="Point" name="Power">.
+    Further summons won't drop any <sprite="Point" name="Power">.
 
 
 

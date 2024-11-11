@@ -44,7 +44,7 @@ namespace NoMetaScalling
 
             CardFilter.RegisterHandlers();
             ActionCancel.RegisterHandlers();
-            PissHandlers.RegisterHandlers();
+            EnemyGroupHandlers.RegisterHandlers();
         }
 
         private void OnDestroy()

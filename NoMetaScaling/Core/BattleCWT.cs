@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
+using NoMetaScaling.Core.EnemyGroups;
 
 namespace NoMetaScaling.Core
 {
@@ -37,7 +38,8 @@ namespace NoMetaScaling.Core
 
         public static CopyHistory GetCopyHistory(BattleController battle) => GetBattleData(battle).copyHistory;
 
-        public static CopyHistory CopyHistory => GetBattleData(Battle).copyHistory;
+        public static CopyHistory CopyHistory => GetCopyHistory(Battle);
+
 
 
 

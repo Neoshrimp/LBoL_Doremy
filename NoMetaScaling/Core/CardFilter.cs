@@ -20,6 +20,7 @@ using LBoLEntitySideloader.Resource;
 using LBoLEntitySideloader;
 using NoMetaScaling.Core.Trackers;
 using NoMetaScaling.Core.API;
+using LBoL.EntityLib.Cards.Character.Marisa;
 
 namespace NoMetaScaling.Core
 {
@@ -74,7 +75,7 @@ namespace NoMetaScaling.Core
 
         public static void RegisterHandlers()
         {
-
+            NoMetaScalinAPI.ExemptFromBanIfGenerated(nameof(PurpleMogu));
             RegisterCommonHandlers(OnCardCreated);
             CHandlerManager.RegisterBattleEventHandler(bt => bt.CardUsed, OnCardUsed, null, (GameEventPriority)9999);
 
@@ -100,7 +101,7 @@ namespace NoMetaScaling.Core
             {
                 foreach (var addedCard in cards)
                 {
-                    if (ExposedStatics.exemptFromBan.Contains(addedCard.Id))
+                    if (!sourceCard.IsBanned(out var _) && ExposedStatics.exemptFromBan.Contains(addedCard.Id))
                         continue;
 
                     bool doBan = true;
@@ -136,10 +137,7 @@ namespace NoMetaScaling.Core
 
                     if (doBan)
                     {
-                        if (ExposedStatics.dontBanUnlessCopied.Contains(addedCard.Id) && !BanData.CopiedReasons.Contains(reason))
-                        { }
-                        else
-                            GetBanData(Battle).BanCard(addedCard, reason);
+                        GetBanData(Battle).BanCard(addedCard, reason);
                     }
 
 

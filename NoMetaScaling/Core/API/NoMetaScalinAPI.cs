@@ -30,7 +30,7 @@ namespace NoMetaScaling.Core.API
         public static void SelectivelyBanMetaScalingSatusEffect(string se_CARD_ID) => ExposedStatics.splitableSE_CARD_ids.Add(se_CARD_ID);
 
         /// <summary>
-        /// Exempt a card from a ban if it was generated in combat. 
+        /// Exempt a card from a ban if it was generated/copied by a legal card. 
         /// Should only be applied to specific token(non-pooled) cards. 
         /// The card is still banned after being played.
         /// </summary>
@@ -39,11 +39,7 @@ namespace NoMetaScaling.Core.API
 
 
 
-        /// <summary>
-        /// Same as ExemptFromBanIfGenerated but Copies of the card will be banned.
-        /// </summary>
-        /// <param name="cardId">Card Id to exempt.</param>
-        public static void ExemptFromBanIfGeneratedUnlessCopied(string cardId) => ExposedStatics.dontBanUnlessCopied.Add(cardId);
+        //public static void ExemptFromBanIfGeneratedUnlessCopied(string cardId) => ExposedStatics.dontBanUnlessCopied.Add(cardId);
 
     }
 }

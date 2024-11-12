@@ -14,7 +14,7 @@ namespace NoMetaScaling.Core.API
         internal static HashSet<string> splitableSE_CARD_ids = new HashSet<string>() { nameof(RangziFanshu), nameof(MeihongPower) };
 
 
-        internal static HashSet<string> dontBanUnlessCopied = new HashSet<string>();
+        //internal static HashSet<string> dontBanUnlessCopied = new HashSet<string>();
 
         internal static HashSet<string> exemptFromBan = new HashSet<string>();
 

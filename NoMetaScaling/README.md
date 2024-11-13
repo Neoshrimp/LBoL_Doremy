@@ -6,10 +6,10 @@ Primary aim of the mod is to make a subset of optimal but very tedious plays imp
 Secondary aim is do this by effecting the original vanilla experience as little as possible.
 
 The plays in question in order of importance:
-a. Indefinite healing/Power once the fight is stabilized. Certain card combinations or even singular cards (Call On Friends) enable this. This usually allows some weaker decks to slog though mid Act 2 or early Act 3.
-a. Using Hp/Power as aggressive setup resource. If healing is indefinite once fight is stable, it doesn't matter how much non-lethal damage was taken.
-a. Disable non-infinite but still tedious stall for copying, namely The Reclusive Sage. Other sources of copying or echoing I consider to be ok. Example, decked LiP copying decked Sweet Potato would result in 27 hp healed at the end of the combat.
-a. Technical auto-win by drafting general card discovery (BB, Trace On) early on and gaining unlimited money and MaxHp.
+1. Indefinite healing/Power once the fight is stabilized. Certain card combinations or even singular cards (Call On Friends) enable this. This usually allows some weaker decks to slog though mid Act 2 or early Act 3.
+1. Using Hp/Power as aggressive setup resource. If healing is indefinite once fight is stable, it doesn't matter how much non-lethal damage was taken.
+1. Disable non-infinite but still tedious stall for copying, namely The Reclusive Sage. Other sources of copying or echoing I consider to be ok. Example, decked LiP copying decked Sweet Potato would result in 27 hp healed at the end of the combat.
+1. Technical auto-win by drafting general card discovery (BB, Trace On) early on and gaining unlimited money and MaxHp.
 
 Hence, not all reasons to stall fight were removed and some of them were deliberately left in. But hopefully, this mod should eliminate majority of the situations where stalling for 30+ would technically make sense. Maybe it could even become a standard for "serious and competitive" win streaking.
 

@@ -47,7 +47,9 @@ namespace NoMetaScalling
             ActionCancel.RegisterHandlers();
             EnemyGroupHandlers.RegisterHandlers();
 
-            NoMetaScalinAPI.SelectivelyBanMetaScalingSatusEffect("SanaePowerPotato");
+            new GrStateContainer().RegisterSelf(PInfo.GUID);
+
+            //NoMetaScalinAPI.SelectivelyBanMetaScalingSatusEffect("SanaePowerPotato");
         }
 
         private void OnDestroy()

@@ -19,6 +19,7 @@ using LBoL.Presentation.UI.Panels;
 using System.IO;
 using LBoLEntitySideloader.ReflectionHelpers;
 using MonoMod.Utils;
+using NoMetaScaling.Core.API;
 
 namespace NoMetaScaling.Core
 {
@@ -57,7 +58,8 @@ namespace NoMetaScaling.Core
             if (battle == null)
                 return true;
 
-            
+            if (!GrCWT.GetGrState(gr).cancelEnnabled)
+                return true;
 
             if (actionSource == null)
                 actionSource = ARTracker.lastActionSource;
@@ -74,6 +76,19 @@ namespace NoMetaScaling.Core
         }
 
 
+        private static void CancelAction(GameEventArgs args, string cancelTarget)
+        {
+            if (!GrCWT.GetGrState(GrCWT.GR).cancelEnnabled)
+                return;
+
+            if (CardFilter.IsEntityBanned(args.ActionSource, out var reason))
+            {
+                BattleCWT.Battle.React(new Reactor(DoChat(args.ActionSource, cancelTarget, reason)), null, ActionCause.None);
+                args.CancelBy(args.ActionSource);
+            }
+        }
+
+
         public static void RegisterHandlers()
         {
             CHandlerManager.RegisterBattleEventHandler(bt => bt.Player.HealingReceiving, OnPlayerHealing, null, GameEventPriority.Lowest);
@@ -83,11 +98,7 @@ namespace NoMetaScaling.Core
 
         private static void OnPlayerHealing(HealEventArgs args)
         {
-            if (CardFilter.IsEntityBanned(ARTracker.lastActionSource, out var reason))
-            {
-                BattleCWT.Battle.React(new Reactor(DoChat(ARTracker.lastActionSource, NoMoreMetaScalingLocSE.LocalizeProp("Healing"), reason)), null, ActionCause.None);
-                args.CancelBy(args.ActionSource);
-            }
+            CancelAction(args, NoMoreMetaScalingLocSE.LocalizeProp("Healing"));
         }
 
 
@@ -183,13 +194,10 @@ namespace NoMetaScaling.Core
         {
             static void Postfix(GainPowerAction __instance)
             {
-                var args = __instance.Args;
 
-                if (CardFilter.IsEntityBanned(args.ActionSource, out var reason))
-                {
-                    __instance.React(new Reactor(DoChat(args.ActionSource, NoMoreMetaScalingLocSE.LocalizeProp("Power"), reason)));
-                    args.CancelBy(args.ActionSource);
-                }
+                var args = __instance.Args;
+                CancelAction(args, NoMoreMetaScalingLocSE.LocalizeProp("Power"));
+
             }
         }
 

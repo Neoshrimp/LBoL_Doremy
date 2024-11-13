@@ -21,6 +21,7 @@ using LBoLEntitySideloader;
 using NoMetaScaling.Core.Trackers;
 using NoMetaScaling.Core.API;
 using LBoL.EntityLib.Cards.Character.Marisa;
+using LBoL.EntityLib.Cards.Neutral.NoColor;
 
 namespace NoMetaScaling.Core
 {
@@ -76,6 +77,12 @@ namespace NoMetaScaling.Core
         public static void RegisterHandlers()
         {
             NoMetaScalinAPI.ExemptFromBanIfGenerated(nameof(PurpleMogu));
+
+            NoMetaScalinAPI.ExemptFromBanIfPlayed(nameof(VampireShoot1));
+            NoMetaScalinAPI.ExemptFromBanIfPlayed(nameof(VampireShoot2));
+
+
+
             RegisterCommonHandlers(OnCardCreated);
             CHandlerManager.RegisterBattleEventHandler(bt => bt.CardUsed, OnCardUsed, null, (GameEventPriority)9999);
 
@@ -83,7 +90,12 @@ namespace NoMetaScaling.Core
 
         private static void OnCardUsed(CardUsingEventArgs args)
         {
+
             var card = args.Card;
+
+            if (ExposedStatics.exemptFromPlayBan.Contains(card.Id))
+                return;
+
             if (card.CardType == LBoL.Base.CardType.Friend 
                 && card.Summoned 
                 && !GetBanData(Battle).alreadySummoned.Contains(card))
@@ -101,7 +113,7 @@ namespace NoMetaScaling.Core
             {
                 foreach (var addedCard in cards)
                 {
-                    if (!sourceCard.IsBanned(out var _) && ExposedStatics.exemptFromBan.Contains(addedCard.Id))
+                    if (!sourceCard.IsBanned(out var _) && ExposedStatics.exemptFromGenBan.Contains(addedCard.Id))
                         continue;
 
                     bool doBan = true;
@@ -132,7 +144,6 @@ namespace NoMetaScaling.Core
                     }
                     else if (GetCopyHistory(Battle).IfWasCopiedForget(addedCard, out var _))
                         reason = BanReason.CardWasCopied;
-
 
 
                     if (doBan)
@@ -184,6 +195,8 @@ namespace NoMetaScaling.Core
         public bool IsBanned(Card card, out BanReason reason)
         {
             reason = BanReason.NotBanned;
+
+
             var rez = bannedCards.TryGetValue(card, out var actualReason);
             if (rez)
                 reason = actualReason;

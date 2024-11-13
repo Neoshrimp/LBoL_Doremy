@@ -13,6 +13,7 @@ NoMoreMetaScalingLocSE:
   ReasonCardWasCopied: was copied <b>by another card</b>
   ReasonCardWasGenerated: was created <b>by another card</b>
   ReasonStatusEffectWasFake: effect was added by a banned card
+  UrnAppend: " Limited to |e:{0}| times per combat."
 
 MaxSummonsSE:
   Name: Summon drop limiter

@@ -228,8 +228,23 @@ namespace NoMetaScaling.Core
             
         }
 
+        [HarmonyPatch(typeof(GameRunController), nameof(GameRunController.FinalBossInitialDamage), MethodType.Setter)]
+        class FinalBossInitialDamage_Patch
+        {
+            static bool Prefix(GameRunController __instance, int value)
+            {
+                if(value > 0)
+                    return PrefixCancel(__instance, NoMoreMetaScalingLocSE.LocalizeProp("SeijaDmg"));
+                return true;
+            }
+        }
 
     }
+
+
+
+
+
 
 
 

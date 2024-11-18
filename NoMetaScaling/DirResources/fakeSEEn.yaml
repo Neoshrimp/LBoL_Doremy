@@ -7,6 +7,7 @@ NoMoreMetaScalingLocSE:
   Money: Money gain
   MaxHp: MaxHp gain
   UpgradeACard: Deck card upgrade
+  SeijaDmg: Initial final boss damage accumulation
   ReasonCardWasAlreadyUsed: was already played
   ReasonCopySourceWasBanned: was copied by a banned card
   ReasonCopyTargetWasBanned: the original copy was banned

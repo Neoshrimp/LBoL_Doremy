@@ -18,7 +18,7 @@ namespace NoMetaScaling.Core.Trackers
 
         static IEnumerable<MethodBase> TargetMethods()
         {
-            var delegateType = typeof(UseCardAction).GetNestedTypes(AccessTools.allDeclared).First(t => t.Name.Contains("DisplayClass16_0"));
+            var delegateType = typeof(UseCardAction).GetNestedTypes(AccessTools.allDeclared).Single(t => t.Name.Contains("DisplayClass17_0"));
             yield return AccessTools.FirstMethod(delegateType, mi => mi.Name.Contains("GetPhases>b__4"));
         }
 

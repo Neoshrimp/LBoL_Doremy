@@ -57,6 +57,8 @@ It's defined in [`NoMetaScalinAPI`](https://github.com/Neoshrimp/LBoL_Doremy/blo
 *Change log*
 
 ------
+`0.9.2` Update for LBoL 1.6.0 beta. **Not compatible with previous versions.** Prevent All-Points Bulletin from scaling indefinitely.
+
 `0.9.0` Exempt Remi bites, add persistent banning toggle to the API.
 
 `0.8.1` Add Mushroom Specialist exception. Thanks again, *cyaneko*.

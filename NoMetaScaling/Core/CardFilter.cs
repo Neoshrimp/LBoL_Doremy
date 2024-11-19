@@ -22,6 +22,9 @@ using NoMetaScaling.Core.Trackers;
 using NoMetaScaling.Core.API;
 using LBoL.EntityLib.Cards.Character.Marisa;
 using LBoL.EntityLib.Cards.Neutral.NoColor;
+using LBoL.EntityLib.EnemyUnits.Lore;
+using LBoL.Core.Battle.BattleActions;
+using System.Reflection.Emit;
 
 namespace NoMetaScaling.Core
 {
@@ -63,6 +66,7 @@ namespace NoMetaScaling.Core
 
         public static bool IsBanned(this Card card, out BanReason reason)
         {
+
             if (Battle == null)
             {
                 reason = BanReason.NotBanned;
@@ -70,7 +74,6 @@ namespace NoMetaScaling.Core
             }
             return GetBanData(Battle).IsBanned(card, out reason);
         }
-
 
 
 
@@ -84,27 +87,83 @@ namespace NoMetaScaling.Core
 
 
             RegisterCommonHandlers(OnCardCreated);
-            CHandlerManager.RegisterBattleEventHandler(bt => bt.CardUsed, OnCardUsed, null, (GameEventPriority)9999);
+            //CHandlerManager.RegisterBattleEventHandler(bt => bt.CardUsed, OnCardUsed, null, (GameEventPriority)9999);
+
+            //CHandlerManager.RegisterBattleEventHandler(bt => bt.CardPlaying, OnCardPlaying, null, (GameEventPriority)9999);
+
+            //CHandlerManager.RegisterBattleEventHandler(bt => bt.CardUsing, OnCardUsing, null, GameEventPriority.Lowest);
+            
 
         }
 
-        private static void OnCardUsed(CardUsingEventArgs args)
+
+        [HarmonyPatch(typeof(UseCardAction), nameof(UseCardAction.GetPhases), MethodType.Enumerator)]
+        class OnCardUsing_Patch
         {
 
-            var card = args.Card;
+            static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
+            {
+                return new CodeMatcher(instructions)
+                    .MatchEndForward(new CodeInstruction(OpCodes.Callvirt, AccessTools.PropertyGetter(typeof(CardUsingEventArgs), nameof(CardUsingEventArgs.PlayTwice))))
+                    .MatchEndForward(new CodeInstruction(OpCodes.Callvirt, AccessTools.PropertySetter(typeof(Card), nameof(Card.PlayTwiceSourceCard))))
 
-            if (ExposedStatics.exemptFromPlayBan.Contains(card.Id))
-                return;
+                    .Advance(1)
 
-            if (card.CardType == LBoL.Base.CardType.Friend 
-                && card.Summoned 
-                && !GetBanData(Battle).alreadySummoned.Contains(card))
-            { 
-                GetBanData(Battle).alreadySummoned.Add(card);
-                return;
+
+                    .InsertAndAdvance(new CodeInstruction(OpCodes.Ldloc_1))
+                    .InsertAndAdvance(new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(CardFilter), nameof(CardFilter.OnCardUsing))))
+
+                    .InstructionEnumeration();
             }
 
-            GetBanData(Battle).BanCard(args.Card, BanReason.CardWasAlreadyUsed);
+        }
+
+
+
+        private static void OnCardUsing(UseCardAction action)
+        {
+            CardUsingEventArgs args = action.Args;
+            var playingCard = args.Card;
+            var copy = action._twiceTokenCard;
+            if (args.PlayTwice && (args._modifiers.LastOrDefault()?.TryGetTarget(out var lastMod) ?? false))
+            {
+                if (lastMod.TrickleDownActionSource() is Card sourceCard)
+                {
+                    var doBan = HandleCopying(sourceCard, playingCard, out var reason);
+                    if (doBan)
+                        GetBanData(Battle).BanCard(copy, reason);
+                }
+
+            }
+        }
+
+
+
+        internal static bool HandleCopying(Card sourceCard, Card original, out BanReason reason)
+        {
+            reason = BanReason.NotBanned;
+            bool doBan = true;
+            if (PConfig.BanLevel <= BanLevel.RealCopiesAllowed)
+            {
+                if (!sourceCard.IsBanned(out var _))
+                {
+                    if (!original.IsBanned(out var _))
+                        doBan = false;
+                    else
+                        reason = BanReason.CopyTargetWasBanned;
+                }
+                else
+                    reason = BanReason.CopySourceWasBanned;
+
+                GetBanData(Battle).QueueBan(sourceCard, BanReason.CardWasAlreadyUsed);
+            }
+            else
+            {
+                reason = BanReason.CardWasCopied;
+                GetBanData(Battle).QueueBan(sourceCard, BanReason.CardWasAlreadyUsed);
+            }
+            
+            return doBan;
         }
 
         private static void OnCardCreated(Card[] cards, GameEventArgs args)
@@ -124,26 +183,8 @@ namespace NoMetaScaling.Core
                         continue;
 
 
-                    // copying is superset of echoing
-                    if (PConfig.BanLevel <= BanLevel.RealCopiesAllowed)
-                    {
-                        // if Copying happened, that is if a card created by CloneBattleCard was added to battlefield
-                        if (GetCopyHistory(Battle).IfWasCopiedForget(addedCard, out var copyPair))
-                        {
-                            if (!sourceCard.IsBanned(out var _))
-                            {
-                                if (!copyPair.original.IsBanned(out var _))
-                                    doBan = false;
-                                else
-                                    reason = BanReason.CopyTargetWasBanned;
-                            }
-                            else
-                                reason = BanReason.CopySourceWasBanned;
-
-                        }
-                    }
-                    else if (GetCopyHistory(Battle).IfWasCopiedForget(addedCard, out var _))
-                        reason = BanReason.CardWasCopied;
+                    if (GetCopyHistory(Battle).IfWasCopiedForget(addedCard, out var copyPair))
+                        doBan = HandleCopying(sourceCard, copyPair.original, out reason);
 
 
                     if (doBan)
@@ -174,6 +215,7 @@ namespace NoMetaScaling.Core
     {
         // common
         NotBanned,
+        MetaResourcesAlreadyProvided,
         CardWasAlreadyUsed,
         StatusEffectWasFake,
         // level 1
@@ -182,6 +224,7 @@ namespace NoMetaScaling.Core
         // strict
         CardWasCopied,
         CardWasGenerated,
+        BannedByDefault,
         // should not be there
         Other
     }
@@ -195,6 +238,11 @@ namespace NoMetaScaling.Core
         public bool IsBanned(Card card, out BanReason reason)
         {
             reason = BanReason.NotBanned;
+            if (ExposedStatics.alwaysBanned.Contains(card.Id))
+            {
+                reason = BanReason.BannedByDefault;
+                return true;
+            }
 
 
             var rez = bannedCards.TryGetValue(card, out var actualReason);
@@ -204,7 +252,31 @@ namespace NoMetaScaling.Core
         }
 
 
-        Dictionary<Card, BanReason> bannedCards = new Dictionary<Card, BanReason>();
+        internal void FlushPendingBan()
+        {
+            foreach (var kv in pendingBan)
+                BanCard(kv.Key, kv.Value);
+            pendingBan.Clear();
+        }
+
+        public void QueueBan(Card card, BanReason reason)
+        {
+            if (ExposedStatics.exemptFromPlayBan.Contains(card.Id))
+                return;
+            if (card.CardType == LBoL.Base.CardType.Friend
+                && card.Summoned
+                && !GetBanData(Battle).alreadySummoned.Contains(card))
+            {
+                GetBanData(Battle).alreadySummoned.Add(card);
+                return;
+            }
+            pendingBan.AlwaysAdd(card, reason);
+        }
+
+        Dictionary<Card, BanReason> pendingBan = new Dictionary<Card, BanReason>();
+
+
+        public Dictionary<Card, BanReason> bannedCards = new Dictionary<Card, BanReason>();
 
         internal HashSet<Card> alreadySummoned = new HashSet<Card>();
 

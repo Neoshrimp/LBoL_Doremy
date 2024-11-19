@@ -16,6 +16,12 @@ namespace NoMetaScaling.Core.API
         public const string GUID = PInfo.GUID;
 
         /// <summary>
+        /// The card will always be banned no matter the rules.
+        /// </summary>
+        /// <param name="cardId">Card Id to ban.</param>
+        public static void AddBanByDefault(string cardId) => ExposedStatics.alwaysBanned.Add(cardId);
+
+        /// <summary>
         /// Limits how many summoned units will drop resources (P, Money, points) upon death.
         /// </summary>
         /// <param name="summonerId">Unit which is doing the summoning.</param>

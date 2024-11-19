@@ -1,4 +1,5 @@
 ﻿using BepInEx;
+using BepInEx.Configuration;
 using HarmonyLib;
 using LBoLEntitySideloader;
 using LBoLEntitySideloader.Entities;
@@ -7,6 +8,7 @@ using NoMetaScaling;
 using NoMetaScaling.Core;
 using NoMetaScaling.Core.API;
 using NoMetaScaling.Core.EnemyGroups;
+using System.Linq;
 using System.Reflection;
 using UnityEngine;
 
@@ -58,6 +60,15 @@ namespace NoMetaScalling
                 harmony.UnpatchSelf();
         }
 
+        KeyboardShortcut debugBind = new KeyboardShortcut(KeyCode.G, new KeyCode[] { KeyCode.LeftShift });
 
+        void Update()
+        {
+            if (debugBind.IsDown())
+            {
+                Log.LogDebug("deez");
+                Log.LogDebug(string.Join("\n", BattleCWT.GetBanData(BattleCWT.Battle).bannedCards.Select(kv => $"{kv.Key.Name}:{kv.Value}")));
+            }
+        }
     }
 }

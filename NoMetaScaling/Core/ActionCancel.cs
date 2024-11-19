@@ -24,6 +24,7 @@ using NoMetaScaling.Core.API;
 namespace NoMetaScaling.Core
 {
     // 2do actionless reactors lose their source at the end of combat, SanaePowerPotato
+    // 2do ban only if bannable actions are performed 
     public static class ActionCancel
     {
         static IEnumerable<BattleAction> DoChat(GameEntity source, string cancelTarget, BanReason reason)
@@ -72,6 +73,9 @@ namespace NoMetaScaling.Core
                 return false;
             }
 
+            if (actionSource.TrickleDownActionSource() is Card card)
+                BattleCWT.GetBanData(battle).QueueBan(card, BanReason.MetaResourcesAlreadyProvided);
+
             return true;
         }
 
@@ -86,6 +90,8 @@ namespace NoMetaScaling.Core
                 BattleCWT.Battle.React(new Reactor(DoChat(args.ActionSource, cancelTarget, reason)), null, ActionCause.None);
                 args.CancelBy(args.ActionSource);
             }
+            if (args.ActionSource.TrickleDownActionSource() is Card card)
+                BattleCWT.GetBanData(BattleCWT.Battle).QueueBan(card, BanReason.MetaResourcesAlreadyProvided);
         }
 
 
@@ -129,7 +135,8 @@ namespace NoMetaScaling.Core
             static IEnumerable<MethodBase> TargetMethods()
             {
                 yield return AccessTools.Method(typeof(GameRunController), nameof(GameRunController.GainMoney));
-                yield return AccessTools.Method(typeof(GameRunController), nameof(GameRunController.InternalGainMoney));
+                // too sweeping
+                //yield return AccessTools.Method(typeof(GameRunController), nameof(GameRunController.InternalGainMoney));
 
             }
 

@@ -1,6 +1,7 @@
 ﻿using HarmonyLib;
 using LBoL.Core;
 using LBoL.Core.Battle;
+using LBoL.Core.Cards;
 using NoMetaScalling;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Text;
 
 namespace NoMetaScaling.Core.Trackers
 {
+    // 2do ActionResolver does not capture actionless handler source
     public static class ARTracker
     {
         internal static GameEntity lastActionSource = null;
@@ -21,6 +23,16 @@ namespace NoMetaScaling.Core.Trackers
             static void Prefix(BattleAction root)
             {
                 lastActionSource = root.Source;
+            }
+
+            static IEnumerator<object> Postfix(IEnumerator<object> values)
+            {
+                while (values.MoveNext())
+                    yield return values.Current;
+
+                //Log.LogDebug($"{lastActionSource?.Name} reset AR");
+                BattleCWT.GetBanData(BattleCWT.Battle).FlushPendingBan();
+                lastActionSource = null;
             }
         }
 
@@ -40,7 +52,6 @@ namespace NoMetaScaling.Core.Trackers
         {
             static void Postfix()
             {
-                Log.LogDebug("end deez");
                 lastActionSource = null;
             }
         }

@@ -8,12 +8,14 @@ NoMoreMetaScalingLocSE:
   MaxHp: MaxHp gain
   UpgradeACard: Deck card upgrade
   SeijaDmg: Initial final boss damage accumulation
+  ReasonMetaResourcesAlreadyProvided: has already provided meta resources
   ReasonCardWasAlreadyUsed: was already played
   ReasonCopySourceWasBanned: was copied by a banned card
   ReasonCopyTargetWasBanned: the original copy was banned
   ReasonCardWasCopied: was copied <b>by another card</b>
   ReasonCardWasGenerated: was created <b>by another card</b>
   ReasonStatusEffectWasFake: effect was added by a banned card
+  ReasonBannedByDefault: is banned by default.
   UrnAppend: " Limited to |e:{0}| times per combat."
 
 MaxSummonsSE:

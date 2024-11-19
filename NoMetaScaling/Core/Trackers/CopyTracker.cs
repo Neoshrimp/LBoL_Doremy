@@ -4,23 +4,50 @@ using LBoL.Core.Battle;
 using LBoL.Core.Cards;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 
 namespace NoMetaScaling.Core.Trackers
 {
     internal static class CopyTracker
     {
-
-
-        [HarmonyPatch(typeof(Card), nameof(Card.CloneBattleCard))]
+        [HarmonyPatch]
         class CloneBattleCard_Patch
         {
+
+            static IEnumerable<MethodBase> TargetMethods()
+            {
+                yield return AccessTools.Method(typeof(Card), nameof(Card.CloneBattleCard));
+                // could be used as shortcut for copying
+                // yield return AccessTools.Method(typeof(Card), nameof(Card.CloneTwiceToken));
+            }
+
+
             static void Postfix(Card __instance, Card __result)
             {
-                // 2do bind copy and source
                 BattleCWT.CopyHistory.AddCopyPair(new CopyPair(__instance, __result));
             }
         }
+
+
+        //[HarmonyPatch]
+        class CloneTwiceToken_Patch
+        {
+
+            static IEnumerable<MethodBase> TargetMethods()
+            {
+                yield return AccessTools.Method(typeof(Card), nameof(Card.CloneTwiceToken));
+
+            }
+
+
+            static void Postfix(Card __instance, Card __result)
+            {
+                if(__instance.IsBanned(out var _))
+                    BattleCWT.GetBanData(BattleCWT.Battle).BanCard(__result, BanReason.CopySourceWasBanned);
+            }
+        }
+
 
 
     }

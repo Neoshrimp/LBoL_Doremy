@@ -25,6 +25,7 @@ using LBoL.EntityLib.Cards.Neutral.NoColor;
 using LBoL.EntityLib.EnemyUnits.Lore;
 using LBoL.Core.Battle.BattleActions;
 using System.Reflection.Emit;
+using LBoL.EntityLib.Cards.Neutral.Blue;
 
 namespace NoMetaScaling.Core
 {
@@ -179,7 +180,11 @@ namespace NoMetaScaling.Core
                     BanReason reason = BanReason.CardWasGenerated;
 
                     // real gen clause
-                    if (PConfig.AllowFirstTimeDeckedGen && !sourceCard.IsBanned(out var _) && !sourceCard.WasGenerated())
+                    if (PConfig.AllowFirstTimeDeckedGen 
+                        //&& args.ActionSource is Card // source is an actual card, not SE
+                        && !sourceCard.IsBanned(out var _) && !sourceCard.WasGenerated()
+                        && addedCard.Id != nameof(FakeMoon)
+                        )
                     {
                         GetBanData(Battle).QueueBan(sourceCard, BanReason.CardWasAlreadyUsed);
                         continue;

@@ -178,10 +178,20 @@ namespace NoMetaScaling.Core
                     bool doBan = true;
                     BanReason reason = BanReason.CardWasGenerated;
 
-                    // natural echo clause
-                    if (!sourceCard.IsBanned(out var _) && sourceCard.InvokedEcho() && sourceCard.IsNaturalEcho())
+                    // real gen clause
+                    if (PConfig.AllowFirstTimeDeckedGen && !sourceCard.IsBanned(out var _) && !sourceCard.WasGenerated())
+                    {
+                        GetBanData(Battle).QueueBan(sourceCard, BanReason.CardWasAlreadyUsed);
                         continue;
+                    }
 
+                    // natural echo clause
+                    if (!sourceCard.IsBanned(out var _) && sourceCard.InvokedEcho() 
+                        && (sourceCard.IsNaturalEcho() || sourceCard.IsNaturalPermaEcho()))
+                    { 
+                        GetBanData(Battle).QueueBan(sourceCard, BanReason.CardWasAlreadyUsed);
+                        continue;
+                    }
 
                     if (GetCopyHistory(Battle).IfWasCopiedForget(addedCard, out var copyPair))
                         doBan = HandleCopying(sourceCard, copyPair.original, out reason);

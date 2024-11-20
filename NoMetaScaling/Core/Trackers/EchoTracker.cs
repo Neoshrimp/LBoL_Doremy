@@ -16,6 +16,9 @@ namespace NoMetaScaling.Core.Trackers
 
         public static bool IsNaturalEcho(this Card card) => card.IsUpgraded ? card.Config.UpgradedKeywords.HasFlag(LBoL.Base.Keyword.Echo) : card.Config.Keywords.HasFlag(LBoL.Base.Keyword.Echo);
 
+        public static bool IsNaturalPermaEcho(this Card card) => card.IsUpgraded ? card.Config.UpgradedKeywords.HasFlag(LBoL.Base.Keyword.EternalEcho) : card.Config.Keywords.HasFlag(LBoL.Base.Keyword.EternalEcho);
+
+
         public static bool InvokedEcho(this Card card) => lastEchoSource == card;
 
         [HarmonyPatch(typeof(Card), nameof(Card.EchoCloneAction))]

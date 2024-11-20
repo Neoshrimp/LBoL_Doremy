@@ -1,6 +1,6 @@
 {
   "name": "NoMoreMetaScaling",
-  "version_number": "1.1.1",
+  "version_number": "1.1.2",
   "website_url": "https://github.com/Neoshrimp/LBoL_Doremy/tree/master/NoMetaScaling",
   "description": "Removes meta scaling with the least impact to vanilla experience.",
   "dependencies": [ "BepInEx-BepInExPack-5.4.2100", "TeamNeo-Sideloader-0.5.0" ]

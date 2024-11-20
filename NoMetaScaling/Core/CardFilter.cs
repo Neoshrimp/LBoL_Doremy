@@ -88,15 +88,26 @@ namespace NoMetaScaling.Core
 
 
             RegisterCommonHandlers(OnCardCreated);
-            //CHandlerManager.RegisterBattleEventHandler(bt => bt.CardUsed, OnCardUsed, null, (GameEventPriority)9999);
 
-            //CHandlerManager.RegisterBattleEventHandler(bt => bt.CardPlaying, OnCardPlaying, null, (GameEventPriority)9999);
+            CHandlerManager.RegisterBattleEventHandler(bt => bt.CardUsed, OnCardUsedPlayed, null, (GameEventPriority)9999);
+
+            CHandlerManager.RegisterBattleEventHandler(bt => bt.CardPlayed, OnCardUsedPlayed, null, (GameEventPriority)9999);
 
             //CHandlerManager.RegisterBattleEventHandler(bt => bt.CardUsing, OnCardUsing, null, GameEventPriority.Lowest);
             
 
         }
 
+        private static void OnCardUsedPlayed(CardUsingEventArgs args)
+        {
+            var card = args.Card;
+            if (card.CardType == LBoL.Base.CardType.Friend
+                && card.Summoned
+                && !GetBanData(Battle).alreadySummoned.Contains(card))
+            {
+                GetBanData(Battle).alreadySummoned.Add(card);
+            }
+        }
 
         [HarmonyPatch(typeof(UseCardAction), nameof(UseCardAction.GetPhases), MethodType.Enumerator)]
         class OnCardUsing_Patch

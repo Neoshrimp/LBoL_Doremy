@@ -21,7 +21,6 @@ namespace NoMetaScaling
 
         //public static BanLevel BanLevel => BanLevel.NonPooledAndCopiesAllowed;
 
-
     }
 
     public enum BanLevel

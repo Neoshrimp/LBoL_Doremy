@@ -17,6 +17,8 @@ NoMoreMetaScalingLocSE:
   ReasonStatusEffectWasFake: effect was added by a banned card
   ReasonBannedByDefault: is banned by default.
   UrnAppend: " Limited to |e:{0}| times per combat."
+  OrbAppend: " Life gain is limited to |e:{0}| times per combat."
+
 
 MaxSummonsSE:
   Name: Summon drop limiter
@@ -27,3 +29,7 @@ MaxSummonsSE:
 
 
 
+NoPointSummonSE:
+  Name: No drops
+  Description: |-
+    This summon won't drop any <sprite="Point" name="Power"> and <sprite="Point" name="Gold"> upon being defeated.

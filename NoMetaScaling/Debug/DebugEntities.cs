@@ -14,7 +14,7 @@ using System.Text;
 
 namespace NoMetaScaling.Debug
 {
-    public sealed class DebugCardDef : CardTemplate
+    public /*sealed*/ class DebugCardDef : CardTemplate
     {
         public override IdContainer GetId()
         {
@@ -41,8 +41,8 @@ namespace NoMetaScaling.Debug
         }
     }
 
-    [EntityLogic(typeof(DebugCardDef))]
-    public sealed class DebugCard : Card
+    //[EntityLogic(typeof(DebugCardDef))]
+    public /*sealed*/ class DebugCard : Card
     {
         protected override void OnEnterBattle(BattleController battle)
         {

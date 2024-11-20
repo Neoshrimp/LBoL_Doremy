@@ -18,6 +18,7 @@ using System.Linq;
 using UnityEngine;
 using Spine;
 using NoMetaScalling;
+using LBoL.Core.Battle.BattleActions;
 
 namespace NoMetaScaling.Core.EnemyGroups
 {
@@ -36,7 +37,7 @@ namespace NoMetaScaling.Core.EnemyGroups
             var con = DefaultConfig();
             con.Type = LBoL.Base.StatusEffectType.Special;
             con.HasLevel = true;
-            con.LimitStackType = LBoL.Base.StackType.Add;
+            con.LevelStackType = LBoL.Base.StackType.Add;
 
             return con;
         }
@@ -46,44 +47,30 @@ namespace NoMetaScaling.Core.EnemyGroups
     [EntityLogic(typeof(MaxSummonsSEDef))]
     public sealed class MaxSummonsSE : StatusEffect
     {
-        private HashSet<Unit> firstSpawns = new HashSet<Unit>();
+        //private HashSet<Unit> firstSpawns = new HashSet<Unit>();
 
         public override string Description => Battle == null || Level == 0 ? LocalizeProperty("NoLevelDesc", true) : base.Description;
 
         protected override void OnAdded(Unit unit)
         {
-            firstSpawns.Clear();
-            HandleOwnerEvent(Battle.EnemySpawned, OnFirstSpawns);
-            HandleOwnerEvent(Battle.EnemyPointGenerating, OnPointGenerating, GameEventPriority.Lowest);
+            //firstSpawns.Clear();
+            ReactOwnerEvent(Battle.EnemySpawned, OnFirstSpawns);
         }
 
 
-        private void OnFirstSpawns(UnitEventArgs args)
+        private IEnumerable<BattleAction> OnFirstSpawns(UnitEventArgs args)
         {
             if (args.ActionSource != Owner)
-                return;
+                yield break;
 
             if (Level > 0)
-            { 
-                firstSpawns.Add(args.Unit);
+            {
                 Level = Math.Max(Level - 1, 0);
             }
+            else
+                yield return new ApplyStatusEffectAction<NoPointSummonSE>(args.Unit);
         }
-        private void OnPointGenerating(DieEventArgs args)
-        {
-
-            var unit = args.Unit;
-
-            if (unit.HasStatusEffect<Servant>())
-                if (firstSpawns.Contains(unit))
-                    firstSpawns.Remove(unit);
-                else
-                {
-                    args.Power = 0;
-                    args.Money = 0;
-                    args.BluePoint = 0;
-                }
-        }
+      
 
 
 

@@ -61,6 +61,8 @@ It's defined in [`NoMetaScalinAPI`](https://github.com/Neoshrimp/LBoL_Doremy/blo
 *Change log*
 
 ------
+`1.0.2` Fix summons dropping loot (if they shouldn't) when the summoner is killed first. Limit Reimu orb healing.
+
 `1.0.0` Make after use ban way more selective, hard ban Echo Form, adjust ban rules for auto-play.
 
 `0.9.2` Update for LBoL 1.6.0 beta. **Not compatible with previous versions.** Prevent All-Points Bulletin from scaling indefinitely.

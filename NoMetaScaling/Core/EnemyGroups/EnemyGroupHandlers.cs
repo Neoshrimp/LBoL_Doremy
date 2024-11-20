@@ -26,6 +26,7 @@ namespace NoMetaScaling.Core.EnemyGroups
             NoMetaScalinAPI.AddOrOverwriteSummoner(nameof(Kokoro), 9);
             NoMetaScalinAPI.AddOrOverwriteSummoner(nameof(Clownpiece), 3);
 
+
             CHandlerManager.RegisterBattleEventHandler(bt => bt.BattleStarted, OnBattleStarted);
         }
 

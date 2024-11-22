@@ -50,7 +50,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare.DreamTeamates
             con.Loyalty = 5;
             con.PassiveCost = 2;
             con.ActiveCost = -3;
-            con.UltimateCost = -6;
+            con.ActiveCost2 = -6;
 
             con.Mana = new ManaGroup() { Any = 1 };
 
@@ -118,7 +118,6 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare.DreamTeamates
 
         public override bool DiscardCard => true;
 
-        //public override bool DoOverrideFriendU => false;
 
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
@@ -141,7 +140,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare.DreamTeamates
             }
             else
             {
-                base.Loyalty += base.UltimateCost;
+                base.Loyalty += base.ActiveCost2;
                 //UltimateUsed = true;
                 yield return BuffAction<ExtraTurn>(1);
                 yield return DebuffAction<TimeIsLimited>(Battle.Player,1);

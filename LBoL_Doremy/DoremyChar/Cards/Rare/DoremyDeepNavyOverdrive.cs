@@ -53,9 +53,12 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
             yield return BuffAction<DoremyDeepNavyOverdriveSE>();
         }
 
-        public override IEnumerable<BattleAction> AfterUseAction()
+        public override IEnumerable<BattleAction> AfterFollowPlayAction() => AfterUse(base.AfterFollowPlayAction());
+        public override IEnumerable<BattleAction> AfterUseAction() => AfterUse(base.AfterUseAction());
+
+        public IEnumerable<BattleAction> AfterUse(IEnumerable<BattleAction> baseActions)
         {
-            foreach(var a in base.AfterUseAction())
+            foreach(var a in baseActions)
                 yield return a;
 
             if (this.WasGenerated())

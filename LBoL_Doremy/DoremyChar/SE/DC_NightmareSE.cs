@@ -99,7 +99,7 @@ namespace LBoL_Doremy.DoremyChar.SE
 
                 var nBarImage = nBarGo.GetComponent<Image>();
                 var targetHpFill = PrecalculateHpBarFill(hpBar, Owner.Hp, Owner.MaxHp, Owner.Shield, Owner.Block);
-                nBarImage.fillAmount = (Math.Clamp(Level - 1, 0, Owner.Hp) / (float)Owner.Hp) * targetHpFill;
+                nBarImage.fillAmount = (Math.Clamp(Level /*- 1*/, 0, Owner.Hp) / (float)Owner.Hp) * targetHpFill;
 
             }
         }
@@ -177,8 +177,8 @@ namespace LBoL_Doremy.DoremyChar.SE
 
         public bool CheckKill()
         {
-            Count = Math.Clamp(Owner.Hp + 1 - Level, 0, Owner.Hp);
-            return Level > Owner.Hp;
+            Count = Math.Clamp(Owner.Hp + /*1*/ - Level, 0, Owner.Hp);
+            return Level >= Owner.Hp;
         }
 
 

@@ -57,7 +57,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare.DreamTeamates
             con.Loyalty = 4;
             con.PassiveCost = 2;
             con.ActiveCost = -3;
-            con.UltimateCost = -5;
+            con.ActiveCost2 = -5;
 
 
             con.RelativeEffects = new List<string>() { nameof(DoremySleepShieldSE), nameof(DC_DreamLayerKeywordSE) };
@@ -110,7 +110,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare.DreamTeamates
             }
             else
             {
-                base.Loyalty += base.UltimateCost;
+                base.Loyalty += base.ActiveCost2;
 
                 var pool = GameRun.CreateValidCardsPool(weightTable: new CardWeightTable(RarityWeightTable.BattleCard, OwnerWeightTable.AllOnes, CardTypeWeightTable.OnlyFriend), manaLimit: null, colorLimit: false, applyFactors: false, battleRolling: true, filter: null);
 
@@ -126,9 +126,12 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare.DreamTeamates
             }
         }
 
-        public override IEnumerable<BattleAction> AfterUseAction()
+        public override IEnumerable<BattleAction> AfterFollowPlayAction() => AfterUse(base.AfterFollowPlayAction());
+        public override IEnumerable<BattleAction> AfterUseAction() => AfterUse(base.AfterUseAction());
+
+        public IEnumerable<BattleAction> AfterUse(IEnumerable<BattleAction> baseActions)
         {
-            foreach (var a in base.AfterUseAction())
+            foreach (var a in baseActions)
             {
                 if (a is MoveCardAction moveAction
                     && moveAction.Args.SourceZone == CardZone.PlayArea

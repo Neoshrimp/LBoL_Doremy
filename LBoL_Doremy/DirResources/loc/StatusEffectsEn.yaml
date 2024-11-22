@@ -7,9 +7,9 @@ DoremyProcrastinateSE:
 DC_NightmareSE:
   Name: Nightmare
   Description: |-
-    When {SelfName} level exceeds {OwnerName}'s life, defeat {OwnerName}.
+    When {SelfName} level exceeds or is equal to {OwnerName}'s life, defeat {OwnerName}.
     {Count} actual life remaining.
-  Brief: When {SelfName} level exceeds afflicted unit's life, defeat the afflicted unit. {SelfName} is considered a {UIBlue}Special{CC} effect.
+  Brief: When {SelfName} level is no less than afflicted unit's life, defeat the afflicted unit. {SelfName} is considered a {UIBlue}Special{CC} effect.
 
 DoremyExtraDrawSE:
   Name: Extra Draw

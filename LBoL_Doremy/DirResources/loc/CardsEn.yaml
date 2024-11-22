@@ -574,7 +574,7 @@ DoremyDreamyReimu:
   ExtraDescription1: |-
     {FriendA}Draw a card for each card |Exiled| this turn ({LB}{ToDraw}{CC}).
   ExtraDescription2: |-
-    {FriendU}Whenever {PlayerName} gains |Block| or |Barrier| this turn, deal {Value2} damage to each enemy.
+    {FriendA2}Whenever {PlayerName} gains |Block| or |Barrier| this turn, deal {Value2} damage to each enemy.
   FlavorText: |-
     The wealthiest of all Dream Inhabitants.
 
@@ -586,7 +586,7 @@ DoremyDreamyMarisa:
   ExtraDescription1: |-
     {FriendA}Shuffle {LB}2{CC} |Unstable Potions| into the draw pile. Draw {LB}3{CC} cards.
   ExtraDescription2: |-
-    {FriendU}Enter |Burst|. Draw {LB}3{CC} cards.
+    {FriendA2}Enter |Burst|. Draw {LB}3{CC} cards.
   FlavorText: |-
     ☆Da Ze!☆-
 
@@ -598,7 +598,7 @@ DoremyDreamySakuya:
   ExtraDescription1: |-
     {FriendA}Discard any number of cards and draw that many cards.
   ExtraDescription2: |-
-    {FriendU}After the turn ends, take an extra turn. |Time Limit| {Mana}.
+    {FriendA2}After the turn ends, take an extra turn. |Time Limit| {Mana}.
   FlavorText: |-
     "You know, I'm something of an "Illusion World" myself" -The Dream World
 
@@ -610,7 +610,7 @@ DoremyDreamyCirno:
   ExtraDescription1: |-
     {FriendA}Apply |Cold| to each enemy, number of times equal to number of created cards in the hand ({TimesCold}).
   ExtraDescription2: |-
-    {FriendU}Summon 3 |e:Fairies of Light|, add them to the hand.
+    {FriendA2}Summon 3 |e:Fairies of Light|, add them to the hand.
   FlavorText: |-
     Guaranteed to knock you out cold!
 
@@ -622,7 +622,7 @@ DoremyDreamyDoremy:
   ExtraDescription1: |-
     {FriendA}Gain {Value2} |Devourer of Dreams|.
   ExtraDescription2: |-
-    {FriendU}Summon {LB}2{CC} completely random |Teammates|, add them to the hand.
+    {FriendA2}Summon {LB}2{CC} completely random |Teammates|, add them to the hand.
   FlavorText: |-
     Doremy Sweet used Double Team!
     Doremy Sweet's evasion rose!

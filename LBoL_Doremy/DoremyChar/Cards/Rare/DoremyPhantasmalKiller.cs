@@ -64,14 +64,17 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
             tryApplyNightmare = true;
         }
 
-        public override IEnumerable<BattleAction> AfterUseAction()
+        public override IEnumerable<BattleAction> AfterFollowPlayAction() => AfterUse(base.AfterFollowPlayAction());
+        public override IEnumerable<BattleAction> AfterUseAction() => AfterUse(base.AfterUseAction());
+
+        public IEnumerable<BattleAction> AfterUse(IEnumerable<BattleAction> baseActions)
         {
             tryApplyNightmare = false;
             foreach (var e in UnitSelector.AllEnemies.GetEnemies(Battle))
                 if (e.TryGetStatusEffect<DC_NightmareSE>(out var nightmare))
                     yield return new DamageAction(Battle.Player, e, DamageInfo.HpLose(nightmare.Level));
 
-            foreach (var a in base.AfterUseAction())
+            foreach (var a in baseActions)
                 yield return a; 
         }
 

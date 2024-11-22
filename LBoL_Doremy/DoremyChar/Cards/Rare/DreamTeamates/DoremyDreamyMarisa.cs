@@ -47,7 +47,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare.DreamTeamates
             con.Loyalty = 6;
             con.PassiveCost = 2;
             con.ActiveCost = -5;
-            con.UltimateCost = -6;
+            con.ActiveCost2 = -6;
 
 
 
@@ -146,7 +146,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare.DreamTeamates
             }
             else
             {
-                base.Loyalty += base.UltimateCost;
+                base.Loyalty += base.ActiveCost2;
                 yield return BuffAction<Burst>(1);
                 yield return new DrawManyCardAction(3);
             }

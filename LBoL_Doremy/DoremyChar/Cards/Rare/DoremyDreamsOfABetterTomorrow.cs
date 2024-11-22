@@ -120,10 +120,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
             
         }
 
-        public override IEnumerable<BattleAction> AfterUseAction()
-        {
-            return base.AfterUseAction();
-        }
+
     }
 
 

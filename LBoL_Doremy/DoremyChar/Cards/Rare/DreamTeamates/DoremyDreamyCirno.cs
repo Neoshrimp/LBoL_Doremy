@@ -53,7 +53,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare.DreamTeamates
             con.Loyalty = 3;
             con.PassiveCost = 1;
             con.ActiveCost = -3;
-            con.UltimateCost = -7;
+            con.ActiveCost2 = -7;
 
 
 
@@ -149,7 +149,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare.DreamTeamates
             }
             else
             {
-                base.Loyalty += base.UltimateCost;
+                base.Loyalty += base.ActiveCost2;
                 var fairies = EnumerateRelativeCards().ToList();
                 fairies.Do(f => f.Summon());
                 yield return new AddCardsToHandAction(fairies);

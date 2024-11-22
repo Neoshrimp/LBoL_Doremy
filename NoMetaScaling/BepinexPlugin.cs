@@ -60,7 +60,7 @@ namespace NoMetaScalling
                 harmony.UnpatchSelf();
         }
 
-        KeyboardShortcut debugBind = new KeyboardShortcut(KeyCode.G, new KeyCode[] { KeyCode.LeftShift });
+/*        KeyboardShortcut debugBind = new KeyboardShortcut(KeyCode.G, new KeyCode[] { KeyCode.LeftShift });
 
         void Update()
         {
@@ -69,6 +69,6 @@ namespace NoMetaScalling
                 Log.LogDebug("deez");
                 Log.LogDebug(string.Join("\n", BattleCWT.GetBanData(BattleCWT.Battle).bannedCards.Select(kv => $"{kv.Key.Name}:{kv.Value}")));
             }
-        }
+        }*/
     }
 }

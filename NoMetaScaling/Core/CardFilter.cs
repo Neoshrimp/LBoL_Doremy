@@ -27,6 +27,7 @@ using LBoL.Core.Battle.BattleActions;
 using System.Reflection.Emit;
 using LBoL.EntityLib.Cards.Neutral.Blue;
 using LBoL.EntityLib.Cards.Misfortune;
+using LBoL.EntityLib.Cards.Neutral.TwoColor;
 
 namespace NoMetaScaling.Core
 {
@@ -159,8 +160,10 @@ namespace NoMetaScaling.Core
         {
             reason = BanReason.NotBanned;
             bool doBan = true;
+            var banData = GetBanData(Battle);
             if (PConfig.BanLevel <= BanLevel.RealCopiesAllowed)
             {
+
                 if (!sourceCard.IsBanned(out var _))
                 {
                     if (!original.IsBanned(out var _))
@@ -171,12 +174,18 @@ namespace NoMetaScaling.Core
                 else
                     reason = BanReason.CopySourceWasBanned;
 
-                GetBanData(Battle).QueueBan(sourceCard, BanReason.CardWasAlreadyUsed);
+                // exception since changing this properly is too much work
+                if (sourceCard.Id == nameof(BailianMagic) && sourceCard.IsUpgraded && banData.GetCopiedTimes(sourceCard) < 1)
+                {
+                    banData.IncreaseCopyTimes(sourceCard);
+                }
+                else
+                    banData.QueueBan(sourceCard, BanReason.CardWasAlreadyUsed);
             }
             else
             {
                 reason = BanReason.CardWasCopied;
-                GetBanData(Battle).QueueBan(sourceCard, BanReason.CardWasAlreadyUsed);
+                banData.QueueBan(sourceCard, BanReason.CardWasAlreadyUsed);
             }
             
             return doBan;
@@ -186,6 +195,7 @@ namespace NoMetaScaling.Core
         {
             if (args.ActionSource.TrickleDownActionSource() is Card sourceCard)
             {
+                var banData = GetBanData(Battle);
                 foreach (var addedCard in cards)
                 {
                     if (!sourceCard.IsBanned(out var _) && ExposedStatics.exemptFromGenBan.Contains(addedCard.Id))
@@ -201,7 +211,7 @@ namespace NoMetaScaling.Core
                         && addedCard.Id != nameof(FakeMoon)
                         )
                     {
-                        GetBanData(Battle).QueueBan(sourceCard, BanReason.CardWasAlreadyUsed);
+                        banData.QueueBan(sourceCard, BanReason.CardWasAlreadyUsed);
                         continue;
                     }
 
@@ -209,7 +219,7 @@ namespace NoMetaScaling.Core
                     if (!sourceCard.IsBanned(out var _) && sourceCard.InvokedEcho() 
                         && (sourceCard.IsNaturalEcho() || sourceCard.IsNaturalPermaEcho()))
                     { 
-                        GetBanData(Battle).QueueBan(sourceCard, BanReason.CardWasAlreadyUsed);
+                        banData.QueueBan(sourceCard, BanReason.CardWasAlreadyUsed);
                         continue;
                     }
 
@@ -219,7 +229,7 @@ namespace NoMetaScaling.Core
 
                     if (doBan)
                     {
-                        GetBanData(Battle).BanCard(addedCard, reason);
+                        banData.BanCard(addedCard, reason);
                     }
 
 
@@ -303,13 +313,39 @@ namespace NoMetaScaling.Core
             pendingBan.AlwaysAdd(card, reason);
         }
 
+        public int GetCopiedTimes(Card card)
+        {
+            if (CopiedTimes.TryGetValue(card, out var times))
+                return times;
+            return 0;
+        }
+
+        public void IncreaseCopyTimes(Card card, int increase = 1)
+        {
+            if (!CopiedTimes.ContainsKey(card))
+                CopiedTimes.Add(card, 0);
+
+
+            CopiedTimes[card] += increase;
+        }
+
         Dictionary<Card, BanReason> pendingBan = new Dictionary<Card, BanReason>();
 
 
-        public Dictionary<Card, BanReason> bannedCards = new Dictionary<Card, BanReason>();
+        Dictionary<Card, BanReason> bannedCards = new Dictionary<Card, BanReason>();
 
         internal HashSet<Card> alreadySummoned = new HashSet<Card>();
 
+        Dictionary<Card, int> copiedTimes;
 
+        Dictionary<Card, int> CopiedTimes
+        {
+            get
+            {
+                if (copiedTimes == null)
+                    copiedTimes = new Dictionary<Card, int>();
+                return copiedTimes;
+            }
+        }
     }
 }

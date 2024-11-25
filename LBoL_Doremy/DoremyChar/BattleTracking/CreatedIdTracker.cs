@@ -17,7 +17,7 @@ namespace LBoL_Doremy.CreatedCardTracking
     {
         static int startingId = 1000;
 
-        public static bool WasGenerated(this Card card) => card.InstanceId > startingId;
+        public static bool WasGenerated(this Card card) => card.InstanceId > startingId || card.IsPlayTwiceToken;
 
 
         [HarmonyPatch(typeof(BattleController), MethodType.Constructor, new Type[] { typeof(GameRunController), typeof(EnemyGroup), typeof(IEnumerable<Card>) })]

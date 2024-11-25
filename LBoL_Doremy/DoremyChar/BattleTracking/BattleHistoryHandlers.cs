@@ -12,8 +12,8 @@ using LBoL_Doremy.DoremyChar.Actions;
 using System.ComponentModel.Design;
 using LBoL.Core.StatusEffects;
 using LBoL.Core.Battle.BattleActions;
-using LBoL_Doremy.RootTemplates;
 using LBoL_Doremy.DoremyChar.Cards.Uncommon;
+using LBoL_Doremy.DoremyChar.DreamManagers;
 
 namespace LBoL_Doremy.DoremyChar.BattleTracking
 {
@@ -71,9 +71,9 @@ namespace LBoL_Doremy.DoremyChar.BattleTracking
         private static void RegisterDLHandlers()
         {
 
-            CHandlerManager.RegisterBattleEventHandler(bt => DreamLayerCard.GetBounceEvent(bt), 
+            CHandlerManager.RegisterBattleEventHandler(bt => DreamLayerHandlers.GetBounceEvent(bt), 
                 args => DLHistory.applyTurnCount = 0, 
-                null, (GameEventPriority)(DreamLayerCard.bouncePriority + DoremyTranqBarrage.countResetPriorityOffset));
+                null, (GameEventPriority)(DreamLayerHandlers.bouncePriority + DoremyTranqBarrage.countResetPriorityOffset));
 
             CHandlerManager.RegisterBattleEventHandler(bt => EventManager.GetDoremyEvents(bt).dLEvents.appliedDL,
                             args => DLHistory.applyTurnCount++);

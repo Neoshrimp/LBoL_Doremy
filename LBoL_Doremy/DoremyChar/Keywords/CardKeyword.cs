@@ -4,6 +4,7 @@ using LBoL.Core.Cards;
 using LBoL.Core.StatusEffects;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace LBoL_Doremy.DoremyChar.Keywords
@@ -15,7 +16,7 @@ namespace LBoL_Doremy.DoremyChar.Keywords
         Last
     }
 
-    public struct CardKeyword
+    public class CardKeyword
     {
         public readonly string kwSEid;
 
@@ -23,7 +24,9 @@ namespace LBoL_Doremy.DoremyChar.Keywords
 
         public readonly bool isVerbose;
 
-
+        [return: MaybeNull]
+        public virtual CardKeyword Clone() 
+        { return new CardKeyword(kwSEid, descPos, isVerbose); }
 
         public CardKeyword(string kwSEid, KwDescPos descPos = KwDescPos.Last, bool isVerbose = false)
         {
@@ -44,4 +47,6 @@ namespace LBoL_Doremy.DoremyChar.Keywords
             return HashCode.Combine(kwSEid);
         }
     }
+
+
 }

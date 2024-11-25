@@ -7,6 +7,11 @@ namespace LBoL_Doremy.DoremyChar.Actions
     {
         public DLEvents dLEvents = new DLEvents();
         public NightmareEvents nightmareEvents = new NightmareEvents();
+
+
+        float _DLperLevelMult = 0.25f;
+
+        public float DLperLevelMult { get => _DLperLevelMult; set => _DLperLevelMult = value; }
     }
 
     public class DLEvents

@@ -16,36 +16,56 @@ namespace LBoL_Doremy.DoremyChar.Keywords
 {
     public static class KeywordManager
     {
-        static ConditionalWeakTable<Card, HashSet<CardKeyword>> cwt_keywords = new ConditionalWeakTable<Card, HashSet<CardKeyword>>();
+        static ConditionalWeakTable<Card, Dictionary<string, CardKeyword>> cwt_keywords = new ConditionalWeakTable<Card, Dictionary<string, CardKeyword>>();
 
 
-        static HashSet<CardKeyword> GetKeywords(Card card) {
-            return cwt_keywords.GetValue(card, (_) => new HashSet<CardKeyword>());
+        static Dictionary<string, CardKeyword> GetKeywords(Card card) {
+            return cwt_keywords.GetValue(card, (_) => new Dictionary<string, CardKeyword>());
         }
 
-        public static HashSet<CardKeyword> AllCustomKeywords(this Card card)
+        public static IEnumerable<CardKeyword> AllCustomKeywords(this Card card)
         {
-            if(cwt_keywords.TryGetValue(card, out HashSet<CardKeyword> keywords))
-                return keywords;
+            if(cwt_keywords.TryGetValue(card, out Dictionary<string, CardKeyword> keywords))
+                return keywords.Values;
             return new HashSet<CardKeyword>();
         }
 
-        public static bool HasCustomKeyword(this Card card, CardKeyword keyword) 
+        public static bool HasCustomKeyword(this Card card, string kwId) 
         {
-            return GetKeywords(card).Contains(keyword);
+            return GetKeywords(card).ContainsKey(kwId);
         }
 
-        public static void AddCustomKeyword(this Card card, CardKeyword keyword)
+        public static bool AddCustomKeyword(this Card card, CardKeyword keyword)
         {
-            GetKeywords(card).Add(keyword);
+            return GetKeywords(card).TryAdd(keyword.kwSEid, keyword);
         }
         public static bool RemoveCustomKeyword(this Card card, CardKeyword keyword)
         {
-            return GetKeywords(card).Remove(keyword);
+            return GetKeywords(card).Remove(keyword.kwSEid);
         }
 
+        public static bool TryGetCustomKeyword(this Card card, string kwId, out CardKeyword rezKeyword)
+        {
+            return GetKeywords(card).TryGetValue(kwId, out rezKeyword);
+        }
 
+        public static bool TryGetCustomKeyword<T>(this Card card, string kwId, out T rezKeyword) where T : CardKeyword
+        {
+            var rez = TryGetCustomKeyword(card, kwId, out var foundKw);
+            rezKeyword = (T)foundKw;
+            return rez;
+        }
 
+        public static CardKeyword GetCustomKeyword(this Card card, string kwId)
+        {
+            card.TryGetCustomKeyword(kwId, out var rezKeyword);
+            return rezKeyword;
+        }
+
+        public static T GetCustomKeyword<T>(this Card card, string kwId) where T : CardKeyword
+        {
+            return GetCustomKeyword(card, kwId) as T;
+        }
 
 
         [HarmonyPatch(typeof(Card), nameof(Card.EnumerateDisplayWords), MethodType.Enumerator)]
@@ -110,7 +130,7 @@ namespace LBoL_Doremy.DoremyChar.Keywords
 
             private static bool CheckCustomKws(Keyword keywords, Card card)
             {
-                return keywords != Keyword.None || card.AllCustomKeywords().Count > 0;
+                return keywords != Keyword.None || card.AllCustomKeywords().Count() > 0;
             }
         }
 

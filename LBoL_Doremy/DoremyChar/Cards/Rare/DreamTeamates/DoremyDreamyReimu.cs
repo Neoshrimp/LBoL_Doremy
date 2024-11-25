@@ -103,7 +103,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare.DreamTeamates
 
         public override IEnumerable<BattleAction> GetPassiveActions()
         {
-            if (Battle.BattleShouldEnd)
+            if (!Summoned || Battle.BattleShouldEnd)
                 yield break;
 
             Loyalty += PassiveCost;

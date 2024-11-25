@@ -17,6 +17,7 @@ using LBoL.Core.Battle.BattleActions;
 using LBoL_Doremy.DoremyChar.Actions;
 using LBoL.Core.Battle.Interactions;
 using LBoL.EntityLib.Cards.Neutral.White;
+using LBoL_Doremy.DoremyChar.DreamManagers;
 
 namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 {
@@ -75,7 +76,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
     {
         protected override void OnAdded(Unit unit)
         {
-            ReactOwnerEvent(DreamLayerCard.GetBounceEvent(Battle), OnTurnEnd, (GameEventPriority)(DoremyTranqBarrage.countResetPriorityOffset + DreamLayerCard.bouncePriority + 1));
+            ReactOwnerEvent(DreamLayerHandlers.GetBounceEvent(Battle), OnTurnEnd, (GameEventPriority)(DoremyTranqBarrage.countResetPriorityOffset + DreamLayerHandlers.bouncePriority + 1));
         }
 
         private IEnumerable<BattleAction> OnTurnEnd(UnitEventArgs args)

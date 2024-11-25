@@ -3,6 +3,8 @@ using LBoL.ConfigData;
 using LBoL.Core;
 using LBoL.Core.Battle;
 using LBoL.Core.StatusEffects;
+
+using LBoL_Doremy.DoremyChar.DreamManagers;
 using LBoL_Doremy.DoremyChar.Keywords;
 using LBoL_Doremy.RootTemplates;
 using LBoLEntitySideloader.Attributes;
@@ -41,7 +43,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 
 
     [EntityLogic(typeof(DoremyRudeAwakeningDef))]
-    public sealed class DoremyRudeAwakening : DreamLayerCard
+    public sealed class DoremyRudeAwakening : NaturalDreamLayerCard
     {
         public int Fp2Apply => Value1 + DreamLevel;
 

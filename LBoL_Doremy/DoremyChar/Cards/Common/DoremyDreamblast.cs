@@ -4,6 +4,8 @@ using LBoL.Core;
 using LBoL.Core.Battle;
 using LBoL.Core.Units;
 using LBoL_Doremy.DoremyChar.Actions;
+
+using LBoL_Doremy.DoremyChar.DreamManagers;
 using LBoL_Doremy.DoremyChar.Keywords;
 using LBoL_Doremy.DoremyChar.SE;
 using LBoL_Doremy.RootTemplates;
@@ -26,13 +28,13 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
             con.Cost = new ManaGroup() { Blue = 2, };
 
             con.Damage = 8;
-            con.UpgradedDamage = 12;
+            con.UpgradedDamage = 10;
 
             con.Value1 = 8;
-            con.UpgradedValue1 = 12;
+            con.UpgradedValue1 = 10;
 
-            con.Value2 = 2;
-            con.UpgradedValue2 = 3;
+            con.Value2 = 1;
+            con.UpgradedValue2 = 2;
 
 
             con.RelativeEffects = new List<string>() { nameof(DC_DreamLayerKeywordSE), nameof(DC_NightmareSE) };
@@ -45,7 +47,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
 
 
     [EntityLogic(typeof(DoremyDreamblastDef))]
-    public sealed class DoremyDreamblast: DreamLayerCard
+    public sealed class DoremyDreamblast: NaturalDreamLayerCard
     {
 
         protected override int AdditionalDamage => Value2 * DreamLevel;

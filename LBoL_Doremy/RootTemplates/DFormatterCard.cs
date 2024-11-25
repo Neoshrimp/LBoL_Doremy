@@ -93,6 +93,9 @@ namespace LBoL_Doremy.RootTemplates
                     target = target,
                     level = nm,
                 };
+                nigtmareEventArgs.ActionSource = card;
+                nigtmareEventArgs.Cause = LBoL.Core.Battle.ActionCause.OnlyCalculate;
+
                 EventManager.GetDoremyEvents(battle).nightmareEvents.nigtmareApplying.Execute(nigtmareEventArgs);
 
                 return WrappedFormatNumber((int)nm, (int)nigtmareEventArgs.level, format);

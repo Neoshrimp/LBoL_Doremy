@@ -13,6 +13,7 @@ using LBoL.Core.Battle.Interactions;
 using System.Linq;
 using LBoL.Core.Battle.BattleActions;
 
+
 namespace LBoL_Doremy.DoremyChar.Cards.Common
 {
     public sealed class DoremyDreamedOnceMoreDef : DCardDef
@@ -67,9 +68,9 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
                 {
                     yield return new MoveCardAction(target, LBoL.Core.Cards.CardZone.Hand);
 
-                    if (target is DreamLayerCard dlc)
+                    if (target.HasCustomKeyword(DoremyKw.dreamLayerId))
                     {
-                        var copy = dlc.CloneBattleCard() as DreamLayerCard;
+                        var copy = target.CloneBattleCard();
                         copy.IsExile = true;
                         yield return new AddCardsToHandAction(copy);
                     }

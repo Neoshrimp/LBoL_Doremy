@@ -92,7 +92,8 @@ DoremySimpleDreams:
 DoremyRecursiveDreamCatcher:
   Name: Recursive Dream Catcher
   Description: |-
-    Gain {Block} |Block|. 
+    Gain {Block} |Block|.
+    Apply {NM2Apply} |Nightmare| to {PlayerName}.
     If mana was paid to play {SelfName}, add |Recursive Dream Catcher{Plus}| to the hand.
     Remove {SelfName} from combat after playing it.
   FlavorText: 'Can never have too many!'
@@ -165,7 +166,8 @@ DoremyDreamedOnceMore:
 DoremyRecurringNightmare:
   Name: Recurring Nightmare
   Description: |-
-    Apply {NM2Apply} |Nightmare|. 
+    Apply {NM2Apply} |Nightmare|.
+    Apply {NM2ApplySelf} |Nightmare| to {PlayerName}.
     Whenever a card which was added during the combat, is played, return {SelfName} from the discard pile to the hand.
   DetailText: "{SelfName} effect cannot be triggered by generated {SelfName}."
   FlavorText: |-

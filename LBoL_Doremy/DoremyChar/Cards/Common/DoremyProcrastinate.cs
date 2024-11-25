@@ -102,7 +102,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
 
         public void UpdateCards2Bounce(IEnumerable<Card> cards)
         {
-            _cards2Bounce.AddRange(cards.Where(c => !c.IsCopy));
+            _cards2Bounce.AddRange(cards.Where(c => c.Config.FindInBattle && c.CardType != CardType.Tool));
             Count = Cards2Bounce.Count;
             NotifyChanged();
         }

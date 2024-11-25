@@ -3,6 +3,8 @@ using LBoL.ConfigData;
 using LBoL.Core;
 using LBoL.Core.Battle;
 using LBoL.Core.Battle.BattleActions;
+
+using LBoL_Doremy.DoremyChar.DreamManagers;
 using LBoL_Doremy.DoremyChar.SE;
 using LBoL_Doremy.RootTemplates;
 using LBoLEntitySideloader.Attributes;
@@ -26,12 +28,11 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
 
             con.Damage = 12;
 
-            con.Value1 = 8;
-            con.UpgradedValue1 = 11;
+            con.Value1 = 4;
+            con.UpgradedValue1 = 6;
 
             con.Keywords = Keyword.Exile;
             con.UpgradedKeywords = Keyword.Exile;
-
 
 
             return con;
@@ -40,7 +41,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
 
 
     [EntityLogic(typeof(DoremySleepingBearsWrathDef))]
-    public sealed class DoremySleepingBearsWrath : DreamLayerCard
+    public sealed class DoremySleepingBearsWrath : NaturalDreamLayerCard
     {
         protected override int AdditionalDamage => Value1 * DreamLevel;
 

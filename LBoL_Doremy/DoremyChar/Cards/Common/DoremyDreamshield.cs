@@ -2,6 +2,8 @@
 using LBoL.ConfigData;
 using LBoL.Core.Battle.BattleActions;
 using LBoL_Doremy.Actions;
+
+using LBoL_Doremy.DoremyChar.DreamManagers;
 using LBoL_Doremy.DoremyChar.SE;
 using LBoL_Doremy.RootTemplates;
 using LBoLEntitySideloader.Attributes;
@@ -36,7 +38,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
 
 
     [EntityLogic(typeof(DoremyDreamshieldDef))]
-    public sealed class DoremyDreamshield : DreamLayerCard
+    public sealed class DoremyDreamshield : NaturalDreamLayerCard
     {
         //public override bool ShowDreamLevel => false;
 

@@ -2,6 +2,8 @@
 using LBoL.ConfigData;
 using LBoL.Core;
 using LBoL.Core.Battle;
+
+using LBoL_Doremy.DoremyChar.DreamManagers;
 using LBoL_Doremy.DoremyChar.Keywords;
 using LBoL_Doremy.DoremyChar.SE;
 using LBoL_Doremy.RootTemplates;
@@ -44,7 +46,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 
 
     [EntityLogic(typeof(DoremyCreepingBulletDef))]
-    public sealed class DoremyCreepingBullet : DreamLayerCard
+    public sealed class DoremyCreepingBullet : NaturalDreamLayerCard
     {
 
         public NightmareInfo NM2Apply => Value1;

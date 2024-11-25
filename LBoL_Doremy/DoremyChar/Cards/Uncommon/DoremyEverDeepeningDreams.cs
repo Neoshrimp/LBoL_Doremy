@@ -9,6 +9,8 @@ using LBoL.Core.Cards;
 using LBoL.Core.Randoms;
 using LBoL.Core.StatusEffects;
 using LBoL_Doremy.DoremyChar.Actions;
+
+using LBoL_Doremy.DoremyChar.DreamManagers;
 using LBoL_Doremy.DoremyChar.Keywords;
 using LBoL_Doremy.RootTemplates;
 using LBoLEntitySideloader.Attributes;
@@ -32,12 +34,15 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             con.Colors = new List<ManaColor>() { ManaColor.White, ManaColor.Blue };
             con.Cost = new ManaGroup() { White = 1, Blue = 1 };
 
+            con.Cost = new ManaGroup() { Hybrid = 1, HybridColor = 0 };
+
+
 
             con.Value1 = 1;
             con.Mana = ManaGroup.Empty;
 
             con.Value2 = 1;
-            con.UpgradedValue2 = 2;
+            con.UpgradedValue2 = 1;
 
 
             con.RelativeKeyword = Keyword.TempMorph;
@@ -58,11 +63,15 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
     {
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
-            var cards = Battle.RollCards(new CardWeightTable(RarityWeightTable.BattleCard, OwnerWeightTable.Valid, CardTypeWeightTable.CanBeLoot), 3, cc => DreamLayerCard.AllDreamLayerCards.Contains(cc.Id));
+            var cards = Battle.RollCards(new CardWeightTable(RarityWeightTable.BattleCard, OwnerWeightTable.Valid, CardTypeWeightTable.CanBeLoot), 3, cc => NaturalDreamLayerCard.AllDreamLayerCards.Contains(cc.Id));
 
             cards.Do(card => {
-                if (card is DreamLayerCard dlc)
-                    dlc.DreamLevel += Value2;
+                if (card is NaturalDreamLayerCard)
+                {
+                    var dl = card.GetCustomKeyword<DLKeyword>(DoremyKw.dLId);
+                    dl.DreamLevel += Value2;
+                }
+
             });
 
             if (cards.Length != 0)

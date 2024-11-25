@@ -3,7 +3,7 @@ using LBoL.Core.Battle;
 using LBoL.Core.Battle.BattleActions;
 using LBoL.Core.Cards;
 using LBoL_Doremy.Actions;
-using LBoL_Doremy.RootTemplates;
+
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,7 +12,7 @@ using static UnityEngine.GraphicsBuffer;
 namespace LBoL_Doremy.DoremyChar.Actions
 {
     // unused
-    public class BatchApplyDLAction : EventBattleAction<DreamLevelArgs>
+   /* public class BatchApplyDLAction : EventBattleAction<DreamLevelArgs>
     {
 
         public readonly IReadOnlyCollection<Card> targets;
@@ -50,7 +50,7 @@ namespace LBoL_Doremy.DoremyChar.Actions
 
                 yield return CreateEventPhase("PreAplying", Args, EventManager.DLEvents.applyingDL);
                 yield return CreatePhase("Main", () => {
-                    if (Args.target is DreamLayerCard dlc)
+                    if (Args.target is NaturalDreamLayerCard dlc)
                     {
                         dlc.DreamLevel += Args.dreamLevelDelta;
                         Args.target.NotifyChanged();
@@ -70,5 +70,5 @@ namespace LBoL_Doremy.DoremyChar.Actions
             
 
         }
-    }
+    }*/
 }

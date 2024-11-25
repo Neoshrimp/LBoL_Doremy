@@ -121,7 +121,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
                 for (int i = 0; i < Level; i++)
                 { 
                     var copy = args.target.CloneBattleCard();
-                    if (!target.HasCustomKeyword(DoremyKw.DreamLayer))
+                    if (!target.HasCustomKeyword(DoremyKw.dreamLayerId))
                         target.IsCopy = true;
                         
                     if (args.isEndOfTurnBounce)

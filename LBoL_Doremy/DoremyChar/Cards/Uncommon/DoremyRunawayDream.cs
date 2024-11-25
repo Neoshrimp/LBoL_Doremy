@@ -70,7 +70,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
         private IEnumerable<BattleAction> OnCardUsed(CardUsingEventArgs arg)
         {
             var card = arg.Card;
-            if (card.HasCustomKeyword(DoremyKw.DreamLayer))
+            if (card.HasCustomKeyword(DoremyKw.dreamLayerId))
                 for(int i = 0; i < Level; i++)
                     yield return new ApplyDLAction(card);
         }

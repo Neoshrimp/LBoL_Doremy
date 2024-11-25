@@ -4,6 +4,7 @@ using LBoL_Doremy.RootTemplates;
 using LBoLEntitySideloader.Attributes;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using UnityEngine;
 
@@ -11,7 +12,12 @@ namespace LBoL_Doremy.DoremyChar.Keywords
 {
     public static class DoremyKw
     {
-        public static CardKeyword DreamLayer = new CardKeyword(nameof(DC_DreamLayerKeywordSE), KwDescPos.First);
+        public static string dreamLayerId = nameof(DC_DreamLayerKeywordSE);
+        public static CardKeyword DreamLayer { get => new CardKeyword(dreamLayerId, KwDescPos.First); }
+
+
+        public static string dLId = nameof(DC_DLKwSE);
+        public static DLKeyword NewDLKeyword { get => new DLKeyword(dLId);}
     }
 
     public sealed class DC_DreamLayerKeywordSEDef : DStatusEffectDef
@@ -21,7 +27,8 @@ namespace LBoL_Doremy.DoremyChar.Keywords
         public override StatusEffectConfig PreConfig()
         {
             var con = DefaultConfig();
-            con.RelativeEffects = new List<string>() { nameof(DC_DLKwSE) };
+            //2do
+            //con.RelativeEffects = new List<string>() { nameof(DC_DLKwSE) };
             return con;
         }
     }
@@ -34,6 +41,31 @@ namespace LBoL_Doremy.DoremyChar.Keywords
 
 
 
+    public class DLKeyword : CardKeyword
+    {
+
+        int _dreamLevel = 0;
+        public int DreamLevel
+        {
+            get => _dreamLevel;
+            internal set
+            {
+                _dreamLevel = value; _dreamLevel = Math.Max(0, _dreamLevel);
+            }
+        }
+        public DLKeyword(string kwSEid = nameof(DC_DLKwSE), KwDescPos descPos = KwDescPos.DoNotDisplay, bool isVerbose = false) : base(kwSEid, descPos, isVerbose)
+        {
+        }
+
+        [return: MaybeNull]
+        public override CardKeyword Clone()
+        {
+            var clone = new DLKeyword();
+            clone.DreamLevel = DreamLevel;
+            return clone;
+        }
+    }
+
 
     public sealed class DC_DLKwSEDef : DStatusEffectDef
     {
@@ -41,7 +73,7 @@ namespace LBoL_Doremy.DoremyChar.Keywords
         public override StatusEffectConfig PreConfig()
         {
             var con = DefaultConfig();
-            con.RelativeEffects = new List<string>() { nameof(DC_DreamLayerKeywordSE) };
+            //con.RelativeEffects = new List<string>() { nameof(DC_DreamLayerKeywordSE) };
             return con;
         }
     }

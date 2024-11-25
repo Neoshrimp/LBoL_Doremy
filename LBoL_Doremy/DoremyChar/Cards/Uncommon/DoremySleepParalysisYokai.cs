@@ -6,6 +6,8 @@ using LBoL.Core.Battle.BattleActions;
 using LBoL.Core.StatusEffects;
 using LBoL.EntityLib.Cards.Neutral.White;
 using LBoL_Doremy.Actions;
+
+using LBoL_Doremy.DoremyChar.DreamManagers;
 using LBoL_Doremy.DoremyChar.Keywords;
 using LBoL_Doremy.DoremyChar.SE;
 using LBoL_Doremy.RootTemplates;
@@ -45,7 +47,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 
 
     [EntityLogic(typeof(DoremySleepParalysisYokaiDef))]
-    public sealed class DoremySleepParalysisYokai : DreamLayerCard
+    public sealed class DoremySleepParalysisYokai : NaturalDreamLayerCard
     {
 
         public int DreamLevelCapped => Math.Min(Value1, DreamLevel);

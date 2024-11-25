@@ -12,6 +12,7 @@ using System.Text;
 using LBoL.Core.Battle.BattleActions;
 using LBoL_Doremy.DoremyChar.BattleTracking;
 using LBoL_Doremy.CreatedCardTracking;
+using System.Threading.Tasks.Sources;
 
 namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 {
@@ -31,6 +32,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             con.Value1 = 6;
             con.UpgradedValue1 = 9;
 
+            con.Value2 = 1;
 
 
             con.RelativeEffects = new List<string>() { nameof(DC_NightmareSE) };
@@ -46,6 +48,9 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
     public sealed class DoremyRecurringNightmare : DCard
     {
         public NightmareInfo NM2Apply => Value1;
+
+        public NightmareInfo NM2ApplySelf => Value2;
+
 
         protected override void OnEnterBattle(BattleController battle)
         {
@@ -64,6 +69,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
             yield return NightmareAction(selector.SelectedEnemy, NM2Apply);
+            yield return NightmareAction(Battle.Player, NM2ApplySelf);
         }
     }
 }

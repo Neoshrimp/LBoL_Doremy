@@ -110,8 +110,7 @@ namespace LBoL_Doremy.DoremyChar.Ults
 
             var colorFilter = colorSelection.SelectedCards.Cast<DC_ManaOption>().Select(c => c.ManaColor).ToHashSet();*/
 
-            // 2do in 5 hours
-            var originIds = Library.GetSelectablePlayers().Select(pu => pu.Id).Where(id => id != "Koishi");
+            var originIds = Library.GetSelectablePlayers().Select(pu => pu.Id);
             originIds = new string[] { null }.Concat(originIds);
             var originOptions = originIds.Select(id => {
                 var card = Library.CreateCard<DC_OriginOption>();

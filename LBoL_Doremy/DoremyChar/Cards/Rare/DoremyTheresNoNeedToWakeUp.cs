@@ -30,6 +30,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
             con.UpgradedValue1 = 2;
 
 
+            
+
             con.Keywords = Keyword.Exile;
             con.UpgradedKeywords = Keyword.Exile;
 
@@ -53,7 +55,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
             {
                 if (e.TryGetStatusEffect<DC_NightmareSE>(out var nightmare))
                 {
-                    yield return NightmareAction(e, nightmare.Level * Value2, 0.05f);
+                    yield return NightmareAction(e, nightmare.Level * Value1, 0.05f);
                 }
             }
         }

@@ -2,6 +2,7 @@
 using BepInEx.Configuration;
 using HarmonyLib;
 using LBoL_Doremy.DoremyChar.BattleTracking;
+using LBoL_Doremy.DoremyChar.DreamManagers;
 using LBoL_Doremy.ExtraAssets;
 using LBoL_Doremy.RootTemplates;
 using LBoLEntitySideloader;
@@ -45,7 +46,7 @@ namespace LBoL_Doremy
 
             CardIndexGenerator.PromiseClearIndexSet();
             BattleHistoryHandlers.RegisterAll();
-            DreamLayerCard.RegisterEndOfTurnHandlers();
+            DreamLayerHandlers.RegisterHandlers();
 
 
             AssetManager.DoLoadAsync();

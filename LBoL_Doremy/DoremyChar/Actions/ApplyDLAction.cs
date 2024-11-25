@@ -1,7 +1,8 @@
 ﻿using LBoL.Core.Battle;
 using LBoL.Core.Cards;
 using LBoL_Doremy.Actions;
-using LBoL_Doremy.RootTemplates;
+using LBoL_Doremy.DoremyChar.DreamManagers;
+using LBoL_Doremy.DoremyChar.Keywords;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,7 +20,7 @@ namespace LBoL_Doremy.DoremyChar.Actions
             };
         }
 
-        public ApplyDLAction(Card target, bool isEndOfTurnBounce, int dreamLevel = 1 )
+        public ApplyDLAction(Card target, bool isEndOfTurnBounce, int dreamLevel = 1)
         {
             Args = new DreamLevelArgs(isEndOfTurnBounce)
             {
@@ -35,17 +36,22 @@ namespace LBoL_Doremy.DoremyChar.Actions
 
         public override void MainPhase()
         {
-            if (Args.target is DreamLayerCard dlc)
-            {
-                dlc.DreamLevel += Args.dreamLevelDelta;
-                dlc.NotifyChanged();
-            }
-            Args.target.NotifyActivating();
+            var target = Args.target;
+
+            if (!target.HasCustomKeyword(DoremyKw.dLId))
+                target.AddCustomKeyword(DoremyKw.NewDLKeyword);
+
+            var dl = target.GetCustomKeyword<DLKeyword>(DoremyKw.dLId);
+
+            dl.DreamLevel += Args.dreamLevelDelta;
+            
+            target.NotifyChanged();
+            target.NotifyActivating();
         }
 
         public override void PostEventPhase()
         {
-            if (Args.target is DreamLayerCard dlc)
+            if (Args.target is NaturalDreamLayerCard dlc)
                 dlc.OnDLChanged(Args);
             Trigger(EventManager.DLEvents.appliedDL);
         }

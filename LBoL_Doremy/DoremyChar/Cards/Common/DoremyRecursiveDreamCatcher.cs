@@ -26,15 +26,19 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
 
             con.Colors = new List<ManaColor>() { ManaColor.White, ManaColor.Blue };
             con.Cost = new ManaGroup() { Hybrid = 1, HybridColor = 0 };
-            con.UpgradedCost = new ManaGroup() { Any = 1 };
+            con.UpgradedCost = new ManaGroup() { Hybrid = 1, HybridColor = 0 };
 
 
-            con.Mana = new ManaGroup() { Any = 1 };
 
             con.Block = 6;
             con.UpgradedBlock = 8;
 
+            con.Value1 = 2;
+            con.UpgradedValue1 = 1;
 
+
+            con.RelativeEffects = new List<string>() { nameof(DC_NightmareSE) };
+            con.UpgradedRelativeEffects = new List<string>() { nameof(DC_NightmareSE) };
 
             return con;
         }
@@ -48,6 +52,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
 
         public string Plus => IsUpgraded ? "+" : "";
 
+        public NightmareInfo NM2Apply => Value1;
 
         protected override void OnEnterBattle(BattleController battle)
         {
@@ -65,6 +70,10 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
         {
             foreach (var a in base.Actions(selector, consumingMana, precondition))
                 yield return a;
+
+
+            yield return NightmareAction(Battle.Player, NM2Apply, 0f);
+            
 
             if (consumingMana.Total > ManaGroup.Empty.Total)
             {

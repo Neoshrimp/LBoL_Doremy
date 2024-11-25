@@ -58,7 +58,7 @@ namespace LBoL_Doremy.DoremyChar.SE
             ReactOwnerEvent(unit.BlockShieldLost, BlockShieldLost, (GameEventPriority)killPriority);
 
 
-            UpdateOrCreateNightmareBar();
+            UpdateOrCreateNightmareBar(Level);
 
             React(CheckAndDoKill());
         }
@@ -80,12 +80,16 @@ namespace LBoL_Doremy.DoremyChar.SE
         //public readonly static string actualHpGoName = "ActualHp";
 
 
-        public void UpdateOrCreateNightmareBar()
+        public void UpdateOrCreateNightmareBar(int targetLevel)
         {
             if (Owner?.View is UnitView view)
             {
                 var sw = view._statusWidget;
+                if (sw == null)
+                    return;
                 var hpBar = sw.hpBar;
+                if (hpBar == null)
+                    return;
                 var hpBarGo = hpBar.gameObject;
 
                 var nBarGo = hpBarGo.transform.Find(nightmareBarGoName)?.gameObject;
@@ -99,12 +103,12 @@ namespace LBoL_Doremy.DoremyChar.SE
 
                 var nBarImage = nBarGo.GetComponent<Image>();
                 var targetHpFill = PrecalculateHpBarFill(hpBar, Owner.Hp, Owner.MaxHp, Owner.Shield, Owner.Block);
-                nBarImage.fillAmount = (Math.Clamp(Level /*- 1*/, 0, Owner.Hp) / (float)Owner.Hp) * targetHpFill;
+                nBarImage.fillAmount = (Math.Clamp(targetLevel /*- 1*/, 0, Owner.Hp) / (float)Owner.Hp) * targetHpFill;
 
             }
         }
 
-
+        
         static float PrecalculateHpBarFill(HealthBar healthBar, int hp, int maxHp, int shield, int block)
         {
             int curHp = healthBar._hp;
@@ -136,10 +140,16 @@ namespace LBoL_Doremy.DoremyChar.SE
             return hpBarFill;
         }
 
+        protected override void OnRemoved(Unit unit)
+        {
+            if(unit.IsAlive)
+                UpdateOrCreateNightmareBar(0);
+        }
+
         public override void NotifyChanged()
         {
             base.NotifyChanged();
-            UpdateOrCreateNightmareBar();
+            UpdateOrCreateNightmareBar(Level);
         }
 
         private Unit _nightmareSource;
@@ -230,7 +240,7 @@ namespace LBoL_Doremy.DoremyChar.SE
             {
                 if (unit.Battle != null && unit.TryGetStatusEffect<DC_NightmareSE>(out var nightmareSE))
                 {
-                    nightmareSE.UpdateOrCreateNightmareBar();
+                    nightmareSE.UpdateOrCreateNightmareBar(nightmareSE.Level);
                     foreach (var a in nightmareSE.CheckAndDoKill())
                         // technically is not correct and will react outside of action stack where SetMaxHp was invoked.
                         // but currently there's no action for setting max hp so w/e

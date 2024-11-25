@@ -29,6 +29,7 @@ namespace LBoL_Doremy.DoremyChar.Actions
 
         static WeakReference<BattleController> battle_ref;
 
+        public static DoremyEvents DoremyEvents => GetDoremyEvents(Battle);
 
         public static NightmareEvents NMEvents => GetDoremyEvents(Battle).nightmareEvents;
 

@@ -3,6 +3,8 @@ using LBoL.ConfigData;
 using LBoL.Core;
 using LBoL.Core.Battle;
 using LBoL.Core.Battle.BattleActions;
+
+using LBoL_Doremy.DoremyChar.DreamManagers;
 using LBoL_Doremy.DoremyChar.SE;
 using LBoL_Doremy.RootTemplates;
 using LBoLEntitySideloader.Attributes;
@@ -34,7 +36,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 
 
     [EntityLogic(typeof(DoremyDreamDrawDef))]
-    public sealed class DoremyDreamDraw : DreamLayerCard
+    public sealed class DoremyDreamDraw : NaturalDreamLayerCard
     {
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {

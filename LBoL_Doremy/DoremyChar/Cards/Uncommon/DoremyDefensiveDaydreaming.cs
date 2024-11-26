@@ -26,11 +26,11 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             con.TargetType = TargetType.Self;
 
             con.Colors = new List<ManaColor>() { ManaColor.White };
-            con.Cost = new ManaGroup() { White = 2, Any = 1 };
+            con.Cost = new ManaGroup() { White = 3 };
 
-            con.Value1 = 1;
-            con.UpgradedValue1 = 2;
+            con.Value1 = 2;
 
+            con.Keywords = Keyword.Ethereal;
 
             return con;
         }

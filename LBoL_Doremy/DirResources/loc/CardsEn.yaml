@@ -130,11 +130,12 @@ DoremyDeepDefense:
   Name: Deep Defense
   Description: |-
     Gain {Block} |Block|.
+    Choose a card in the hand, it gains |Dream Layer|.
     {DebutDesc}
   Debut: |-
-    |Debut|: Choose a card in the hand, it gains {DL}.
+    |Debut|: The chosen card gains {DL}.
   UpgradedDebut: |-
-    |Debut|: Choose a card in the hand, it gains {DL} twice.
+    |Debut|: The chosen card gains {DL} twice.
   FlavorText: |-
     Spiraling deeper and deeper, its easily to loss track of your target.
 
@@ -158,7 +159,7 @@ DoremyDreamedOnceMore:
   Name: Dreamed Once More
   Description: |-
     Gain {Block} |Block|. 
-    Return a card from the discard pile to the hand. If it has |DreamLayer|, add a |Copy| with |Exile| to the hand.
+    Return a card from the discard pile to the hand. If it has |Dream Layer|, add a |Copy| with |Exile| to the hand.
   DetailText: "{DL} level is copied."
   FlavorText: |-
     Again!
@@ -237,7 +238,10 @@ DoremyFantasticalMight:
 DoremyLabyrinthineConfusion:
   Name: Labyrinthine Confusion
   Description: |-
-    |For each card in {PlayerName}'s hand that was added this combat|:
+    |For each created card in {PlayerName}'s hand|:
+    Gain {Block} |Block| and apply {NM2Apply} |Nightmare| to each enemy.{TimesHint}
+  UpgradedDescription: |-
+    |For each created card in {PlayerName}'s hand and draw pile|:
     Gain {Block} |Block| and apply {NM2Apply} |Nightmare| to each enemy.{TimesHint}
   Times: |-
     ({LB}{GenCount}{CC} time{GenCount:plural one='' other='s'})
@@ -303,7 +307,7 @@ DoremyHypnagogicEffluvium:
 DoremyDreamBalloonFlight:
   Name: Dream Balloon Flight
   Description: |-
-    Whenever a card gains {DL}, draw an {LB}additional{CC} card at the start of the {PlayerName}'s next turn.
+    <b>Every other time</b> a card gains {DL}, draw an {LB}additional{CC} card at the start of the {PlayerName}'s next turn.
   FlavorText: |-
     Get your Drawportunity back today with one simple trick!
 
@@ -326,14 +330,14 @@ DoremyTranqBarrage:
   Description: |-
     Apply {NM2Apply} |Nightmare| to a random enemy {ApplyTimes} time{ApplyTimes:plural one='' other='s'}. For each time a card has gained {DL} since the end of {PlayerName}'s previous turn, apply |Nightmare| again.
   DetailText: |-
-    {DL} gained at the end of a turn by |DreamLayer| cards(or other means) counts.
+    {DL} gained at the end of a turn by |Dream Layer| cards(or other means) counts.
   FlavorText: |-
     Told you using more would work.
 
 DoremyMelatoninMagic:
   Name: Melatonin Magic
   Description: |-
-    Gain {Mana}. Draw {Value1} cards. |DreamLayer| cards drawn this way gain {DL}.
+    Gain {Mana}. Draw {Value1} cards. If cards drawn this way have |Dream Layer| they gain {DL}, otherwise they gain |Dream Layer|.
   FlavorText: |-
     This simple medicine from the Outside World helps humans and yokai go to sleep faster.
 
@@ -379,14 +383,14 @@ DoremyForgetfulDaze:
 DoremyRunawayDream:
   Name: Runaway Dream
   Description: |-
-    After a card with |DreamLayer| is played, it gains {DL}.
+    After a card with |Dream Layer| is played, it gains {DL}.
   FlavorText: |-
     Only in dreams is a running fridge faster than you.
 
 DoremyEverDeepeningDreams:
   Name: Ever Deepening Dreams
   Description: |-
-    Choose {Value1} of 3 random cards with |DreamLayer| to add to the hand. It |temporarily costs| {Mana} and enters with {Value2} stack{Value2:plural one='' other='s'} of {DL} .
+    Choose {Value1} of 3 random cards with |Dream Layer| to add to the hand. It |temporarily costs| {Mana} and enters with {Value2} stack{Value2:plural one='' other='s'} of {DL} .
   FlavorText: |-
     Off the deep end.
 
@@ -414,9 +418,8 @@ DoremyNightmareFuel:
 DoremyComatoseForm:
   Name: Comatose Form
   Description: |-
-    Whenever a card gains {DL}, add a |Copy| of it to the hand. The original card gains |Copy| keyword unless it has |DreamLayer|.
-  DetailText: |-
-    Copies of cards, gaining {DL} at the end of the turn, are not discarded during the discard step.
+    All created cards have |Dream Layer|. Card output boost is increased to |e:{DLMultDesc}|% per {DL} stack.{UpgradeDesc}
+  UpgradeTxt: " Created cards gain {DL} upon entering combat."
   FlavorText: |-
     Dreaming of adventures past.
 
@@ -439,8 +442,7 @@ DoremyPropheticVisions:
 DoremyPerfectPhantasms:
   Name: Perfect Phantasms
   Description: |-
-    Whenever a card is created in combat, |Upgrade| it.{UpgradeDesc}
-  UpgradeTxt: " |Upgrade| all cards which were created this combat."
+    Whenever a card is created in combat, |Upgrade| it. |Upgrade| all cards which were created this combat.
   FlavorText: |-
     Legally distinct from Faithful Meditation
 
@@ -466,9 +468,8 @@ DoremyDreamsOfABetterTomorrow:
   Name: Dreams Of A Better Tomorrow
   Description: |-
     Choose {Value1} of 3 random |Dreams|. Gain their effects. 
-    Only the first {SelfName} used will take effect each combat.
   DetailText: |-
-    {SelfName} cannot be generated in combat.
+    {SelfName} cannot be generated in combat and cannot be copied.
   FlavorText: |-
     "I have a dream"
 
@@ -506,14 +507,14 @@ DoremyInfectiousNightmares:
   Name: Infectious Nightmares
   Description: |-
     Apply {NM2Apply} |Nightmare| to a single enemy. 
-    When that enemy is defeated, a random enemy gains |Nightmare| equal to the |Nightmare| the defeated enemy had.
+    When that enemy is defeated, all enemies gain |Nightmare| equal to the |Nightmare| the defeated enemy had.
   FlavorText: |-
     "The plague, the infection, the madness that haunts the corpses of Gensokyo"
 
 DoremyFastAsleep:
   Name: Fast Asleep
   Description: |-
-   Whenever a card would be shuffled into the draw pile by |DreamLayer| effect, it is placed on top of the draw pile instead.
+   Whenever a card would be shuffled into the draw pile by |Dream Layer| effect, it is placed on top of the draw pile instead.
   FlavorText: |-
     Be careful not to clog up your draws with this one.
 
@@ -620,7 +621,7 @@ DoremyDreamyDoremy:
   Name: Dreamy Doremy
   Description: |-
     {FriendS}Gain {Value1} |Devourer of Dreams|. When used, {SelfName} is shuffled into the draw pile.
-    {FriendP}All |DreamLayer| cards in the hand, gain {DL}.
+    {FriendP}All |Dream Layer| cards in the hand, gain {DL}.
   ExtraDescription1: |-
     {FriendA}Gain {Value2} |Devourer of Dreams|.
   ExtraDescription2: |-

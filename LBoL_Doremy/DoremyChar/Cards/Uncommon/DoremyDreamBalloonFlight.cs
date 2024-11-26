@@ -2,6 +2,7 @@
 using LBoL.ConfigData;
 using LBoL.Core;
 using LBoL.Core.Battle;
+using LBoL.Core.Battle.BattleActions;
 using LBoL.Core.StatusEffects;
 using LBoL.Core.Units;
 using LBoL_Doremy.Actions;
@@ -59,6 +60,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             var con = DefaultConfig();
             con.Type = LBoL.Base.StatusEffectType.Positive;
 
+            con.HasCount = true;
+            con.CountStackType = StackType.Add;
 
             return con;
         }
@@ -67,14 +70,26 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
     [EntityLogic(typeof(DoremyDreamBalloonFlightSEDef))]
     public sealed class DoremyDreamBalloonFlightSE : DStatusEffect
     {
+
+        public int ToDraw => Count / 2;
+
         protected override void OnAdded(Unit unit)
         {
+            Count = 0;
             ReactOwnerEvent(EventManager.DLEvents.appliedDL, OnDLGained);
+            ReactOwnerEvent(Battle.Player.TurnStarting, OnTurnStarting, (GameEventPriority)20);
+        }
+
+        private IEnumerable<BattleAction> OnTurnStarting(UnitEventArgs args)
+        {
+            yield return new DrawManyCardAction(ToDraw);
+            Count = Count % 2;
         }
 
         private IEnumerable<BattleAction> OnDLGained(DreamLevelArgs arg)
         {
-            yield return BuffAction<DoremyExtraDrawSE>(Level);
+            Count += Level;
+            yield break;
         }
     }
 }

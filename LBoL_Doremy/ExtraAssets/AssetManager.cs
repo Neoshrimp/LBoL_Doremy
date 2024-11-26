@@ -42,6 +42,10 @@ namespace LBoL_Doremy.ExtraAssets
             finishedLoading = false;
             doremyAssets = new DoremyAssets();
             doremyAssets.createdIcon =  await ResourceLoader.LoadSpriteAsync("CreatedIcon.png", Sources.extraImgs);
+            //2do
+            doremyAssets.dlTrackerIcon = await ResourceLoader.LoadSpriteAsync("DreamLevel.png", Sources.extraImgs);
+
+
             // added via TMP_Pro SpriteAsset
             //doremyAssets.dreamLevel = await ResourceLoader.LoadSpriteAsync("DreamLevel.png", Sources.extraImgs);
 
@@ -55,6 +59,8 @@ namespace LBoL_Doremy.ExtraAssets
     public class DoremyAssets
     {
         public Sprite createdIcon;
+        public Sprite dlTrackerIcon;
+
         public Sprite dreamLevel;
         public Sprite purpleBar;
 

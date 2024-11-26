@@ -28,7 +28,7 @@ namespace LBoL_Doremy.DoremyChar.DreamManagers
         public override void Initialize()
         {
             base.Initialize();
-            this.AddCustomKeyword(DoremyKw.DreamLayer);
+            this.AddCustomKeyword(DoremyKw.NewDreamLayer);
             this.AddCustomKeyword(DoremyKw.NewDLKeyword);
 
         }

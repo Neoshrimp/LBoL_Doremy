@@ -31,8 +31,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             con.UpgradedCost = new ManaGroup() { Blue = 1, Any = 1 };
 
 
-            con.Value1 = 4;
-            con.UpgradedValue1 = 5;
+            con.Value1 = 3;
+            con.UpgradedValue1 = 4;
 
 
             con.RelativeEffects = new List<string>() { nameof(DC_DLKwSE) };

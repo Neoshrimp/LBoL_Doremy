@@ -25,14 +25,14 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 
             con.Colors = new List<ManaColor>() { ManaColor.White };
             con.Cost = new ManaGroup() { White = 1, Any = 3 };
-            con.UpgradedCost = new ManaGroup() { White = 1, Any = 2 };
+            //con.UpgradedCost = new ManaGroup() { White = 1, Any = 2 };
 
 
             con.Damage = 12;
             con.Value1 = 12;
-            con.Value2 = 2;
+            con.Value2 = 1;
 
-            con.Keywords = Keyword.Accuracy;
+            con.Keywords = Keyword.Accuracy | Keyword.Exile;
             con.UpgradedKeywords = Keyword.Accuracy;
 
 

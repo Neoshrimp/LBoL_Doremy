@@ -1,8 +1,11 @@
-﻿using LBoL.Base;
+﻿using HarmonyLib;
+using LBoL.Base;
 using LBoL.ConfigData;
 using LBoL.Core;
 using LBoL.Core.Battle;
+using LBoL.Core.Cards;
 using LBoL_Doremy.CreatedCardTracking;
+using LBoL_Doremy.DoremyChar.Cards.Rare.DreamTeamates;
 using LBoL_Doremy.DoremyChar.SE;
 using LBoL_Doremy.RootTemplates;
 using LBoLEntitySideloader.Attributes;
@@ -29,8 +32,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             con.Cost = new ManaGroup() { White = 2 };
 
 
-            con.Block = 7;
-            con.UpgradedBlock = 10;
+            con.Block = 9;
+            con.UpgradedBlock = 7;
 
 
             //con.Value1 = 7;
@@ -49,10 +52,25 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
     [EntityLogic(typeof(DoremyLabyrinthineConfusionDef))]
     public sealed class DoremyLabyrinthineConfusion : DCard
     {
-        
-        int GenCount => Battle == null ? 0 : Battle.HandZone.Where(c => c.WasGenerated() && c != this).Count();
 
-        public string TimesHint => Battle == null ? "" : "\n"+LocalizeProperty("Times").RuntimeFormat(FormatWrapper);
+        int GenCount
+        {
+            get
+            {
+                if (RealBattle == null)
+                    return 0;
+
+                var count = RealBattle.HandZone.Where(c => c.WasGenerated() && c != RealCard).Count();
+                if (IsUpgraded)
+                    count += RealBattle.DrawZone.Where(c => c.WasGenerated() && c != RealCard).Count();
+                return count;
+            }
+        }
+
+        private Card _realCard = null;
+        public Card RealCard { get => _realCard == null ? this : _realCard; set => _realCard = value; }
+
+        public string TimesHint => RealBattle == null ? "" : "\n"+LocalizeProperty("Times").RuntimeFormat(FormatWrapper);
 
         public NightmareInfo NM2Apply => Value2;
 
@@ -62,9 +80,26 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             {
                 yield return DefenseAction(cast: false);
                 foreach (var e in UnitSelector.AllEnemies.GetUnits(Battle))
-                    yield return NightmareAction(e, NM2Apply, 0.05f);
+                    yield return NightmareAction(e, NM2Apply, 0f);
             }
 
+        }
+
+        [HarmonyPatch(typeof(Card), nameof(Card.GetDetailInfoCard))]
+        class SetRealCardForUI_Patch
+        {
+            static void Postfix(Card __instance, ref ValueTuple<Card, Card> __result)
+            {
+                if (__instance is DoremyLabyrinthineConfusion confusion)
+                {
+                    var card1 = (__result.Item1 as DoremyLabyrinthineConfusion);
+                    if (card1 != null)
+                        card1.RealCard = confusion;
+                    var card2 = (__result.Item2 as DoremyLabyrinthineConfusion);
+                    if (card2 != null)
+                        card2.RealCard = confusion;
+                }
+            }
         }
     }
 

@@ -20,6 +20,10 @@ using LBoL_Doremy.DoremyChar.DoremyPU;
 using Spine;
 using System.ComponentModel;
 using System.Linq;
+using LBoLEntitySideloader;
+using UnityEngine;
+using LBoL_Doremy.StaticResources;
+using LBoLEntitySideloader.Resource;
 
 namespace LBoL_Doremy.DoremyChar.Cards.Rare
 {
@@ -38,13 +42,13 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
 
             con.Value1 = 1;
 
-            con.Keywords = Keyword.Ethereal;
+            //con.Keywords = Keyword.Ethereal;
 
             con.RelativeKeyword = Keyword.CopyHint;
             con.UpgradedRelativeKeyword = Keyword.CopyHint;
 
-            con.RelativeEffects = new List<string>() { nameof(DC_DLKwSE) };
-            con.UpgradedRelativeEffects = new List<string>() { nameof(DC_DLKwSE) };
+            con.RelativeEffects = new List<string>() { nameof(DC_DreamLayerKeywordSE), nameof(DC_DLKwSE) };
+            con.UpgradedRelativeEffects = new List<string>() { nameof(DC_DreamLayerKeywordSE), nameof(DC_DLKwSE) };
 
 
             return con;
@@ -55,9 +59,18 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
     [EntityLogic(typeof(DoremyComatoseFormDef))]
     public sealed class DoremyComatoseForm : DCard
     {
+
+        public string DLMultDesc => (DoremyComatoseFormSE.DLMult * 100).ToString();
+
+        public string UpgradeDesc => IsUpgraded ? LocalizeProperty("UpgradeTxt", true, true).RuntimeFormat(FormatWrapper) : "";
+
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
             yield return BuffAction<DoremyComatoseFormSE>(Value1);
+            if(IsUpgraded)
+                yield return BuffAction<DoremyComatoseFormUpgradeSE>(Value1);
+
+
         }
     }
 
@@ -68,7 +81,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
         {
             var con = DefaultConfig();
             con.Type = LBoL.Base.StatusEffectType.Positive;
-
+            con.HasLevel = false;
 
             return con;
         }
@@ -77,11 +90,17 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
     [EntityLogic(typeof(DoremyComatoseFormSEDef))]
     public sealed class DoremyComatoseFormSE : DStatusEffect
     {
+
+        public string DLMultDesc => (DoremyComatoseFormSE.DLMult * 100).ToString();
+
+
+        public const float DLMult = 0.33f;
         protected override void OnAdded(Unit unit)
         {
-            ReactOwnerEvent(EventManager.DLEvents.appliedDL, OnDLApplied);
+            EventManager.DoremyEvents.DLperLevelMult = DLMult;
             SetSleepAnim(unit, true);
         }
+
 
         private static void SetSleepAnim(Unit unit, bool enable)
         {
@@ -106,30 +125,45 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
 
         protected override void OnRemoved(Unit unit)
         {
+            EventManager.DoremyEvents.DLperLevelMult = DoremyEvents.defaultDLMult;
             SetSleepAnim(unit, false);
         }
+     
+    }
 
 
-        private IEnumerable<BattleAction> OnDLApplied(DreamLevelArgs args)
+    public sealed class DoremyComatoseFormUpgradeSEDef : DStatusEffectDef
+    {
+        public override Sprite LoadSprite()
         {
-            var target = args.target;
-            if(!target.IsCopy)
-            {
-                NotifyActivating();
+            return ResourceLoader.LoadSprite(nameof(DoremyComatoseFormSE) + ".png", Sources.imgsSource);
+        }
 
-                var toAdd = new List<Card>();
-                for (int i = 0; i < Level; i++)
-                { 
-                    var copy = args.target.CloneBattleCard();
-                    if (!target.HasCustomKeyword(DoremyKw.dreamLayerId))
-                        target.IsCopy = true;
-                        
-                    if (args.isEndOfTurnBounce)
-                        copy.IsTempRetain = true;
-                    toAdd.Add(copy);
-                }
-                yield return new AddCardsToHandAction(toAdd);
-            }
+        public override StatusEffectConfig PreConfig()
+        {
+            var con = DefaultConfig();
+            con.Type = LBoL.Base.StatusEffectType.Positive;
+
+
+            return con;
         }
     }
+
+    [EntityLogic(typeof(DoremyComatoseFormUpgradeSEDef))]
+    public sealed class DoremyComatoseFormUpgradeSE : DStatusEffect
+    {
+
+        protected override void OnAdded(Unit unit)
+        {
+            ReactOnCardsAddedEvents(OnCardsAdded);
+        }
+
+        private IEnumerable<BattleAction> OnCardsAdded(Card[] cards, GameEventArgs args)
+        {
+            foreach (var c in cards)
+                for(int i = 0; i < Level; i++)
+                    yield return new ApplyDLAction(c);
+        }
+    }
+
 }

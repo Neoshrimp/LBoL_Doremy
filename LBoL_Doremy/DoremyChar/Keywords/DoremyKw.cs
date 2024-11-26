@@ -1,5 +1,6 @@
 ﻿using LBoL.ConfigData;
 using LBoL.Core;
+using LBoL_Doremy.DoremyChar.Actions;
 using LBoL_Doremy.RootTemplates;
 using LBoLEntitySideloader.Attributes;
 using System;
@@ -13,7 +14,7 @@ namespace LBoL_Doremy.DoremyChar.Keywords
     public static class DoremyKw
     {
         public static string dreamLayerId = nameof(DC_DreamLayerKeywordSE);
-        public static CardKeyword DreamLayer { get => new CardKeyword(dreamLayerId, KwDescPos.First); }
+        public static CardKeyword NewDreamLayer { get => new CardKeyword(dreamLayerId, KwDescPos.First); }
 
 
         public static string dLId = nameof(DC_DLKwSE);
@@ -27,7 +28,6 @@ namespace LBoL_Doremy.DoremyChar.Keywords
         public override StatusEffectConfig PreConfig()
         {
             var con = DefaultConfig();
-            //2do
             //con.RelativeEffects = new List<string>() { nameof(DC_DLKwSE) };
             return con;
         }
@@ -81,6 +81,8 @@ namespace LBoL_Doremy.DoremyChar.Keywords
     [EntityLogic(typeof(DC_DLKwSEDef))]
     public sealed class DC_DLKwSE : DStatusEffect
     {
+        public string DLMulDesc => (DoremyEvents.defaultDLMult * 100).ToString();
+
         public override string Name => base.Name.RuntimeFormat(FormatWrapper);
     }
 }

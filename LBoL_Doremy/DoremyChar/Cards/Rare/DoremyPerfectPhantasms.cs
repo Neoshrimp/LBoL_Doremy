@@ -31,7 +31,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
             con.Colors = new List<ManaColor>() { ManaColor.White };
             con.Cost = new ManaGroup() { White = 3 };
 
-
+            con.UpgradedKeywords = Keyword.Initial;
 
 
 
@@ -48,13 +48,10 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
             yield return BuffAction<DoremyPerfectPhantasmsSE>();
-            if (IsUpgraded)
-            {
-                var toUpgrade = Battle.EnumerateAllCards().Where(c => c.WasGenerated() && c.CanUpgradeAndPositive).Where(c => c.CanUpgradeAndPositive);
-                if (toUpgrade.FirstOrDefault() != null)
-                    yield return new UpgradeCardsAction(toUpgrade);
+            var toUpgrade = Battle.EnumerateAllCards().Where(c => c.WasGenerated() && c.CanUpgradeAndPositive).Where(c => c.CanUpgradeAndPositive);
+            if (toUpgrade.FirstOrDefault() != null)
+                yield return new UpgradeCardsAction(toUpgrade);
 
-            }
         }
 
 

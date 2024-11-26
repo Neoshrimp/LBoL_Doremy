@@ -71,12 +71,15 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
         {
             get
             {
-                if (Battle == null)
+                return true;
+/*                if (Battle == null)
                     return true;
                 if(_canActivate)
                     _canActivate = !Battle.BattleCardUsageHistory.Any(c => c.Id == Id);
 
-                return _canActivate;
+                return _canActivate;*/
+
+                //    Only the first {SelfName} used will take effect each combat.
             }
             internal set => _canActivate = value;
         }
@@ -113,9 +116,9 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
                 }
                 
                 // update desc
-                Battle.EnumerateAllCards().Where(c => c.Id == Id)
+/*                Battle.EnumerateAllCards().Where(c => c.Id == Id)
                     .Cast<DoremyDreamsOfABetterTomorrow>()
-                    .Do(c => { c.CanActivate = false; c.NotifyChanged(); });
+                    .Do(c => { c.CanActivate = false; c.NotifyChanged(); });*/
             }
             
         }
@@ -150,7 +153,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
 
         public void UpdateCards(IEnumerable<Card> cards)
         {
-            _endOfCombatCards.AddRange(cards.Where(c => !c.IsCopy));
+            _endOfCombatCards.AddRange(cards);
             Count = EndOfBattleCards.Count;
             NotifyChanged();
         }

@@ -13,6 +13,10 @@ using LBoL_Doremy.DoremyChar.Keywords;
 using HarmonyLib;
 using LBoL.Presentation.UI.Widgets;
 using LBoL.Core.Cards;
+using LBoL_Doremy.ExtraAssets;
+using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 namespace LBoL_Doremy.DoremyChar.DreamManagers
 {
@@ -29,7 +33,7 @@ namespace LBoL_Doremy.DoremyChar.DreamManagers
 
 
             CHandlerManager.RegisterBattleEventHandler(b => b.Player.DamageDealing, OnDmgDealing, null, (GameEventPriority)20);
-            CHandlerManager.RegisterBattleEventHandler(b => b.Player.BlockShieldGaining, OnSBGaining, null, (GameEventPriority)20);
+            CHandlerManager.RegisterBattleEventHandler(b => b.Player.BlockShieldCasting, OnSBGaining, null, (GameEventPriority)20);
             CHandlerManager.RegisterBattleEventHandler(b => EventManager.GetDoremyEvents(b).nightmareEvents.nigtmareApplying, OnNMApplying, null, (GameEventPriority)20);
 
 
@@ -97,20 +101,35 @@ namespace LBoL_Doremy.DoremyChar.DreamManagers
         [HarmonyPatch]
         internal class BoostCardWidgetPatch
         {
+            public const string DLGoName = "DLStackTracker";
+
             [HarmonyPatch(typeof(CardWidget), "SetProperties")]
             private static void Postfix(CardWidget __instance)
             {
+                var dlGo =__instance.baseLoyaltyObj.transform.parent.Find(DLGoName)?.gameObject;
                 if (__instance._card.TryGetCustomKeyword(DoremyKw.dLId, out DLKeyword dl))
                 {
-                    var card = __instance._card;
-                    __instance.baseLoyaltyObj.SetActive(true);
-                    __instance.baseLoyalty.text = dl.DreamLevel.ToString();
-                    // 2do teammates?
-                    if (card.Config.Loyalty != null)
+
+                    if (dlGo == null)
                     {
-                        
+                        dlGo = GameObject.Instantiate(__instance.baseLoyaltyObj, __instance.baseLoyaltyObj.transform.parent, worldPositionStays: true);
+                        dlGo.name = DLGoName;
+                        dlGo.transform.localPosition += new Vector3(0, 95, 0);
+
+                        var img = dlGo.GetComponent<Image>();
+                        img.sprite = AssetManager.DoremyAssets.dlTrackerIcon;
                     }
 
+
+                    var tmpTxt = dlGo.transform.Find("BaseLoyaltyText").gameObject.GetComponent<TextMeshProUGUI>();
+                    dlGo.SetActive(true);
+                    tmpTxt.text = dl.DreamLevel.ToString();
+
+                }
+                else
+                {
+                    if (dlGo != null)
+                        dlGo.SetActive(false);
                 }
             }
         }

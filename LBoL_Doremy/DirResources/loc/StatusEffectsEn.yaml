@@ -21,20 +21,18 @@ DoremyRestEasySE:
   Description: Whenever a card gains {DL}, it costs {Level} random mana less this combat.
 
 DC_DreamLayerKeywordSE:
-  Name: DreamLayer
+  Name: Dream Layer
   Description: |-
     At the end of {PlayerName}'s turn, if this card is in the hand, give it {DL} and then shuffle it into the draw pile.
-    This card can accumulate {DL}.
   Brief: |-
     At the end of {PlayerName}'s turn, if this card is in the hand, give it {DL} and then shuffle it into the draw pile.
-    This card can accumulate {DL}.
 
 DC_DLKwSE:
   Name: "{DL}"
   Description: |-
-    {DL} enhances various effects of cards with |DreamLayer|. Any card can be considered to have gained {DL} but only cards with |Dream Layer| can accumulate it.
+    Card's attack damage dealt, |Block|/|Barrier| gained and |Nightmare| applied is increased by |e:{DLMulDesc}|% per {DL} stack.
   Brief: |-
-    {DL} enhances various effects of cards with |DreamLayer|. Any card can be considered to have gained {DL} but only cards with |Dream Layer| can accumulate it.
+    Card's attack damage dealt, |Block|/|Barrier| gained and |Nightmare| applied is increased by |e:{DLMulDesc}|% per {DL} stack.
 
 DoremyDefensiveDaydreamingSE:
   Name: Defensive Daydreaming
@@ -54,7 +52,7 @@ DoremyFantasticalMightSE:
 DoremyDreamBalloonFlightSE:
   Name: Dream Balloon Flight
   Description: |-
-    Whenever a card gains {DL}, draw {Level} additional card{Level:plural one='' other='s'} at the start of the {OwnerName}'s next turn.
+    Whenever a card gains {DL}, increase counter by {Level}. At the start of the {OwnerName}'s turn draw card equal to <i>half the counter</i> rounded down ({ToDraw}) and decrease the counter by an even number closest to the counter but no larger than the counter.
 
 DoremyBorderofDreamsSE:
   Name: Border of Dreams
@@ -64,7 +62,7 @@ DoremyBorderofDreamsSE:
 DoremyRunawayDreamSE:
   Name: Runaway Dream
   Description: |-
-    After a card with |DreamLayer| is played, it gains {DL}{DoTimes}.
+    After a card with |Dream Layer| is played, it gains {DL}{DoTimes}.
   Times: " {Level} times"
 
 DoremyOppressiveNightmareSE:
@@ -80,7 +78,12 @@ DoremyHorrifyingPotentialSE:
 DoremyComatoseFormSE:
   Name: Comatose Form
   Description: |-
-    Whenever a card gains {DL}, add {Level} |Cop{Level:plural one='y' other='ies'}| of it to the hand. The original card gains |Copy| keyword unless it has |DreamLayer|.
+    All created cards have |Dream Layer|. Card output boost is increased to |e:{DLMultDesc}|% per {DL} stack.
+
+DoremyComatoseFormUpgradeSE:
+  Name: Comatose Form
+  Description: |-
+    Created cards gain {DL} upon entering combat.
 
 DoremyUniversalDreamLayerSE:
   Name: Universal Dream Layer
@@ -113,12 +116,12 @@ DoremyCatnapSE:
 DoremyInfectiousNightmaresSE:
   Name: Infectious Nightmares
   Description: |-
-    When {OwnerName} is defeated, a random enemy gains |Nightmare| equal to the |Nightmare| {OwnerName} had.
+    When {OwnerName} is defeated, all enemies gain |Nightmare| equal to the |Nightmare| {OwnerName} had.
 
 DoremyFastAsleepSE:
   Name: Fast Asleep
   Description: |-
-   Whenever a card would be shuffled into the draw pile by |DreamLayer| effect, it is placed on top of the draw pile instead.
+   Whenever a card would be shuffled into the draw pile by |Dream Layer| effect, it is placed on top of the draw pile instead.
 
 DoremyDeepNavyOverdriveSE:
   Name: Deep Navy Overdrive

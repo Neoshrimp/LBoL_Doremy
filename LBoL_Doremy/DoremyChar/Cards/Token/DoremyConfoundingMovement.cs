@@ -28,8 +28,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Token
             con.Colors = new List<ManaColor>() { ManaColor.White };
             con.Cost = new ManaGroup() { Any = 0 };
 
-            con.Value1 = 2;
-            con.UpgradedValue1 = 4;
+            con.Value1 = 3;
+            con.UpgradedValue1 = 5;
 
             con.Keywords = Keyword.Exile;
             con.UpgradedKeywords = Keyword.Exile;

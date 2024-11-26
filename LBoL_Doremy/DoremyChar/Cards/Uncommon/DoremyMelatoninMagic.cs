@@ -5,6 +5,7 @@ using LBoL.Core.Battle;
 using LBoL.Core.Battle.BattleActions;
 using LBoL.EntityLib.Cards.Character.Alice;
 using LBoL_Doremy.DoremyChar.Actions;
+using LBoL_Doremy.DoremyChar.Cards.Common;
 using LBoL_Doremy.DoremyChar.Keywords;
 using LBoL_Doremy.DoremyChar.SE;
 using LBoL_Doremy.RootTemplates;
@@ -55,8 +56,10 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
         {
             if(args.ActionSource != this)
                 yield break;
-            if(args.Card.HasCustomKeyword(DoremyKw.dreamLayerId))
+            if (args.Card.HasCustomKeyword(DoremyKw.dreamLayerId))
                 yield return new ApplyDLAction(args.Card);
+            else
+                args.Card.AddCustomKeyword(DoremyKw.NewDreamLayer);
         }
 
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)

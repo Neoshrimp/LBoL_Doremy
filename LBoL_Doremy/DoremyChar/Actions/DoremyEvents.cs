@@ -8,8 +8,9 @@ namespace LBoL_Doremy.DoremyChar.Actions
         public DLEvents dLEvents = new DLEvents();
         public NightmareEvents nightmareEvents = new NightmareEvents();
 
+        public const float defaultDLMult = 0.25f;
 
-        float _DLperLevelMult = 0.25f;
+        float _DLperLevelMult = defaultDLMult;
 
         public float DLperLevelMult { get => _DLperLevelMult; set => _DLperLevelMult = value; }
     }

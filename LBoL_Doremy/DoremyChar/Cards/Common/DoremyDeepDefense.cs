@@ -35,8 +35,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
             con.UpgradedKeywords = Keyword.Debut;
 
 
-            con.RelativeEffects = new List<string>() { nameof(DC_DLKwSE) };
-            con.UpgradedRelativeEffects = new List<string>() { nameof(DC_DLKwSE) };
+            con.RelativeEffects = new List<string>() { nameof(DC_DreamLayerKeywordSE), nameof(DC_DLKwSE) };
+            con.UpgradedRelativeEffects = new List<string>() { nameof(DC_DreamLayerKeywordSE), nameof(DC_DLKwSE) };
 
 
             return con;
@@ -70,8 +70,6 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
             var hand = base.Battle.HandZone.Where(c => c != this);
             if (hand.FirstOrDefault() == null)
                 return null;
-            if (!DebutActive)
-                return null;
             return new SelectHandInteraction(1, 1, hand);
         }
 
@@ -85,9 +83,13 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
                 var target = interaction.SelectedCards.FirstOrDefault();
                 if (target != null)
                 {
-                    yield return new ApplyDLAction(target);
-                    if(IsUpgraded)
+                    target.AddCustomKeyword(DoremyKw.NewDreamLayer);
+                    if (DebutActive)
+                    { 
                         yield return new ApplyDLAction(target);
+                        if(IsUpgraded)
+                            yield return new ApplyDLAction(target);
+                    }
                 }
             }
 

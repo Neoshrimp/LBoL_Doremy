@@ -25,10 +25,10 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
             con.TargetType = TargetType.SingleEnemy;
 
             con.Colors = new List<ManaColor>() { ManaColor.Blue };
-            con.Cost = new ManaGroup() { Blue = 1, Any = 2 };
+            con.Cost = new ManaGroup() { Blue = 1, Any = 1 };
 
-            con.Value1 = 15;
-            con.UpgradedValue1 = 25;
+            con.Value1 = 18;
+            con.UpgradedValue1 = 23;
 
 
             con.RelativeEffects = new List<string>() { nameof(DC_NightmareSE) };
@@ -82,7 +82,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
                 yield break;
 
             if (args.Unit.TryGetStatusEffect<DC_NightmareSE>(out var nightmare))
-                yield return NightmareAction(UnitSelector.RandomEnemy.GetEnemy(Battle), nightmare.Level);
+                foreach(var e in UnitSelector.AllEnemies.GetEnemies(Battle))
+                    yield return NightmareAction(e, nightmare.Level);
         }
     }
 }

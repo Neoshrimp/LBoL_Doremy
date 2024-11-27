@@ -26,7 +26,11 @@ namespace LBoL_Doremy.DoremyChar.Keywords
 
         [return: MaybeNull]
         public virtual CardKeyword Clone() 
-        { return new CardKeyword(kwSEid, descPos, isVerbose); }
+        { 
+            return new CardKeyword(kwSEid, descPos, isVerbose); 
+        }
+
+        public virtual void Merge(CardKeyword other) { }
 
         public CardKeyword(string kwSEid, KwDescPos descPos = KwDescPos.Last, bool isVerbose = false)
         {
@@ -47,6 +51,5 @@ namespace LBoL_Doremy.DoremyChar.Keywords
             return HashCode.Combine(kwSEid);
         }
     }
-
 
 }

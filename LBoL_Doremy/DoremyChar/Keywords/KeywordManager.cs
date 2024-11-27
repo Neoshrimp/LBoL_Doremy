@@ -44,6 +44,26 @@ namespace LBoL_Doremy.DoremyChar.Keywords
             return GetKeywords(card).Remove(keyword.kwSEid);
         }
 
+        public static CardKeyword GetOrAddCustomKeyword(this Card card, CardKeyword keyword)
+        {
+            if (!card.TryGetCustomKeyword(keyword.kwSEid, out var rezKeyword))
+            { 
+                card.AddCustomKeyword(keyword);
+                return keyword;
+            }
+            return rezKeyword;
+        }
+
+        public static T GetOrAddCustomKeyword<T>(this Card card, T keyword) where T : CardKeyword
+        {
+            if (!card.TryGetCustomKeyword<T>(keyword.kwSEid, out var rezKeyword))
+            {
+                card.AddCustomKeyword(keyword);
+                return keyword;
+            }
+            return rezKeyword;
+        }
+
         public static bool TryGetCustomKeyword(this Card card, string kwId, out CardKeyword rezKeyword)
         {
             return GetKeywords(card).TryGetValue(kwId, out rezKeyword);

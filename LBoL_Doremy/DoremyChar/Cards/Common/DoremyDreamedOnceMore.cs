@@ -68,10 +68,16 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
                 {
                     yield return new MoveCardAction(target, LBoL.Core.Cards.CardZone.Hand);
 
-                    if (target.HasCustomKeyword(DoremyKw.dreamLayerId))
+                    if(target.HasCustomKeyword(DoremyKw.dreamLayerId))
                     {
                         var copy = target.CloneBattleCard();
                         copy.IsExile = true;
+/*                        if (target.TryGetCustomKeyword(DoremyKw.dLId, out DLKeyword ogDL))
+                        {
+                            var copyDL = copy.GetOrAddCustomKeyword(DoremyKw.NewDLKeyword);
+                            copyDL.Merge(ogDL);
+                        }*/
+                        //"In this case, {DL} stacks are copied."
                         yield return new AddCardsToHandAction(copy);
                     }
                 }

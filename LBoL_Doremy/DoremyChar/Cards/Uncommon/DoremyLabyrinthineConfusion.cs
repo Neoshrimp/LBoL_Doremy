@@ -32,8 +32,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             con.Cost = new ManaGroup() { White = 2 };
 
 
-            con.Block = 9;
-            con.UpgradedBlock = 7;
+            con.Block = 7;
+            con.UpgradedBlock = 10;
 
 
             //con.Value1 = 7;
@@ -61,8 +61,12 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
                     return 0;
 
                 var count = RealBattle.HandZone.Where(c => c.WasGenerated() && c != RealCard).Count();
-                if (IsUpgraded)
-                    count += RealBattle.DrawZone.Where(c => c.WasGenerated() && c != RealCard).Count();
+                /*if (IsUpgraded)
+                    count += RealBattle.DrawZone.Where(c => c.WasGenerated() && c != RealCard).Count();*/
+
+                /*  UpgradedDescription: |-
+                    |For each created card in {PlayerName}'s hand and draw pile|:
+                    Gain {Block} |Block| and apply {NM2Apply} |Nightmare| to each enemy.{TimesHint}*/
                 return count;
             }
         }

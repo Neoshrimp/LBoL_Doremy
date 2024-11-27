@@ -27,7 +27,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Token
             con.TargetType = TargetType.SingleEnemy;
 
             con.Colors = new List<ManaColor>() { ManaColor.White };
-            con.Cost = new ManaGroup() { White = 1 };
+            con.Cost = new ManaGroup() { Any = 1 };
 
 
             con.Damage = 6;

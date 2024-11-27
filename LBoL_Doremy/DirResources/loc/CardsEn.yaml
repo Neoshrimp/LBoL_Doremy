@@ -37,7 +37,7 @@ DoremyProcrastinate:
   Description: |-
     Gain {Block} Block. 
     |Exile| up to {Value1} cards in the hand. At the start of the {PlayerName}'s next turn, add |Copies| of the exiled cards to the hand.
-  DetailText: Card generation happens after draw step.
+  DetailText: Card generation happens before draw step.
   FlavorText: "I'll finish this splash text latter, I'm tired RN."
 
 
@@ -160,7 +160,6 @@ DoremyDreamedOnceMore:
   Description: |-
     Gain {Block} |Block|. 
     Return a card from the discard pile to the hand. If it has |Dream Layer|, add a |Copy| with |Exile| to the hand.
-  DetailText: "{DL} level is copied."
   FlavorText: |-
     Again!
 
@@ -239,9 +238,6 @@ DoremyLabyrinthineConfusion:
   Name: Labyrinthine Confusion
   Description: |-
     |For each created card in {PlayerName}'s hand|:
-    Gain {Block} |Block| and apply {NM2Apply} |Nightmare| to each enemy.{TimesHint}
-  UpgradedDescription: |-
-    |For each created card in {PlayerName}'s hand and draw pile|:
     Gain {Block} |Block| and apply {NM2Apply} |Nightmare| to each enemy.{TimesHint}
   Times: |-
     ({LB}{GenCount}{CC} time{GenCount:plural one='' other='s'})
@@ -397,7 +393,7 @@ DoremyEverDeepeningDreams:
 DoremyUniversalDreamLayer:
   Name: Universal Dream Layer
   Description: |-
-    At the end of {PlayerName}'s turn, |Upgrade| up to {Value1} card{Value1:plural one='' other='s'} in the hand. {Value1:plural one='It' other=They'} gain{Value1:plural one='s' other=''} {DL} and {Value1:plural one='is' other='are'} shuffled into the draw pile.
+    At the end of {PlayerName}'s turn, |Upgrade| up to {Value1} card{Value1:plural one='' other='s'} in the hand. {Value1:plural one='It' other=They} gain{Value1:plural one='s' other=''} {DL} and {Value1:plural one='is' other='are'} shuffled into the draw pile.
   FlavorText: |-
     Everyone stands to improve a little from a good night's rest.
 

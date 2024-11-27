@@ -17,6 +17,9 @@ using LBoL_Doremy.ExtraAssets;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Reflection;
+using LBoL.Base.Extensions;
+using System.Reflection.Emit;
 
 namespace LBoL_Doremy.DoremyChar.DreamManagers
 {
@@ -98,12 +101,26 @@ namespace LBoL_Doremy.DoremyChar.DreamManagers
 
 
 
+
+
+
+
+
         [HarmonyPatch]
         internal class BoostCardWidgetPatch
         {
             public const string DLGoName = "DLStackTracker";
 
-            [HarmonyPatch(typeof(CardWidget), "SetProperties")]
+
+
+            static IEnumerable<MethodBase> TargetMethods()
+            {
+                yield return AccessTools.Method(typeof(CardWidget), "SetProperties");
+                yield return AccessTools.Method(typeof(CardWidget), nameof(CardWidget.LazySetCard));
+
+            }
+
+
             private static void Postfix(CardWidget __instance)
             {
                 var dlGo =__instance.baseLoyaltyObj.transform.parent.Find(DLGoName)?.gameObject;
@@ -120,10 +137,10 @@ namespace LBoL_Doremy.DoremyChar.DreamManagers
                         img.sprite = AssetManager.DoremyAssets.dlTrackerIcon;
                     }
 
-
                     var tmpTxt = dlGo.transform.Find("BaseLoyaltyText").gameObject.GetComponent<TextMeshProUGUI>();
-                    dlGo.SetActive(true);
                     tmpTxt.text = dl.DreamLevel.ToString();
+
+                    dlGo.SetActive(true);
 
                 }
                 else

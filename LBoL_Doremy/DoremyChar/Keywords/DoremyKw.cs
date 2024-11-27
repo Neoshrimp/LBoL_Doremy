@@ -60,10 +60,22 @@ namespace LBoL_Doremy.DoremyChar.Keywords
         [return: MaybeNull]
         public override CardKeyword Clone()
         {
-            var clone = new DLKeyword();
+            return null;
+            /*var clone = new DLKeyword();
             clone.DreamLevel = DreamLevel;
-            return clone;
+            return clone;*/
         }
+
+        public override void Merge(CardKeyword other)
+        {
+            if (other is DLKeyword otherDL)
+            {
+                if (otherDL.DreamLevel > DreamLevel )
+                    DreamLevel = otherDL.DreamLevel;
+            }
+        }
+
+
     }
 
 

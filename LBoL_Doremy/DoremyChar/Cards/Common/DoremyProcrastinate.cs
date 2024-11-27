@@ -122,12 +122,12 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
         {
             if (unit is PlayerUnit pu)
             {
-                ReactOwnerEvent(pu.TurnStarted, TurnStarted);
+                ReactOwnerEvent(pu.TurnStarting, TurnStarting);
             }
             Count = 0;
         }
 
-        private IEnumerable<BattleAction> TurnStarted(UnitEventArgs args)
+        private IEnumerable<BattleAction> TurnStarting(UnitEventArgs args)
         {
             if (Battle.BattleShouldEnd)
                 yield break;

@@ -84,7 +84,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             if (Battle.BattleShouldEnd)
                 yield break;
 
-            var hand = Battle.HandZone.Where((Card card) => card.CanUpgradeAndPositive);
+            var hand = Battle.HandZone;//.Where((Card card) => card.CanUpgradeAndPositive);
 
             SelectCardInteraction selection = null;
             if (hand.FirstOrDefault() != null)
@@ -99,7 +99,9 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
                 {
                     NotifyActivating();
                     var cards = selection.SelectedCards;
-                    yield return new UpgradeCardsAction(cards);
+
+                    
+                    yield return new UpgradeCardsAction(cards.Where(c => c.CanUpgradeAndPositive));
                     foreach (var card in cards)
                     {
                         yield return new ApplyDLAction(card, isEndOfTurnBounce: true);

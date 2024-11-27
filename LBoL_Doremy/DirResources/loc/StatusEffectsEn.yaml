@@ -30,9 +30,9 @@ DC_DreamLayerKeywordSE:
 DC_DLKwSE:
   Name: "{DL}"
   Description: |-
-    Card's attack damage dealt, |Block|/|Barrier| gained and |Nightmare| applied is increased by |e:{DLMulDesc}|% per {DL} stack.
+    Card's attack damage dealt, |Block|/|Barrier| gained and |Nightmare| applied is increased by |e:{DLMulDesc}|% per {DL} stack. {DL} is <b>not</b> copied when the card is |copied|.
   Brief: |-
-    Card's attack damage dealt, |Block|/|Barrier| gained and |Nightmare| applied is increased by |e:{DLMulDesc}|% per {DL} stack.
+    Card's attack damage dealt, |Block|/|Barrier| gained and |Nightmare| applied is increased by |e:{DLMulDesc}|% per {DL} stack. {DL} is <b>not</b> copied when the card is |copied|.
 
 DoremyDefensiveDaydreamingSE:
   Name: Defensive Daydreaming

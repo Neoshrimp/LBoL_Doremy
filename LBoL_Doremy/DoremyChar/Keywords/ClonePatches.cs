@@ -25,8 +25,14 @@ namespace LBoL_Doremy.DoremyChar.Keywords
             foreach (var kw in __instance.AllCustomKeywords())
             {
                 var clone = kw.Clone();
-                if(clone != null)
-                    __result.AddCustomKeyword(clone);
+                if (clone != null)
+                { 
+                    if(!__result.TryGetCustomKeyword(kw.kwSEid, out var ogKw))
+                        __result.AddCustomKeyword(clone);
+                    else
+                        ogKw.Merge(clone);
+                
+                }
             }
         }
     }

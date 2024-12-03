@@ -417,6 +417,8 @@ DoremyComatoseForm:
   Description: |-
     All created cards have |Dream Layer|. Card output boost is increased to |e:{DLMultDesc}|% per {DL} stack.{UpgradeDesc}
   UpgradeTxt: " Created cards gain {DL} upon entering combat."
+  DetailText: |-
+    Status and Misfortunes do not gain |Dream Layer|.
   FlavorText: |-
     Dreaming of adventures past.
 

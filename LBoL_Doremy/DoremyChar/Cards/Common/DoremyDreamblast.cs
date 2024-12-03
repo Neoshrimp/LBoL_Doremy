@@ -39,8 +39,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
             con.UpgradedValue2 = 2;
 
 
-            con.RelativeEffects = new List<string>() { nameof(DC_DreamLayerKeywordSE), nameof(DC_NightmareSE) };
-            con.UpgradedRelativeEffects = new List<string>() { nameof(DC_DreamLayerKeywordSE), nameof(DC_NightmareSE) };
+            con.RelativeEffects = new List<string>() { nameof(DC_NightmareSE) };
+            con.UpgradedRelativeEffects = new List<string>() { nameof(DC_NightmareSE) };
 
 
             return con;

@@ -24,6 +24,7 @@ using LBoLEntitySideloader;
 using UnityEngine;
 using LBoL_Doremy.StaticResources;
 using LBoLEntitySideloader.Resource;
+using LBoLEntitySideloader.CustomKeywords;
 
 namespace LBoL_Doremy.DoremyChar.Cards.Rare
 {
@@ -72,6 +73,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
 
 
         }
+
+        public static bool IsPositive(Card card) => card.CardType != CardType.Misfortune && card.CardType != CardType.Status;
     }
 
 
@@ -98,7 +101,16 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
         protected override void OnAdded(Unit unit)
         {
             EventManager.DoremyEvents.DLperLevelMult = DLMult;
+            ReactOnCardsAddedEvents(OnCardsAdded);
             SetSleepAnim(unit, true);
+        }
+
+        private IEnumerable<BattleAction> OnCardsAdded(Card[] cards, GameEventArgs args)
+        {
+            foreach (var c in cards.Where(c => DoremyComatoseForm.IsPositive(c)))
+                c.AddCustomKeyword(DoremyKw.NewDreamLayer);
+
+            yield break;
         }
 
 
@@ -160,7 +172,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
 
         private IEnumerable<BattleAction> OnCardsAdded(Card[] cards, GameEventArgs args)
         {
-            foreach (var c in cards)
+            foreach (var c in cards.Where(c => DoremyComatoseForm.IsPositive(c)))
                 for(int i = 0; i < Level; i++)
                     yield return new ApplyDLAction(c);
         }

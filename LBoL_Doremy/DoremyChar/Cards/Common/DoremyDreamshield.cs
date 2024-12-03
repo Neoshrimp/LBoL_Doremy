@@ -4,6 +4,7 @@ using LBoL.Core.Battle.BattleActions;
 using LBoL_Doremy.Actions;
 
 using LBoL_Doremy.DoremyChar.DreamManagers;
+using LBoL_Doremy.DoremyChar.Keywords;
 using LBoL_Doremy.DoremyChar.SE;
 using LBoL_Doremy.RootTemplates;
 using LBoLEntitySideloader.Attributes;
@@ -33,6 +34,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
             //con.Keywords = Keyword.Forbidden;
             con.UpgradedKeywords = /*Keyword.Forbidden |*/ Keyword.Replenish;
 
+            con.RelativeEffects = new List<string>() { nameof(DC_NightmareSE) };
+            con.UpgradedRelativeEffects = new List<string>() { nameof(DC_NightmareSE) };
 
             return con;
         }

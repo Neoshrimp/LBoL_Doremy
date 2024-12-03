@@ -27,6 +27,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             con.Colors = new List<ManaColor>() { ManaColor.Blue };
             con.Cost = new ManaGroup() { Blue = 2 };
 
+            con.Value1 = 2;
+
             con.Keywords = Keyword.Exile;
 
 
@@ -40,7 +42,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
     {
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
-            yield return new DrawManyCardAction(DreamLevel);
+            yield return new DrawManyCardAction(Value1 + DreamLevel);
         }
     }
 }

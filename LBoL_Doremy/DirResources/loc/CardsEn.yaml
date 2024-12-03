@@ -103,6 +103,7 @@ DoremyDreamshield:
   Name: Dreamshield
   Description: |-
     |When this card gains {DL}|: Gain {Block} |Block| and draw an {LB}additional{CC} card at the start of {PlayerName}'s next turn.
+    Apply {NM2Apply} |Nightmare| to {PlayerName}.
   FlavorText: '"No mind to break."'
 
 DoremyRestEasy:
@@ -364,7 +365,7 @@ DoremyCreepingBullet:
 DoremyDreamDraw:
   Name: Dream Draw
   Description: |-
-    Draw a number of cards equal to {DL} stacks.
+    Draw {Value1} cards. Draw additional cards equal to {DL} stacks.
   FlavorText: |-
     Slow, but it sure can draw a lot of cards.
 

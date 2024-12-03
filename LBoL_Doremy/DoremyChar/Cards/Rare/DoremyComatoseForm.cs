@@ -94,7 +94,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
         public string DLMultDesc => (DoremyComatoseFormSE.DLMult * 100).ToString();
 
 
-        public const float DLMult = 0.33f;
+        public const float DLMult = 0.2f;
         protected override void OnAdded(Unit unit)
         {
             EventManager.DoremyEvents.DLperLevelMult = DLMult;

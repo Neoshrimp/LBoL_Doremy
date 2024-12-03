@@ -24,12 +24,14 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
             con.Colors = new List<ManaColor>() { ManaColor.Blue };
             con.Cost = ManaGroup.Empty;
 
-            con.Block = 6;
+            con.Block = 4;
 
             con.Value1 = 1;
+            con.Value2 = 2;
 
-            con.Keywords = Keyword.Forbidden;
-            con.UpgradedKeywords = Keyword.Forbidden | Keyword.Replenish;
+
+            //con.Keywords = Keyword.Forbidden;
+            con.UpgradedKeywords = /*Keyword.Forbidden |*/ Keyword.Replenish;
 
 
             return con;
@@ -42,10 +44,13 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
     {
         //public override bool ShowDreamLevel => false;
 
+        public NightmareInfo NM2Apply => Value2;
+
         public override void OnDLChanged(DreamLevelArgs args)
         {
             React(new CastBlockShieldAction(Battle.Player, Block));
             React(BuffAction<DoremyExtraDrawSE>(Value1));
+            React(NightmareAction(Battle.Player, NM2Apply));
         }
     }
 }

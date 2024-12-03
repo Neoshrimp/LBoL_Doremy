@@ -3,6 +3,7 @@ using LBoL.Core.Cards;
 using LBoL_Doremy.Actions;
 using LBoL_Doremy.DoremyChar.DreamManagers;
 using LBoL_Doremy.DoremyChar.Keywords;
+using LBoLEntitySideloader.CustomKeywords;
 using System;
 using System.Collections.Generic;
 using System.Text;

@@ -24,6 +24,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
             con.Type = LBoL.Base.CardType.Attack;
             con.TargetType = TargetType.SingleEnemy;
 
+            con.GunName = "病气A";
+
             con.Colors = new List<ManaColor>() { ManaColor.Blue };
             con.Cost = new ManaGroup() { Blue = 2, };
 

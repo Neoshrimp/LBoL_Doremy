@@ -28,9 +28,9 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             //con.UpgradedCost = new ManaGroup() { White = 1, Any = 2 };
 
 
-            con.Damage = 12;
-            con.Value1 = 12;
-            con.Value2 = 1;
+            con.Damage = 1;
+            con.Value1 = 1;
+            con.Value2 = 2;
 
             con.Keywords = Keyword.Accuracy | Keyword.Exile;
             con.UpgradedKeywords = Keyword.Accuracy;

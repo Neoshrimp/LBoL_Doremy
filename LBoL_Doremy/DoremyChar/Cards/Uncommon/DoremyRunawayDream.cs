@@ -8,6 +8,7 @@ using LBoL_Doremy.DoremyChar.Actions;
 using LBoL_Doremy.DoremyChar.Keywords;
 using LBoL_Doremy.RootTemplates;
 using LBoLEntitySideloader.Attributes;
+using LBoLEntitySideloader.CustomKeywords;
 using System;
 using System.Collections.Generic;
 using System.Text;

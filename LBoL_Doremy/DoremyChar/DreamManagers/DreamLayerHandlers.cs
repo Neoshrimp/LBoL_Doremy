@@ -20,6 +20,7 @@ using UnityEngine.UI;
 using System.Reflection;
 using LBoL.Base.Extensions;
 using System.Reflection.Emit;
+using LBoLEntitySideloader.CustomKeywords;
 
 namespace LBoL_Doremy.DoremyChar.DreamManagers
 {

@@ -14,6 +14,7 @@ using LBoL_Doremy.DoremyChar.DreamManagers;
 using LBoL_Doremy.DoremyChar.Keywords;
 using LBoL_Doremy.RootTemplates;
 using LBoLEntitySideloader.Attributes;
+using LBoLEntitySideloader.CustomKeywords;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -86,9 +87,6 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 
                 yield return new AddCardsToHandAction(new Card[] { card });
 
-/*                yield return new ApplyDLAction(card);
-                if(IsUpgraded)
-                   yield return new ApplyDLAction(card);*/
             }
         }
     }

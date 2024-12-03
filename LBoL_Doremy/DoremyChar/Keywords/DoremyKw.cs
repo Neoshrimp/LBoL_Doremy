@@ -1,8 +1,10 @@
 ﻿using LBoL.ConfigData;
 using LBoL.Core;
+using LBoL.Core.Cards;
 using LBoL_Doremy.DoremyChar.Actions;
 using LBoL_Doremy.RootTemplates;
 using LBoLEntitySideloader.Attributes;
+using LBoLEntitySideloader.CustomKeywords;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -58,12 +60,20 @@ namespace LBoL_Doremy.DoremyChar.Keywords
         }
 
         [return: MaybeNull]
-        public override CardKeyword Clone()
+        public override CardKeyword Clone(CloningMethod cloningMethod)
         {
-            return null;
-            /*var clone = new DLKeyword();
-            clone.DreamLevel = DreamLevel;
-            return clone;*/
+            switch (cloningMethod)
+            {
+                case CloningMethod.TwiceToken:
+                    var clone = new DLKeyword();
+                    clone.DreamLevel = DreamLevel;
+                    return clone;
+                case CloningMethod.DoesntMatter:
+                case CloningMethod.NonBattle:
+                case CloningMethod.Copy:
+                default:
+                    return null;
+            }
         }
 
         public override void Merge(CardKeyword other)
@@ -91,10 +101,27 @@ namespace LBoL_Doremy.DoremyChar.Keywords
     }
 
     [EntityLogic(typeof(DC_DLKwSEDef))]
-    public sealed class DC_DLKwSE : DStatusEffect
+    public sealed class DC_DLKwSE : DStatusEffect, IOnTooltipDisplay, IOverrideSEBrief
     {
         public string DLMulDesc => (DoremyEvents.defaultDLMult * 100).ToString();
 
         public override string Name => base.Name.RuntimeFormat(FormatWrapper);
+
+        int dlLevel = 0;
+
+        public void OnTooltipDisplay(Card card)
+        {
+            if (card.TryGetCustomKeyword(DoremyKw.dLId, out DLKeyword dl))
+            {
+                dlLevel = dl.DreamLevel;
+            }
+        }
+
+        public string OverrideBrief(string rawBrief)
+        {
+            return rawBrief + $"\ndeez:{dlLevel}";
+        }
     }
+
+
 }

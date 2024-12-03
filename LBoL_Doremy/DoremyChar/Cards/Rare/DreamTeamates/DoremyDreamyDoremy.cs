@@ -31,6 +31,7 @@ using LBoL.EntityLib.StatusEffects.Enemy;
 using HarmonyLib;
 using LBoL_Doremy.DoremyChar.Actions;
 using LBoL.Core.Randoms;
+using LBoLEntitySideloader.CustomKeywords;
 
 namespace LBoL_Doremy.DoremyChar.Cards.Rare.DreamTeamates
 {

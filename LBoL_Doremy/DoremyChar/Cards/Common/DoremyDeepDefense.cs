@@ -13,6 +13,7 @@ using LBoL.Core.Battle.Interactions;
 using LBoL.Core.Cards;
 using System.Linq;
 using LBoL_Doremy.DoremyChar.Actions;
+using LBoLEntitySideloader.CustomKeywords;
 
 namespace LBoL_Doremy.DoremyChar.Cards.Common
 {

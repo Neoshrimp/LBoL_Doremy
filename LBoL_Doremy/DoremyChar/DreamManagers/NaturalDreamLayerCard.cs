@@ -11,6 +11,7 @@ using LBoL_Doremy.DoremyChar.Cards.Rare;
 using LBoL_Doremy.DoremyChar.Keywords;
 using LBoL_Doremy.RootTemplates;
 using LBoLEntitySideloader.CustomHandlers;
+using LBoLEntitySideloader.CustomKeywords;
 using System;
 using System.Collections.Generic;
 using System.Linq;

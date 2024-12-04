@@ -15,12 +15,12 @@ namespace LBoL_Doremy.DoremyChar.Keywords
 {
     public static class DoremyKw
     {
-        public static string dreamLayerId = nameof(DC_DreamLayerKeywordSE);
-        public static CardKeyword NewDreamLayer { get => new CardKeyword(dreamLayerId, KwDescPos.First); }
+        public const string dreamLayerId = nameof(DC_DreamLayerKeywordSE);
+        public static CardKeyword NewDreamLayer { get => new CardKeyword(dreamLayerId) { descPos = KwDescPos.First }; }
 
 
-        public static string dLId = nameof(DC_DLKwSE);
-        public static DLKeyword NewDLKeyword { get => new DLKeyword(dLId);}
+        public const string dLId = nameof(DC_DLKwSE);
+        public static DLKeyword NewDLKeyword { get => new DLKeyword(); }
     }
 
     public sealed class DC_DreamLayerKeywordSEDef : DStatusEffectDef
@@ -42,7 +42,6 @@ namespace LBoL_Doremy.DoremyChar.Keywords
 
 
 
-
     public class DLKeyword : CardKeyword
     {
 
@@ -55,8 +54,11 @@ namespace LBoL_Doremy.DoremyChar.Keywords
                 _dreamLevel = value; _dreamLevel = Math.Max(0, _dreamLevel);
             }
         }
-        public DLKeyword(string kwSEid = nameof(DC_DLKwSE), KwDescPos descPos = KwDescPos.DoNotDisplay, bool isVerbose = false) : base(kwSEid, descPos, isVerbose)
+
+
+        public DLKeyword(string kwSEid = DoremyKw.dLId, bool isVerbose = false) : base(kwSEid, isVerbose)
         {
+            descPos = KwDescPos.DoNotDisplay;
         }
 
         [return: MaybeNull]
@@ -65,7 +67,7 @@ namespace LBoL_Doremy.DoremyChar.Keywords
             switch (cloningMethod)
             {
                 case CloningMethod.TwiceToken:
-                    var clone = new DLKeyword();
+                    var clone = DoremyKw.NewDLKeyword;
                     clone.DreamLevel = DreamLevel;
                     return clone;
                 case CloningMethod.DoesntMatter:

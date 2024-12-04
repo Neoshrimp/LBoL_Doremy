@@ -39,18 +39,26 @@ namespace LBoL_Doremy.ExtraAssets
 
         public static async void DoLoadAsync()
         {
-            finishedLoading = false;
-            doremyAssets = new DoremyAssets();
-            doremyAssets.createdIcon =  await ResourceLoader.LoadSpriteAsync("CreatedIcon.png", Sources.extraImgs);
-            //2do
-            doremyAssets.dlTrackerIcon = await ResourceLoader.LoadSpriteAsync("DreamLevel.png", Sources.extraImgs);
+
+            try
+            {
+                finishedLoading = false;
+                doremyAssets = new DoremyAssets();
+                doremyAssets.createdIcon =  await ResourceLoader.LoadSpriteAsync("CreatedIcon.png", Sources.extraImgs);
+                //2do
+                doremyAssets.dlTrackerIcon = await ResourceLoader.LoadSpriteAsync("DreamLevel.png", Sources.extraImgs);
 
 
-            // added via TMP_Pro SpriteAsset
-            //doremyAssets.dreamLevel = await ResourceLoader.LoadSpriteAsync("DreamLevel.png", Sources.extraImgs);
+                // added via TMP_Pro SpriteAsset
+                //doremyAssets.dreamLevel = await ResourceLoader.LoadSpriteAsync("DreamLevel.png", Sources.extraImgs);
 
-            doremyAssets.purpleBar = await ResourceLoader.LoadSpriteAsync("PurpleBar.png", Sources.extraImgs);
-            finishedLoading = true;
+                doremyAssets.purpleBar = await ResourceLoader.LoadSpriteAsync("PurpleBar.png", Sources.extraImgs);
+                finishedLoading = true;
+            }
+            catch (Exception ex)
+            {
+                Log.LogError(ex);
+            }
         }
 
 

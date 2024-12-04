@@ -27,8 +27,6 @@ namespace LBoL_Doremy
         internal static BepInEx.Logging.ManualLogSource log;
 
 
-
-
         private void Awake()
         {
             log = Logger;

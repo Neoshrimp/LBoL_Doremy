@@ -341,7 +341,7 @@ DoremyMelatoninMagic:
 DoremySleepParalysisYokai:
   Name: Sleep Paralysis Yokai
   Description: |-
-    Each enemy losses life equal to half its |Nightmare|. 
+    Each enemy loses life equal to half its |Nightmare|. 
     When this card gains {DL}, apply |Temporary Firepower Down| to each enemy equal to {DL} stacks{DreamLevelCappedDesc}, up to a maximum of {Value1}.
   FlavorText: |-
     Not to be confused with the pile of clothes in the corner of your room.
@@ -426,8 +426,6 @@ DoremyTheresNoNeedToWakeUp:
   Name: There's No Need To Wake Up
   Description: |-
     Double each enemy's |Nightmare|.
-  UpgradedDescription: |-
-    Triple each enemy's |Nightmare|.
   FlavorText: |-
     So go to sleep forever.
 
@@ -505,8 +503,8 @@ DoremyCatnap:
 DoremyInfectiousNightmares:
   Name: Infectious Nightmares
   Description: |-
-    Apply {NM2Apply} |Nightmare| to a single enemy. 
-    When that enemy is defeated, all enemies gain |Nightmare| equal to the |Nightmare| the defeated enemy had.
+    Apply |Infectious Nightmares|.
+    Apply {NM2Apply} |Nightmare|.
   FlavorText: |-
     "The plague, the infection, the madness that haunts the corpses of Gensokyo"
 

@@ -24,13 +24,16 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
             con.TargetType = TargetType.AllEnemies;
 
             con.Colors = new List<ManaColor>() { ManaColor.White, ManaColor.Blue };
-            con.Cost = new ManaGroup() { Hybrid = 2, HybridColor = 0 };
+            con.Cost = new ManaGroup() { Hybrid = 3, HybridColor = 0 };
+            con.UpgradedCost = new ManaGroup() { Hybrid = 2, HybridColor = 0 };
+
 
             con.Value1 = 1;
-            con.UpgradedValue1 = 2;
+            //con.UpgradedValue1 = 2;
+            /*  UpgradedDescription: |-
+                Triple each enemy's |Nightmare|.*/
 
 
-            
 
             con.Keywords = Keyword.Exile;
             con.UpgradedKeywords = Keyword.Exile;

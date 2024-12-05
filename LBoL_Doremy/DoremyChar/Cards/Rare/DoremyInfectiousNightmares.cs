@@ -31,8 +31,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
             con.UpgradedValue1 = 23;
 
 
-            con.RelativeEffects = new List<string>() { nameof(DC_NightmareSE) };
-            con.UpgradedRelativeEffects = new List<string>() { nameof(DC_NightmareSE) };
+            con.RelativeEffects = new List<string>() { nameof(DC_NightmareSE), nameof(DoremyInfectiousNightmaresSE) };
+            con.UpgradedRelativeEffects = new List<string>() { nameof(DC_NightmareSE), nameof(DoremyInfectiousNightmaresSE) };
 
 
             return con;
@@ -61,7 +61,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
         public override StatusEffectConfig PreConfig()
         {
             var con = DefaultConfig();
-            con.Type = LBoL.Base.StatusEffectType.Special;
+            con.Type = LBoL.Base.StatusEffectType.Negative;
             con.HasLevel = false;
 
             return con;
@@ -82,8 +82,11 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
                 yield break;
 
             if (args.Unit.TryGetStatusEffect<DC_NightmareSE>(out var nightmare))
-                foreach(var e in UnitSelector.AllEnemies.GetEnemies(Battle))
-                    yield return NightmareAction(e, nightmare.Level);
+            {
+                var nextTarget = UnitSelector.RandomEnemy.GetEnemy(Battle);
+                yield return DebuffAction<DoremyInfectiousNightmaresSE>(nextTarget);
+                yield return NightmareAction(nextTarget, nightmare.Level);
+            }
         }
     }
 }

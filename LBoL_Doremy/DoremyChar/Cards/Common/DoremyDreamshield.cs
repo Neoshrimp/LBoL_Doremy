@@ -31,8 +31,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
             con.Value2 = 2;
 
 
-            //con.Keywords = Keyword.Forbidden;
-            con.UpgradedKeywords = /*Keyword.Forbidden |*/ Keyword.Replenish;
+            con.Keywords = /*Keyword.Forbidden*/ Keyword.Exile;
+            con.UpgradedKeywords = /*Keyword.Forbidden |*/ Keyword.Replenish | Keyword.Exile;
 
             con.RelativeEffects = new List<string>() { nameof(DC_NightmareSE) };
             con.UpgradedRelativeEffects = new List<string>() { nameof(DC_NightmareSE) };

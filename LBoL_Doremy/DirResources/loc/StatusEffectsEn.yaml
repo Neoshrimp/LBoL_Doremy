@@ -116,7 +116,9 @@ DoremyCatnapSE:
 DoremyInfectiousNightmaresSE:
   Name: Infectious Nightmares
   Description: |-
-    When {OwnerName} is defeated, all enemies gain |Nightmare| equal to the |Nightmare| {OwnerName} had.
+    When {OwnerName} is defeated, random enemy gains {SelfName} and |Nightmare| equal to the |Nightmare| the defeated enemy had.
+  Brief: |-
+    When {OwnerName} is defeated, random enemy gains {SelfName} and |Nightmare| equal to the |Nightmare| the defeated enemy had.
 
 DoremyFastAsleepSE:
   Name: Fast Asleep

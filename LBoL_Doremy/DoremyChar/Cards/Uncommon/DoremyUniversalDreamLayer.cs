@@ -76,7 +76,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
     {
         protected override void OnAdded(Unit unit)
         {
-            ReactOwnerEvent(DreamLayerHandlers.GetBounceEvent(Battle), OnTurnEnd, (GameEventPriority)(DoremyTranqBarrage.countResetPriorityOffset + DreamLayerHandlers.bouncePriority + 1));
+            ReactOwnerEvent(DreamLayerHandlers.GetBounceEvent(Battle), OnTurnEnd, (GameEventPriority)(/*DoremyTranqBarrage.countResetPriorityOffset +*/ DreamLayerHandlers.bouncePriority + 1));
         }
 
         private IEnumerable<BattleAction> OnTurnEnd(UnitEventArgs args)

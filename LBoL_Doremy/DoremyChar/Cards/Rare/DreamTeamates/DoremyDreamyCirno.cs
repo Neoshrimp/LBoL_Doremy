@@ -123,7 +123,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare.DreamTeamates
 
         public override Interaction Precondition()
         {
-            if (this.CardType == CardType.Friend && this.Config.ActiveCost != null && this.Config.UltimateCost != null && this.Summoned && this.Loyalty >= -this.UltimateCost)
+            if (this.Summoned && this.Loyalty >= -this.ActiveCost2)
             {
                 var options = this.Clone(2).Cast<DoremyDreamyCirno>().ToList();
                 options[0].FriendToken = FriendToken.Active;

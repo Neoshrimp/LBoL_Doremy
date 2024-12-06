@@ -61,7 +61,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
         public override StatusEffectConfig PreConfig()
         {
             var con = DefaultConfig();
-            con.Type = LBoL.Base.StatusEffectType.Negative;
+            con.Type = LBoL.Base.StatusEffectType.Special;
             con.HasLevel = false;
 
             return con;

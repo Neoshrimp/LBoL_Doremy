@@ -128,7 +128,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare.DreamTeamates
                 var options = this.Clone(2).Cast<DoremyDreamyCirno>().ToList();
                 options[0].FriendToken = FriendToken.Active;
                 options[0].RealCard = this;
-                options[1].FriendToken = FriendToken.Ultimate;
+                options[1].FriendToken = FriendToken.Active2;
                 options[1].RealCard = this;
                 return new MiniSelectCardInteraction(options, false, false, false);
             }

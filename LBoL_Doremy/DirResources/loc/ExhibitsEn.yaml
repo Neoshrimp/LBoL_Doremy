@@ -1,5 +1,5 @@
 DoremyCavalierUEx:
-  Name: Sweet™ Sleep Pillow
+  Name: Sweet(<i>TM</i>) Sleep Pillow
   Description: |-
     Add {BaseMana} to the mana base. Cards unique to |Doremy| are added to the card pool.
     At the end of the {PlayerName}'s turn, if no Attack cards were played that turn, gain {Value1} |Barrier|.
@@ -12,4 +12,4 @@ DoremyCavalierWEx:
     Adds {BaseMana} to the mana base. Cards unique to |Doremy| are added to the card pool.
     When a card is |created| by another card for the <i>first time</i> each combat, the created card |temporarily costs| {Mana}.
   FlavorText: |-
-    deeznuts
+    Transfers its happy dreams on contact, knocking most out instantly. Doremy can handle them just fine though, because she's always asleep.

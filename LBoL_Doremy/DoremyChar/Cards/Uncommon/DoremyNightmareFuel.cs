@@ -31,7 +31,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 
 
             con.RelativeCards = new List<string>() { nameof(Nightmare), nameof(WManaCard), nameof(UManaCard) };
-            con.UpgradedRelativeCards = new List<string>() { nameof(Nightmare), nameof(PManaCard)};
+            con.UpgradedRelativeCards = new List<string>() { nameof(Nightmare), nameof(PManaCard) + '+', nameof(PManaCard) };
 
             return con;
         }

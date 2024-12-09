@@ -40,6 +40,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             //con.UpgradedValue1 = 10;
 
             con.Value2 = 2;
+            con.UpgradedValue2 = 3;
+
 
             con.RelativeEffects = new List<string>() { nameof(DC_NightmareSE) };
             con.UpgradedRelativeEffects = new List<string>() { nameof(DC_NightmareSE) };

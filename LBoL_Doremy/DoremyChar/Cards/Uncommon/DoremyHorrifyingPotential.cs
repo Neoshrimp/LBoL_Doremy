@@ -75,8 +75,9 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
         private IEnumerable<BattleAction> ApplyNightmare()
         {
             NotifyActivating();
-            foreach (var e in UnitSelector.AllEnemies.GetEnemies(Battle))
-                yield return NightmareAction(e, Level, 0f);
+            var e = UnitSelector.RandomEnemy.GetEnemy(Battle);
+            //foreach (var e in UnitSelector.AllEnemies.GetEnemies(Battle))
+            yield return NightmareAction(e, Level, 0f);
         }
 
         private IEnumerable<BattleAction> OnCardsAdded(Card[] cards, GameEventArgs args)

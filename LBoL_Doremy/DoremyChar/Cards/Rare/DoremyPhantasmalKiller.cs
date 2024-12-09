@@ -29,7 +29,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
             con.TargetType = TargetType.SingleEnemy;
 
             con.Colors = new List<ManaColor>() { ManaColor.Blue };
-            con.Cost = new ManaGroup() { Blue = 1, Any = 2 };
+            con.Cost = new ManaGroup() { Blue = 2, Any = 2 };
 
             con.Damage = 10;
             con.UpgradedDamage = 6;
@@ -56,11 +56,13 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
             CardGuns = new Guns(GunName, Value1);
         }
 
+        EnemyUnit targetUnit = null;
 
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
             foreach (var a in base.Actions(selector, consumingMana, precondition))
                 yield return a;
+            targetUnit = selector.SelectedEnemy;
             tryApplyNightmare = true;
         }
 
@@ -70,10 +72,13 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
         public IEnumerable<BattleAction> AfterUse(IEnumerable<BattleAction> baseActions)
         {
             tryApplyNightmare = false;
-            foreach (var e in UnitSelector.AllEnemies.GetEnemies(Battle))
+            var e = targetUnit;
+            if (e != null && e.IsAlive)
+//            foreach (var e in UnitSelector.AllEnemies.GetEnemies(Battle))
                 if (e.TryGetStatusEffect<DC_NightmareSE>(out var nightmare))
                     yield return new DamageAction(Battle.Player, e, DamageInfo.HpLose(nightmare.Level));
 
+            targetUnit = null;
             foreach (var a in baseActions)
                 yield return a; 
         }
@@ -83,6 +88,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
         protected override void OnEnterBattle(BattleController battle)
         {
             tryApplyNightmare = false;
+            targetUnit = null;
             ReactBattleEvent(battle.Player.StatisticalTotalDamageDealt, OnStatisticalTotalDamageDealt);
         }
 

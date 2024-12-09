@@ -30,8 +30,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Token
             con.Cost = new ManaGroup() { Any = 1 };
 
 
-            con.Damage = 6;
-            con.UpgradedDamage = 9;
+            con.Damage = 7;
+            con.UpgradedDamage = 10;
 
             con.Keywords = Keyword.Exile | Keyword.Retain;
             con.UpgradedKeywords = Keyword.Exile | Keyword.Retain | Keyword.Accuracy;

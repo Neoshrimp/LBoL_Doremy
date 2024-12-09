@@ -103,7 +103,7 @@ namespace LBoL_Doremy.DoremyChar.Keywords
     }
 
     [EntityLogic(typeof(DC_DLKwSEDef))]
-    public sealed class DC_DLKwSE : DStatusEffect, IOnTooltipDisplay, IOverrideSEBrief
+    public sealed class DC_DLKwSE : DStatusEffect/*, IOnTooltipDisplay, IOverrideSEBrief*/
     {
         public string DLMulDesc => (DoremyEvents.defaultDLMult * 100).ToString();
 
@@ -119,10 +119,7 @@ namespace LBoL_Doremy.DoremyChar.Keywords
             }
         }
 
-        public string OverrideBrief(string rawBrief)
-        {
-            return rawBrief + $"\ndeez:{dlLevel}";
-        }
+
     }
 
 

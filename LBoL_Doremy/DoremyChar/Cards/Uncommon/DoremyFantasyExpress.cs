@@ -29,11 +29,16 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 
 
             con.Damage = 1;
+            con.UpgradedDamage= 7;
+
             con.Value1 = 1;
+            con.UpgradedValue1 = 7;
+
+
             con.Value2 = 2;
 
             con.Keywords = Keyword.Accuracy | Keyword.Exile;
-            con.UpgradedKeywords = Keyword.Accuracy;
+            con.UpgradedKeywords = Keyword.Accuracy | Keyword.Exile;
 
 
             con.RelativeEffects = new List<string>() { nameof(DC_NightmareSE) };

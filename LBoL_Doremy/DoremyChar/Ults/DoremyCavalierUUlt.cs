@@ -27,7 +27,7 @@ namespace LBoL_Doremy.DoremyChar.Ults
                 MaxPowerLevel: 2,
                 RepeatableType: UsRepeatableType.OncePerTurn,
                 Damage: 0,
-                Value1: 13,
+                Value1: 15,
                 Value2: 0,
                 Keywords: Keyword.Accuracy,
                 RelativeEffects: new List<string>() { nameof(DC_NightmareSE) } ,
@@ -58,7 +58,7 @@ namespace LBoL_Doremy.DoremyChar.Ults
 
             foreach (var e in UnitSelector.AllEnemies.GetEnemies(Battle))
                 if (e.TryGetStatusEffect<DC_NightmareSE>(out var nightmare))
-                    yield return new DamageAction(Battle.Player, e, DamageInfo.Attack(nightmare.Level, true));
+                    yield return new DamageAction(Battle.Player, e, DamageInfo.Attack(nightmare.Level / 2f, true));
 
         }
     }

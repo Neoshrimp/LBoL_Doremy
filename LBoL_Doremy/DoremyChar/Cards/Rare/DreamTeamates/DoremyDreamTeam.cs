@@ -37,6 +37,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare.DreamTeamates
 
             con.Colors = new List<ManaColor>() { ManaColor.White };
             con.Cost = new ManaGroup() { White = 2, Any = 3 };
+            //con.UpgradedCost = new ManaGroup() { White = 1, Any = 4 };
 
 
             con.Value1 = 1;

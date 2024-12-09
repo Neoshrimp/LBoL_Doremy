@@ -1,9 +1,11 @@
 ﻿using LBoL.Base;
+using LBoL.Base.Extensions;
 using LBoL.ConfigData;
 using LBoL.Core;
 using LBoL.Core.Battle;
 using LBoL.Core.Battle.BattleActions;
 using LBoL.Core.StatusEffects;
+using LBoL.Core.Units;
 using LBoL.EntityLib.Cards.Neutral.White;
 using LBoL_Doremy.Actions;
 
@@ -15,6 +17,7 @@ using LBoLEntitySideloader.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Unity.Collections.LowLevel.Unsafe;
 
 namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 {
@@ -26,7 +29,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             con.Rarity = Rarity.Uncommon;
 
             con.Type = LBoL.Base.CardType.Skill;
-            con.TargetType = TargetType.AllEnemies;
+            con.TargetType = TargetType.SingleEnemy;
+
 
             con.Colors = new List<ManaColor>() { ManaColor.Blue };
             con.Cost = new ManaGroup() { Blue = 2, Any = 2 };
@@ -52,16 +56,20 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 
         public int DreamLevelCapped => Math.Min(Value1, DreamLevel);
 
+        public string NMDmgDesc => GetPendingNMDmgDesc(lv => NMDmg(lv).RoundToInt(MidpointRounding.AwayFromZero));
+
+        public float NMDmg(int nightmareLevel) => nightmareLevel / 3f;
+
         public string DreamLevelCappedDesc => Battle == null ? "" : $" ({LB}{DreamLevelCapped}{CC})";
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
-            foreach (var e in selector.GetEnemies(Battle))
+            foreach (var e in UnitSelector.AllEnemies.GetEnemies(Battle))
             {
                 if (Battle.BattleShouldEnd)
                     yield break;
                 if (e.TryGetStatusEffect<DC_NightmareSE>(out var nightmare))
                 { 
-                    yield return new DamageAction(Battle.Player, e, DamageInfo.HpLose(nightmare.Level / 2f));
+                    yield return new DamageAction(Battle.Player, e, DamageInfo.HpLose(NMDmg(nightmare.Level)));
                 }
             }
         }

@@ -27,7 +27,6 @@ DoremySleepyStrikes:
   Description: |-
     Deal {Damage} damage{DoTimes}. 
     Choose 1 of {Value2} random Common Attack cards to add to the hand. It gains |Exile| and |Ethereal|.
-  DetailText: "{SelfName} cannot be generated this way."
   Times: " {TimesVal} times"
   FlavorText: "You've heard of sleepwalking, now get ready for sleepboxing!"
 
@@ -272,7 +271,7 @@ DoremyEnergeticMovement:
 DoremyDiverseDreaming:
   Name: Diverse Dreaming
   Description: |-
-    Add 1 random Attack, Defense and Skill card to the hand. They gain |Ethereal| and |Exile|.
+    Add 1 random non-Rare Attack, Defense and Skill card to the hand. They gain |Ethereal| and |Exile|.
     Add {Value1} |{Ritual}| to the hand.
   FlavorText: |-
     Why choose when you can add them all?
@@ -280,7 +279,7 @@ DoremyDiverseDreaming:
 DoremyDreamEater:
   Name: Dream Eater
   Description: |-
-    Deal {Damage} damage. Deal additional damage equal to the target's |Nightmare|. 
+    Deal {Damage} damage. Deal additional damage equal to <b>half</b> the target's |Nightmare|. 
     For each card that was added this turn, {SelfName} costs {Mana} less.
   FlavorText: |-
     "What a thrill..."
@@ -339,9 +338,9 @@ DoremyMelatoninMagic:
     This simple medicine from the Outside World helps humans and yokai go to sleep faster.
 
 DoremySleepParalysisYokai:
-  Name: Sleep Paralysis Yokai
+  Name: Sleep Paralysis Youkai
   Description: |-
-    Each enemy loses life equal to half its |Nightmare|. 
+    Each enemy loses life equal to <b>third</b>{NMDmgDesc} its |Nightmare|. 
     When this card gains {DL}, apply |Temporary Firepower Down| to each enemy equal to {DL} stacks{DreamLevelCappedDesc}, up to a maximum of {Value1}.
   FlavorText: |-
     Not to be confused with the pile of clothes in the corner of your room.
@@ -401,7 +400,7 @@ DoremyUniversalDreamLayer:
 DoremyHorrifyingPotential:
   Name: Horrifying Potential
   Description: |-
-    Whenever a card gains {DL} or a card is created, apply {Value1} |Nightmare| to each enemy.
+    Whenever a card gains {DL} or a card is created, apply {Value1} |Nightmare| to a random enemy.
   FlavorText: |-
     The threat alone should prove sufficient.
 
@@ -519,7 +518,7 @@ DoremyPhantasmalKiller:
   Name: Phantasmal Killer
   Description: |-
    Deal {Damage} damage{DoTimes}.
-   Apply |Nightmare| equal to the unblocked damage dealt.
+   Apply |Nightmare| equal to the amount of unblocked damage dealt.
    Each enemy loses life equal to its |Nightmare|.
   Times: " {TimesVal} times"
   FlavorText: |-

@@ -27,12 +27,11 @@ namespace LBoL_Doremy.DoremyChar.Cards.Token
             con.Cost = new ManaGroup() { White = 1 };
 
 
-
             con.Block = 15;
             con.UpgradedBlock = 0;
 
             con.Shield = 0;
-            con.UpgradedShield = 20;
+            con.UpgradedShield = 15;
 
             con.Keywords = Keyword.Exile | Keyword.Retain;
             con.UpgradedKeywords = Keyword.Exile | Keyword.Retain;

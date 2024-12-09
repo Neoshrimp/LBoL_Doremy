@@ -28,7 +28,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
 
             con.Colors = new List<ManaColor>() { ManaColor.Blue };
             con.Cost = new ManaGroup() { Blue = 3 };
-            con.UpgradedCost = new ManaGroup() { Blue = 1 };
+            con.UpgradedCost = new ManaGroup() { Blue = 2 };
 
 
             con.Value1 = 1;

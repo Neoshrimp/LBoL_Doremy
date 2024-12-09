@@ -1,14 +1,14 @@
 DoremyCavalierUUlt:
-  Title: '"Losing Oneself in a Dream"'
-  Content: Dream Sign
+  Title: Dream Sign
+  Content: '"Losing Oneself in a Dream"'
   Description: |-
     Apply {Value1} |Nightmare| to each enemy.
-    Deal damage to each enemy equal to its |Nightmare|.
+    Deal damage to each enemy equal to <b>half</b> its |Nightmare|.
     |Accurate|
 
 DoremyCavalierWUlt:
-  Title: '"Lucent Genesis"'
-  Content: Ruler of Dreams
+  Title: Ruler of Dreams
+  Content: '"Lucent Genesis"'
   Description: |-
     At least {MinOrigins} origins,
     at least {MinTypes} card types to form a card pool

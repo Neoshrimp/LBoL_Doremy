@@ -8,6 +8,7 @@ using LBoL.EntityLib.Exhibits.Shining;
 using LBoL.Presentation;
 using LBoL_Doremy.DoremyChar.Actions;
 using LBoL_Doremy.DoremyChar.DoremyPU;
+using LBoL_Doremy.DoremyChar.SE;
 using LBoL_Doremy.StaticResources;
 using LBoL_Doremy.Utils;
 using LBoLEntitySideloader;
@@ -175,6 +176,22 @@ namespace LBoL_Doremy.RootTemplates
         }
 
         public NightmareAction NightmareAction(Unit target, NightmareInfo level, float occupationTime = 0.15f) => new NightmareAction(Battle.Player, target, level, occupationTime);
+
+        protected string GetPendingNMDmgDesc(Func<int, int> dmgFunc)
+        {
+            if (Battle == null)
+                return "";
+
+            var toWrap = "";
+            if (this.PendingTarget == null)
+                toWrap = "N/A";
+            else if (PendingTarget.TryGetStatusEffect<DC_NightmareSE>(out var targetNM))
+                toWrap = dmgFunc(targetNM.Level).ToString();
+            else
+                toWrap = "0";
+
+            return StringDecorator.Decorate($"(|e:{toWrap}|) ");
+        }
 
 
     }

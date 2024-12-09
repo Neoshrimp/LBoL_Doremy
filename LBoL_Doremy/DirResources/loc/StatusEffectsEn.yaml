@@ -73,7 +73,7 @@ DoremyOppressiveNightmareSE:
 DoremyHorrifyingPotentialSE:
   Name: Horrifying Potential
   Description: |-
-    Whenever a card gains {DL} or a card is created, apply {Level} |Nightmare| to each enemy.
+    Whenever a card gains {DL} or a card is created, apply {Level} |Nightmare| to a random enemy.
 
 DoremyComatoseFormSE:
   Name: Comatose Form
@@ -116,9 +116,9 @@ DoremyCatnapSE:
 DoremyInfectiousNightmaresSE:
   Name: Infectious Nightmares
   Description: |-
-    When {OwnerName} is defeated, random enemy gains {SelfName} and |Nightmare| equal to the |Nightmare| the defeated enemy had.
+    When {OwnerName} is defeated, a random enemy gains {SelfName} and |Nightmare| equal to the |Nightmare| the defeated enemy had.
   Brief: |-
-    When {OwnerName} is defeated, random enemy gains {SelfName} and |Nightmare| equal to the |Nightmare| the defeated enemy had.
+    When {OwnerName} is defeated, a random enemy gains {SelfName} and |Nightmare| equal to the |Nightmare| the defeated enemy had. {SelfName} is considered a {UIBlue}Special{CC} effect.
 
 DoremyFastAsleepSE:
   Name: Fast Asleep

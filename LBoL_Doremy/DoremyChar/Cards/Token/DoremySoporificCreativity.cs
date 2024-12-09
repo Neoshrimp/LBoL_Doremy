@@ -31,7 +31,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Token
 
             con.Value1 = 2;
             con.Value2 = 3;
-            con.UpgradedValue2 = 8;
+            con.UpgradedValue2 = 6;
 
             con.Keywords = Keyword.Exile | Keyword.Retain;
             con.UpgradedKeywords = Keyword.Exile | Keyword.Retain;

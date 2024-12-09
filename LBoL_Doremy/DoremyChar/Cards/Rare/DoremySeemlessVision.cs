@@ -32,7 +32,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
 
 
             con.Value1 = 20;
-            con.UpgradedValue1 = 25;
+            //con.UpgradedValue1 = 25;
 
             con.Value2 = 2;
 

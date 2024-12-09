@@ -1,7 +1,9 @@
 ﻿using LBoL.Base;
+using LBoL.Base.Extensions;
 using LBoL.ConfigData;
 using LBoL.Core;
 using LBoL.Core.Battle;
+using LBoL.EntityLib.Cards.Enemy;
 using LBoL.Presentation;
 using LBoL_Doremy.DoremyChar.BattleTracking;
 using LBoL_Doremy.DoremyChar.SE;
@@ -31,10 +33,12 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 
 
             con.Damage = 6;
-            con.UpgradedDamage = 11;
+            //con.UpgradedDamage = 11;
 
             con.Mana = new ManaGroup() { Any = 1 };
 
+
+            con.UpgradedKeywords = Keyword.Accuracy;
 
             con.RelativeEffects = new List<string>() { nameof(DC_NightmareSE) };
             con.UpgradedRelativeEffects = new List<string>() { nameof(DC_NightmareSE) };
@@ -51,7 +55,26 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 
         protected override ManaGroup AdditionalCost => Battle == null ? ManaGroup.Empty : Mana * -BattleHistoryHandlers.CardCreationTurnHistory.Total;
 
+        public string NMDmgDesc
+        {
+            get
+            {
+                if(Battle == null)
+                    return "";
 
+                var toWrap = "";
+                if (this.PendingTarget == null)
+                    toWrap = "N/A";
+                else if (PendingTarget.TryGetStatusEffect<DC_NightmareSE>(out var targetNM))
+                        toWrap = NMDmg(targetNM.Level).ToString();
+                     else
+                        toWrap = "0";
+
+                return StringDecorator.Decorate($"(|e:{toWrap}|) ");
+            }
+        }
+
+        public int NMDmg(int nightmareLevel) => (nightmareLevel / 2f).RoundToInt(MidpointRounding.AwayFromZero);
 
         protected override void OnEnterBattle(BattleController battle)
         {
@@ -66,7 +89,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 
             if (args.Targets?.FirstOrDefault()?.TryGetStatusEffect<DC_NightmareSE>(out var nightmare) ?? false)
             {
-                args.DamageInfo = args.DamageInfo.IncreaseBy(nightmare.Level);
+                args.DamageInfo = args.DamageInfo.IncreaseBy(NMDmg(nightmare.Level));
                 args.AddModifier(this);
             }
         }

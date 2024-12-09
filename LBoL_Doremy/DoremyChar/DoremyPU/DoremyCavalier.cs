@@ -66,8 +66,7 @@ namespace LBoL_Doremy.DoremyChar.DoremyPU
                     nameof(DoremyCavalierAttackU), nameof(DoremyCavalierAttackU),
                     nameof(DoremyCavalierDefenseW), nameof(DoremyCavalierDefenseW), nameof(DoremyCavalierDefenseW),
                     nameof(DoremyDreamblast) },
-                // 2do diff
-                DifficultyA: 3,
+                DifficultyA: 2,
                 DifficultyB: 2);
             return con;
         }

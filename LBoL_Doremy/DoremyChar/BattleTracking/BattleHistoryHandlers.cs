@@ -63,7 +63,7 @@ namespace LBoL_Doremy.DoremyChar.BattleTracking
         public static void RegisterAll()
         {
             RegisterTurnHistHandlers();
-            RegisterCommonHandlers(TrackCount);
+            RegisterCommonHandlers(TrackCount, GameEventPriority.Highest);
             RegisterDLHandlers();
 
         }

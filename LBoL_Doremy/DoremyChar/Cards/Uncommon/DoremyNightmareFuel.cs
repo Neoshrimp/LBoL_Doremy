@@ -41,13 +41,15 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
     [EntityLogic(typeof(DoremyNightmareFuelDef))]
     public sealed class DoremyNightmareFuel : DCard
     {
-
         public Card Ritual1 => EnumerateRelativeCards().First(c => c.CardType != CardType.Status);
         public Card Ritual2 => EnumerateRelativeCards().Last();
 
-        public string Ritual1Name => Ritual1.Name;
-        public string Ritual2Name => Ritual2.Name;
+        public string Ritual1Name => Ritual1.Name + (Ritual1.IsUpgraded ? "+" : "");
+        public string Ritual2Name => Ritual2.Name + (Ritual2.IsUpgraded ? "+" : "");
 
+        public string TotalDesc => RealBattle == null ? "" : string.Format(LocalizeProperty("TotalTxt", true, true), NightmareCount);
+
+        public int NightmareCount => RealBattle == null ? 0 : RealBattle.EnumerateAllCardsButExile().Count(c => c is Nightmare);
 
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
@@ -58,6 +60,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             yield return new AddCardsToHandAction(new Card[] { Ritual1, Ritual2 });
 
         }
+
 
     }
 }

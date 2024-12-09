@@ -407,17 +407,19 @@ DoremyHorrifyingPotential:
 DoremyNightmareFuel:
   Name: Nightmare Fuel
   Description: |-
-    Add |e:Nightmare| Status to the draw pile. Add |{Ritual1Name}| and |{Ritual2Name}| to the hand.
+    Add |e:Nightmare|{TotalDesc} Status to the draw pile. Add |{Ritual1Name}| and |{Ritual2Name}| to the hand.
+  TotalTxt: "(|e:{0}|) "
   FlavorText: |-
     Eating your own nightmares for energy, like a Baku Ouroboros.
 
 DoremyComatoseForm:
   Name: Comatose Form
   Description: |-
-    All created cards have |Dream Layer|. Card output boost is increased to |e:{DLMultDesc}|% per {DL} stack.{UpgradeDesc}
-  UpgradeTxt: " Created cards gain {DL} upon entering combat."
+    Card output boost is increased to |e:{DLMultDesc}|% per {DL} stack.
+    When created card is played, random card in hand gain {DL}.{UpgradeDesc}
+  UpgradeTxt: "\nCreated cards gain {DL} upon entering combat."
   DetailText: |-
-    Status and Misfortunes do not gain |Dream Layer|.
+    Status and Misfortunes do not gain {DL}.
   FlavorText: |-
     Dreaming of adventures past.
 

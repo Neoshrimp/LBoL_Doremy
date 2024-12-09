@@ -78,7 +78,8 @@ DoremyHorrifyingPotentialSE:
 DoremyComatoseFormSE:
   Name: Comatose Form
   Description: |-
-    All created cards have |Dream Layer|. Card output boost is increased to |e:{DLMultDesc}|% per {DL} stack.
+    Card output boost is increased to |e:{DLMultDesc}|% per {DL} stack.
+    When created card is played, random card in hand gain {DL}.
 
 DoremyComatoseFormUpgradeSE:
   Name: Comatose Form

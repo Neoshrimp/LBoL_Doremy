@@ -25,6 +25,10 @@ using UnityEngine;
 using LBoL_Doremy.StaticResources;
 using LBoLEntitySideloader.Resource;
 using LBoLEntitySideloader.CustomKeywords;
+using LBoL.Base.Extensions;
+using LBoL.EntityLib.StatusEffects.Cirno;
+using LBoL_Doremy.CreatedCardTracking;
+using LBoL.Presentation.UI.Panels;
 
 namespace LBoL_Doremy.DoremyChar.Cards.Rare
 {
@@ -84,7 +88,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
         {
             var con = DefaultConfig();
             con.Type = LBoL.Base.StatusEffectType.Positive;
-            con.HasLevel = false;
+            con.HasLevel = true;
 
             return con;
         }
@@ -101,17 +105,36 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
         protected override void OnAdded(Unit unit)
         {
             EventManager.DoremyEvents.DLperLevelMult = DLMult;
-            ReactOnCardsAddedEvents(OnCardsAdded);
+            //ReactOnCardsAddedEvents(OnCardsAdded);
+            // All created cards have |Dream Layer|.
+            ReactOwnerEvent(Battle.CardUsed, OnCardUsed);
+
             SetSleepAnim(unit, true);
         }
 
-        private IEnumerable<BattleAction> OnCardsAdded(Card[] cards, GameEventArgs args)
+        private IEnumerable<BattleAction> OnCardUsed(CardUsingEventArgs args)
+        {
+            if (args.Card != this.SourceCard && args.Card.WasGenerated())
+            {
+                if (Battle.BattleShouldEnd)
+                    yield break;
+
+                for (int i = 0; i < Level; i++)
+                {
+                    var randomCard = Battle.HandZone.Where(c => DoremyComatoseForm.IsPositive(c)).SampleOrDefault(GameRun.BattleRng);
+                    if (randomCard == null)
+                        break;
+                    yield return new ApplyDLAction(randomCard);
+                }
+            }
+        }
+
+/*        private IEnumerable<BattleAction> OnCardsAdded(Card[] cards, GameEventArgs args)
         {
             foreach (var c in cards.Where(c => DoremyComatoseForm.IsPositive(c)))
                 c.AddCustomKeyword(DoremyKw.NewDreamLayer);
-
             yield break;
-        }
+        }*/
 
 
         private static void SetSleepAnim(Unit unit, bool enable)

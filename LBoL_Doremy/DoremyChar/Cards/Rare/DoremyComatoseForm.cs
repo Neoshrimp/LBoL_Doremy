@@ -2,33 +2,22 @@
 using LBoL.ConfigData;
 using LBoL.Core.Battle;
 using LBoL.Core;
-using LBoL_Doremy.DoremyChar.Cards.Uncommon;
 using LBoL_Doremy.DoremyChar.Keywords;
-using LBoL_Doremy.DoremyChar.SE;
 using LBoL_Doremy.RootTemplates;
 using LBoLEntitySideloader.Attributes;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using LBoL.Core.Cards;
-using LBoL_Doremy.Actions;
 using LBoL_Doremy.DoremyChar.Actions;
 using LBoL.Core.Units;
-using LBoL.Core.Battle.BattleActions;
 using LBoL.Presentation.Units;
 using LBoL_Doremy.DoremyChar.DoremyPU;
 using Spine;
-using System.ComponentModel;
 using System.Linq;
-using LBoLEntitySideloader;
 using UnityEngine;
 using LBoL_Doremy.StaticResources;
 using LBoLEntitySideloader.Resource;
-using LBoLEntitySideloader.CustomKeywords;
 using LBoL.Base.Extensions;
-using LBoL.EntityLib.StatusEffects.Cirno;
 using LBoL_Doremy.CreatedCardTracking;
-using LBoL.Presentation.UI.Panels;
 
 namespace LBoL_Doremy.DoremyChar.Cards.Rare
 {
@@ -90,6 +79,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
             con.Type = LBoL.Base.StatusEffectType.Positive;
             con.HasLevel = true;
 
+
+
             return con;
         }
     }
@@ -108,6 +99,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
             //ReactOnCardsAddedEvents(OnCardsAdded);
             // All created cards have |Dream Layer|.
             ReactOwnerEvent(Battle.CardUsed, OnCardUsed);
+            ReactOwnerEvent(Battle.CardPlayed, OnCardUsed);
+
 
             SetSleepAnim(unit, true);
         }

@@ -22,15 +22,11 @@ DoremyRestEasySE:
 
 DC_DreamLayerKeywordSE:
   Name: Dream Layer
-  Description: |-
-    At the end of {PlayerName}'s turn, if this card is in the hand, give it {DL} and then shuffle it into the draw pile.
   Brief: |-
-    At the end of {PlayerName}'s turn, if this card is in the hand, give it {DL} and then shuffle it into the draw pile.
+    At the end of {PlayerName}'s turn, if this card is in the hand, give it {DL} and then shuffle it into the draw pile. {SelfName} is triggered before |Ethereal|.
 
 DC_DLKwSE:
   Name: "{DL}"
-  Description: |-
-    Card's attack damage dealt, |Block|/|Barrier| gained and |Nightmare| applied is increased by |e:{DLMulDesc}|% per {DL} stack. {DL} is <b>not</b> copied when the card is |copied|.
   Brief: |-
     Card's attack damage dealt, |Block|/|Barrier| gained and |Nightmare| applied is increased by |e:{DLMulDesc}|% per {DL} stack. {DL} is <b>not</b> copied when the card is |copied|.
 
@@ -90,6 +86,7 @@ DoremyUniversalDreamLayerSE:
   Name: Universal Dream Layer
   Description: |-
     At the end of {OwnerName}'s turn, |Upgrade| up to {Level} card{Level:plural one='' other='s'} in the hand. {Level:plural one='It' other='They'} gain{Level:plural one='s' other=''} {DL} and {Level:plural one='is' other='are'} shuffled into the draw pile.
+  UpTo: "\n|Choose <b>up to</b> {Level} card{Level:plural one='' other='s'}|"
 
 DoremyPerfectPhantasmsSE:
   Name: Perfect Phantasms

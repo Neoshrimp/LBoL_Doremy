@@ -101,8 +101,9 @@ DoremyRecursiveDreamCatcher:
 DoremyDreamshield:
   Name: Dreamshield
   Description: |-
+    |When this card gains {DL}|: Gain {Block} |Block|.
+  UpgradedDescription: |-
     |When this card gains {DL}|: Gain {Block} |Block| and draw an {LB}additional{CC} card at the start of {PlayerName}'s next turn.
-    Apply {NM2Apply} |Nightmare| to {PlayerName}.
   FlavorText: '"No mind to break."'
 
 DoremyRestEasy:
@@ -434,6 +435,7 @@ DoremyPropheticVisions:
   Name: Prophetic Visions
   Description: |-
     Choose up to {Value1} card{Value1:plural one='' other='s'} in the draw pile and add |Copies| of them the hand.
+  UpTo: "\n|Choose <b>up to</b> {Value1} card{Value1:plural one='' other='s'}|"
   FlavorText: |-
     A message from the divine or just Doremy messing with you?
 
@@ -629,3 +631,11 @@ DoremyDreamyDoremy:
     Doremy Sweet's evasion rose!
 
 
+DoremyNightmareAoE:
+  Name: Recurring Nightmare
+  Description: |-
+    Consume |Nightmare| from ALL combatants.
+    Deal {Damage} damage to each enemy.
+    Increase damage by the amount of |Nightmare| consumed(|e:{DmgEstimate}|).
+  FlavorText: |-
+    Perhaps you should see Dr. Komeiji about those repressed traumas?

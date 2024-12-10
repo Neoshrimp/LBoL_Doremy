@@ -16,7 +16,7 @@ using System.Threading.Tasks.Sources;
 
 namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 {
-    public sealed class DoremyRecurringNightmareDef : DCardDef
+    public /*sealed*/ class DoremyRecurringNightmareDef : DCardDef
     {
         public override CardConfig PreConfig()
         {
@@ -44,8 +44,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
     }
 
 
-    [EntityLogic(typeof(DoremyRecurringNightmareDef))]
-    public sealed class DoremyRecurringNightmare : DCard
+    //[EntityLogic(typeof(DoremyRecurringNightmareDef))]
+    public /*sealed*/ class DoremyRecurringNightmare : DCard
     {
         public NightmareInfo NM2Apply => Value1;
 
@@ -55,6 +55,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
         protected override void OnEnterBattle(BattleController battle)
         {
             ReactBattleEvent(Battle.CardUsed, OnCardUsed);
+            ReactBattleEvent(Battle.CardPlayed, OnCardUsed);
+
         }
 
         private IEnumerable<BattleAction> OnCardUsed(CardUsingEventArgs args)

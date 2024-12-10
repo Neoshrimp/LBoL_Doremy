@@ -55,6 +55,8 @@ namespace LBoL_Doremy.DoremyChar.Exhibits
 
             HandleBattleEvent(Owner.TurnStarted, OnTurnStarted, (GameEventPriority)(-199));
             HandleBattleEvent(Battle.CardUsed, OnCardUsed);
+            HandleBattleEvent(Battle.CardPlayed, OnCardUsed);
+
         }
 
         private void OnTurnStarted(UnitEventArgs args)

@@ -18,6 +18,8 @@ using LBoL_Doremy.DoremyChar.Actions;
 using LBoL.Core.Battle.Interactions;
 using LBoL.EntityLib.Cards.Neutral.White;
 using LBoL_Doremy.DoremyChar.DreamManagers;
+using LBoL.Presentation.UI.Panels;
+using LBoL.Presentation.UI;
 
 namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 {
@@ -66,7 +68,6 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             var con = DefaultConfig();
             con.Type = LBoL.Base.StatusEffectType.Positive;
 
-
             return con;
         }
     }
@@ -90,11 +91,18 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             if (hand.FirstOrDefault() != null)
                 selection = new SelectCardInteraction(0, Level, hand) {
                     Source = this
+                    
                 };
 
             if (selection != null)
-            { 
-                yield return new InteractionAction(selection, false);
+            {
+
+                yield return new InteractionActionPlus(selection, false, new ViewSelectCardResolver(() => {
+                    var panel = UiManager.GetPanel<SelectCardPanel>();
+                    panel.titleTmp.text += LocalizeProperty("UpTo", true).RuntimeFormat(FormatWrapper);
+                   
+                }).ExtendEnumerator);
+                //yield return new InteractionAction(selection, false);
                 if (selection.SelectedCards != null && selection.SelectedCards.Count > 0)
                 {
                     NotifyActivating();

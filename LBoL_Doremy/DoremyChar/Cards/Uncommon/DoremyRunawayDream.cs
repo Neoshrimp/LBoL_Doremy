@@ -66,6 +66,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
         protected override void OnAdded(Unit unit)
         {
             ReactOwnerEvent(Battle.CardUsed, OnCardUsed);
+            ReactOwnerEvent(Battle.CardPlayed, OnCardUsed);
+
         }
 
         private IEnumerable<BattleAction> OnCardUsed(CardUsingEventArgs arg)

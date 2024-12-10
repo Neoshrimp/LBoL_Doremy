@@ -29,5 +29,6 @@ namespace LBoL_Doremy.DoremyChar.Actions
             yield return enumerator;
         }
 
+
     }
 }

@@ -29,10 +29,10 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
 
             con.Value1 = 1;
             con.Value2 = 2;
+            
 
-
-            con.Keywords = /*Keyword.Forbidden*/ Keyword.Exile;
-            con.UpgradedKeywords = /*Keyword.Forbidden |*/ Keyword.Replenish | Keyword.Exile;
+            con.Keywords = Keyword.Forbidden /*Keyword.Exile*/;
+            con.UpgradedKeywords = Keyword.Forbidden /*| Keyword.Replenish | Keyword.Exile*/;
 
             con.RelativeEffects = new List<string>() { nameof(DC_NightmareSE) };
             con.UpgradedRelativeEffects = new List<string>() { nameof(DC_NightmareSE) };
@@ -52,8 +52,10 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
         public override void OnDLChanged(DreamLevelArgs args)
         {
             React(new CastBlockShieldAction(Battle.Player, Block));
-            React(BuffAction<DoremyExtraDrawSE>(Value1));
-            React(NightmareAction(Battle.Player, NM2Apply));
+            if(IsUpgraded)
+                React(BuffAction<DoremyExtraDrawSE>(Value1));
+            //React(NightmareAction(Battle.Player, NM2Apply));
+            //Apply {NM2Apply} |Nightmare| to {PlayerName}.
         }
     }
 }

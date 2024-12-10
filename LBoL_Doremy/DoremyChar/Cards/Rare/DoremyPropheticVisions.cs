@@ -47,14 +47,16 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
     [EntityLogic(typeof(DoremyPropheticVisionsDef))]
     public sealed class DoremyPropheticVisions : DCard
     {
-
         public override Interaction Precondition()
         {
-            var drawZone = Battle.DrawZoneToShow.Where(c => !c.IsCopy);
+            var drawZone = Battle.DrawZoneToShow.Where(c => c.CanBeDuplicated);
             if (drawZone.FirstOrDefault() == null)
                 return null;
-            return new SelectCardInteraction(0, Value1, drawZone);
+            return new SelectCardInteraction(0, Value1, drawZone) {
+                Description = Name + (IsUpgraded ? "+" : "") + LocalizeProperty("UpTo", true).RuntimeFormat(FormatWrapper)
+            };
         }
+
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
             if (precondition is SelectCardInteraction interaction) 

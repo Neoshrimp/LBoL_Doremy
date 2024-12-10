@@ -72,6 +72,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare.DreamTeamates
         protected override void OnEnterBattle(BattleController battle)
         {
             ReactBattleEvent(battle.CardUsed, OnCardUsed);
+            ReactBattleEvent(battle.CardPlayed, OnCardUsed);
+
 
             HandleBattleEvent(EventManager.NMEvents.nigtmareApplying, OnNMApplying);
 

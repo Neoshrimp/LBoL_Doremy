@@ -94,7 +94,9 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
         {
             Duration = 1;
 
-            ReactOwnerEvent(Battle.CardUsed, OnCardUsed, (GameEventPriority)(DoremyOppressiveNightmare.buffPriority-1));
+            ReactOwnerEvent(Battle.CardUsed, OnCardUsed, (GameEventPriority)(DoremyOppressiveNightmare.buffPriority - 1));
+            ReactOwnerEvent(Battle.CardPlayed, OnCardUsed, (GameEventPriority)(DoremyOppressiveNightmare.buffPriority - 1));
+
             ReactOwnerEvent(unit.StatisticalTotalDamageDealt, OnKnife);
             ReactOwnerEvent(EventManager.DLEvents.appliedDL, OnDLApplied);
         }

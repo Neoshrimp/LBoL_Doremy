@@ -15,6 +15,12 @@ namespace LBoL_Doremy.DoremyChar.Actions
 
         public DC_NightmareSE appliedNightmare;
 
+        public readonly bool isSelfNightmare;
+
+        public NightmareArgs(bool isSelfNightmare)
+        {
+            this.isSelfNightmare = isSelfNightmare;
+        }
 
         public override string GetBaseDebugString()
         {

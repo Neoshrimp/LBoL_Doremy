@@ -19,20 +19,23 @@ namespace LBoL_Doremy.RootTemplates
     {
         public float toApply;
 
+        public readonly bool isSelfNightmare;
+
         public static explicit operator int(NightmareInfo nightmareInfo) => nightmareInfo.toApply.RoundToInt(MidpointRounding.AwayFromZero);
 
 
         public static implicit operator float(NightmareInfo nightmareInfo) => nightmareInfo.toApply;
 
-        public static implicit operator NightmareInfo(int _int) => new NightmareInfo(_int);
+        public static implicit operator NightmareInfo(int _int) => new NightmareInfo(_int, false);
 
-        public static implicit operator NightmareInfo(float _float) => new NightmareInfo(_float);
+        public static implicit operator NightmareInfo(float _float) => new NightmareInfo(_float, false);
 
 
 
-        public NightmareInfo(float toApply)
+        public NightmareInfo(float toApply, bool isSelfNightmare)
         {
             this.toApply = toApply;
+            this.isSelfNightmare = isSelfNightmare;
         }
 
         public override string ToString()
@@ -80,14 +83,18 @@ namespace LBoL_Doremy.RootTemplates
                 if (battle == null)
                     return WrappedFormatNumber((int)nm, (int)nm, format);
 
+
+
                 var target = card.PendingTarget;
+                
+                if (nm.isSelfNightmare) // not necessary
+                    target = battle.Player;
+
                 if (target == null)
-                {
                     target = FakeUnit;
-                }
 
 
-                var nigtmareEventArgs = new NightmareArgs()
+                var nigtmareEventArgs = new NightmareArgs(nm.isSelfNightmare)
                 {
                     source = battle.Player,
                     target = target,

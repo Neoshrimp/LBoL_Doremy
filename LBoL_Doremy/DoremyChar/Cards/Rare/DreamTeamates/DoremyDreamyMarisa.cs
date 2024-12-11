@@ -82,6 +82,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare.DreamTeamates
         private void OnNMApplying(NightmareArgs args)
         {
             if (IsAbilityActive
+                && !args.isSelfNightmare
                 && args.source is PlayerUnit
                 && args.source.HasStatusEffect<Burst>()
                 && !args._modifiers.Any(wr => {

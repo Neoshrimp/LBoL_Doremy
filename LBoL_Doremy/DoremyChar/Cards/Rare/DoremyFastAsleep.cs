@@ -13,7 +13,7 @@ using System.Text;
 namespace LBoL_Doremy.DoremyChar.Cards.Rare
 {
 
-    public sealed class DoremyFastAsleepDef : DCardDef
+    public /*sealed*/ class DoremyFastAsleepDef : DCardDef
     {
         public override CardConfig PreConfig()
         {
@@ -37,8 +37,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
     }
 
 
-    [EntityLogic(typeof(DoremyFastAsleepDef))]
-    public sealed class DoremyFastAsleep : DCard
+    //[EntityLogic(typeof(DoremyFastAsleepDef))]
+    public /*sealed*/ class DoremyFastAsleep : DCard
     {
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
@@ -46,7 +46,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
         }
     }
 
-    public sealed class DoremyFastAsleepSEDef : DStatusEffectDef
+    public /*sealed*/ class DoremyFastAsleepSEDef : DStatusEffectDef
     {
         public override StatusEffectConfig PreConfig()
         {
@@ -58,8 +58,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
         }
     }
 
-    [EntityLogic(typeof(DoremyFastAsleepSEDef))]
-    public sealed class DoremyFastAsleepSE : DStatusEffect
+    //[EntityLogic(typeof(DoremyFastAsleepSEDef))]
+    public /*sealed*/ class DoremyFastAsleepSE : DStatusEffect
     {
         // checked in DreamLayerCard
     }

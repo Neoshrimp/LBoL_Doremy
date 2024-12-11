@@ -6,6 +6,7 @@ using LBoL.Core.Battle;
 using LBoL.Core.Battle.BattleActions;
 using LBoL.Core.Cards;
 using LBoL.EntityLib.Cards.Neutral.White;
+using LBoL_Doremy.DoremyChar.Keywords;
 using LBoL_Doremy.DoremyChar.SE;
 using LBoL_Doremy.RootTemplates;
 using LBoLEntitySideloader.Attributes;
@@ -37,8 +38,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
             con.UpgradedValue1 = 1;
 
 
-            con.RelativeEffects = new List<string>() { nameof(DC_NightmareSE) };
-            con.UpgradedRelativeEffects = new List<string>() { nameof(DC_NightmareSE) };
+            con.RelativeEffects = new List<string>() { nameof(DC_NightmareSE), nameof(DC_SelfNightmareTooltipSE) };
+            con.UpgradedRelativeEffects = new List<string>() { nameof(DC_NightmareSE), nameof(DC_SelfNightmareTooltipSE) };
 
             return con;
         }
@@ -52,7 +53,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
 
         public string Plus => IsUpgraded ? "+" : "";
 
-        public NightmareInfo NM2Apply => Value1;
+        public NightmareInfo NM2Apply => new NightmareInfo(Value1, true);
 
         protected override void OnEnterBattle(BattleController battle)
         {

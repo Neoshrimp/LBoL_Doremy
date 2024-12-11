@@ -11,6 +11,11 @@ DC_NightmareSE:
     {Count} actual life remaining.
   Brief: When {SelfName} level is no less than afflicted unit's life, defeat the afflicted unit. {SelfName} is considered a {UIBlue}Special{CC} effect.
 
+DC_SelfNightmareTooltipSE:
+  Name: Self Nightmare
+  Brief: |- 
+    |Nightmare| applied to {PlayerName}. The applied amount is never affected by positive |Nightmare| modifiers.
+
 DoremyExtraDrawSE:
   Name: Extra Draw
   Description: At the start of {OwnerName}'s next turn, draw {Level} additional card{Level:plural one='' other='s'}.
@@ -28,7 +33,8 @@ DC_DreamLayerKeywordSE:
 DC_DLKwSE:
   Name: "{DL}"
   Brief: |-
-    Card's attack damage dealt, |Block|/|Barrier| gained and |Nightmare| applied is increased by |e:{DLMulDesc}|% per {DL} stack. {DL} is <b>not</b> copied when the card is |copied|.
+    Card's attack damage dealt, |Block|/|Barrier| gained and |Nightmare| applied is increased by |e:{DLMulDesc}|% per {DL} stack. 
+    After being played, |Copied| cards with {DL} apply |Self Nightmare| equal to {DL} stacks.
 
 DoremyDefensiveDaydreamingSE:
   Name: Defensive Daydreaming
@@ -64,7 +70,7 @@ DoremyRunawayDreamSE:
 DoremyOppressiveNightmareSE:
   Name: Oppressive Nightmare
   Description: |-
-    This turn, whenever a card is played, auto-activated or given {DL}, apply {Level} |Nightmare| to all enemies.
+    This turn, whenever a card is played, given {DL} or a |Knife| is activated apply {Level} |Nightmare| to all enemies.
 
 DoremyHorrifyingPotentialSE:
   Name: Horrifying Potential

@@ -67,12 +67,12 @@ namespace LBoL_Doremy.DoremyChar.Keywords
             switch (cloningMethod)
             {
                 case CloningMethod.TwiceToken:
+                case CloningMethod.Copy:
+                case CloningMethod.DoesntMatter:
                     var clone = DoremyKw.NewDLKeyword;
                     clone.DreamLevel = DreamLevel;
                     return clone;
-                case CloningMethod.DoesntMatter:
                 case CloningMethod.NonBattle:
-                case CloningMethod.Copy:
                 default:
                     return null;
             }

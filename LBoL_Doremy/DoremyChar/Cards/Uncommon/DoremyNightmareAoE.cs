@@ -15,6 +15,7 @@ using LBoL_Doremy.CreatedCardTracking;
 using System.Threading.Tasks.Sources;
 using System.Linq;
 using LBoL.Core.Cards;
+using LBoL.Core.StatusEffects;
 
 namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 {
@@ -28,17 +29,18 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             con.Type = LBoL.Base.CardType.Attack;
             con.TargetType = TargetType.AllEnemies;
 
-            con.Colors = new List<ManaColor>() { ManaColor.White };
-            con.Cost = new ManaGroup() { Any = 1, White = 1 };
+            con.Colors = new List<ManaColor>() { ManaColor.Blue };
+            con.Cost = new ManaGroup() { Any = 1, Blue = 1 };
             con.UpgradedCost = new ManaGroup() { Any = 1};
 
+            con.Value1 = 1;
 
             con.Damage = 6;
-            con.UpgradedDamage = 8;
+            con.UpgradedDamage = 6;
 
 
             con.Keywords = Keyword.Exile;
-            con.UpgradedKeywords = Keyword.Exile | Keyword.Accuracy;
+            con.UpgradedKeywords = Keyword.Exile;
 
             con.RelativeEffects = new List<string>() { nameof(DC_NightmareSE) };
             con.UpgradedRelativeEffects = new List<string>() { nameof(DC_NightmareSE) };
@@ -77,6 +79,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             }
         }
 
+        public string UpgradeDesc => IsUpgraded ? LocalizeProperty("UpgradeTxt", true).RuntimeFormat(FormatWrapper) : "";
+
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
             int consumedNM = 0;
@@ -86,6 +90,10 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
                     consumedNM += nightmareSE.Level;
                     yield return new RemoveStatusEffectAction(nightmareSE);
                 }
+
+            if (IsUpgraded)
+                foreach (var a in DebuffAction<Vulnerable>(selector.GetEnemies(Battle), duration: 1, occupationTime: 0f))
+                    yield return a;
                     
             yield return AttackAction(selector, Damage.IncreaseBy(consumedNM));
 

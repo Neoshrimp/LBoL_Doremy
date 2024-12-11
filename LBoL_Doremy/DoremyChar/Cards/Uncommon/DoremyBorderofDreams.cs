@@ -9,6 +9,7 @@ using LBoL_Doremy.DoremyChar.Actions;
 using LBoL_Doremy.DoremyChar.Keywords;
 using LBoL_Doremy.DoremyChar.SE;
 using LBoL_Doremy.RootTemplates;
+using LBoL_Doremy.StaticResources;
 using LBoLEntitySideloader.Attributes;
 using System;
 using System.Collections.Generic;
@@ -37,6 +38,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 
             con.RelativeEffects = new List<string>() { nameof(DC_DLKwSE) };
             con.UpgradedRelativeEffects = new List<string>() { nameof(DC_DLKwSE) };
+
+            con.Illustrator = Artists.kimmchu;
 
             return con;
         }

@@ -92,7 +92,7 @@ DoremyRecursiveDreamCatcher:
   Name: Recursive Dream Catcher
   Description: |-
     Gain {Block} |Block|.
-    Apply {NM2Apply} |Nightmare| to {PlayerName}.
+    Apply {NM2Apply} |Self Nightmare|.
     If mana was paid to play {SelfName}, add |Recursive Dream Catcher{Plus}| to the hand.
     Remove {SelfName} from combat after playing it.
   FlavorText: 'Can never have too many!'
@@ -349,7 +349,7 @@ DoremySleepParalysisYokai:
 DoremyOppressiveNightmare:
   Name: Oppressive Nightmare
   Description: |-
-    This turn, whenever a card is played, auto-activated or given {DL}, apply {NM2Apply} |Nightmare| to all enemies.
+    This turn, whenever a card is played, given {DL} or a |Knife| is activated, apply {NM2Apply} |Nightmare| to all enemies.
   FlavorText: |-
     A Choking aura.
 
@@ -632,10 +632,23 @@ DoremyDreamyDoremy:
 
 
 DoremyNightmareAoE:
-  Name: Recurring Nightmare
+  Name: Dream of Death
   Description: |-
-    Consume |Nightmare| from ALL combatants.
+    Consume all |Nightmare| from ALL combatants.{UpgradeDesc}
     Deal {Damage} damage to each enemy.
     Increase damage by the amount of |Nightmare| consumed(|e:{DmgEstimate}|).
+  UpgradeTxt: "\nApply {Value1} |Vulnerable| to each enemy."
   FlavorText: |-
     Perhaps you should see Dr. Komeiji about those repressed traumas?
+
+DoremyFastAsleepRework:
+  Name: Fast Asleep
+  Description: |-
+   Whenever a card would be shuffled <i>into</i> the draw pile, |Exile| and queue it instead.
+   At the start of the {PlayerName}'s turn, if there is sufficient handspace, add copies of queued cards to the hand.{UpgradeDesc}
+   At the end of the turn, consume {Value1} |Self Nightmare|.
+  UpgradeTxt: "\n"
+  DetailText: |-
+    Qeueu prioritizes positive cards.
+  FlavorText: |-
+    Be careful not to clog up your draws with this one.

@@ -44,6 +44,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
     }
 
 
+
     [EntityLogic(typeof(DoremyPropheticVisionsDef))]
     public sealed class DoremyPropheticVisions : DCard
     {

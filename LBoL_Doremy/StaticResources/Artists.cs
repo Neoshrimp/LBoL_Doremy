@@ -6,6 +6,10 @@ namespace LBoL_Doremy.StaticResources
 {
     public class Artists
     {
-        public static string Deeznuts = "Deeznuts";
+        public const string Deeznuts = "Deeznuts";
+        public const string kimmchu = "kimmchu!";
+        public const string DC = "GameCavalier";
+
+
     }
 }

@@ -21,6 +21,8 @@ using System.Reflection;
 using LBoL.Base.Extensions;
 using System.Reflection.Emit;
 using LBoLEntitySideloader.CustomKeywords;
+using LBoL_Doremy.RootTemplates;
+using System.Runtime.CompilerServices;
 
 namespace LBoL_Doremy.DoremyChar.DreamManagers
 {
@@ -41,15 +43,34 @@ namespace LBoL_Doremy.DoremyChar.DreamManagers
             CHandlerManager.RegisterBattleEventHandler(b => EventManager.GetDoremyEvents(b).nightmareEvents.nigtmareApplying, OnNMApplying, null, (GameEventPriority)20);
 
 
+            CHandlerManager.RegisterBattleEventHandler(b => b.CardUsed, OnCardUsed, null, (GameEventPriority)(-999));
+            CHandlerManager.RegisterBattleEventHandler(b => b.CardPlayed, OnCardUsed, null, (GameEventPriority)(-999));
+
+
+
 
         }
 
+        public static bool IsDLCorrupted(this Card card) => card.IsCopy;
+
+        private static void OnCardUsed(CardUsingEventArgs args)
+        {
+            var card = args.Card;
+            if (card.IsDLCorrupted()
+                && card.TryGetCustomKeyword(DoremyKw.dLId, out DLKeyword DL))
+            {
+                var battle = EventManager.Battle;
+                battle.React(new NightmareAction(battle.Player, battle.Player, new NightmareInfo(DL.DreamLevel, true), 0.015f), card, ActionCause.Card);
+            }
+        }
 
         static float BoostMultiplier(int dreamLevel) => 1 + (EventManager.DoremyEvents.DLperLevelMult * dreamLevel);
 
         private static void OnNMApplying(NightmareArgs args)
         {
-            if (args.ActionSource is Card card && card.TryGetCustomKeyword(DoremyKw.dLId, out DLKeyword DL))
+            if (args.ActionSource is Card card 
+                && !args.isSelfNightmare 
+                && card.TryGetCustomKeyword(DoremyKw.dLId, out DLKeyword DL))
             {
                 args.level *= BoostMultiplier(DL.DreamLevel);
                 args.AddModifier(card);
@@ -134,9 +155,12 @@ namespace LBoL_Doremy.DoremyChar.DreamManagers
                         dlGo.name = DLGoName;
                         dlGo.transform.localPosition += new Vector3(0, 95, 0);
 
-                        var img = dlGo.GetComponent<Image>();
-                        img.sprite = AssetManager.DoremyAssets.dlTrackerIcon;
                     }
+                    var img = dlGo.GetComponent<Image>();
+                    if (__instance._card.IsDLCorrupted())
+                        img.sprite = AssetManager.DoremyAssets.dlCorruptedIcon;
+                    else
+                        img.sprite = AssetManager.DoremyAssets.dlTrackerIcon;
 
                     var tmpTxt = dlGo.transform.Find("BaseLoyaltyText").gameObject.GetComponent<TextMeshProUGUI>();
                     tmpTxt.text = dl.DreamLevel.ToString();

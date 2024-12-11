@@ -17,6 +17,7 @@ using LBoLEntitySideloader.Resource;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Text;
 using UnityEngine;
 
@@ -30,7 +31,7 @@ namespace LBoL_Doremy.RootTemplates
         public override CardImages LoadCardImages()
         {
             var ci = new CardImages(Sources.imgsSource);
-            ci.AutoLoad(this, ".png");
+            ci.AutoLoad(GetId(), ".png", "", subIds: PreConfig().SubIllustrator.ToList());
             return ci;
         }
 
@@ -117,7 +118,7 @@ namespace LBoL_Doremy.RootTemplates
                 ImageId: null,
                 UpgradeImageId: null,
                 Unfinished: false,
-                Illustrator: null,
+                Illustrator: Artists.DC,
                 SubIllustrator: new List<string>());
             return con;
 

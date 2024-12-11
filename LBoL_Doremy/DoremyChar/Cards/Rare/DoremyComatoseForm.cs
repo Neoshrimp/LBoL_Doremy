@@ -44,6 +44,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
             con.RelativeEffects = new List<string>() { nameof(DC_DreamLayerKeywordSE), nameof(DC_DLKwSE) };
             con.UpgradedRelativeEffects = new List<string>() { nameof(DC_DreamLayerKeywordSE), nameof(DC_DLKwSE) };
 
+            con.Illustrator = Artists.kimmchu;
 
             return con;
         }
@@ -92,7 +93,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
         public string DLMultDesc => (DoremyComatoseFormSE.DLMult * 100).ToString();
 
 
-        public const float DLMult = 0.2f;
+        public const float DLMult = 0.15f;
         protected override void OnAdded(Unit unit)
         {
             EventManager.DoremyEvents.DLperLevelMult = DLMult;

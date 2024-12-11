@@ -15,7 +15,7 @@ namespace LBoL_Doremy.DoremyChar.Actions
 
         public NightmareAction(Unit source, Unit target, NightmareInfo level, float occupationTime)
         {
-            Args = new NightmareArgs() {
+            Args = new NightmareArgs(level.isSelfNightmare) {
                 source = source, 
                 target = target, 
                 level = level,

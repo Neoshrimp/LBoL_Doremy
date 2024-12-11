@@ -11,6 +11,7 @@ using LBoL.ConfigData;
 using LBoL_Doremy.DoremyChar.Keywords;
 using LBoLEntitySideloader.Attributes;
 using LBoL.Core.Battle.BattleActions;
+using LBoL_Doremy.StaticResources;
 
 namespace LBoL_Doremy.DoremyChar.Cards.Common
 {
@@ -35,6 +36,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
 
             con.RelativeEffects = new List<string>() { nameof(DC_NightmareSE) };
             con.UpgradedRelativeEffects = new List<string>() { nameof(DC_NightmareSE) };
+
+            con.SubIllustrator = new string[] { Artists.kimmchu };
 
 
             return con;

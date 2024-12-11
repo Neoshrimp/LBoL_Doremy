@@ -8,6 +8,7 @@ using LBoL_Doremy.Actions;
 using LBoL_Doremy.DoremyChar.Actions;
 using LBoL_Doremy.DoremyChar.SE;
 using LBoL_Doremy.RootTemplates;
+using LBoL_Doremy.StaticResources;
 using LBoLEntitySideloader.Attributes;
 using System;
 using System.Collections;
@@ -28,8 +29,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             con.Type = LBoL.Base.CardType.Skill;
             con.TargetType = TargetType.Self;
 
-            con.Colors = new List<ManaColor>() { ManaColor.Blue };
-            con.Cost = new ManaGroup() { Blue = 1, Any = 1 };
+            con.Colors = new List<ManaColor>() { ManaColor.White };
+            con.Cost = new ManaGroup() { White = 1, Any = 1 };
 
 
             con.Value1 = 3;
@@ -39,6 +40,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             con.RelativeEffects = new List<string>() { nameof(DC_NightmareSE) };
             con.UpgradedRelativeEffects = new List<string>() { nameof(DC_NightmareSE) };
 
+            con.Illustrator = Artists.kimmchu;
 
             return con;
         }

@@ -88,13 +88,6 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare.DreamTeamates
 
     public sealed class DoremyDreamTeamNextPageDef : OptionCardDef
     {
-
-        public override CardImages LoadCardImages()
-        {
-            var ci = new CardImages(Sources.imgsSource);
-            ci.main = ResourceLoader.LoadTexture(nameof(DoremyDreamTeam) + ".png", Sources.imgsSource);
-            return ci;
-        }
         public override CardConfig PreConfig()
         {
             var con = base.PreConfig();
@@ -105,6 +98,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare.DreamTeamates
             return con;
         }
     }
+
     [EntityLogic(typeof(DoremyDreamTeamNextPageDef))]
     public sealed class DoremyDreamTeamNextPage : DCard
     {}

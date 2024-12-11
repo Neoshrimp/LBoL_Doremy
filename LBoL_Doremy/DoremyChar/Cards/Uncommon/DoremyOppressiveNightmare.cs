@@ -40,7 +40,6 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             con.RelativeEffects = new List<string>() { nameof(DC_NightmareSE) };
             con.UpgradedRelativeEffects = new List<string>() { nameof(DC_NightmareSE) };
 
-            con.Illustrator = Artists.kimmchu;
 
             return con;
         }

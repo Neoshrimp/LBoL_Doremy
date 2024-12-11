@@ -119,7 +119,8 @@ namespace LBoL_Doremy.RootTemplates
                 UpgradeImageId: null,
                 Unfinished: false,
                 Illustrator: Artists.DC,
-                SubIllustrator: new List<string>());
+                SubIllustrator: new List<string>()
+                );
             return con;
 
         }

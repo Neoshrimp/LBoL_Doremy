@@ -28,10 +28,12 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 
             con.Colors = new List<ManaColor>() { ManaColor.White, ManaColor.Blue };
             con.Cost = new ManaGroup() { White = 1, Blue = 1 };
+            con.UpgradedCost = new ManaGroup() { Hybrid = 1, HybridColor = 0 };
+
 
 
             con.RelativeCards = new List<string>() { nameof(Nightmare), nameof(WManaCard), nameof(UManaCard) };
-            con.UpgradedRelativeCards = new List<string>() { nameof(Nightmare), nameof(PManaCard) + '+', nameof(PManaCard) };
+            con.UpgradedRelativeCards = new List<string>() { nameof(Nightmare), nameof(PManaCard), nameof(PManaCard) };
 
             return con;
         }

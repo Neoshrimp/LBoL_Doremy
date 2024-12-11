@@ -31,6 +31,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Token
             con.Colors = new List<ManaColor>() { ManaColor.White };
             con.Cost = new ManaGroup() { Any = 0 };
 
+            con.Illustrator = null;
 
             return con;
         }

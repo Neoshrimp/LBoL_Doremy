@@ -9,6 +9,7 @@ using LBoL.EntityLib.Adventures.Shared12;
 using LBoL_Doremy.CreatedCardTracking;
 using LBoL_Doremy.DoremyChar.SE;
 using LBoL_Doremy.RootTemplates;
+using LBoL_Doremy.StaticResources;
 using LBoLEntitySideloader.Attributes;
 using System;
 using System.Collections.Generic;
@@ -39,6 +40,9 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
             con.RelativeKeyword = Keyword.TempMorph;
             con.UpgradedRelativeKeyword = Keyword.TempMorph;
 
+
+
+            con.SubIllustrator = new string[] { Artists.Deeznuts };
 
             return con;
         }

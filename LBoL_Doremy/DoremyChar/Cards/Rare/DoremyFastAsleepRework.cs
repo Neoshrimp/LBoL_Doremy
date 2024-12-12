@@ -2,6 +2,7 @@
 using LBoL.ConfigData;
 using LBoL.Core;
 using LBoL.Core.Battle;
+using LBoL.Core.Units;
 using LBoL_Doremy.DoremyChar.Keywords;
 using LBoL_Doremy.DoremyChar.SE;
 using LBoL_Doremy.RootTemplates;
@@ -65,6 +66,9 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
     [EntityLogic(typeof(DoremyFastAsleepReworkSEDef))]
     public sealed class DoremyFastAsleepReworkSE : DStatusEffect
     {
-
+        protected override void OnAdded(Unit unit)
+        {
+            //ReactOwnerEvent(Battle.CardMovedToDrawZone, OnMoved);
+        }
     }
 }

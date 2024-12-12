@@ -6,6 +6,7 @@ using LBoL.Core.Battle.BattleActions;
 using LBoL.Core.Cards;
 using LBoL.Core.StatusEffects;
 using LBoL.Core.Units;
+using LBoL.EntityLib.Cards.Enemy;
 using LBoL.EntityLib.StatusEffects.Enemy;
 using LBoL.Presentation.UI.Widgets;
 using LBoL.Presentation.Units;
@@ -52,7 +53,7 @@ namespace LBoL_Doremy.DoremyChar.SE
         protected override void OnAdded(Unit unit)
         {
             ReactOwnerEvent(unit.DamageReceived, DamageReceived, (GameEventPriority)killPriority);
-            ReactOwnerEvent(unit.HealingReceived, HealingReceived, (GameEventPriority)killPriority);
+            HandleOwnerEvent(unit.HealingReceived, HealingReceived, (GameEventPriority)killPriority);
             // ui bar
             ReactOwnerEvent(unit.BlockShieldGained, BlockShieldGained, (GameEventPriority)killPriority);
             ReactOwnerEvent(unit.BlockShieldLost, BlockShieldLost, (GameEventPriority)killPriority);
@@ -202,9 +203,13 @@ namespace LBoL_Doremy.DoremyChar.SE
             }
         }
 
-        private IEnumerable<BattleAction> HealingReceived(HealEventArgs args)
+        private void HealingReceived(HealEventArgs args)
         {
-            return CheckAndDoKill();
+            if(Battle._resolver._reactors == null)
+                foreach (var a in CheckAndDoKill())
+                    Battle.RequestDebugAction(a, "Nightmare healing fallback check");
+            else 
+                React(CheckAndDoKill());
         }
 
         private IEnumerable<BattleAction> DamageReceived(DamageEventArgs args)

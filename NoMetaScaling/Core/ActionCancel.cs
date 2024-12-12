@@ -87,7 +87,11 @@ namespace NoMetaScaling.Core
 
             if (CardFilter.IsEntityBanned(args.ActionSource, out var reason))
             {
-                BattleCWT.Battle.React(new Reactor(DoChat(args.ActionSource, cancelTarget, reason)), null, ActionCause.None);
+                // safety check for fringe cases where events are not triggered correctly 
+                if (BattleCWT.Battle._resolver._reactors == null)
+                    DoYap(args.ActionSource, cancelTarget, reason);
+                else
+                    BattleCWT.Battle.React(new Reactor(DoChat(args.ActionSource, cancelTarget, reason)), null, ActionCause.None);
                 args.CancelBy(args.ActionSource);
             }
             if (args.ActionSource.TrickleDownActionSource() is Card card)

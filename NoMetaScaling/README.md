@@ -74,6 +74,8 @@ It's defined in [`NoMetaScalinAPI`](https://github.com/Neoshrimp/LBoL_Doremy/blo
 *Change log*
 
 ------
+`1.1.5` Add a small safeguard.
+
 `1.1.3` Add exceptions to certain Misfortunes.
 
 `1.1.1` Add False Moon exception.

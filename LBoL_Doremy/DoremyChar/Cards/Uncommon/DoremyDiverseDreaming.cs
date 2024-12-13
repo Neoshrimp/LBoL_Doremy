@@ -58,9 +58,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             var cards = new Card[] { attack, defense, skill };
             cards.Do(c => { c.IsExile = true; c.IsEthereal = true; });
 
-            yield return new AddCardsToHandAction(cards);
+            yield return new AddCardsToHandAction(EnumerateRelativeCards().Concat(cards));
 
-            yield return new AddCardsToHandAction(EnumerateRelativeCards());
 
 
         }

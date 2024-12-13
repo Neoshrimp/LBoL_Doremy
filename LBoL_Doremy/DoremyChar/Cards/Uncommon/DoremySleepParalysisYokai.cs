@@ -78,6 +78,9 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
         {
             foreach (var e in UnitSelector.AllEnemies.GetEnemies(Battle))
                 React(DebuffAction<TempFirepowerNegative>(e, DreamLevelCapped));
+
+            DreamLayerHandlers.CorruptedDLPenalty(this, Value1);
+
         }
     }
 }

@@ -1,20 +1,28 @@
 DoremyProcrastinateSE:
   Name: Procrastinate
-  Description: At the start of the {PlayerName}'s next turn, after draw step, add cop{Count:plural
-    one='y' other='ies'} of {QueuedCards} to the hand.
-  Nothing: nothing
+  Description: |- 
+    At the start of the {PlayerName}'s turn, attempt to add {Count:plural one='a ' other=''}|cop{Count:plural one='y' other='ies'}| of {QueuedCardsDesc} to the hand.
+  NotInExile: "{0} is no longer in |Exile|."
+  OverQ: " and |e:{0}| more"
+  Nothing: "no cards"
 
 DC_NightmareSE:
   Name: Nightmare
   Description: |-
     When {SelfName} level exceeds or is equal to {OwnerName}'s life, defeat {OwnerName}.
-    {Count} actual life remaining.
+    {Count} effective life remaining.
   Brief: When {SelfName} level is no less than afflicted unit's life, defeat the afflicted unit. {SelfName} is considered a {UIBlue}Special{CC} effect.
 
 DC_SelfNightmareTooltipSE:
   Name: Self Nightmare
   Brief: |- 
     |Nightmare| applied to {PlayerName}. The applied amount is never affected by positive |Nightmare| modifiers.
+
+DC_ExileQueueTooltipSE:
+  Name: Exile queue
+  Brief: |- 
+    |Exiled| cards are added in the order they were queued. If they couldn't be added they await the next opportunity to do so.
+    |Copies| can by copied this way but summoned |Teammates|, |Limited| and battle non-discoverable cards are moved from |Exile| instead (if they are in still in |Exile|).
 
 DoremyExtraDrawSE:
   Name: Extra Draw
@@ -34,7 +42,7 @@ DC_DLKwSE:
   Name: "{DL}"
   Brief: |-
     Card's attack damage dealt, |Block|/|Barrier| gained and |Nightmare| applied is increased by |e:{DLMulDesc}|% per {DL} stack. 
-    After being played, |Copied| cards with {DL} apply |Self Nightmare| equal to {DL} stacks.
+    After being played, |Copied| cards with {DL} apply |Self Nightmare| equal to <b>twice</b> the {DL} stacks.
 
 DoremyDefensiveDaydreamingSE:
   Name: Defensive Daydreaming
@@ -146,3 +154,14 @@ DoremySleepShieldSE:
   Brief: |-
     {OwnerName}'s |Barrier| is replenished to {SelfName} level at the end of her turn. {SelfName} is <b>removed</b> when {OwnerName} takes life damage.
     
+
+DoremyFastAsleepReworkSE:
+  Name: Fast Asleep
+  Description: |-
+   Whenever a card would be shuffled <i>into</i> the draw pile, |Exile| and |queue| it instead.
+   At the start of the {PlayerName}'s turn, attempt to add {Count:plural one='a ' other=''}|cop{Count:plural one='y' other='ies'}| of {QueuedCardsDesc} to the hand.{UpgradeDesc}
+   At the end of the {PlayerName}'s turn, consume |e:{NM2ConsumeDesc}| |Self Nightmare|.
+  UpgradeTxt: "\nCopies of negative cards lose |Unplayable| and gain |Exile| and |temporarily cost| {Mana} less."
+  OverQ: " and |e:{0}| more"
+  NotInExile: "{0} is no longer in |Exile|."
+  Nothing: "no cards"

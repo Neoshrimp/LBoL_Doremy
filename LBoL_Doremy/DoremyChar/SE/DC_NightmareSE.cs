@@ -50,8 +50,13 @@ namespace LBoL_Doremy.DoremyChar.SE
         // Example, TiangouOrderSe.
         public const int killPriority = (int)GameEventPriority.Lowest;
 
+
         protected override void OnAdded(Unit unit)
         {
+
+            if (IsLevelZero())
+                return;
+
             ReactOwnerEvent(unit.DamageReceived, DamageReceived, (GameEventPriority)killPriority);
             HandleOwnerEvent(unit.HealingReceived, HealingReceived, (GameEventPriority)killPriority);
             // ui bar
@@ -64,18 +69,7 @@ namespace LBoL_Doremy.DoremyChar.SE
             React(CheckAndDoKill());
         }
 
-/*        private IEnumerable<BattleAction> OnSelfAdded(StatusEffectApplyEventArgs args)
-        {
-            if (args.Effect != this)
-                yield break;
-            var source = args.ActionSource;
-            if (source.TrickleDownActionSource() is Card)
-                NightmareSource = Battle.Player;
-            else if (source is UltimateSkill || source is Exhibit)
-                NightmareSource = Battle.Player;
-            else if (source is Unit u)
-                NightmareSource = u;
-        }*/
+
 
         public readonly static string nightmareBarGoName = "NightmareBar";
         //public readonly static string actualHpGoName = "ActualHp";
@@ -179,11 +173,19 @@ namespace LBoL_Doremy.DoremyChar.SE
 
             React(CheckAndDoKill());
 
-            if (Level <= 0)
-                React(new RemoveStatusEffectAction(this));
-                
+            IsLevelZero();
 
             return rez;
+        }
+
+        private bool IsLevelZero()
+        {
+            if (Level <= 0)
+            { 
+                React(new RemoveStatusEffectAction(this));
+                return true;
+            }
+            return false;
         }
 
         public bool CheckKill()

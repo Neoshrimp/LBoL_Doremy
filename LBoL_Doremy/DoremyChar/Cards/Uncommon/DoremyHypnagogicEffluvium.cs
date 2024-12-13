@@ -29,7 +29,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             con.Value1 = 3;
             con.UpgradedValue1 = 5;
 
-            con.Value2 = 20;
+            con.Value2 = 18;
             con.UpgradedValue2 = 26;
 
             con.Keywords = Keyword.Exile;

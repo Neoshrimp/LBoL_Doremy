@@ -35,8 +35,8 @@ DoremyProcrastinate:
   Name: Procrastinate
   Description: |-
     Gain {Block} Block. 
-    |Exile| up to {Value1} cards in the hand. At the start of the {PlayerName}'s next turn, add |Copies| of the exiled cards to the hand.
-  DetailText: Card generation happens before draw step.
+    |Exile| and |queue| up to {Value1} cards in the hand. At the start of the {PlayerName}'s next turn, add |Copies| of the |queued| cards to the hand.
+  UpTo: "\n|Choose <b>up to</b> {Value1} card{Value1:plural one='' other='s'}|"
   FlavorText: "I'll finish this splash text latter, I'm tired RN."
 
 
@@ -104,6 +104,8 @@ DoremyDreamshield:
     |When this card gains {DL}|: Gain {Block} |Block|.
   UpgradedDescription: |-
     |When this card gains {DL}|: Gain {Block} |Block| and draw an {LB}additional{CC} card at the start of {PlayerName}'s next turn.
+  DetailText: |-
+    |Copies| of this card apply |Self Nightmare| on trigger following the {DL} rules.
   FlavorText: '"No mind to break."'
 
 DoremyRestEasy:
@@ -272,8 +274,8 @@ DoremyEnergeticMovement:
 DoremyDiverseDreaming:
   Name: Diverse Dreaming
   Description: |-
-    Add 1 random non-Rare Attack, Defense and Skill card to the hand. They gain |Ethereal| and |Exile|.
     Add {Value1} |{Ritual}| to the hand.
+    Add 1 random non-Rare Attack, Defense and Skill card to the hand. They gain |Ethereal| and |Exile|.
   FlavorText: |-
     Why choose when you can add them all?
 
@@ -341,15 +343,17 @@ DoremyMelatoninMagic:
 DoremySleepParalysisYokai:
   Name: Sleep Paralysis Youkai
   Description: |-
-    Each enemy loses life equal to <b>third</b>{NMDmgDesc} its |Nightmare|. 
+    Each enemy loses life equal to <b>third</b>{NMDmgDesc} of its |Nightmare|. 
     When this card gains {DL}, apply |Temporary Firepower Down| to each enemy equal to {DL} stacks{DreamLevelCappedDesc}, up to a maximum of {Value1}.
+  DetailText: |-
+    |Copies| of this card apply |Self Nightmare| on trigger following the {DL} rules. Up to |e:{Value1}| {DL} stacks are considered.
   FlavorText: |-
     Not to be confused with the pile of clothes in the corner of your room.
 
 DoremyOppressiveNightmare:
   Name: Oppressive Nightmare
   Description: |-
-    This turn, whenever a card is played, given {DL} or a |Knife| is activated, apply {NM2Apply} |Nightmare| to all enemies.
+    This turn, whenever a card is played, given {DL} or a |Throwing Knife| is activated, apply {NM2Apply} |Nightmare| to all enemies.
   FlavorText: |-
     A Choking aura.
 
@@ -435,7 +439,9 @@ DoremyPropheticVisions:
   Name: Prophetic Visions
   Description: |-
     Choose up to {Value1} card{Value1:plural one='' other='s'} in the draw pile and add |Copies| of them the hand.
+    Apply {SelfNM2Apply} |Self Nightmare|.
   UpTo: "\n|Choose <b>up to</b> {Value1} card{Value1:plural one='' other='s'}|"
+  NoCopyFound: "\n|No copyable cards in the draw pile|"
   FlavorText: |-
     A message from the divine or just Doremy messing with you?
 
@@ -572,7 +578,7 @@ DoremyDreamTeamNextPage:
 DoremyDreamyReimu:
   Name: Dreamy Reimu
   Description: |-
-    {FriendS}Whenever a card created in combat, {PlayerName} gains {Value1} |TempFirepower| and |TempSpirit|.
+    {FriendS}Whenever a card is created in combat, {PlayerName} gains {Value1} |TempFirepower| and |TempSpirit|.
     {FriendP}Add an |Yin-Ying Orb| to the hand. Gain {LB}1{CC} |Fleeting Fantasy|.
   ExtraDescription1: |-
     {FriendA}Draw a card for each card |Exiled| this turn ({LB}{ToDraw}{CC}).
@@ -596,7 +602,7 @@ DoremyDreamyMarisa:
 DoremyDreamySakuya:
   Name: Dreamy Sakuya
   Description: |-
-    {FriendS}Whenever a card created in combat, {PlayerName} gains {LB}2{CC} |Time Pulse|.
+    {FriendS}Whenever a card is created in combat, {PlayerName} gains {LB}2{CC} |Time Pulse|.
     {FriendP}Add |Throwing Knifes+| with |Auto-Exile| to the hand, draw and discard piles. 
   ExtraDescription1: |-
     {FriendA}Discard any number of cards and draw that many cards.
@@ -644,11 +650,11 @@ DoremyNightmareAoE:
 DoremyFastAsleepRework:
   Name: Fast Asleep
   Description: |-
-   Whenever a card would be shuffled <i>into</i> the draw pile, |Exile| and queue it instead.
-   At the start of the {PlayerName}'s turn, if there is sufficient handspace, add copies of queued cards to the hand.{UpgradeDesc}
+   Whenever a card would be shuffled <i>into</i> the draw pile, |Exile| and |queue| it instead.
+   At the start of the {PlayerName}'s turn, add |copies| of |queued| cards to the hand.{UpgradeDesc}
    At the end of the turn, consume {Value1} |Self Nightmare|.
-  UpgradeTxt: "\n"
+  UpgradeTxt: "\nCopies of negative cards lose |Unplayable| and gain |Exile| and |temporarily cost| {Mana} less."
   DetailText: |-
-    Qeueu prioritizes positive cards.
+    |Queue| prioritizes positive cards.
   FlavorText: |-
     Be careful not to clog up your draws with this one.

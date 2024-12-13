@@ -53,14 +53,22 @@ namespace LBoL_Doremy.DoremyChar.DreamManagers
 
         public static bool IsDLCorrupted(this Card card) => card.IsCopy;
 
+        public static NightmareInfo SelfNM2Apply(int dlLevel) => new NightmareInfo(dlLevel * 2, true);
+
         private static void OnCardUsed(CardUsingEventArgs args)
         {
-            var card = args.Card;
+            CorruptedDLPenalty(args.Card);
+        }
+
+        public static void CorruptedDLPenalty(Card card, int levelCap = int.MaxValue)
+        {
             if (card.IsDLCorrupted()
                 && card.TryGetCustomKeyword(DoremyKw.dLId, out DLKeyword DL))
             {
                 var battle = EventManager.Battle;
-                battle.React(new NightmareAction(battle.Player, battle.Player, new NightmareInfo(DL.DreamLevel, true), 0.015f), card, ActionCause.Card);
+                var selfNM = SelfNM2Apply(Math.Min(DL.DreamLevel, levelCap));
+                if(selfNM.toApply > 0)
+                    battle.React(new NightmareAction(battle.Player, battle.Player, selfNM, 0.015f), card, ActionCause.Card);
             }
         }
 
@@ -114,8 +122,8 @@ namespace LBoL_Doremy.DoremyChar.DreamManagers
             {
                 battle.React(new ApplyDLAction(card, isEndOfTurnBounce: true), card, ActionCause.Card);
                 var zoneTarget = DrawZoneTarget.Random;
-                if (battle.Player.HasStatusEffect<DoremyFastAsleepSE>())
-                    zoneTarget = DrawZoneTarget.Top;
+/*                if (battle.Player.HasStatusEffect<DoremyFastAsleepSE>())
+                    zoneTarget = DrawZoneTarget.Top;*/
                 battle.React(new MoveCardToDrawZoneAction(card, zoneTarget), card, ActionCause.Card);
             }
 

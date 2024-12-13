@@ -52,6 +52,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
         public override void OnDLChanged(DreamLevelArgs args)
         {
             React(new CastBlockShieldAction(Battle.Player, Block));
+            DreamLayerHandlers.CorruptedDLPenalty(this);
+
             if(IsUpgraded)
                 React(BuffAction<DoremyExtraDrawSE>(Value1));
             //React(NightmareAction(Battle.Player, NM2Apply));

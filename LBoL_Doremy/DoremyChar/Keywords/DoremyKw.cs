@@ -97,7 +97,7 @@ namespace LBoL_Doremy.DoremyChar.Keywords
         public override StatusEffectConfig PreConfig()
         {
             var con = DefaultConfig();
-            //con.RelativeEffects = new List<string>() { nameof(DC_DreamLayerKeywordSE) };
+            con.RelativeEffects = new List<string>() { nameof(DC_SelfNightmareTooltipSE) };
             return con;
         }
     }

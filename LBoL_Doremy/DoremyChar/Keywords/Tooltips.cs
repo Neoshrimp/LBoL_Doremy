@@ -23,4 +23,21 @@ namespace LBoL_Doremy.DoremyChar.Keywords
     public sealed class DC_SelfNightmareTooltipSE : DStatusEffect
     {
     }
+
+
+    public sealed class DC_ExileQueueTooltipSEDef : DStatusEffectDef
+    {
+
+        public override Sprite LoadSprite() => null;
+        public override StatusEffectConfig PreConfig()
+        {
+            var con = DefaultConfig();
+            return con;
+        }
+    }
+
+    [EntityLogic(typeof(DC_ExileQueueTooltipSEDef))]
+    public sealed class DC_ExileQueueTooltipSE : DStatusEffect
+    {
+    }
 }

@@ -6,6 +6,7 @@ using LBoL.Core.Units;
 using LBoL.EntityLib.Cards.Character.Sakuya;
 using LBoL_Doremy.Actions;
 using LBoL_Doremy.DoremyChar.Actions;
+using LBoL_Doremy.DoremyChar.Cards.Token;
 using LBoL_Doremy.DoremyChar.SE;
 using LBoL_Doremy.RootTemplates;
 using LBoL_Doremy.StaticResources;
@@ -39,6 +40,10 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 
             con.RelativeEffects = new List<string>() { nameof(DC_NightmareSE) };
             con.UpgradedRelativeEffects = new List<string>() { nameof(DC_NightmareSE) };
+
+            con.RelativeCards = new List<string>() { nameof(Knife) };
+            con.UpgradedRelativeCards = new List<string>() { nameof(Knife) };
+
 
 
             return con;

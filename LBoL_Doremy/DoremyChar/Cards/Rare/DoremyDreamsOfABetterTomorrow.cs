@@ -109,8 +109,9 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
                 var cards = selection.SelectedCards.Where(c => !(c is DOBToptionTool));
                 if (cards.FirstOrDefault() != null)
                 {
-                    yield return BuffAction<DoremyDreamsOfABetterTomorrowSE>();
-                    var status = Battle.Player.StatusEffects.FirstOrDefault(se => se.SourceCard == this) as DoremyDreamsOfABetterTomorrowSE;
+                    var buffAction = (ApplyStatusEffectAction)BuffAction<DoremyDreamsOfABetterTomorrowSE>();
+                    yield return buffAction;
+                    var status = buffAction.Args.Effect as DoremyDreamsOfABetterTomorrowSE;
                     if (status != null)
                         status.UpdateCards(cards);
                 }

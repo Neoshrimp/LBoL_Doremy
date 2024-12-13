@@ -7,9 +7,10 @@ using LBoL.Core.Battle.Interactions;
 using LBoL.Core.Cards;
 using LBoL.Core.Randoms;
 using LBoL.Core.Units;
+using LBoL_Doremy.DoremyChar.Keywords;
+using LBoL_Doremy.DoremyChar.SE;
 using LBoL_Doremy.RootTemplates;
 using LBoLEntitySideloader.Attributes;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +34,12 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
             con.Block = 18;
             con.UpgradedBlock = 22;
 
-            con.Value1 = 2;
+            con.Value1 = 1;
+            con.UpgradedValue1 = 2;
+
+
+            con.RelativeEffects = new List<string>() { nameof(DC_ExileQueueTooltipSE) };
+            con.UpgradedRelativeEffects = new List<string>() { nameof(DC_ExileQueueTooltipSE) };
 
             return con;
         }
@@ -48,7 +54,9 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
             var hand = Battle.HandZone.Where(c => c != this);
             if (hand.FirstOrDefault() == null)
                 return null;
-            return new SelectCardInteraction(0, 2, hand);
+            return new SelectCardInteraction(0, 2, hand) {
+                Description = Name + (IsUpgraded ? "+" : "") + LocalizeProperty("UpTo", true).RuntimeFormat(FormatWrapper)
+            };
         }
 
 
@@ -64,10 +72,11 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
                 yield return new ExileManyCardAction(cards);
                 if (cards.FirstOrDefault() != null)
                 {
-                    yield return BuffAction<DoremyProcrastinateSE>();
-                    var status = Battle.Player.StatusEffects.FirstOrDefault(se => se.SourceCard == this) as DoremyProcrastinateSE;
+                    var buffAction = (ApplyStatusEffectAction)BuffAction<DoremyProcrastinateSE>();
+                    yield return buffAction;
+                    var status = buffAction.Args.Effect as DoremyProcrastinateSE;
                     if (status != null)
-                        status.UpdateCards2Bounce(cards);
+                        status.UpdateQueue(cards);
                 }
             }
 
@@ -93,52 +102,58 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
     }
 
 
+
     [EntityLogic(typeof(DoremyProcrastinateSEDef))]
-    public sealed class DoremyProcrastinateSE : DStatusEffect
+    public sealed class DoremyProcrastinateSE : DC_ExileQeueuSE
     {
+        List<Card> _toBounceQueue = new List<Card>();
+        public List<Card> ToBounceQueue { get => _toBounceQueue; set => _toBounceQueue = value; }
 
-        List<Card> _cards2Bounce = new List<Card>();
-        public IReadOnlyList<Card> Cards2Bounce { get => _cards2Bounce.AsReadOnly(); }
 
-        public void UpdateCards2Bounce(IEnumerable<Card> cards)
+        public void UpdateQueue(IEnumerable<Card> cards2Add)
         {
-            _cards2Bounce.AddRange(cards.Where(c => c.Config.FindInBattle && c.CardType != CardType.Tool));
-            Count = Cards2Bounce.Count;
-            NotifyChanged();
+            foreach (var c in cards2Add)
+                ToBounceQueue.Add(c);
+            UpdateCount(ToBounceQueue);
         }
+        protected override string GetNoTargetCardInExile() => LocalizeProperty("NotInExile", true);
 
+        public string QueuedCardsDesc => GetQueuedCardsDesc(ToBounceQueue);
 
-        public string QueuedCards
+        protected override IEnumerable<Card> UpdateQueueContainer(IEnumerable<Card> queue)
         {
-            get
-            {
-                if (Cards2Bounce.Count == 0)
-                    return LocalizeProperty("Nothing");
-                return string.Join(", ", Cards2Bounce.Select(c => StringDecorator.Decorate($"|{c.Name}{(c.IsUpgraded ? "+" : "")}|")));
-            }
+            ToBounceQueue = queue.ToList();
+            return ToBounceQueue;
         }
 
         protected override void OnAdded(Unit unit)
         {
+            base.OnAdded(unit);
             if (unit is PlayerUnit pu)
             {
-                ReactOwnerEvent(pu.TurnStarting, TurnStarting);
+                ReactOwnerEvent(pu.TurnStarted, TurnStarted, (GameEventPriority)exileQueuePriority);
             }
-            Count = 0;
         }
 
-        private IEnumerable<BattleAction> TurnStarting(UnitEventArgs args)
+
+
+        private IEnumerable<BattleAction> TurnStarted(UnitEventArgs args)
         {
-            if (Battle.BattleShouldEnd)
-                yield break;
-
-            NotifyActivating();
-
-            yield return new AddCardsToHandAction(Cards2Bounce.Select(c => c.CloneBattleCard()));
-            _cards2Bounce.Clear();
-            Count = 0;
-
-            yield return new RemoveStatusEffectAction(this);
+            return ProcessQueue(ToBounceQueue);
         }
+
+        protected override IEnumerable<BattleAction> ProcessQueue(IList<Card> queue)
+        {
+            foreach (var a in base.ProcessQueue(queue))
+                yield return a;
+
+            if (ToBounceQueue.Count == 0)
+                yield return new RemoveStatusEffectAction(this);
+            else
+                UpdateCount(queue);
+        }
+
     }
+
+
 }

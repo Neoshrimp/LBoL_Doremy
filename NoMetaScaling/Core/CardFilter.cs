@@ -89,7 +89,7 @@ namespace NoMetaScaling.Core
 
             NoMetaScalinAPI.ExemptFromBanIfPlayed(nameof(Psychedelic));
             NoMetaScalinAPI.ExemptFromBanIfPlayed(nameof(BuyPeace));
-
+            NoMetaScalinAPI.ExemptFromBanIfPlayed(nameof(PoisonTeaParty));
 
 
             RegisterCommonHandlers(OnCardCreated);

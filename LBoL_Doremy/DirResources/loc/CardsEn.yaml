@@ -674,7 +674,7 @@ DoremySumirekoLucidDreamer:
   Description: |-
     {FriendP}Before the draw step, |Scry| {ScryInfo}.
   ExtraDescription1: |-
-    {FriendA}Add {SelfName}|e:{UpgradeDesc}| and |{RitualName}| to the hand.
+    {FriendA}Add |{JustName}| and |{RitualName}| to the hand.
   ExtraDescription3: |-
     {FriendU}End the {PlayerName}'s turn, then take an extra turn. |Block| and |Graze| are not lost at the start of this extra turn, and only {Value2} card may be played.
   FlavorText: |-

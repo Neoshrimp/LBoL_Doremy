@@ -77,10 +77,9 @@ namespace LBoL_Doremy.DoremyChar.Cards.OffColour
             }
         }
 
-
         public Card Ritual => EnumerateRelativeCards().First();
 
-        public string UpgradeDesc => IsUpgraded ? "+" : "";
+        public string JustName => Name + (IsUpgraded ? "+" : "");
 
         public string RitualName => Ritual.Name + (Ritual.IsUpgraded ? "+" : "");
 

@@ -161,7 +161,34 @@ DoremyFastAsleepReworkSE:
    Whenever a card would be shuffled <i>into</i> the draw pile, |Exile| and |queue| it instead.
    At the start of the {PlayerName}'s turn, attempt to add {Count:plural one='a ' other=''}|cop{Count:plural one='y' other='ies'}| of {QueuedCardsDesc} to the hand.{UpgradeDesc}
    At the end of the {PlayerName}'s turn, consume |e:{NM2ConsumeDesc}| |Self Nightmare|.
-  UpgradeTxt: "\nCopies of negative cards lose |Unplayable| and gain |Exile| and |temporarily cost| {Mana} less."
+  UpgradeTxt: "\nCopies of <b>negative</b> cards lose |Unplayable| and gain |Exile| and |temporarily cost| {Mana} less."
   OverQ: " and |e:{0}| more"
   NotInExile: "{0} is no longer in |Exile|."
   Nothing: "no cards"
+
+DoremyAgedDreamSE:
+  Name: Aged Dream
+  Description: |-
+    |Vulnerable| enemies receive |e:{PercDesc}|% more |Nightmare|.
+
+
+DoremySumirekoScrySE:
+  Name: Sumireko passive Scry
+  Description: |-
+    At the start of {OwnerName}'s next turn, |Scry| {ScryInfo}.
+
+DoremySumirekoDontLoseGrazeNextTurnSE:
+  Name: Don't lose Graze next turn
+  Description: |-
+    At the start of the next turn, don't lose |Graze|.
+
+DoremyNightmareFormSE:
+  Name: Nightmare Form
+  Description: |-
+    Whenever {PlayerName} would lose life, instead apply amount of |Self Nightmare| equal to <b>twice</b> the life which would have been lost.
+    Enemy attack damage is estimated to result in at least {Count} |Self Nightmare|. The estimate does not account for |Graze|.
+
+DoremyFaintingFeintSE:
+  Name: Fainting Feint
+  Description: |-
+    Whenever the {OwnerName} would deal attack damage, apply that much |Nightmare| instead.

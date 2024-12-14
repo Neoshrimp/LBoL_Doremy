@@ -653,8 +653,53 @@ DoremyFastAsleepRework:
    Whenever a card would be shuffled <i>into</i> the draw pile, |Exile| and |queue| it instead.
    At the start of the {PlayerName}'s turn, add |copies| of |queued| cards to the hand.{UpgradeDesc}
    At the end of the turn, consume {Value1} |Self Nightmare|.
-  UpgradeTxt: "\nCopies of negative cards lose |Unplayable| and gain |Exile| and |temporarily cost| {Mana} less."
+  UpgradeTxt: "\nCopies of <b>negative</b> cards lose |Unplayable| and gain |Exile| and |temporarily cost| {Mana} less."
   DetailText: |-
     |Queue| prioritizes positive cards.
   FlavorText: |-
     Be careful not to clog up your draws with this one.
+
+DoremyAgedDream:
+  Name: Aged Dream
+  Description: |-
+    Apply {Value1} |Weak| and |Vulnerable| to each enemy. 
+    |Vulnerable| enemies receive |e:{PercDesc}|% more |Nightmare|.
+  DetailText: Affected by |Lævateinn| shining exhibit.
+  FlavorText: |-
+    Like a fine wine for a Baku.
+
+
+DoremySumirekoLucidDreamer:
+  Name: Sumireko, the Lucid Dreamer
+  Description: |-
+    {FriendP}Before the draw step, |Scry| {ScryInfo}.
+  ExtraDescription1: |-
+    {FriendA}Add {SelfName}|e:{UpgradeDesc}| and |{RitualName}| to the hand.
+  ExtraDescription3: |-
+    {FriendU}End the {PlayerName}'s turn, then take an extra turn. |Block| and |Graze| are not lost at the start of this extra turn, and only {Value2} card may be played.
+  FlavorText: |-
+    Credit to Saevin the Sumireko Fan for giving me the idea for this one. -GameCavalier
+
+DoremyNightmareForm:
+  Name: Nightmare Form
+  Description: |-
+    Whenever {PlayerName} would lose life, instead apply amount of |Self Nightmare| equal to <b>twice</b> the life which would have been lost.
+  FlavorText: |-
+    cringe form
+
+DoremyFaintingFeint:
+  Name: Fainting Feint
+  Description: |-
+    Whenever the {PlayerName} would deal attack damage, apply that much |Nightmare| instead.
+  FlavorText: |-
+    This feint isn't for the faint of heart.
+
+DoremyProfessionalSleepboxing:
+  Name: Professional Sleepboxing
+  Description: |-
+    |For each {DL} stack|: Deal {Damage} damage to a random enemy.
+    Whenever this card gains {DL}, deal {Damage} attack damage to a random enemy.
+  DetailText: |-
+    |Copies| of this card apply |Self Nightmare| on trigger following the {DL} rules.
+  FlavorText: |-
+    Wombo Combo!

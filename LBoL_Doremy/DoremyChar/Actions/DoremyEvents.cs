@@ -12,6 +12,7 @@ namespace LBoL_Doremy.DoremyChar.Actions
 
         float _DLperLevelMult = defaultDLMult;
 
+
         public float DLperLevelMult { get => _DLperLevelMult; set => _DLperLevelMult = value; }
     }
 

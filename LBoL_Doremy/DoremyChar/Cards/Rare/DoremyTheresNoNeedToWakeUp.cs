@@ -6,6 +6,7 @@ using LBoL.Core.Cards;
 using LBoL_Doremy.DoremyChar.Keywords;
 using LBoL_Doremy.DoremyChar.SE;
 using LBoL_Doremy.RootTemplates;
+using LBoL_Doremy.StaticResources;
 using LBoLEntitySideloader.Attributes;
 using System;
 using System.Collections.Generic;
@@ -43,6 +44,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
             con.RelativeEffects = new List<string>() { nameof(DC_NightmareSE) };
             con.UpgradedRelativeEffects = new List<string>() { nameof(DC_NightmareSE) };
 
+
+            con.Illustrator = Artists.Ali;
 
             return con;
         }

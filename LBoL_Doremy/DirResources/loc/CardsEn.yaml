@@ -336,7 +336,9 @@ DoremyTranqBarrage:
 DoremyMelatoninMagic:
   Name: Melatonin Magic
   Description: |-
-    Gain {Mana}. Draw {Value1} cards. If cards drawn this way have |Dream Layer| they gain {DL}, otherwise they gain |Dream Layer|.
+    Gain {Mana}. Draw {Value1} cards. If <i>positive</i> cards drawn this way have |Dream Layer| they gain {DL}, otherwise they gain |Dream Layer|.
+  DetailText: |-
+    Positive card is not a Status or |Misfortune|.
   FlavorText: |-
     This simple medicine from the Outside World helps humans and yokai go to sleep faster.
 
@@ -537,7 +539,7 @@ DoremyPhantasmalKiller:
 DoremyDeepNavyOverdrive:
   Name: Deep Navy Overdrive
   Description: |-
-   Until the end of the turn, all cards created in combat |temporarily cost| {Mana}.
+    Until the {PlayerName}'s next turn <b>has started</b>, all cards which were or would be created |temporarily cost| {Mana}.
   FlavorText: |-
     Deep dark fantasy
 
@@ -703,3 +705,30 @@ DoremyProfessionalSleepboxing:
     |Copies| of this card apply |Self Nightmare| on trigger following the {DL} rules.
   FlavorText: |-
     Wombo Combo!
+
+DoremyExploitFear:
+  Name: Exploit Fear
+  Description: |-
+    Gain {Value1} |Self Nightmare|.
+    Consume all |Self Nightmare|.
+    For each |e:{TempFpDiv}| consumed: gain 1 |Temporary Firepower|(|e:{TempFpEst}|).
+    For each |e:{FpDiv}| consumed: gain 1 |Firepower|(|e:{FpEst}|).
+  FlavorText: |-
+    "Here's Doremy!"
+
+DoremyDejaVu:
+  Name: Déjà Vu
+  Description: |-
+    Add a |copy| of the first card played the {PlayerName}'s last turn to the hand ({FirstLegalCardName}). 
+    It |temporarily costs| {Mana} and has |Exile| and |Ethereal|.
+  DetailText:
+    First card which is |copyable| and was actually played by the Player.
+  FlavorText: |-
+    "We talk about 'survival of the fittest' a lot but all that really means is the skilled live and the unskilled die. Since you're clearly in that second group, maybe pick your fights a bit more carefully? Do you understand what I'm saying? It's never going to matter how much you 'want it' when you're up against someone who can kill you with a sneeze."
+
+DoremySummerDaysDream:
+  Name: Summer Day's Dream
+  Description: |-
+    Deez
+  FlavorText: |-
+    Seems to bloom all over again each day, just like the last.

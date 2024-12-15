@@ -1,8 +1,10 @@
 ﻿using LBoL.Base;
 using LBoL.ConfigData;
+using LBoL.Core.Units;
 using LBoL.EntityLib.Cards.Neutral.NoColor;
 using LBoL.EntityLib.Exhibits.Shining;
 using LBoL.EntityLib.UltimateSkills;
+using LBoL.Presentation.Units;
 using LBoL_Doremy.DoremyChar.Cards.Basic;
 using LBoL_Doremy.DoremyChar.Cards.Common;
 using LBoL_Doremy.DoremyChar.Exhibits;
@@ -16,6 +18,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml.Linq;
+using Spine;
+using System.Linq;
 using UnityEngine;
 
 namespace LBoL_Doremy.DoremyChar.DoremyPU
@@ -74,5 +78,51 @@ namespace LBoL_Doremy.DoremyChar.DoremyPU
 
     [EntityLogic(typeof(DoremyCavalierDef))]
     public sealed class DoremyCavalier : DPlayer
-    { }
+    {
+        int shouldSleep = 0;
+
+        public int ShouldSleep
+        {
+            get => shouldSleep; 
+            set
+            {
+                shouldSleep = value;
+                shouldSleep = Math.Max(0, shouldSleep);
+            }
+        }
+
+        protected override void OnLeaveBattle()
+        {
+            shouldSleep = 0;
+        }
+
+        public void SetSleepAnim(bool enable)
+        {
+            var view = (this as Unit)?.View as UnitView;
+
+            ShouldSleep += enable ? 1 : -1;
+
+            bool isSleeping = ShouldSleep > 0;
+            
+
+            if (view != null && view._modelName == nameof(DoremyCavalier))
+            {
+                view.DoremySleeping = isSleeping;
+
+                if (isSleeping)
+                {
+                    view._blinking = false;
+                    foreach (AnimationState allState in view.AllStates)
+                    {
+                        var blinkTrack = allState.Tracks.FirstOrDefault(t => t?.Animation?.Name == "blink");
+                        if (blinkTrack != null)
+                            allState.SetEmptyAnimation(blinkTrack.TrackIndex, 0f);
+                    }
+                }
+                else
+                    view.Blink();
+            }
+        }
+
+    }
 }

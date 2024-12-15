@@ -7,6 +7,7 @@ using LBoL.Core.Cards;
 using LBoL.Core.StatusEffects;
 using LBoL.Core.Units;
 using LBoL.EntityLib.StatusEffects.ExtraTurn;
+using LBoL_Doremy.DoremyChar.DoremyPU;
 using LBoL_Doremy.DoremyChar.Keywords;
 using LBoL_Doremy.RootTemplates;
 using LBoLEntitySideloader.Attributes;
@@ -78,12 +79,14 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
         protected override void OnAdded(Unit unit)
         {
             ThisTurnActivating = false;
-            HandleOwnerEvent(Battle.Player.TurnStarting, delegate (UnitEventArgs _)
+            HandleOwnerEvent(Battle.Player.TurnStarting, delegate (UnitEventArgs args)
             {
                 if (Battle.Player.IsExtraTurn && !Battle.Player.IsSuperExtraTurn && Battle.Player.GetStatusEffectExtend<ExtraTurnPartner>() == this)
                 {
                     ThisTurnActivating = true;
                     ShowCount = true;
+                    if (args.Unit is DoremyCavalier doremy)
+                        doremy.SetSleepAnim(true);
                 }
             });
             ReactOwnerEvent(Battle.Player.TurnEnded, OnPlayerTurnEnded);
@@ -101,6 +104,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
             if (ThisTurnActivating)
             {
                 yield return new RemoveStatusEffectAction(this, true);
+                if (args.Unit is DoremyCavalier doremy)
+                    doremy.SetSleepAnim(false);
             }
         }
     }

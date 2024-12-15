@@ -6,6 +6,7 @@ using LBoL.Core.Battle.BattleActions;
 using LBoL.EntityLib.Cards.Character.Alice;
 using LBoL_Doremy.DoremyChar.Actions;
 using LBoL_Doremy.DoremyChar.Cards.Common;
+using LBoL_Doremy.DoremyChar.Cards.Rare;
 using LBoL_Doremy.DoremyChar.Keywords;
 using LBoL_Doremy.DoremyChar.SE;
 using LBoL_Doremy.RootTemplates;
@@ -37,6 +38,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             con.UpgradedValue1 = 4;
 
             con.Mana = new ManaGroup() { Colorless = 1 };
+            //con.UpgradedMana = new ManaGroup() { Blue = 1 };
+
 
 
             con.RelativeEffects = new List<string>() { nameof(DC_DLKwSE) };
@@ -50,25 +53,23 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
     [EntityLogic(typeof(DoremyMelatoninMagicDef))]
     public sealed class DoremyMelatoninMagic : DCard
     {
-        protected override void OnEnterBattle(BattleController battle)
-        {
-            ReactBattleEvent(battle.CardDrawn, OnCardsDrawn);
-        }
 
-        private IEnumerable<BattleAction> OnCardsDrawn(CardEventArgs args)
-        {
-            if(args.ActionSource != this)
-                yield break;
-            if (args.Card.HasCustomKeyword(DoremyKw.dreamLayerId))
-                yield return new ApplyDLAction(args.Card);
-            else
-                args.Card.AddCustomKeyword(DoremyKw.NewDreamLayer);
-        }
 
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
             yield return new GainManaAction(Mana);
-            yield return new DrawManyCardAction(Value1);
+            var drawManyAction = new DrawManyCardAction(Value1);
+            yield return drawManyAction;
+            
+            foreach (var c in drawManyAction.DrawnCards)
+            {
+                if (!DoremyComatoseForm.IsPositive(c))
+                    continue;
+                if (c.HasCustomKeyword(DoremyKw.dreamLayerId))
+                    yield return new ApplyDLAction(c);
+                else
+                    c.AddCustomKeyword(DoremyKw.NewDreamLayer);
+            }
         }
     }
 }

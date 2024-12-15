@@ -140,7 +140,7 @@ DoremyFastAsleepSE:
 DoremyDeepNavyOverdriveSE:
   Name: Deep Navy Overdrive
   Description: |-
-    Until the end of the turn, all cards created in combat |temporarily cost| {Mana}.
+    Until the {OwnerName}'s next turn <b>has started</b>, all cards which were or would be created |temporarily cost| {Mana}.
 
 DoremyDreamyReimuSE:
   Name: Dreamy Reimu

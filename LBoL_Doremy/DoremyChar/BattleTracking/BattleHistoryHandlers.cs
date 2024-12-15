@@ -22,7 +22,7 @@ namespace LBoL_Doremy.DoremyChar.BattleTracking
 
         static ConditionalWeakTable<BattleController, BattleHistoryInfo> cwt_cardCreationTurnHistory = new ConditionalWeakTable<BattleController, BattleHistoryInfo>();
 
-        static BattleHistoryInfo GetInfo(BattleController battle)
+        public static BattleHistoryInfo GetInfo(BattleController battle)
         {
             cwt_cardCreationTurnHistory.TryGetValue(battle, out var info);
             return info;
@@ -152,6 +152,12 @@ namespace LBoL_Doremy.DoremyChar.BattleTracking
         [HarmonyPatch(typeof(BattleController), nameof(BattleController.EndPlayerTurn))]
         class BattleController_EndPlayerTurn_Patch
         {
+
+            static void Prefix(BattleController __instance)
+            {
+                GetInfo(__instance).lastCardUseTurnHist.Clear();
+                GetInfo(__instance).lastCardUseTurnHist.AddRange(__instance.TurnCardUsageHistory);
+            }
             static void Postfix(BattleController __instance)
             {
                 var hist = GetCardCreationTurnHistory(__instance);
@@ -178,6 +184,9 @@ namespace LBoL_Doremy.DoremyChar.BattleTracking
         public CardCreationTurnHistory cardCreationTurnHistory = new CardCreationTurnHistory();
         public CreatedCount createdCount = new CreatedCount();
         public DLHistory dLHistory = new DLHistory();
+
+        public List<Card> lastCardUseTurnHist = new List<Card>();
+
     }
 
     public class CreatedCount

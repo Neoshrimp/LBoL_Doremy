@@ -80,9 +80,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.OffColour
         protected override void OnAdded(Unit unit)
         {
             HandleOwnerEvent(unit.DamageGiving, OnDamageTaking, GameEventPriority.Lowest);
-
         }
-
 
 
 
@@ -91,6 +89,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.OffColour
             if (args.Cause == ActionCause.OnlyCalculate)
                 return;
 
+            
             if (args.DamageInfo.DamageType == DamageType.Attack)
             {
                 if (Battle._resolver._reactors == null)
@@ -98,15 +97,31 @@ namespace LBoL_Doremy.DoremyChar.Cards.OffColour
                     Log.LogError($"{this.Name} can't react outside of action resolving state. Aborting");
                     return;
                 }
+                React(Convert2NMSequence(args));
+
                 var nm = new NightmareInfo(args.DamageInfo.Damage, false);
                 React(new NightmareAction(Owner, args.Target, nm, 0f));
 
                 args.DamageInfo = args.DamageInfo.ReduceActualDamageBy(args.DamageInfo.Damage.CeilingToInt());
 
-                if (args.Target.IsDead)
-                    args.CancelBy(this);
+                // doesnt do anything
+                /*if (args.Target.IsDead || args.Target.IsDying)
+                    args.CancelBy(this);*/
             }
 
+        }
+
+        private IEnumerable<BattleAction> Convert2NMSequence(DamageEventArgs args)
+        {
+            var nm = new NightmareInfo(args.DamageInfo.Damage, false);
+            yield return new NightmareAction(Owner, args.Target, nm, 0f);
+
+            args.DamageInfo = args.DamageInfo.ReduceActualDamageBy(args.DamageInfo.Damage.CeilingToInt());
+
+            if (args.Target.IsDead || args.Target.IsDying)
+            {
+                args.CancelBy(this);
+            }
         }
     }
 }

@@ -38,7 +38,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.OffColour
             con.TargetType = TargetType.Nobody;
             con.Rarity = Rarity.Uncommon;
 
-            con.Colors = new List<ManaColor>() { ManaColor.Black };
+            con.Colors = new List<ManaColor>() { ManaColor.Blue, ManaColor.Black };
             con.Cost = new ManaGroup() { Black = 1, Blue = 1, Any = 1 };
             con.UpgradedCost = new ManaGroup() { Any = 2, Hybrid = 1, HybridColor = 4};
 
@@ -129,10 +129,6 @@ namespace LBoL_Doremy.DoremyChar.Cards.OffColour
 
     public sealed class DoremySumirekoScrySEDef : DStatusEffectDef
     {
-        public override Sprite LoadSprite()
-        {
-            return ResourcesHelper.TryGetSprite<StatusEffect>(nameof(WindGirl));
-        }
 
         public override StatusEffectConfig PreConfig()
         {

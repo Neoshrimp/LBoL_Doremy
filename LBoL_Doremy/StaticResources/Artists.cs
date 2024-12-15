@@ -9,6 +9,7 @@ namespace LBoL_Doremy.StaticResources
         public const string Deeznuts = "Deeznuts";
         public const string kimmchu = "kimmchu!";
         public const string DC = "GameCavalier";
+        public const string Ali = "Ali";
 
 
     }

@@ -18,6 +18,7 @@ using LBoL_Doremy.StaticResources;
 using LBoLEntitySideloader.Resource;
 using LBoL.Base.Extensions;
 using LBoL_Doremy.CreatedCardTracking;
+using LBoL_Doremy.Utils;
 
 namespace LBoL_Doremy.DoremyChar.Cards.Rare
 {
@@ -102,8 +103,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
             ReactOwnerEvent(Battle.CardUsed, OnCardUsed);
             ReactOwnerEvent(Battle.CardPlayed, OnCardUsed);
 
-
-            SetSleepAnim(unit, true);
+            if(unit is DoremyCavalier doremy)
+                doremy.SetSleepAnim(true);
         }
 
         private IEnumerable<BattleAction> OnCardUsed(CardUsingEventArgs args)
@@ -131,31 +132,13 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
         }*/
 
 
-        private static void SetSleepAnim(Unit unit, bool enable)
-        {
-            if (unit.View is UnitView view && view._modelName == nameof(DoremyCavalier))
-            {
-                view.DoremySleeping = enable;
-
-                if (enable)
-                {
-                    view._blinking = false;
-                    foreach (AnimationState allState in view.AllStates)
-                    {
-                        var blinkTrack = allState.Tracks.FirstOrDefault(t => t.Animation.Name == "blink");
-                        if (blinkTrack != null)
-                            allState.SetEmptyAnimation(blinkTrack.TrackIndex, 0f);
-                    }
-                }
-                else
-                    view.Blink();
-            }
-        }
+     
 
         protected override void OnRemoved(Unit unit)
         {
             EventManager.DoremyEvents.DLperLevelMult = DoremyEvents.defaultDLMult;
-            SetSleepAnim(unit, false);
+            if (unit is DoremyCavalier doremy)
+                doremy.SetSleepAnim(false);
         }
      
     }

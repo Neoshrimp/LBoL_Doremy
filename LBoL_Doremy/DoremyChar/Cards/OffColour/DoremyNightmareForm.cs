@@ -161,8 +161,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.OffColour
 
             args.DamageInfo = args.DamageInfo.ReduceActualDamageBy(args.DamageInfo.Damage.CeilingToInt());
 
-            if (Owner.IsDead)
-                args.CancelBy(this);
+            /*if (Owner.IsDead)
+                args.CancelBy(this);*/
         }
     }
 }

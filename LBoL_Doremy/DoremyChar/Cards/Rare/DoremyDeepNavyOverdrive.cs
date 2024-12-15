@@ -3,6 +3,7 @@ using LBoL.Base;
 using LBoL.ConfigData;
 using LBoL.Core;
 using LBoL.Core.Battle;
+using LBoL.Core.Battle.BattleActions;
 using LBoL.Core.Cards;
 using LBoL.Core.Units;
 using LBoL.EntityLib.Adventures.Shared12;
@@ -39,7 +40,6 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
 
             con.RelativeKeyword = Keyword.TempMorph;
             con.UpgradedRelativeKeyword = Keyword.TempMorph;
-
 
 
             con.SubIllustrator = new string[] { Artists.Deeznuts };
@@ -82,10 +82,9 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
             con.HasLevel = false;
 
             con.HasDuration = true;
-            con.DurationDecreaseTiming = DurationDecreaseTiming.TurnEnd;
+            con.DurationDecreaseTiming = DurationDecreaseTiming.Custom;
             con.DurationStackType = StackType.Keep;
 
-            
 
             return con;
         }
@@ -104,6 +103,22 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
             Duration = 1;
             SetTempCost(Battle.EnumerateAllCards().Where(c => c.WasGenerated()));
             ReactOnCardsAddedEvents(OnCardsCreated, (GameEventPriority)(-20));
+            ReactOwnerEvent(unit.TurnStarted, OnTurnStarted, (GameEventPriority)999);
+            ReactOwnerEvent(unit.TurnStarting, OnTurnStarting, (GameEventPriority)(-999));
+
+        }
+
+        private IEnumerable<BattleAction> OnTurnStarting(UnitEventArgs args)
+        {
+            ResetCreatedCardsCost();
+            return Enumerable.Empty<BattleAction>();
+        }
+
+        private IEnumerable<BattleAction> OnTurnStarted(UnitEventArgs args)
+        {
+            Duration--;
+            if (Duration <= 0)
+                yield return new RemoveStatusEffectAction(this);
         }
 
         private IEnumerable<BattleAction> OnCardsCreated(Card[] cards, GameEventArgs args)
@@ -119,7 +134,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
                 c.SetTurnCost(ManaGroup.Empty);
         }
 
-        protected override void OnRemoved(Unit unit)
+        private void ResetCreatedCardsCost()
         {
             Battle.EnumerateAllCards().Where(c => c.WasGenerated()).Do(c => c.TurnCostDelta = ManaGroup.Empty);
             //discountedCards.Clear();

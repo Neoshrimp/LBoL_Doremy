@@ -36,7 +36,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
             con.UpgradedCost = new ManaGroup() { Any = 0 };
 
             con.Mana = new ManaGroup() { Any = 2 };
-            con.Value1 = 4;
+            con.Value1 = 7;
 
 
             con.UpgradedRelativeKeyword = Keyword.TempMorph;
@@ -53,14 +53,14 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
     [EntityLogic(typeof(DoremyFastAsleepReworkDef))]
     public sealed class DoremyFastAsleepRework : DCard
     {
-        public string UpgradeDesc => IsUpgraded ? LocalizeProperty("UpgradeTxt", true).RuntimeFormat(FormatWrapper) : "";
+        public string UpgradeDesc => "";// IsUpgraded ? LocalizeProperty("UpgradeTxt", true).RuntimeFormat(FormatWrapper) : "";
 
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
             var buffAction = (ApplyStatusEffectAction)BuffAction<DoremyFastAsleepReworkSE>(Value1);
             yield return buffAction;
-            if (IsUpgraded && Battle.Player.TryGetStatusEffect<DoremyFastAsleepReworkSE>(out var se))
-                se.IsUpgraded = true;
+/*            if (IsUpgraded && Battle.Player.TryGetStatusEffect<DoremyFastAsleepReworkSE>(out var se))
+                se.IsUpgraded = true;*/
         }
     }
 
@@ -105,9 +105,9 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
 
         public NightmareInfo NM2Consume => new NightmareInfo(-Level, true);
 
-        public string UpgradeDesc => IsUpgraded ? LocalizeProperty("UpgradeTxt", true).RuntimeFormat(FormatWrapper) : "";
+        public string UpgradeDesc => "";// IsUpgraded ? LocalizeProperty("UpgradeTxt", true).RuntimeFormat(FormatWrapper) : "";
 
-        public bool IsUpgraded { get; internal set; }
+        public bool IsUpgraded { get => false; /*internal set;*/ }
 
         public ManaGroup Mana => new ManaGroup() { Any = 2 };
 

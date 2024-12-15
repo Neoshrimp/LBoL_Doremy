@@ -253,7 +253,7 @@ DoremyRapidEyeMovements:
     Gain {Block} |Block|. 
     Choose {Value1} of {Value2} |Movements| to add to the hand.
   FlavorText: |-
-    R.E.M.I. for short.
+    R.E.M. for short.
 
 DoremyConfoundingMovement:
   Name: Confounding Movement

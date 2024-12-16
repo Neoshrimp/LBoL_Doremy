@@ -691,7 +691,7 @@ DoremySumirekoLucidDreamer:
     Credit to Saevin the Sumireko Fan for giving me the idea for this one. -GameCavalier
 
 DoremyNightmareForm:
-  Name: Nightmare Form
+  Name: Phantasmal Existance
   Description: |-
     Whenever {PlayerName} would lose life, instead apply amount of |Self Nightmare| equal to <b>twice</b> the life which would have been lost.
   FlavorText: |-

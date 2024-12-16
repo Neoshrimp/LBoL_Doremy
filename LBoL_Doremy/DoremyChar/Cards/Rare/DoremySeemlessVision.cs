@@ -3,6 +3,7 @@ using LBoL.Base.Extensions;
 using LBoL.ConfigData;
 using LBoL.Core;
 using LBoL.Core.Battle;
+using LBoL.Core.Battle.BattleActions;
 using LBoL.Core.Cards;
 using LBoL.EntityLib.Cards.Enemy;
 using LBoL_Doremy.CreatedCardTracking;
@@ -57,7 +58,9 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
 
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
-            foreach(var e in UnitSelector.AllEnemies.GetEnemies(Battle))
+            yield return PerformAction.Gun(Battle.Player, Battle.AllAliveEnemies.FirstOrDefault(), "飞光虫B");
+
+            foreach (var e in UnitSelector.AllEnemies.GetEnemies(Battle))
                 yield return NightmareAction(e, NM2Apply, 0f);
 
 

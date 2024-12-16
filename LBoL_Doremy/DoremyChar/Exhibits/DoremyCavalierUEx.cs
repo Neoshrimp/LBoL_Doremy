@@ -5,8 +5,11 @@ using LBoL.Core.Battle;
 using LBoL.Core.Battle.BattleActions;
 using LBoL.EntityLib.Exhibits;
 using LBoL_Doremy.DoremyChar.DoremyPU;
+using LBoL_Doremy.DoremyChar.Keywords;
 using LBoL_Doremy.RootTemplates;
+using LBoL_Doremy.StaticResources;
 using LBoLEntitySideloader.Attributes;
+using LBoLEntitySideloader.Resource;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +20,13 @@ namespace LBoL_Doremy.DoremyChar.Exhibits
 
     public sealed class DoremyCavalierUExDef : DExhibitDef
     {
+        public override ExhibitSprites LoadSprite()
+        {
+            var exs = base.LoadSprite();
+            exs.customSprites.Add(inactive, ResourceLoader.LoadSprite(inactive + GetId() + ".png", Sources.exAndBomb));
+            return exs;
+        }
+
         public override ExhibitConfig MakeConfig()
         {
             return new ExhibitConfig(
@@ -31,7 +41,7 @@ namespace LBoL_Doremy.DoremyChar.Exhibits
                 Owner: DoremyCavalierDef.Name,
                 LosableType: ExhibitLosableType.DebutLosable,
                 Rarity: Rarity.Shining,
-                Value1: 3,
+                Value1: 4,
                 Value2: null,
                 Value3: null,
                 Mana: null,
@@ -41,7 +51,7 @@ namespace LBoL_Doremy.DoremyChar.Exhibits
                 HasCounter: false,
                 InitialCounter: null,
                 Keywords: Keyword.Shield,
-                RelativeEffects: new List<string>(),
+                RelativeEffects: new List<string>() { nameof(DC_CreatedTooltipSE) },
                 RelativeCards: new List<string>());
         }
     }
@@ -61,26 +71,41 @@ namespace LBoL_Doremy.DoremyChar.Exhibits
 
         private void OnTurnStarted(UnitEventArgs args)
         {
-            Active = true;
+            IsActive = true;
+        }
+
+        public override string OverrideIconName
+        {
+            get
+            {
+                if (IsActive)
+                    return Id;
+                return Id + DExhibitDef.inactive;
+
+            }
         }
 
         private void OnCardUsed(CardUsingEventArgs args)
         {
             if (args.Card?.CardType == CardType.Attack)
             { 
-                Active = false;
+                IsActive = false;
                 NotifyChanged();
             }
         }
 
+        private bool _isActive = true;
+
+        public bool IsActive { get => _isActive; private set { _isActive = value; NotifyChanged(); } }
+
         protected override void OnLeaveBattle()
         {
-            Active = false;
+            IsActive = false;
         }
 
         private IEnumerable<BattleAction> OnTurnEnding(UnitEventArgs args)
         {
-            if (Active)
+            if (IsActive)
             {
                 NotifyActivating();
                 yield return new CastBlockShieldAction(Owner, 0, shield: Value1, BlockShieldType.Direct, cast: true);

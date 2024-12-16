@@ -8,7 +8,9 @@ namespace LBoL_Doremy.StaticResources
 {
     internal static class Loc
     {
-        internal static DirectorySource locSource = new DirectorySource(LBoL_Doremy.PInfo.GUID, "loc");
+        //internal static DirectorySource locSource = new DirectorySource(LBoL_Doremy.PInfo.GUID, "loc");
+        internal static DirectorySource locSource = Sources.rootDirSource;
+
 
         public static string Cards = "Cards";
         public static string Exhibits = "Exhibits";

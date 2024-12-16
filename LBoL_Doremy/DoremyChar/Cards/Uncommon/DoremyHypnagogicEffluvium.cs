@@ -2,12 +2,14 @@
 using LBoL.ConfigData;
 using LBoL.Core;
 using LBoL.Core.Battle;
+using LBoL.Core.Battle.BattleActions;
 using LBoL.Core.StatusEffects;
 using LBoL_Doremy.DoremyChar.SE;
 using LBoL_Doremy.RootTemplates;
 using LBoLEntitySideloader.Attributes;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
@@ -53,6 +55,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
 
+            yield return PerformAction.Gun(Battle.Player, Battle.AllAliveEnemies.FirstOrDefault(), "飞光虫B");
             foreach (var e in UnitSelector.AllEnemies.GetEnemies(Battle))
             {
                 yield return DebuffAction<Weak>(e, duration: Value1, occupationTime: 0f);

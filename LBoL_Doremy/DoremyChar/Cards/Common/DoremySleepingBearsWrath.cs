@@ -23,6 +23,10 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
             con.Type = LBoL.Base.CardType.Attack;
             con.TargetType = TargetType.AllEnemies;
 
+            con.GunName = "极彩沛雨";
+            con.GunNameBurst = "极彩沛雨B";
+
+
             con.Colors = new List<ManaColor>() { ManaColor.Blue };
             con.Cost = new ManaGroup() { Blue = 1, Any = 2 };
 

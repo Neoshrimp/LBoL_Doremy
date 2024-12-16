@@ -26,6 +26,10 @@ namespace LBoL_Doremy.DoremyChar.Cards.Token
             con.Type = LBoL.Base.CardType.Attack;
             con.TargetType = TargetType.SingleEnemy;
 
+            con.GunName = "封魔针";
+            con.GunNameBurst = "封魔针B";
+
+
             con.Colors = new List<ManaColor>() { ManaColor.White };
             con.Cost = new ManaGroup() { Any = 1 };
 

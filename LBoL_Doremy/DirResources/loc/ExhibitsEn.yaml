@@ -10,6 +10,7 @@ DoremyCavalierWEx:
   Name: Dream Soul
   Description: |-
     Adds {BaseMana} to the mana base. Cards unique to |Doremy| are added to the card pool.
-    When a card is |created| by another card for the <i>first time</i> each combat, the created card |temporarily costs| {Mana}.
+    When a card is |Created| by <b>another card</b> for the <i>first time</i> each combat, the |Created| card |temporarily costs| {Mana}.
+    The effect triggers even if the |Created| card already cost {Mana} or is |Unplayable|, effectively wasting it.
   FlavorText: |-
     Transfers its happy dreams on contact, knocking most out instantly. Doremy can handle them just fine though, because she's always asleep.

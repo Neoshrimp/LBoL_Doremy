@@ -48,39 +48,42 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
             yield return BuffAction<DoremyPerfectPhantasmsSE>();
-            var toUpgrade = Battle.EnumerateAllCards().Where(c => c.WasGenerated() && c.CanUpgradeAndPositive).Where(c => c.CanUpgradeAndPositive);
-            if (toUpgrade.FirstOrDefault() != null)
-                yield return new UpgradeCardsAction(toUpgrade);
-
-        }
-
-
-        public sealed class DoremyPerfectPhantasmsSEDef : DStatusEffectDef
-        {
-            public override StatusEffectConfig PreConfig()
+            if (IsUpgraded)
             {
-                var con = DefaultConfig();
-                con.Type = LBoL.Base.StatusEffectType.Positive;
-                con.HasLevel = false;
-
-                return con;
-            }
-        }
-
-        [EntityLogic(typeof(DoremyPerfectPhantasmsSEDef))]
-        public sealed class DoremyPerfectPhantasmsSE : DStatusEffect
-        {
-            protected override void OnAdded(Unit unit)
-            {
-                ReactOnCardsAddedEvents(OnCardsAdded);
-            }
-
-            private IEnumerable<BattleAction> OnCardsAdded(Card[] cards, GameEventArgs args)
-            {
-                var toUpgrade = cards.Where(c => c.CanUpgradeAndPositive);
+                var toUpgrade = Battle.HandZone/*EnumerateAllCards()*/.Where(c => c.WasGenerated() && c.CanUpgradeAndPositive);
                 if (toUpgrade.FirstOrDefault() != null)
                     yield return new UpgradeCardsAction(toUpgrade);
             }
+
+        }
+
+
+    }
+    public sealed class DoremyPerfectPhantasmsSEDef : DStatusEffectDef
+    {
+        public override StatusEffectConfig PreConfig()
+        {
+            var con = DefaultConfig();
+            con.Type = LBoL.Base.StatusEffectType.Positive;
+            con.HasLevel = false;
+
+            return con;
+        }
+    }
+
+    [EntityLogic(typeof(DoremyPerfectPhantasmsSEDef))]
+    public sealed class DoremyPerfectPhantasmsSE : DStatusEffect
+    {
+        protected override void OnAdded(Unit unit)
+        {
+            ReactOnCardsAddedEvents(OnCardsAdded);
+        }
+
+        private IEnumerable<BattleAction> OnCardsAdded(Card[] cards, GameEventArgs args)
+        {
+            var toUpgrade = cards.Where(c => c.CanUpgradeAndPositive);
+            if (toUpgrade.FirstOrDefault() != null)
+                yield return new UpgradeCardsAction(toUpgrade);
         }
     }
 }

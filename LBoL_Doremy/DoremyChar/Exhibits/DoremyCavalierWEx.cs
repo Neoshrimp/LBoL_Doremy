@@ -12,12 +12,23 @@ using System.Collections.Generic;
 using System.Text;
 using LBoL_Doremy.Utils;
 using System.Linq;
+using LBoL_Doremy.DoremyChar.Keywords;
+using LBoLEntitySideloader.Resource;
+using LBoL_Doremy.StaticResources;
 
 namespace LBoL_Doremy.DoremyChar.Exhibits
 {
 
     public sealed class DoremyCavalierWExDef : DExhibitDef
     {
+        public override ExhibitSprites LoadSprite()
+        {
+            var exs = base.LoadSprite();
+            
+            exs.customSprites.Add(inactive, ResourceLoader.LoadSprite(inactive + GetId() + ".png", Sources.exAndBomb));
+            return exs;
+        }
+
         public override ExhibitConfig MakeConfig()
         {
             return new ExhibitConfig(
@@ -42,7 +53,7 @@ namespace LBoL_Doremy.DoremyChar.Exhibits
                 HasCounter: false,
                 InitialCounter: null,
                 Keywords: Keyword.TempMorph,
-                RelativeEffects: new List<string>(),
+                RelativeEffects: new List<string>() { nameof(DC_CreatedTooltipSE) },
                 RelativeCards: new List<string>());
         }
     }
@@ -52,7 +63,7 @@ namespace LBoL_Doremy.DoremyChar.Exhibits
     {
         protected override void OnEnterBattle()
         {
-            Active = true;
+            IsActive = true;
 
             ReactBattleEvent(Battle.CardsAddedToDiscard, OnOtherAdded);
             ReactBattleEvent(Battle.CardsAddedToDrawZone, OnDrawZoneAdded);
@@ -62,18 +73,33 @@ namespace LBoL_Doremy.DoremyChar.Exhibits
 
         protected override void OnLeaveBattle()
         {
-            Active = true;
+            IsActive = true;
         }
+
+        public override string OverrideIconName
+        {
+            get
+            {
+                if (IsActive)
+                    return Id;
+                return Id + DExhibitDef.inactive;
+
+            }
+        }
+
+        private bool _isActive = true;
+
+        public bool IsActive { get => _isActive; private set { _isActive = value; NotifyChanged(); } }
 
         private IEnumerable<BattleAction> DoDiscount(IEnumerable<Card> cards, GameEventArgs args)
         {
-            if (!Active || cards.FirstOrDefault() == null)
+            if (!IsActive || cards.FirstOrDefault() == null)
                 yield break;
 
             if (args.ActionSource.TrickleDownActionSource() is Card)
             {
                 NotifyActivating();
-                Active = false;
+                IsActive = false;
                 cards.First().SetTurnCost(Mana);
             }
         }

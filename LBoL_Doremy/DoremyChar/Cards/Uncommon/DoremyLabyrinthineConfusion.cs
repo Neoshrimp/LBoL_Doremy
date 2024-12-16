@@ -3,6 +3,7 @@ using LBoL.Base;
 using LBoL.ConfigData;
 using LBoL.Core;
 using LBoL.Core.Battle;
+using LBoL.Core.Battle.BattleActions;
 using LBoL.Core.Cards;
 using LBoL_Doremy.CreatedCardTracking;
 using LBoL_Doremy.DoremyChar.Cards.Rare.DreamTeamates;
@@ -85,6 +86,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             for (int i = 0; i < GenCount; i++)
             {
                 yield return DefenseAction(cast: false);
+                yield return PerformAction.Gun(Battle.Player, Battle.AllAliveEnemies.FirstOrDefault(), "Lily");
                 foreach (var e in UnitSelector.AllEnemies.GetUnits(Battle))
                     yield return NightmareAction(e, NM2Apply, 0f);
             }

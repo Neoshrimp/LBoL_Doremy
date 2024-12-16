@@ -27,6 +27,9 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
             con.TargetType = TargetType.SingleEnemy;
             con.Rarity = Rarity.Common;
 
+            con.GunName = "冰蔷薇";
+            con.GunNameBurst = "冰蔷薇B";
+
             con.Colors = new List<ManaColor>() { ManaColor.White };
             con.Cost = new ManaGroup() { White = 2 };
 

@@ -16,6 +16,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Basic
             con.Rarity = Rarity.Common;
             con.IsPooled = false;
 
+            con.GunName = "ShootW1";
+
             con.Type = LBoL.Base.CardType.Attack;
             con.TargetType = TargetType.SingleEnemy;
 

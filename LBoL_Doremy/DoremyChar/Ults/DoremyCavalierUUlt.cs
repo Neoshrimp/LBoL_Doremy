@@ -9,6 +9,7 @@ using LBoL_Doremy.RootTemplates;
 using LBoLEntitySideloader.Attributes;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace LBoL_Doremy.DoremyChar.Ults
@@ -47,7 +48,9 @@ namespace LBoL_Doremy.DoremyChar.Ults
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector)
         {
 
+
             yield return PerformAction.Spell(Owner, Id);
+            yield return PerformAction.Gun(Owner, Battle.AllAliveEnemies.FirstOrDefault(), "Sweet02");
 
             foreach (var e in selector.GetEnemies(Battle))
                 yield return new ApplyStatusEffectAction<DC_NightmareSE>(e, Value1) { Source = this };

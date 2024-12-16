@@ -30,6 +30,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             con.Colors = new List<ManaColor>() { ManaColor.White };
             con.Cost = new ManaGroup() { White = 1, Any = 1 };
 
+            con.GunName = "Sweet01";
+
 
             con.Damage = 9;
             con.Value1 = 1;

@@ -52,7 +52,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.OffColour
 
         public string FirstLegalCardName => FirstLegalCard?.ColorName() ?? StringDecorator.Decorate("|e:N/A|");
 
-        Card FirstLegalCard => RealBattle == null ? null : BattleHistoryHandlers.GetInfo(RealBattle).lastCardUseTurnHist.FirstOrDefault(c => c.CanBeDuplicated);
+        Card FirstLegalCard => RealBattle == null ? null : BattleHistoryHandlers.GetInfo(RealBattle)?.lastCardUseTurnHist.FirstOrDefault(c => c.CanBeDuplicated);
 
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {

@@ -24,7 +24,9 @@ using LBoL.Presentation.UI;
 using LBoL.Presentation.UI.Panels;
 using LBoL.Presentation.UI.Widgets;
 using LBoL_Doremy.DoremyChar.Actions;
+using LBoL_Doremy.DoremyChar.Cards.Rare;
 using LBoL_Doremy.DoremyChar.Cards.Token;
+using LBoL_Doremy.DoremyChar.DoremyPU;
 using LBoL_Doremy.DoremyChar.SE;
 using LBoL_Doremy.RootTemplates;
 using LBoL_Doremy.StaticResources;
@@ -72,43 +74,56 @@ namespace LBoL_Doremy.DoremyChar.Ults
             TargetType = TargetType.Nobody;
         }
 
-
-        public int MinColours = 1;
-        public int MinOrigins => 1;
-        public int MinTypes => 2;
-        public int MaxTypePool => (int)CardType.Friend;
-
-
-        public int RollAmount { get; set; }
-
-
-        public int PoolSize { get; set; }
-
-        protected override IEnumerable<BattleAction> Actions(UnitSelector selector)
+        public override void Initialize()
         {
+            base.Initialize();
+            Log.LogDebug($"initing {this.Name}");
+            CHandlerManager.RegisterBattleEventHandler(b => b.UsUsing, Precondition);
+        }
 
+
+        private void Precondition(UsUsingEventArgs args)
+        {
+            if (args.Us != this)
+                return;
+
+            this.Battle.React(new Reactor(PreconditionSequence(args)), this, ActionCause.Us);
+            
+        }
+
+        private IEnumerable<BattleAction> PreconditionSequence(UsUsingEventArgs args)
+        {
+            Action<UsUsingEventArgs> cancelUs = args => {
+                args.CancelBy(this);
+                UiManager.GetPanel<PlayBoard>().RewindUs();
+                preconditionInfo = null;
+            };
+
+            preconditionInfo = null;
             RollAmount = Value1;
-/*            var colorOptions = Enum.GetValues(typeof(ManaColor)).Cast<ManaColor>().Select((c, i) => {
-                if (c == ManaColor.Any || c == ManaColor.Hybrid || c == ManaColor.Philosophy)
-                    return null;
-                var card = Library.CreateCard<DC_ManaOption>();
-                card.ManaColor = c;
-                return card;
-            }).Where(c => c != null);
+            PoolSize = 0;
 
-            var colorSelection = new SelectCardInteraction(2, colorOptions.Count(), colorOptions) { Source = this };
-            yield return new InteractionActionPlus(colorSelection, false, new ViewSelectCardResolver(() => {
-                var panel = UiManager.GetPanel<SelectCardPanel>();
-                panel._selectCardWidgets.Do(w =>
-                {
-                    if (w.Card is DC_ManaOption mo)
-                    {
-                        w.CardWidget.cardImage.texture = ResourcesHelper.TryGetCardImage(DC_ManaOption.c2img[(int)mo.ManaColor]);
-                    }
-                });
-            }).ExtendEnumerator);
+            /*            var colorOptions = Enum.GetValues(typeof(ManaColor)).Cast<ManaColor>().Select((c, i) => {
+                            if (c == ManaColor.Any || c == ManaColor.Hybrid || c == ManaColor.Philosophy)
+                                return null;
+                            var card = Library.CreateCard<DC_ManaOption>();
+                            card.ManaColor = c;
+                            return card;
+                        }).Where(c => c != null);
 
-            var colorFilter = colorSelection.SelectedCards.Cast<DC_ManaOption>().Select(c => c.ManaColor).ToHashSet();*/
+                        var colorSelection = new SelectCardInteraction(2, colorOptions.Count(), colorOptions) { Source = this };
+                        yield return new InteractionActionPlus(colorSelection, false, new ViewSelectCardResolver(() => {
+                            var panel = UiManager.GetPanel<SelectCardPanel>();
+                            panel._selectCardWidgets.Do(w =>
+                            {
+                                if (w.Card is DC_ManaOption mo)
+                                {
+                                    w.CardWidget.cardImage.texture = ResourcesHelper.TryGetCardImage(DC_ManaOption.c2img[(int)mo.ManaColor]);
+                                }
+                            });
+                        }).ExtendEnumerator);
+
+                        var colorFilter = colorSelection.SelectedCards.Cast<DC_ManaOption>().Select(c => c.ManaColor).ToHashSet();*/
 
             var originIds = Library.GetSelectablePlayers().Select(pu => pu.Id);
             originIds = new string[] { null }.Concat(originIds);
@@ -119,7 +134,7 @@ namespace LBoL_Doremy.DoremyChar.Ults
             });
             var originSelection = new SelectCardInteraction(MinOrigins, originOptions.Count(), originOptions) { Source = this };
 
-            yield return new InteractionActionPlus(originSelection, false, new ViewSelectCardResolver(() => {
+            yield return new InteractionActionPlus(originSelection, true, new ViewSelectCardResolver(() => {
                 var panel = UiManager.GetPanel<SelectCardPanel>();
                 panel.titleTmp.text = LocalizeProperty("ChooseOrigin", true).RuntimeFormat(FormatWrapper);
                 panel._selectCardWidgets.Do(w =>
@@ -128,22 +143,28 @@ namespace LBoL_Doremy.DoremyChar.Ults
                     {
                         if (oo.OriginId == null)
                             return;
-                        var firstCC = CardConfig.AllConfig().FirstOrDefault(cc => cc.Owner == oo.OriginId 
+                        var firstCC = CardConfig.AllConfig().FirstOrDefault(cc => cc.Owner == oo.OriginId
                         && cc.IsPooled
                         && string.IsNullOrEmpty(cc.ImageId));
 
                         if (firstCC == null)
                             return;
                         var firstImg = ResourcesHelper.TryGetCardImage(firstCC.Id);
-                        if(firstImg != null)
+                        if (firstImg != null)
                             w.CardWidget.cardImage.texture = firstImg;
                     }
                 });
             }).ExtendEnumerator);
 
+            if (originSelection.IsCanceled)
+            {
+                cancelUs(args);
+                yield break;
+            }
+
             var originFilter = originSelection.SelectedCards.Cast<DC_OriginOption>().Select(c => c.OriginId).ToHashSet();
 
-            RollAmount += Math.Min(15, Enumerable.Range(1, originSelection.SelectedCards.Count-1).Sum());
+            RollAmount += Math.Min(15, Enumerable.Range(1, originSelection.SelectedCards.Count - 1).Sum());
 
             var cTypes = Enumerable.Range(1, MaxTypePool).Select(i => (CardType)i).Select(t => {
                 var card = Library.CreateCard<DC_TypeOption>();
@@ -153,7 +174,7 @@ namespace LBoL_Doremy.DoremyChar.Ults
 
             var cTypeSelection = new SelectCardInteraction(MinTypes, cTypes.Count(), cTypes) { Source = this };
 
-            yield return new InteractionActionPlus(cTypeSelection, false, new ViewSelectCardResolver(() => {
+            yield return new InteractionActionPlus(cTypeSelection, true, new ViewSelectCardResolver(() => {
                 var panel = UiManager.GetPanel<SelectCardPanel>();
                 panel.titleTmp.text = LocalizeProperty("ChooseType", true).RuntimeFormat(FormatWrapper);
                 panel._selectCardWidgets.Do(w =>
@@ -173,10 +194,16 @@ namespace LBoL_Doremy.DoremyChar.Ults
                         if (img != null)
                             w.CardWidget.cardImage.texture = img;
 
-                        
+
                     }
                 });
             }).ExtendEnumerator);
+
+            if (cTypeSelection.IsCanceled)
+            {
+                cancelUs(args);
+                yield break;
+            }
 
             var cTypeFilter = cTypeSelection.SelectedCards.Cast<DC_TypeOption>().Select(c => c.CType).ToHashSet();
 
@@ -190,17 +217,68 @@ namespace LBoL_Doremy.DoremyChar.Ults
             //&& !cc.Colors.Any(c => !colorFilter.Contains(c)) 
             && (originFilter.Contains(cc.Owner) || (cc.Type == CardType.Tool || cc.Type == CardType.Status || cc.Type == CardType.Misfortune))
             && cTypeFilter.Contains(cc.Type)
+            //2DO
+            && !cc.IsXCost
             ;
+
+            PoolSize = GameRun.CreateValidCardsPool(weightTable, null, false, false, false, filter).Count();
+
+            var confirmation = new SelectCardInteraction(1, 1, Library.CreateCards<DC_FinalConfirmationOption>(1)) { Source = this };
+
+            yield return new InteractionActionPlus(confirmation, true, new ViewSelectCardResolver(() => {
+                var panel = UiManager.GetPanel<SelectCardPanel>();
+                panel.titleTmp.text = LocalizeProperty("FinalChoice", true).RuntimeFormat(FormatWrapper);
+                panel._selectCardWidgets.Do(w =>
+                {
+                    if (w.Card is DC_FinalConfirmationOption fc)
+                    {
+                        fc.RollAmount = RollAmount;
+                        fc.PoolSize = PoolSize;
+                    }
+                });
+            }).ExtendEnumerator);
+
+            if (confirmation.IsCanceled)
+            {
+                cancelUs(args);
+                yield break;
+            }
+
 
             //Log.LogDebug(string.Join("|", colorFilter.OrderBy(c => (int)c))});
 
             Log.LogDebug(string.Join("|", originFilter.OrderBy(c => c).Select(o => o == null ? "Neutral" : o)));
             Log.LogDebug(string.Join("|", cTypeFilter.OrderBy(c => c)));
 
-            List<Card> finalCards = new List<Card>();
-            var costDebug = Enumerable.Repeat(0, 6).ToArray();
+            preconditionInfo = new PreconditionInfo() { cardWeightTable = weightTable, filter = filter };
+        }
 
-            /*            for (int i = 0; i < 6; i++)
+
+        struct PreconditionInfo
+        {
+            public CardWeightTable cardWeightTable;
+            public Predicate<CardConfig> filter;
+        }
+
+        private PreconditionInfo? preconditionInfo = null;
+
+        public int MinColours = 1;
+        public int MinOrigins => 1;
+        public int MinTypes => 2;
+        public int MaxTypePool => (int)CardType.Friend;
+
+
+        public int RollAmount { get; set; }
+
+
+        public int PoolSize { get; set; }
+
+        protected override IEnumerable<BattleAction> Actions(UnitSelector selector)
+        {
+
+            /*            
+                        var costDebug = Enumerable.Repeat(0, 6).ToArray();
+                        for (int i = 0; i < 6; i++)
                         {
                             int amount = i;
                             Predicate<CardConfig> filterAndCost = cc => filter(cc) && cc.Cost.Amount == amount;
@@ -223,10 +301,21 @@ namespace LBoL_Doremy.DoremyChar.Ults
                         && !t.config.Keywords.HasFlag(Keyword.Gadgets))
                             .Do(t => samplingPool.Add(t.cardType, (int)t.config.Rarity>=3 ? 0.5f : 1f));*/
 
-            
-            PoolSize = GameRun.CreateValidCardsPool(weightTable, null, false, false, false, filter).Count();
+            if (preconditionInfo == null)
+            {
+                Log.LogError($"{this.Id} preconditionInfo is empty.");
+                yield break;
+            }
 
+            var weightTable = preconditionInfo.Value.cardWeightTable;
+            var filter = preconditionInfo.Value.filter;
+
+
+
+
+            List<Card> finalCards = new List<Card>();
             finalCards = GameRun.RollCardsWithoutManaLimit(GameRun.BattleCardRng, weightTable, RollAmount, false, false, filter).ToList();
+
 
             //finalCards = Battle.RollCardsWithoutManaLimit(weightTable, RollAmount, filter).ToList();
             /*finalCards = samplingPool.SampleMany(GameRun.BattleCardRng, RollAmount, false).Select(t => Library.CreateCard(t)).ToList();
@@ -234,13 +323,27 @@ namespace LBoL_Doremy.DoremyChar.Ults
 
             if (finalCards.Count < RollAmount)
             {
-                yield return PerformAction.Chat(Owner, string.Format(LocalizeProperty("CancelChat"), finalCards.Count), 3f, talk: true);
+                yield return PerformAction.Chat(Owner, string.Format(LocalizeProperty("NotEnoughChat"), finalCards.Count), 3f, talk: true);
             }
             Log.LogDebug($"total pool {PoolSize}");
 
             var cardSelection = new SelectCardInteraction(1, 1, finalCards) { CanCancel = false, Source = this };
             if (finalCards.Count > 0)
-            { 
+            {
+                //------
+                var playerData = GameMaster.Instance?.GameRunSaveData?.Player;
+                if (playerData != null)
+                {
+                    if (Battle.Player.Power < playerData.Power)
+                    {
+                        playerData.Power = Battle.Player.Power;
+                        GameMaster.Instance.SaveGameRun(GameMaster.Instance.GameRunSaveData, false);
+                    }
+                }
+                else
+                    Log.LogWarning("GameRunSaveData is null.");
+                //------
+                yield return PerformAction.Spell(Owner, Id);
                 yield return new InteractionActionPlus(cardSelection, false, new ViewSelectCardResolver(() => {
                     var panel = UiManager.GetPanel<SelectCardPanel>();
                     panel.titleTmp.text += LocalizeProperty("RollAmount", true).RuntimeFormat(FormatWrapper);
@@ -251,15 +354,34 @@ namespace LBoL_Doremy.DoremyChar.Ults
 
             if (cardChosen != null)
             {
-                yield return PerformAction.Spell(Owner, Id);
-                cardChosen.SetBaseCost(new ManaGroup() { Any = cardChosen.BaseCost.Amount });
+                if (!cardChosen.IsXCost)
+                    cardChosen.SetBaseCost(new ManaGroup() { Any = cardChosen.BaseCost.Amount });
+                else
+                {
+/*                    cardChosen.Config = cardChosen.Config.Copy();
+                    cardChosen.Config.Cost = ManaGroup.Anys(cardChosen.Config.Cost.Amount);
+                    if(cardChosen.Config.UpgradedCost != null)
+                        cardChosen.Config.UpgradedCost = ManaGroup.Anys(cardChosen.Config.UpgradedCost.Value.Amount);*/
+                }
                 yield return new AddCardsToHandAction(cardChosen);
-                cardChosen = null;
+                
             }
+
 
             PoolSize = 0;
             RollAmount = 0;
         }
+
+        /*        [HarmonyPatch(typeof(BattleManaPanel), nameof(BattleManaPanel.TryGetConfirmUseMana))]
+                class BattleManaPanel_Patch
+                {
+                    static void Prefix(BattleManaPanel __instance)
+                    {
+                        Log.LogDebug(__instance._currentHighlightingCost.Cost);
+                    }
+                }*/
+
+
     }
 
     public sealed class DC_ManaOptionDef : OptionCardDef
@@ -424,5 +546,38 @@ namespace LBoL_Doremy.DoremyChar.Ults
                 _cType = value;
             }
         }
+    }
+
+
+    public sealed class DC_FinalConfirmationOptionDef : OptionCardDef
+    {
+        public override CardImages LoadCardImages()
+        {
+            var ci = new CardImages(Sources.imgsSource);
+            ci.main = ResourceLoader.LoadTexture(nameof(DoremyComatoseForm) + ".png", Sources.imgsSource);
+            return ci;
+        }
+
+        public override CardConfig PreConfig()
+        {
+            var con = base.PreConfig();
+            con.Rarity = Rarity.Rare;
+            con.Owner = nameof(DoremyCavalier);
+            return con;
+        }
+
+    }
+    [EntityLogic(typeof(DC_FinalConfirmationOptionDef))]
+    public sealed class DC_FinalConfirmationOption : Card
+    {
+
+        public override void Initialize()
+        {
+            base.Initialize();
+            //Config = Config.Copy();
+        }
+
+        public int RollAmount { get; internal set; } = 0;
+        public int PoolSize { get; internal set; } = 0;
     }
 }

@@ -26,6 +26,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             con.Type = LBoL.Base.CardType.Attack;
             con.TargetType = TargetType.SingleEnemy;
 
+            con.GunName = "Sweet01";
+
             con.Colors = new List<ManaColor>() { ManaColor.White };
             con.Cost = new ManaGroup() { White = 1, Any = 1 };
             

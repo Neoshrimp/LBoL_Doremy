@@ -23,6 +23,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.OffColour
             con.TargetType = TargetType.RandomEnemy;
             con.Rarity = Rarity.Rare;
 
+            con.GunName = "颠茄B";
+
             con.Colors = new List<ManaColor>() { ManaColor.Red };
             con.Cost = new ManaGroup() { Red = 1, Any = 2 };
 

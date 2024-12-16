@@ -19,6 +19,7 @@ using LBoLEntitySideloader.Resource;
 using LBoL.Base.Extensions;
 using LBoL_Doremy.CreatedCardTracking;
 using LBoL_Doremy.Utils;
+using LBoL.Core.StatusEffects;
 
 namespace LBoL_Doremy.DoremyChar.Cards.Rare
 {
@@ -35,7 +36,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
             con.Colors = new List<ManaColor>() { ManaColor.White, ManaColor.Blue };
             con.Cost = new ManaGroup() { White = 2, Blue = 2, Hybrid = 1, HybridColor = 0 };
 
-            con.Value1 = 1;
+            con.Value1 = 3;
+
 
             //con.Keywords = Keyword.Ethereal;
 
@@ -64,7 +66,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
         {
             yield return BuffAction<DoremyComatoseFormSE>(Value1);
             if(IsUpgraded)
-                yield return BuffAction<DoremyComatoseFormUpgradeSE>(Value1);
+                yield return BuffAction<DoremyComatoseFormUpgradeSE>(1);
 
 
         }
@@ -81,6 +83,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
             con.Type = LBoL.Base.StatusEffectType.Positive;
             con.HasLevel = true;
 
+            con.HasCount = true;
+            con.CountStackType = StackType.Keep;
 
 
             return con;
@@ -97,30 +101,53 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
         public const float DLMult = 0.15f;
         protected override void OnAdded(Unit unit)
         {
-            EventManager.DoremyEvents.DLperLevelMult = DLMult;
+            Count += Level;
+
+            //EventManager.DoremyEvents.DLperLevelMult = DLMult;
+            //Card output boost is increased to | e:{ DLMultDesc}|% per { DL}stack.
+
             //ReactOnCardsAddedEvents(OnCardsAdded);
             // All created cards have |Dream Layer|.
             ReactOwnerEvent(Battle.CardUsed, OnCardUsed);
             ReactOwnerEvent(Battle.CardPlayed, OnCardUsed);
 
+            // priority not super important
+            HandleOwnerEvent(unit.TurnStarting, args => Count = Level, (GameEventPriority)(-30));
+
+
             if(unit is DoremyCavalier doremy)
                 doremy.SetSleepAnim(true);
         }
 
+        public override bool Stack(StatusEffect other)
+        {
+            var rez = base.Stack(other);
+            if (rez)
+                Count += other.Level;
+
+            return rez;
+        }
+
         private IEnumerable<BattleAction> OnCardUsed(CardUsingEventArgs args)
         {
-            if (args.Card != this.SourceCard && args.Card.WasGenerated())
+            if (args.Card != this.SourceCard && args.Card.WasGenerated() && Count > 0)
             {
                 if (Battle.BattleShouldEnd)
                     yield break;
 
-                for (int i = 0; i < Level; i++)
+
+                var randomCard = Battle.HandZone.Where(c => DoremyComatoseForm.IsPositive(c)).SampleOrDefault(GameRun.BattleRng);
+                if (randomCard != null)
                 {
-                    var randomCard = Battle.HandZone.Where(c => DoremyComatoseForm.IsPositive(c)).SampleOrDefault(GameRun.BattleRng);
-                    if (randomCard == null)
-                        break;
                     yield return new ApplyDLAction(randomCard);
+                    Count--;
                 }
+
+
+                /*for (int i = 0; i < Level; i++)
+                {
+
+                }*/
             }
         }
 
@@ -173,8 +200,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
         private IEnumerable<BattleAction> OnCardsAdded(Card[] cards, GameEventArgs args)
         {
             foreach (var c in cards.Where(c => DoremyComatoseForm.IsPositive(c)))
-                for(int i = 0; i < Level; i++)
-                    yield return new ApplyDLAction(c);
+                //for(int i = 0; i < Level; i++)
+                    yield return new ApplyDLAction(c, Level);
         }
     }
 

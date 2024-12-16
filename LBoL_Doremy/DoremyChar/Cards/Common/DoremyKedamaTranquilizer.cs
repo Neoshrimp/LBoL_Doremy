@@ -53,7 +53,9 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
             // 2do add gun id
-            yield return PerformAction.Gun(Battle.Player, selector.SelectedEnemy, "Simple1");
+
+
+            yield return PerformAction.Gun(Battle.Player, selector.SelectedEnemy, "MaoyuU");
             yield return NightmareAction(selector.SelectedEnemy, NM2Apply);
         }
     }

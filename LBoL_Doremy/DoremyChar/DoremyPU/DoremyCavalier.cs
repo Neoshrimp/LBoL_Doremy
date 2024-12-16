@@ -21,6 +21,7 @@ using System.Xml.Linq;
 using Spine;
 using System.Linq;
 using UnityEngine;
+using LBoL.Core.Battle;
 
 namespace LBoL_Doremy.DoremyChar.DoremyPU
 {
@@ -95,6 +96,8 @@ namespace LBoL_Doremy.DoremyChar.DoremyPU
         {
             shouldSleep = 0;
         }
+
+
 
         public void SetSleepAnim(bool enable)
         {

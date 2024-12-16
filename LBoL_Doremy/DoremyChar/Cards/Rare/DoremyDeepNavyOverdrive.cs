@@ -91,6 +91,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
     }
 
 
+
+
     [EntityLogic(typeof(DoremyDeepNavyOverdriveSEDef))]
     public sealed class DoremyDeepNavyOverdriveSE : DStatusEffect
     {

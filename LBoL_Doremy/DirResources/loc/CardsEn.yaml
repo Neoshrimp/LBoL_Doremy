@@ -35,7 +35,7 @@ DoremyProcrastinate:
   Name: Procrastinate
   Description: |-
     Gain {Block} Block. 
-    |Queue| up to {Value1} cards.
+    |Exile| and |Queue| up to {Value1} cards.
   UpTo: "\n|Choose <b>up to</b> {Value1} card{Value1:plural one='' other='s'}|"
   FlavorText: "I'll finish this splash text latter, I'm tired RN."
 
@@ -92,7 +92,7 @@ DoremyRecursiveDreamCatcher:
   Name: Recursive Dream Catcher
   Description: |-
     Gain {Block} |Block|.
-    Apply {NM2Apply} |Self Nightmare|.
+    Gain {NM2Apply} |Self Nightmare|.
     If mana was paid to play {SelfName}, add |Recursive Dream Catcher{Plus}| to the hand.
     Remove {SelfName} from combat after playing it.
   FlavorText: 'Can never have too many!'
@@ -133,7 +133,7 @@ DoremyDeepDefense:
   Name: Deep Defense
   Description: |-
     Gain {Block} |Block|.
-    Choose a card, it gains |Dream Layer|.
+    Choose a card in the hand, it gains |Dream Layer|.
     {DebutDesc}
   Debut: |-
     |Debut|: The chosen card gains {DL}.
@@ -195,7 +195,7 @@ DoremyDreamOn:
 DoremyGatherDreams:
   Name: Gather Dreams
   Description: |-
-    At the end of the {PlayerName}'s turn, add up to 1 of {Value1} random cards to the draw pile.
+    At the end of the {PlayerName}'s turn, shuffle up to 1 of {Value1} random cards into the draw pile.
   FlavorText: |-
     Who is this "Nihlry", and why are so many of these dreams from them?
 
@@ -297,7 +297,7 @@ DoremyPhantasmalDouble:
   Name: Phantasmal Double
   Description: |-
     Deal {Damage} damage{DoTimes}.
-    Choose a card to Copy. If it is an |Ability| or has |Exile|, the orignal also becomes a |Copy|.
+    Choose a card in the hand to |Copy|. If it is an |Ability| or has |Exile|, the original also becomes a |Copy|.
   Times: " {TimesVal} times"
   FlavorText: |-
     One dream self, one real self.
@@ -406,7 +406,7 @@ DoremyEverDeepeningDreams:
 DoremyUniversalDreamLayer:
   Name: Universal Dream Layer
   Description: |-
-    At the end of {PlayerName}'s turn, |Upgrade| up to {Value1} card{Value1:plural one='' other='s'}. {Value1:plural one='It' other=They} gain{Value1:plural one='s' other=''} {DL} and {Value1:plural one='is' other='are'} added to the draw pile.
+    At the end of {PlayerName}'s turn, |Upgrade| up to {Value1} card{Value1:plural one='' other='s'} in the hand. {Value1:plural one='It' other=They} gain{Value1:plural one='s' other=''} {DL} and {Value1:plural one='is' other='are'} shuffled into the draw pile.
   FlavorText: |-
     Everyone stands to improve a little from a good night's rest.
 
@@ -420,7 +420,7 @@ DoremyHorrifyingPotential:
 DoremyNightmareFuel:
   Name: Nightmare Fuel
   Description: |-
-    Add |e:Nightmare|{TotalDesc} Status to the draw pile. Add |{Ritual1Name}| and |{Ritual2Name}| to the hand.
+    Shuffle |e:Nightmare|{TotalDesc} Status into the draw pile. Add |{Ritual1Name}| and |{Ritual2Name}| to the hand.
   TotalTxt: "(|e:{0}|) "
   FlavorText: |-
     Eating your own nightmares for energy, like a Baku Ouroboros.
@@ -428,8 +428,7 @@ DoremyNightmareFuel:
 DoremyComatoseForm:
   Name: Comatose Form
   Description: |-
-    Card output boost is increased to |e:{DLMultDesc}|% per {DL} stack.
-    Whenever a |Created| card is played, a random card in hand gains {DL}.{UpgradeDesc}
+    Whenever a |Created| card is played, a random card in hand gains {DL}, up to {Value1} times per turn.{UpgradeDesc}
   UpgradeTxt: "\nCards gain {DL} when |Created|."
   DetailText: |-
     Status and Misfortunes do not gain {DL}.
@@ -446,7 +445,7 @@ DoremyTheresNoNeedToWakeUp:
 DoremyPropheticVisions:
   Name: Prophetic Visions
   Description: |-
-    Choose up to {Value1} card{Value1:plural one='' other='s'} in the draw pile and |Copy| them to the hand.
+    Choose up to {Value1} card{Value1:plural one='' other='s'} in the draw pile and add |Copies| of them to the hand.
     Apply {SelfNM2Apply} |Self Nightmare|.
   UpTo: "\n|Choose <b>up to</b> {Value1} card{Value1:plural one='' other='s'}|"
   NoCopyFound: "\n|No copyable cards in the draw pile|"
@@ -456,7 +455,8 @@ DoremyPropheticVisions:
 DoremyPerfectPhantasms:
   Name: Perfect Phantasms
   Description: |-
-    From now on, |Upgrade| ALL |Created| cards.
+    Whenever a card is |Created|, |Upgrade| it.{UpgradeDesc}
+  UpgradeTxt: "\n|Upgrade| all |Created| cards in the hand."
   FlavorText: |-
     Legally distinct from Faithful Meditation
 
@@ -464,10 +464,10 @@ DoremySeemlessVision:
   Name: Seemless Vision
   Description: |-
     Apply {NM2Apply} |Nightmare| to each enemy. 
-    All |Created| cards in hand |temporarily cost| {Mana} less.
+    All |Created| cards in the hand |temporarily cost| {Mana} less.
   UpgradedDescription: |-
     Apply {NM2Apply} |Nightmare| to each enemy. 
-    All |Created| cards in hand |temporarily cost| {Value2} random mana less.
+    All |Created| cards in the hand |temporarily cost| {Value2} random mana less.
   FlavorText: |-
     Flowing from one dream to another, without the dreamer even noticing.
 
@@ -545,7 +545,8 @@ DoremyPhantasmalKiller:
 DoremyDeepNavyOverdrive:
   Name: Deep Navy Overdrive
   Description: |-
-    Until the {PlayerName}'s next turn <b>has started</b>, all cards which were or would be created |temporarily cost| {Mana}.
+    Until the {PlayerName}'s next turn <b>has started</b>, all cards which were or would be |Created| |temporarily cost| {Mana}.
+    At the <b>very start</b> of {PlayerName}'s next turn, revert this |temporary cost| change.
   FlavorText: |-
     "My mind resonates... tired enough to sleep!"
 
@@ -565,6 +566,11 @@ DC_TypeOption:
   Description: |-
     {CTypeDesc}
     Roll modifier: {RollModDesc}
+
+DC_FinalConfirmationOption:
+  Name: Proceed   
+  Description: |-
+    Choose {RollAmount} cards from {PoolSize} total.
 
 DoremyDreamTeam:
   Name: Dream Team
@@ -601,9 +607,9 @@ DoremyDreamyMarisa:
   Name: Dreamy Marisa
   Description: |-
     {FriendS}Whenever {PlayerName} plays a |Created| card, gain {LB}1{CC} |Charge|. Whenever {PlayerName} applies |Nightmare| while in |Burst|, apply twice as much |Nightmare| instead.
-    {FriendP}Add an |Unstable Potion| to the draw pile and an |Astrology| to the Hand.
+    {FriendP}Add an |Unstable Potion| to the draw pile and add |Astrology| to the Hand.
   ExtraDescription1: |-
-    {FriendA}Add {LB}2{CC} |Unstable Potions| to the draw pile. Draw {LB}3{CC} cards.
+    {FriendA}Add {LB}2{CC} |Unstable Potions| into the draw pile. Draw {LB}3{CC} cards.
   ExtraDescription2: |-
     {FriendA2}Enter |Burst|. Draw {LB}3{CC} cards.
   FlavorText: |-
@@ -629,7 +635,7 @@ DoremyDreamyCirno:
   ExtraDescription1: |-
     {FriendA}Apply |Cold| to each enemy, number of times equal to number of |Created| cards in hand ({TimesCold}).
   ExtraDescription2: |-
-    {FriendA2}Add 3 Summoned |e:Fairies of Light| to the hand.
+    {FriendA2}Summon 3 |e:Fairies of Light|, add them to the hand.
   FlavorText: |-
     Guaranteed to knock you out cold!
 
@@ -641,7 +647,7 @@ DoremyDreamyDoremy:
   ExtraDescription1: |-
     {FriendA}Gain {Value2} |Devourer of Dreams|.
   ExtraDescription2: |-
-    {FriendA2}Add {LB}2{CC} completely random Summoned |Teammates| to the hand.
+    {FriendA2}Summon {LB}2{CC} completely random |Teammates|, add them to the hand.
   FlavorText: |-
     Doremy Sweet used Double Team!
     Doremy Sweet's evasion rose!
@@ -660,12 +666,9 @@ DoremyNightmareAoE:
 DoremyFastAsleepRework:
   Name: Fast Asleep
   Description: |-
-   Whenever a card would be added to the draw pile, |Queue| it.
-   {UpgradeDesc}
-   At the end of the turn, consume {Value1} |Self Nightmare|.
+   Whenever a card would be <i>shuffled into</i> the draw pile, |Exile| and |Queue| it instead. This queue always prioritizes positive cards.
+   At the end of {PlayerName}'s turn, consume {Value1} |Self Nightmare|.
   UpgradeTxt: "\nCopies of <b>negative</b> cards lose |Unplayable|, gain |Exile|, and |temporarily cost| {Mana} less."
-  DetailText: |-
-    |Queue| prioritizes positive cards.
   FlavorText: |-
     Shrimp made this one not clog your draws anymore, so go wild I guess.
 
@@ -691,7 +694,7 @@ DoremySumirekoLucidDreamer:
     Credit to Saevin the Sumireko Fan for giving me the idea for this one. -GameCavalier
 
 DoremyNightmareForm:
-  Name: Phantasmal Existance
+  Name: Nightmare Form
   Description: |-
     Whenever {PlayerName} would lose life, instead apply amount of |Self Nightmare| equal to <b>twice</b> the life which would have been lost.
   FlavorText: |-
@@ -727,7 +730,7 @@ DoremyExploitFear:
 DoremyDejaVu:
   Name: Déjà Vu
   Description: |-
-    |Copy| the first card played the {PlayerName}'s last turn ({FirstLegalCardName}). 
+    |Copy| the first card played {PlayerName}'s last turn, add it to the hand ({FirstLegalCardName}).
     It |temporarily costs| {Mana} and has |Exile| and |Ethereal|.
   DetailText:
     First card which is |copyable| and was actually played by the Player.
@@ -737,6 +740,19 @@ DoremyDejaVu:
 DoremySummerDaysDream:
   Name: Summer Day's Dream
   Description: |-
-    Deez
+    At the end of {PlayerName}'s turn, consume {Value2} |Self Nightmare| and |Queue| a |Midsummer Flower|.{UpgradeDesc}
+  UpgradeTxt: "\n|Queue| |e:2| |Midsummer Flowers| immediately."
   FlavorText: |-
     Seems to bloom all over again each day, just like the last.
+
+DoremyEverWitheringMidsummerLavender:
+  Name: Ever Withering Midsummer Lavender
+  Description: |-
+    Consume |Nightmare| from ALL combatants. 
+    At the start of the next {PlayerName}'s turn, gain |Barrier| equal to |e:1.5| times the |Nightmare| consumed({NMBarrierEst}).
+  UpgradedDescription: |-
+    Consume |Nightmare| from ALL combatants. 
+    Gain |Block| equal to the |Nightmare| consumed({NMBlockEst}).
+    Gain |Barrier| equal to |e:1.5| times the |Nightmare| consumed({NMBarrierEst}).
+  FlavorText: |-
+    This dream will never end.. 

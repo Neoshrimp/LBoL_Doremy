@@ -29,6 +29,10 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             con.Type = LBoL.Base.CardType.Attack;
             con.TargetType = TargetType.AllEnemies;
 
+            con.GunName = "白昼的客星";
+            con.GunNameBurst = "白昼的客星B";
+
+
             con.Colors = new List<ManaColor>() { ManaColor.Blue };
             con.Cost = new ManaGroup() { Any = 1, Blue = 1 };
             con.UpgradedCost = new ManaGroup() { Any = 1};

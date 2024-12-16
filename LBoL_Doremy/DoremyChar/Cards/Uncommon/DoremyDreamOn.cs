@@ -25,6 +25,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             con.Type = LBoL.Base.CardType.Attack;
             con.TargetType = TargetType.SingleEnemy;
 
+            con.GunName = "EAyaShoot1";
+
             con.Colors = new List<ManaColor>() { ManaColor.White };
             con.Cost = new ManaGroup() { White = 1, Any = 2 };
             con.UpgradedCost = new ManaGroup() { Any = 3 };
@@ -59,7 +61,9 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
         {
             get
             {
-                return Battle != null && BattleHistoryHandlers.GetCardCreationTurnHistory(Battle).addedToHand.NotEmpty();
+                var hist = BattleHistoryHandlers.GetCardCreationTurnHistory(Battle);
+                return Battle != null 
+                    && (hist.addedToHand.NotEmpty() || hist.addedToExile.NotEmpty() || hist.addedToDiscard.NotEmpty() || hist.addedToDrawZone.NotEmpty());
             }
         }
 

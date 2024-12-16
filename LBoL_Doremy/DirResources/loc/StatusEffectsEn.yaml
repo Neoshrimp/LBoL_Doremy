@@ -2,9 +2,7 @@ DoremyProcrastinateSE:
   Name: Procrastinate
   Description: |- 
     At the start of the {PlayerName}'s turn, attempt to add {Count:plural one='a ' other=''}|cop{Count:plural one='y' other='ies'}| of {QueuedCardsDesc} to the hand.
-  NotInExile: "{0} is no longer in |Exile|."
-  OverQ: " and |e:{0}| more"
-  Nothing: "no cards"
+
 
 DC_NightmareSE:
   Name: Nightmare
@@ -21,8 +19,12 @@ DC_SelfNightmareTooltipSE:
 DC_ExileQueueTooltipSE:
   Name: Queue
   Brief: |- 
-    |Exile| the card(s) and add them to the queue. At the start of each turn, remove cards from the queue in the order they were queued to duplicate them into the hand. If they couldn't be duplicated, they await the next opportunity to do so.
-    Summoned |Teammates|, |Limited| and battle non-discoverable cards are moved from |Exile| instead (if they are in still in |Exile|).
+    At the start of {PlayerName}'s turn, remove cards from the queue in the order they were queued, duplicate (copy disregarding |Copy| keyword) and add them to the hand. If they couldn't be added, they remain queued and await the next opportunity to be added.
+    Summoned |Teammates|, |Limited| and battle non-discoverable cards are moved to hand instead of being duplicated.
+  NotInExile: "{0} is no longer in battle."
+  OverQ: " and |e:{0}| more"
+  Nothing: "no cards"
+
 
 DoremyExtraDrawSE:
   Name: Extra Draw
@@ -52,18 +54,19 @@ DoremyDefensiveDaydreamingSE:
 DoremyGatherDreamsSE:
   Name: Gather Dreams
   Description: |-
-    At the end of the {OwnerName}'s turn, choose up to 1 of {Count} random cards to add to the draw pile. Repeat {Level} time{Level:plural one='' other='s'}.
+    At the end of the {OwnerName}'s turn, choose up to 1 of {Count} random cards to shuffle into the draw pile. Repeat {Level} time{Level:plural one='' other='s'}.
 
 DoremyFantasticalMightSE:
   Name: Fantastical Might
   Description: |-
-    |Created| Cards deal {Level} more damage and give {Count} more |Block| and |Barrier|.
+    |Created| cards deal {Level} more damage and give {Count} more |Block| and |Barrier|.
 
 DoremyDreamBalloonFlightSE:
   Name: Dream Balloon Flight
   Description: |-
-    Whenever a card gains {DL}, increase counter by {Level}. At the start of the {OwnerName}'s turn draw cards equal to <i>half the counter</i> rounded down ({ToDraw}) and decrease the counter by an even number closest to the counter but no larger than the counter.
-
+    Whenever a card gains {DL}, increase counter by {Level}.
+    At the start of the {OwnerName}'s turn, for every |e:2| counter stacks: draw a card and reduce the counter by |2|.
+    |e:{ToDraw}| card{ToDraw:plural one='' other='s'} will be drawn.
 DoremyBorderofDreamsSE:
   Name: Border of Dreams
   Description: |-
@@ -88,13 +91,12 @@ DoremyHorrifyingPotentialSE:
 DoremyComatoseFormSE:
   Name: Comatose Form
   Description: |-
-    Card output boost is increased to |e:{DLMultDesc}|% per {DL} stack.
-    When created card is played, random card in hand gain {DL}.
+    When created card is played, random card in hand gain {DL}, up to {Count} times per turn.
 
 DoremyComatoseFormUpgradeSE:
   Name: Comatose Form
   Description: |-
-    |Created| cards gain {DL} upon entering combat.
+    |Created| cards gain {Level} {DL} upon entering combat.
 
 DoremyUniversalDreamLayerSE:
   Name: Universal Dream Layer
@@ -141,6 +143,7 @@ DoremyDeepNavyOverdriveSE:
   Name: Deep Navy Overdrive
   Description: |-
     Until the {OwnerName}'s next turn <b>has started</b>, all cards which were or would be |Created| |temporarily cost| {Mana}.
+    At the <b>very start</b> of {OwnerName}'s next turn, revert this |temporary cost| change.
 
 DoremyDreamyReimuSE:
   Name: Dreamy Reimu
@@ -158,9 +161,9 @@ DoremySleepShieldSE:
 DoremyFastAsleepReworkSE:
   Name: Fast Asleep
   Description: |-
-   Whenever a card would be added to the draw pile, |Queue| it.
-   At the start of the {PlayerName}'s turn, attempt to add {Count:plural one='a ' other=''}|duplicate{Count:plural one='' other='s'}| of {QueuedCardsDesc} to the hand.{UpgradeDesc}
-   At the end of the {PlayerName}'s turn, consume |e:{NM2ConsumeDesc}| |Self Nightmare|.
+    Whenever a card would be <i>shuffled into</i> the draw pile, |Exile| and |Queue| it instead. This queue always prioritizes positive cards.
+    At the start of the {OwnerName}'s turn, attempt to add {Count:plural one='a ' other=''}|duplicate{Count:plural one='' other='s'}| of {QueuedCardsDesc} to the hand.{UpgradeDesc}
+    At the end of the {OwnerName}'s turn, consume |e:{NM2ConsumeDesc}| |Self Nightmare|.
   UpgradeTxt: "\nDuplicates of <b>negative</b> cards lose |Unplayable|, gain |Exile|, and |temporarily cost| {Mana} less."
   OverQ: " and |e:{0}| more"
   NotInExile: "{0} is no longer in |Exile|."
@@ -173,7 +176,7 @@ DoremyAgedDreamSE:
 
 
 DoremySumirekoScrySE:
-  Name: Psycokinesis
+  Name: Sumireko's passive Scry
   Description: |-
     At the start of {OwnerName}'s next turn, |Scry| {ScryInfo}.
 
@@ -183,12 +186,41 @@ DoremySumirekoDontLoseGrazeNextTurnSE:
     At the start of the next turn, don't lose |Graze|.
 
 DoremyNightmareFormSE:
-  Name: Phantasmal Existance
+  Name: Nightmare Form
   Description: |-
-    Whenever {PlayerName} would lose life, instead apply amount of |Self Nightmare| equal to <b>twice</b> the life which would have been lost.
+    Whenever {OwnerName} would lose life, instead apply amount of |Self Nightmare| equal to <b>twice</b> the life which would have been lost.
     Enemy attack damage is estimated to result in at least {Count} |Self Nightmare|. The estimate does not account for |Graze|.
 
 DoremyFaintingFeintSE:
   Name: Fainting Feint
   Description: |-
     Whenever the {OwnerName} would deal attack damage, apply that much |Nightmare| instead.
+
+
+DoremySummerDaysDreamMainSE:
+  Name: Summer Day's Dream
+  Description: |-
+    At the end of {OwnerName}'s turn, consume {Count} |Self Nightmare| and |Queue| {Level} |Midsummer Flower{Level:plural one='' other='s'}|.
+
+DoremySummerDaysDreamQueueSE:
+  Name: Midsummer Flower Queue
+  Description: |-
+    At the start of the {OwnerName}'s turn, attempt to add {Count:plural one='a ' other=''}|duplicate{Count:plural one='' other='s'}| of {QueuedCardsDesc} to the hand.
+
+
+DoremyEverWitheringMidsummerLavenderSE:
+  Name: Ever Withering Midsummer Lavender
+  Description: |-
+    At the start of the next {OwnerName}'s turn, gain {Level} |Barrier|.
+
+
+DC_VanillaLocHelper:
+  NewsFab: "\nGain |e:7| |Self Nightmare|."
+
+DC_VanillaExTooltipSE:
+  Name: "{PlayerName} Exclusive"
+  Brief: 'This card has {PlayerName} character exclusive effect!'
+
+DC_CreatedTooltipSE:
+  Name: "Created card"
+  Brief: A card is considered |Created| if it was added during the combat. |Created| cards have special icon to indicate them.

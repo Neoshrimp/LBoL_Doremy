@@ -2,6 +2,7 @@
 using LBoL.ConfigData;
 using LBoL.Core;
 using LBoL.Core.Battle;
+using LBoL.Core.Battle.BattleActions;
 using LBoL.Core.StatusEffects;
 using LBoL.Core.Units;
 using LBoL_Doremy.DoremyChar.Keywords;
@@ -10,6 +11,7 @@ using LBoL_Doremy.RootTemplates;
 using LBoLEntitySideloader.Attributes;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace LBoL_Doremy.DoremyChar.Cards.Rare
@@ -48,6 +50,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
 
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
+            yield return PerformAction.Gun(Battle.Player, selector.SelectedEnemy, "Lily");
+
             yield return DebuffAction<DoremyInfectiousNightmaresSE>(selector.SelectedEnemy);
             if (Battle.BattleShouldEnd)
                 yield break;

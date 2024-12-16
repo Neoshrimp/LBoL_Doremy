@@ -11,6 +11,7 @@ namespace LBoL_Doremy.RootTemplates
 {
     public abstract class DExhibitDef : ExhibitTemplate
     {
+        public const string inactive = "Inactive";
         public override IdContainer GetId() => this.SelfId();
 
         public override LocalizationOption LoadLocalization() => Loc.ExhibitsBatchLoc.AddEntity(this);

@@ -18,6 +18,13 @@ using LBoL_Doremy.Utils;
 using LBoL.Core.Battle.Interactions;
 using LBoL.Core.Units;
 using LBoL.Presentation.UI.Panels;
+using LBoL.EntityLib.Cards.Character.Cirno;
+using LBoL_Doremy.DoremyChar.DreamManagers;
+using UnityEngine;
+using LBoLEntitySideloader.Resource;
+using LBoL_Doremy.StaticResources;
+using System.IO;
+using System.Collections;
 
 namespace LBoL_Doremy.DoremyChar.Cards.OffColour
 {
@@ -37,8 +44,13 @@ namespace LBoL_Doremy.DoremyChar.Cards.OffColour
 
             con.Value1 = 1;
 
-
             con.Value2 = 3;
+
+
+
+            con.RelativeCards = new string[] { nameof(SummerFlower) };
+            con.UpgradedRelativeCards = new string[] { nameof(SummerFlower) };
+
 
             con.RelativeEffects = new List<string>() { nameof(DC_ExileQueueTooltipSE), nameof(DC_NightmareSE), nameof(DC_SelfNightmareTooltipSE) };
             con.UpgradedRelativeEffects = new List<string>() { nameof(DC_ExileQueueTooltipSE), nameof(DC_NightmareSE), nameof(DC_SelfNightmareTooltipSE) };
@@ -50,18 +62,20 @@ namespace LBoL_Doremy.DoremyChar.Cards.OffColour
     [EntityLogic(typeof(DoremySummerDaysDreamDef))]
     public sealed class DoremySummerDaysDream : DCard
     {
+        public string UpgradeDesc => IsUpgraded ? LocalizeProperty("UpgradeTxt", true).RuntimeFormat(FormatWrapper) : "";
 
-      
+
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
-            yield break;
+            yield return BuffAction<DoremySummerDaysDreamMainSE>(Value1, count: Value2);
+
             if (IsUpgraded)
             {
-/*                var buffAction = (ApplyStatusEffectAction)BuffAction<DoremySummerDaysDreamQueueSE>();
+                var buffAction = (ApplyStatusEffectAction)BuffAction<DoremySummerDaysDreamQueueSE>();
                 yield return buffAction;
                 var status = buffAction.Args.Effect as DoremySummerDaysDreamQueueSE;
                 if (status != null)
-                    status.UpdateQueue();*/
+                    status.UpdateQueue(Library.CreateCards<SummerFlower>(2));
             }
 
         }
@@ -71,6 +85,12 @@ namespace LBoL_Doremy.DoremyChar.Cards.OffColour
 
     public sealed class DoremySummerDaysDreamQueueSEDef : DStatusEffectDef
     {
+
+        public override Sprite LoadSprite()
+        {
+            return ResourceLoader.LoadSprite(nameof(DoremySummerDaysDreamMainSE) + ".png", Sources.imgsSource);
+
+        }
         public override StatusEffectConfig PreConfig()
         {
             var con = DefaultConfig();
@@ -88,7 +108,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.OffColour
 
 
     [EntityLogic(typeof(DoremySummerDaysDreamQueueSEDef))]
-    public sealed class DoremySummerDaysDreamQueueSE : DC_ExileQeueuSE
+    public sealed class DoremySummerDaysDreamQueueSE : DC_ExileQueueSE
     {
         List<Card> _toBounceQueue = new List<Card>();
         public List<Card> ToBounceQueue { get => _toBounceQueue; set => _toBounceQueue = value; }
@@ -100,7 +120,6 @@ namespace LBoL_Doremy.DoremyChar.Cards.OffColour
                 ToBounceQueue.Add(c);
             UpdateCount(ToBounceQueue);
         }
-        protected override string GetNoTargetCardInExile() => LocalizeProperty("NotInExile", true);
 
         public string QueuedCardsDesc => GetQueuedCardsDesc(ToBounceQueue);
 
@@ -123,20 +142,62 @@ namespace LBoL_Doremy.DoremyChar.Cards.OffColour
 
         private IEnumerable<BattleAction> TurnStarted(UnitEventArgs args)
         {
-            return ProcessQueue(ToBounceQueue);
-        }
-
-        protected override IEnumerable<BattleAction> ProcessQueue(IList<Card> queue)
-        {
-            foreach (var a in base.ProcessQueue(queue))
+            foreach (var a in base.ProcessQueue(ToBounceQueue))
                 yield return a;
 
             if (ToBounceQueue.Count == 0)
                 yield return new RemoveStatusEffectAction(this);
             else
-                UpdateCount(queue);
+                UpdateCount(ToBounceQueue);
         }
 
+
+    }
+
+    public sealed class DoremySummerDaysDreamMainSEDef : DStatusEffectDef
+    {
+        public override StatusEffectConfig PreConfig()
+        {
+            var con = DefaultConfig();
+            con.Type = StatusEffectType.Positive;
+
+            con.HasCount = true;
+            con.CountStackType = StackType.Add;
+
+            return con;
+        }
+    }
+
+
+
+    [EntityLogic(typeof(DoremySummerDaysDreamMainSEDef))]
+    public sealed class DoremySummerDaysDreamMainSE : DStatusEffect
+    {
+        protected override void OnAdded(Unit unit)
+        {
+            ReactOwnerEvent(unit.TurnEnding, ConsumeNM, (GameEventPriority)(DreamLayerHandlers.bouncePriority - 2));
+            ReactOwnerEvent(unit.TurnEnding, QFlowers, (GameEventPriority)(DreamLayerHandlers.bouncePriority + 2));
+
+        }
+
+        private IEnumerable<BattleAction> QFlowers(UnitEventArgs args)
+        {
+            var buffAction = (ApplyStatusEffectAction)BuffAction<DoremySummerDaysDreamQueueSE>();
+            yield return buffAction;
+            var status = buffAction.Args.Effect as DoremySummerDaysDreamQueueSE;
+            if (status != null)
+                status.UpdateQueue(Library.CreateCards<SummerFlower>(Level));
+        }
+        
+
+        public NightmareInfo NM2ConsumeDesc => new NightmareInfo(Count, true);
+        public NightmareInfo NM2Consume => new NightmareInfo(-Count, true);
+
+        private IEnumerable<BattleAction> ConsumeNM(UnitEventArgs args)
+        {
+            if (Owner.HasStatusEffect<DC_NightmareSE>())
+                yield return NightmareAction(Owner, NM2Consume);
+        }
     }
 
 }

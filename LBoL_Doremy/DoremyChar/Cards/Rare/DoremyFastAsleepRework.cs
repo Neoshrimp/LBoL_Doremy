@@ -7,6 +7,7 @@ using LBoL.Core.Battle.BattleActions;
 using LBoL.Core.Cards;
 using LBoL.Core.Units;
 using LBoL.Presentation.UI.Widgets;
+using LBoL_Doremy.DoremyChar.DreamManagers;
 using LBoL_Doremy.DoremyChar.Keywords;
 using LBoL_Doremy.DoremyChar.SE;
 using LBoL_Doremy.RootTemplates;
@@ -36,7 +37,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
             con.UpgradedCost = new ManaGroup() { Any = 0 };
 
             con.Mana = new ManaGroup() { Any = 2 };
-            con.Value1 = 7;
+            con.Value1 = 3;
 
 
             con.UpgradedRelativeKeyword = Keyword.TempMorph;
@@ -78,7 +79,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
     }
 
     [EntityLogic(typeof(DoremyFastAsleepReworkSEDef))]
-    public sealed class DoremyFastAsleepReworkSE : DC_ExileQeueuSE, IComparer<Card>
+    public sealed class DoremyFastAsleepReworkSE : DC_ExileQueueSE, IComparer<Card>
     {
 
         OrderedList<Card> _toBounceQueue = null;
@@ -96,7 +97,6 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
             return (DoremyComatoseForm.IsPositive(c2) ? 1 : 0) - (DoremyComatoseForm.IsPositive(c1) ? 1 : 0);
         }
 
-        protected override string GetNoTargetCardInExile() => LocalizeProperty("NotInExile", true);
 
         public string QueuedCardsDesc => GetQueuedCardsDesc(ToBounceQueue);
 
@@ -118,7 +118,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
                 ReactOwnerEvent(Battle.CardMovingToDrawZone, OnShufflingIntoDrawpile);
                 ReactOwnerEvent(Battle.CardsAddedToDrawZone, OnAddingIntoDrawpile);
                 ReactOwnerEvent(pu.TurnStarted, TurnStarted, (GameEventPriority)exileQueuePriority);
-                ReactOwnerEvent(pu.TurnEnding, TurnEnding);
+                ReactOwnerEvent(pu.TurnEnding, TurnEnding, (GameEventPriority)(DreamLayerHandlers.bouncePriority - 2));
             }
         }
 
@@ -169,7 +169,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
 
         protected override void PostProcessCopy(Card copy)
         {
-            if (!DoremyComatoseForm.IsPositive(copy))
+            if (IsUpgraded && !DoremyComatoseForm.IsPositive(copy))
             {
                 copy.IsForbidden = false;
                 copy.IsExile = true;
@@ -182,6 +182,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
         {
             foreach (var a in ProcessQueue(ToBounceQueue.ToList()))
                 yield return a;
+
+            UpdateCount(ToBounceQueue);
 
         }
 

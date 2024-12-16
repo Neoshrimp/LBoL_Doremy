@@ -3,11 +3,13 @@ using LBoL.Base;
 using LBoL.ConfigData;
 using LBoL.Core;
 using LBoL.Core.Battle;
+using LBoL.Core.Battle.BattleActions;
 using LBoL_Doremy.DoremyChar.SE;
 using LBoL_Doremy.RootTemplates;
 using LBoLEntitySideloader.Attributes;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace LBoL_Doremy.DoremyChar.Cards.Common
@@ -50,8 +52,12 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
         public NightmareInfo NM2Apply => Value1;
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
+
+
             foreach (var a in base.Actions(selector, consumingMana, precondition))
                 yield return a;
+
+            yield return PerformAction.Gun(Battle.Player, Battle.AllAliveEnemies.FirstOrDefault(), "飞光虫");
 
             foreach (var e in UnitSelector.AllEnemies.GetUnits(Battle))
                 yield return NightmareAction(e, NM2Apply, 0f);

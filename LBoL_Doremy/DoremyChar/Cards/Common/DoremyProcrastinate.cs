@@ -104,7 +104,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
 
 
     [EntityLogic(typeof(DoremyProcrastinateSEDef))]
-    public sealed class DoremyProcrastinateSE : DC_ExileQeueuSE
+    public sealed class DoremyProcrastinateSE : DC_ExileQueueSE
     {
         List<Card> _toBounceQueue = new List<Card>();
         public List<Card> ToBounceQueue { get => _toBounceQueue; set => _toBounceQueue = value; }
@@ -116,7 +116,6 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
                 ToBounceQueue.Add(c);
             UpdateCount(ToBounceQueue);
         }
-        protected override string GetNoTargetCardInExile() => LocalizeProperty("NotInExile", true);
 
         public string QueuedCardsDesc => GetQueuedCardsDesc(ToBounceQueue);
 
@@ -139,19 +138,15 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
 
         private IEnumerable<BattleAction> TurnStarted(UnitEventArgs args)
         {
-            return ProcessQueue(ToBounceQueue);
-        }
-
-        protected override IEnumerable<BattleAction> ProcessQueue(IList<Card> queue)
-        {
-            foreach (var a in base.ProcessQueue(queue))
+            foreach (var a in base.ProcessQueue(ToBounceQueue))
                 yield return a;
 
             if (ToBounceQueue.Count == 0)
                 yield return new RemoveStatusEffectAction(this);
             else
-                UpdateCount(queue);
+                UpdateCount(ToBounceQueue);
         }
+
 
     }
 

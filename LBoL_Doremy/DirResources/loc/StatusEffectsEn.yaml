@@ -19,10 +19,10 @@ DC_SelfNightmareTooltipSE:
     |Nightmare| applied to {PlayerName}. The applied amount is never affected by positive |Nightmare| modifiers.
 
 DC_ExileQueueTooltipSE:
-  Name: Exile queue
+  Name: Queue
   Brief: |- 
-    |Exiled| cards are added in the order they were queued. If they couldn't be added they await the next opportunity to do so.
-    |Copies| can by copied this way but summoned |Teammates|, |Limited| and battle non-discoverable cards are moved from |Exile| instead (if they are in still in |Exile|).
+    |Exile| the card(s) and add them to the queue. At the start of each turn, remove cards from the queue in the order they were queued to duplicate them into the hand. If they couldn't be duplicated, they await the next opportunity to do so.
+    Summoned |Teammates|, |Limited| and battle non-discoverable cards are moved from |Exile| instead (if they are in still in |Exile|).
 
 DoremyExtraDrawSE:
   Name: Extra Draw
@@ -47,22 +47,22 @@ DC_DLKwSE:
 DoremyDefensiveDaydreamingSE:
   Name: Defensive Daydreaming
   Description: |-
-    Whenever a card is added to combat, {OwnerName} gains {Level} |Barrier|.
+    Whenever a card |Created|, {OwnerName} gains {Level} |Barrier|.
 
 DoremyGatherDreamsSE:
   Name: Gather Dreams
   Description: |-
-    At the end of the {OwnerName}'s turn, choose up to 1 of {Count} random cards to shuffle into the draw pile. Repeat {Level} time{Level:plural one='' other='s'}.
+    At the end of the {OwnerName}'s turn, choose up to 1 of {Count} random cards to add to the draw pile. Repeat {Level} time{Level:plural one='' other='s'}.
 
 DoremyFantasticalMightSE:
   Name: Fantastical Might
   Description: |-
-    Cards added in combat deal {Level} more damage and give {Count} more |Block| and |Barrier|.
+    |Created| Cards deal {Level} more damage and give {Count} more |Block| and |Barrier|.
 
 DoremyDreamBalloonFlightSE:
   Name: Dream Balloon Flight
   Description: |-
-    Whenever a card gains {DL}, increase counter by {Level}. At the start of the {OwnerName}'s turn draw card equal to <i>half the counter</i> rounded down ({ToDraw}) and decrease the counter by an even number closest to the counter but no larger than the counter.
+    Whenever a card gains {DL}, increase counter by {Level}. At the start of the {OwnerName}'s turn draw cards equal to <i>half the counter</i> rounded down ({ToDraw}) and decrease the counter by an even number closest to the counter but no larger than the counter.
 
 DoremyBorderofDreamsSE:
   Name: Border of Dreams
@@ -83,7 +83,7 @@ DoremyOppressiveNightmareSE:
 DoremyHorrifyingPotentialSE:
   Name: Horrifying Potential
   Description: |-
-    Whenever a card gains {DL} or a card is created, apply {Level} |Nightmare| to a random enemy.
+    Whenever a card gains {DL} is |Created|, apply {Level} |Nightmare| to a random enemy.
 
 DoremyComatoseFormSE:
   Name: Comatose Form
@@ -94,7 +94,7 @@ DoremyComatoseFormSE:
 DoremyComatoseFormUpgradeSE:
   Name: Comatose Form
   Description: |-
-    Created cards gain {DL} upon entering combat.
+    |Created| cards gain {DL} upon entering combat.
 
 DoremyUniversalDreamLayerSE:
   Name: Universal Dream Layer
@@ -105,7 +105,7 @@ DoremyUniversalDreamLayerSE:
 DoremyPerfectPhantasmsSE:
   Name: Perfect Phantasms
   Description: |-
-    Whenever a card is created in combat, |Upgrade| it.
+    Whenever a card is |Created|, |Upgrade| it.
 
 DoremyCreativeDreamingSE:
   Name: Creative Dreaming
@@ -135,12 +135,12 @@ DoremyInfectiousNightmaresSE:
 DoremyFastAsleepSE:
   Name: Fast Asleep
   Description: |-
-   Whenever a card would be shuffled into the draw pile by |Dream Layer| effect, it is placed on top of the draw pile instead.
+   Whenever a card would be added to the draw pile by |Dream Layer| effect, it is placed on top of the draw pile.
 
 DoremyDeepNavyOverdriveSE:
   Name: Deep Navy Overdrive
   Description: |-
-    Until the {OwnerName}'s next turn <b>has started</b>, all cards which were or would be created |temporarily cost| {Mana}.
+    Until the {OwnerName}'s next turn <b>has started</b>, all cards which were or would be |Created| |temporarily cost| {Mana}.
 
 DoremyDreamyReimuSE:
   Name: Dreamy Reimu
@@ -158,10 +158,10 @@ DoremySleepShieldSE:
 DoremyFastAsleepReworkSE:
   Name: Fast Asleep
   Description: |-
-   Whenever a card would be shuffled <i>into</i> the draw pile, |Exile| and |queue| it instead.
-   At the start of the {PlayerName}'s turn, attempt to add {Count:plural one='a ' other=''}|cop{Count:plural one='y' other='ies'}| of {QueuedCardsDesc} to the hand.{UpgradeDesc}
+   Whenever a card would be added to the draw pile, |Queue| it.
+   At the start of the {PlayerName}'s turn, attempt to add {Count:plural one='a ' other=''}|duplicate{Count:plural one='' other='s'}| of {QueuedCardsDesc} to the hand.{UpgradeDesc}
    At the end of the {PlayerName}'s turn, consume |e:{NM2ConsumeDesc}| |Self Nightmare|.
-  UpgradeTxt: "\nCopies of <b>negative</b> cards lose |Unplayable| and gain |Exile| and |temporarily cost| {Mana} less."
+  UpgradeTxt: "\nDuplicates of <b>negative</b> cards lose |Unplayable|, gain |Exile|, and |temporarily cost| {Mana} less."
   OverQ: " and |e:{0}| more"
   NotInExile: "{0} is no longer in |Exile|."
   Nothing: "no cards"
@@ -173,7 +173,7 @@ DoremyAgedDreamSE:
 
 
 DoremySumirekoScrySE:
-  Name: Sumireko passive Scry
+  Name: Psycokinesis
   Description: |-
     At the start of {OwnerName}'s next turn, |Scry| {ScryInfo}.
 
@@ -183,7 +183,7 @@ DoremySumirekoDontLoseGrazeNextTurnSE:
     At the start of the next turn, don't lose |Graze|.
 
 DoremyNightmareFormSE:
-  Name: Nightmare Form
+  Name: Phantasmal Existance
   Description: |-
     Whenever {PlayerName} would lose life, instead apply amount of |Self Nightmare| equal to <b>twice</b> the life which would have been lost.
     Enemy attack damage is estimated to result in at least {Count} |Self Nightmare|. The estimate does not account for |Graze|.

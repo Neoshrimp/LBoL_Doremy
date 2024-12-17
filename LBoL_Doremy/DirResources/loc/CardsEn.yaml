@@ -537,7 +537,7 @@ DoremyPhantasmalKiller:
   Description: |-
    Deal {Damage} damage{DoTimes}.
    Apply |Nightmare| equal to the amount of unblocked damage dealt.
-   Each enemy loses life equal to its |Nightmare|.
+   The targeted enemy loses life equal to its |Nightmare|.
   Times: " {TimesVal} times"
   FlavorText: |-
     Death by dreams

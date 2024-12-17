@@ -6,7 +6,7 @@ namespace LBoL_Doremy
     {
         public const string GUID = "neoCollab.lbol.char.Doremy";
         public const string Name = "Doremy Player character";
-        public const string version = "0.5.11";
+        public const string version = "0.5.13";
         public static readonly Harmony harmony = new Harmony(GUID);
 
 

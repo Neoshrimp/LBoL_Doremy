@@ -63,6 +63,31 @@ namespace LBoL_Doremy.ExtraAssets
             }
         }
 
+        public static void DoLoadSync()
+        {
+
+            try
+            {
+                finishedLoading = false;
+                doremyAssets = new DoremyAssets();
+                doremyAssets.createdIcon = ResourceLoader.LoadSprite("CreatedIcon.png", Sources.extraImgs);
+                //2do
+                doremyAssets.dlTrackerIcon = ResourceLoader.LoadSprite("DreamLevel.png", Sources.extraImgs);
+                doremyAssets.dlCorruptedIcon = ResourceLoader.LoadSprite("CorruptedDL.png", Sources.extraImgs);
+
+
+                // added via TMP_Pro SpriteAsset
+                //doremyAssets.dreamLevel = ResourceLoader.LoadSprite("DreamLevel.png", Sources.extraImgs);
+
+                doremyAssets.purpleBar = ResourceLoader.LoadSprite("PurpleBar.png", Sources.extraImgs);
+                finishedLoading = true;
+            }
+            catch (Exception ex)
+            {
+                Log.LogError(ex);
+            }
+        }
+
 
     }
 

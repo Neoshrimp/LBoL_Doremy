@@ -57,4 +57,5 @@ TODO: Draw propper art of decent quality for all cards, create a Doremy Sweet Ac
 #### Changelog
 ----
 
+`0.5.12` Fix assets unloading.
 `0.5.11` Initial beta release.

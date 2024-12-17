@@ -46,9 +46,11 @@ namespace LBoL_Doremy
             BattleHistoryHandlers.RegisterAll();
             DreamLayerHandlers.RegisterHandlers();
 
+            //2do asyncs too early
+            //AssetManager.DoLoadAsync();
+            AssetManager.DoLoadSync();
 
-            AssetManager.DoLoadAsync();
-            
+
         }
 
         private void OnDestroy()

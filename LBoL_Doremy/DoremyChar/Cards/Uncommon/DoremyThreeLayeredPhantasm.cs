@@ -28,7 +28,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             con.TargetType = TargetType.SingleEnemy;
 
             con.Colors = new List<ManaColor>() { ManaColor.White };
-            con.Cost = new ManaGroup() { White = 1, Any = 2 };
+            con.Cost = new ManaGroup() { White = 1, Any = 1 };
 
             con.GunName = "Sweet01";
 
@@ -60,7 +60,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             foreach (var a in base.Actions(selector, consumingMana, precondition))
                 yield return a;
 
-            var cards = Battle.RollCards(new CardWeightTable(RarityWeightTable.BattleCard, OwnerWeightTable.Valid, CardTypeWeightTable.CanBeLoot), Value2, cc => cc.Type == CardType.Attack);
+            var cards = Battle.RollCards(new CardWeightTable(RarityWeightTable.BattleCard, OwnerWeightTable.Valid, CardTypeWeightTable.CanBeLoot), Value2, cc => cc.Type == CardType.Attack && cc.Id != this.Id);
 
             if (cards.Length != 0)
             {

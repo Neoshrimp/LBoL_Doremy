@@ -14,6 +14,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using LBoL.Core.StatusEffects;
+using HarmonyLib;
+using LBoL_Doremy.DoremyChar.Cards.Rare;
 
 namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 {
@@ -37,13 +39,13 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 
 
             con.Damage = 15;
-            con.UpgradedDamage = 20;
+            con.UpgradedDamage = 10;
 
             con.Value1 = 1;
-            con.UpgradedValue1 = 1;
+            con.UpgradedValue1 = 2;
 
-            con.Keywords = Keyword.Exile;
-            con.UpgradedKeywords = Keyword.Exile | Keyword.Expel;
+            //con.Keywords = Keyword.Exile;
+            //con.UpgradedKeywords = Keyword.Exile;
 
 
             con.RelativeKeyword = Keyword.CopyHint | Keyword.Ability;
@@ -63,24 +65,90 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             CardGuns = new Guns(GunName, Value1);
         }
 
-        public string UpgradeDesc => IsUpgraded ? LocalizeProperty("UpgradeTxt", true, true).RuntimeFormat(FormatWrapper) : "";
+        //public string UpgradeDesc => IsUpgraded ? LocalizeProperty("UpgradeTxt", true, true).RuntimeFormat(FormatWrapper) : "";
 
-        protected override void OnEnterBattle(BattleController battle)
-        {
-            ReactBattleEvent<DieEventArgs>(Battle.EnemyDied, Expel);
-        }
 
-        private IEnumerable<BattleAction> Expel(DieEventArgs args)
+        public string JustName => Name;
+
+        public string CopyDesc
         {
-            if (args.DieSource == this && !args.Unit.HasStatusEffect<Servant>())
+            get
             {
-                var copy = this.CloneBattleCard();
-                yield return new AddCardsToHandAction(copy);
+                var rez = LocalizeProperty("CopyTxt", true, true).RuntimeFormat(FormatWrapper);
+                if(!CanCopy)
+                    rez = "|d:" + rez + "|";
+                rez = StringDecorator.Decorate(rez);
+                return rez;
             }
         }
 
+        bool _canCopy = true;
+        public bool CanCopy
+        {
+            get => _canCopy;
+            set => _canCopy = value;
+        }
+
+        public int MaxUseCount => (GameRun?.BaseDeck.Count(c => c.Id == this.Id) ?? 0) + 1;
+
+        public int RemainingUseCount { get => !CanCopy ? 0 : Math.Max(0, MaxUseCount - useCount); }
+
+        int useCount = 0;
+        
+        private bool CheckCanCopy()
+        {
+            if (RealBattle == null)
+                return true;
+            useCount = RealBattle.BattleCardUsageHistory.Count(c => c.Id == this.Id) + RealBattle.BattleCardPlayHistory.Count(c => c.Id == this.Id);
+
+            return MaxUseCount > useCount;
+        }
+
+
+        void UpdateCanCopy()
+        {
+            if (CanCopy)
+            {
+                var actuallyCanCopy = CheckCanCopy();
+
+                if (CanCopy != actuallyCanCopy)
+                {
+                    CanCopy = actuallyCanCopy;
+                    if (!CanCopy)
+                        Battle.EnumerateAllCards().Where(c => c.Id == Id)
+                            .Cast<DoremyPhantasmalDouble>()
+                            .Do(c => { c.CanCopy = false; c.NotifyChanged(); });
+                }
+            }
+        }
+
+        protected override void OnEnterBattle(BattleController battle)
+        {
+            CanCopy = CheckCanCopy();
+            HandleBattleEvent(Battle.CardUsed, OnCardUsed);
+            HandleBattleEvent(Battle.CardPlayed, OnCardUsed);
+
+        }
+
+        private void OnCardUsed(CardUsingEventArgs args)
+        {
+            if (args.Card == this)
+                UpdateCanCopy();
+        }
+
+        protected override void OnLeaveBattle()
+        {
+            useCount = 0;
+        }
+
+
+
         public override Interaction Precondition()
         {
+            UpdateCanCopy();
+            if(!CanCopy)
+                return null;
+
             List<Card> list = base.Battle.HandZone.Where((Card hand) => hand != this && hand.CanBeDuplicated).ToList<Card>();
             if (list.Count <= 0)
             {
@@ -91,7 +159,9 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
-            
+
+            foreach (var a in base.Actions(selector, consumingMana, precondition))
+                yield return a;
 
             if (precondition != null)
             {
@@ -104,12 +174,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
                     origin.IsCopy = true;
                 }
             }
-
-            foreach (var a in base.Actions(selector, consumingMana, precondition))
-                yield return a;
-
-
         }
+
 
 
     }

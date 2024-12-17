@@ -38,7 +38,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             con.Value1 = 10;
             con.UpgradedValue1 = 14;
 
-            con.Mana = new ManaGroup() { Philosophy = 2 };
+            con.Mana = new ManaGroup() { Philosophy = 1 };
 
 
 
@@ -76,7 +76,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 
             if (base.PlayInTriggered)
             {
-                yield return new GainManaAction(base.Mana);
+                yield return new GainManaAction(base.Mana * consumingMana.Amount);
             }
         }
     }

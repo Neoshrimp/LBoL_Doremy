@@ -42,9 +42,12 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
     }
 
 
+
+
     [EntityLogic(typeof(DoremyDiverseDreamingDef))]
     public sealed class DoremyDiverseDreaming : DCard
     {
+        public string UpgradeDesc => IsUpgraded ? LocalizeProperty("UpgradeTxt", true, true).RuntimeFormat(FormatWrapper) : "";
         public string Ritual => EnumerateRelativeCards().First().Name;
 
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
@@ -53,12 +56,16 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 
             var defense = Battle.RollCard(new CardWeightTable(RarityWeightTable.NoneRare, OwnerWeightTable.Valid, CardTypeWeightTable.CanBeLoot), cc => cc.Type == CardType.Defense);
 
-            var skill = Battle.RollCard(new CardWeightTable(RarityWeightTable.NoneRare, OwnerWeightTable.Valid, CardTypeWeightTable.CanBeLoot), cc => cc.Type == CardType.Skill);
+            Card skill = null;
+            if(IsUpgraded)
+                skill = Battle.RollCard(new CardWeightTable(RarityWeightTable.NoneRare, OwnerWeightTable.Valid, CardTypeWeightTable.CanBeLoot), cc => cc.Type == CardType.Skill && cc.Id != this.Id);
 
-            var cards = new Card[] { attack, EnumerateRelativeCards().First(), defense, skill };
-            cards.Do(c => { c.IsExile = true; c.IsEthereal = true; });
+            var cards = new Card[] { attack, null, defense, skill};
+            cards.Where(c => c != null).Do(c => { c.IsExile = true; c.IsEthereal = true; });
 
-            yield return new AddCardsToHandAction(cards);
+            cards[1] = EnumerateRelativeCards().First();
+
+            yield return new AddCardsToHandAction(cards.Where(c => c != null));
 
 
 

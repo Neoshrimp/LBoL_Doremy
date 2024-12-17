@@ -55,7 +55,7 @@ namespace LBoL_Doremy.DoremyChar.VanillaTweaks
 
 
 
-    [HarmonyPatch(typeof(Card), nameof(Card.Initialize))]
+    //[HarmonyPatch(typeof(Card), nameof(Card.Initialize))]
     class HatateInit_Patch
     {
         static void Postfix(Card __instance)
@@ -76,7 +76,7 @@ namespace LBoL_Doremy.DoremyChar.VanillaTweaks
         }
     }
 
-    [HarmonyPatch(typeof(Card), "GetBaseDescription")]
+    //[HarmonyPatch(typeof(Card), "GetBaseDescription")]
     class HatateGetBaseDescription_Patch
     {
         static void Postfix(Card __instance, ref string __result)
@@ -92,7 +92,7 @@ namespace LBoL_Doremy.DoremyChar.VanillaTweaks
     }
 
 
-    [HarmonyPatch(typeof(HatateDiscard), "Actions")]
+    //[HarmonyPatch(typeof(HatateDiscard), "Actions")]
     class NewsFab_Patch
     {
         static IEnumerable<BattleAction> Postfix(IEnumerable<BattleAction> actions, HatateDiscard __instance)

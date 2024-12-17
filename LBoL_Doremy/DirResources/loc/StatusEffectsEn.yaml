@@ -224,3 +224,8 @@ DC_VanillaExTooltipSE:
 DC_CreatedTooltipSE:
   Name: "Created card"
   Brief: A card is considered |Created| if it was added during the combat. |Created| cards have special icon to indicate them.
+
+DoremyDefensiveDaydreamingReworkSE:
+  Name: Defensive Daydreaming
+  Description: |-
+    Whenever a |Created| card is |Exiled| without being played, gain {Level} |Barrier|.

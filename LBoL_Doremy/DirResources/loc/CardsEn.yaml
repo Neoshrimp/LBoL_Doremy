@@ -28,6 +28,7 @@ DoremySleepyStrikes:
     Deal {Damage} damage{DoTimes}. 
     Add 1 of {Value2} random Common Attacks to the hand. It gains |Exile| and |Ethereal|.
   Times: " {TimesVal} times"
+  DetailText: "{SelfName} cannot be generated this way."
   FlavorText: "You've heard of sleepwalking, now get ready for sleepboxing!"
 
 
@@ -188,14 +189,14 @@ DoremyDreamOn:
   Description: |-
     Deal {Damage} damage. 
     Apply {NM2Apply} |Nightmare|. 
-    If a card has been |Created| this turn, gain {Mana}. 
+    If a card has been |Created| this turn, gain as much {Mana} as the mana amount spent playing {SelfName}. 
   FlavorText: |-
     "Sing with me."
 
 DoremyGatherDreams:
   Name: Gather Dreams
   Description: |-
-    At the end of the {PlayerName}'s turn, shuffle up to 1 of {Value1} random cards into the draw pile.
+    At the end of {PlayerName}'s turn, shuffle up to 1 of {Value1} random cards into the draw pile.
   FlavorText: |-
     Who is this "Nihlry", and why are so many of these dreams from them?
 
@@ -219,6 +220,7 @@ DoremyThreeLayeredPhantasm:
   Description: |-
     Deal {Damage} damage. 
     Add {Value1} of {Value2} random Attacks to the hand. They cost {LB}1{CC} random mana less, and gain |Ethereal| and |Exile|.
+  DetailText: "{SelfName} cannot be generated this way."
   FlavorText: |-
     Technically there's only two layers until you upgrade it.
 
@@ -282,8 +284,13 @@ DoremyEnergeticMovement:
 DoremyDiverseDreaming:
   Name: Diverse Dreaming
   Description: |-
+    |Create| random non-Rare Attack and Defense cards. They gain |Ethereal| and |Exile|.
+    Add attack, {Ritual}, defense and skill to the hand.
+  UpgradeDescription: |-
     |Create| random non-Rare Attack, Defense and Skill cards. They gain |Ethereal| and |Exile|.
     Add attack, {Ritual}, defense and skill to the hand.
+  DetailText: |-
+    {SelfName} cannot be generated this way.
   FlavorText: |-
     Why choose when you can add them all?
 
@@ -299,9 +306,11 @@ DoremyPhantasmalDouble:
   Name: Phantasmal Double
   Description: |-
     Deal {Damage} damage{DoTimes}.
-    Choose a card in the hand to |Copy|. If it is an |Ability| or has |Exile|, the original also becomes a |Copy|.{UpgradeDesc}
+    {CopyDesc}
   Times: " {TimesVal} times"
-  UpgradeTxt: "\n|Expel|: add a |Copy| of |e:this| card to the hand."
+  CopyTxt: |-
+    Choose a card in the hand to |Copy|. If it is an |Ability| or has |Exile|, the original also becomes a |Copy|.
+    Copying can only occur once per combat, for each |{JustName}| in the <b>library</b>, this effect can occur an additional time (|e:{RemainingUseCount}| remaining).
   FlavorText: |-
     One dream self, one real self.
 
@@ -354,7 +363,7 @@ DoremyMelatoninMagic:
 DoremySleepParalysisYokai:
   Name: Sleep Paralysis Youkai
   Description: |-
-    Each enemy loses life equal to a <b>third</b>{NMDmgDesc} of its |Nightmare|. 
+    Gain {Block} Block.
     When this card gains {DL}, apply |Temporary Firepower Down| to each enemy equal to {DL} stacks{DreamLevelCappedDesc}, up to a maximum of {Value1}.
   DetailText: |-
     |Copies| of this card apply |Self Nightmare| on trigger following the {DL} rules. Up to |e:{Value1}| {DL} stacks are considered.
@@ -765,3 +774,10 @@ DoremyEverWitheringMidsummerLavender:
     Gain |Barrier| equal to |e:1.5| times the |Nightmare| consumed({NMBarrierEst}).
   FlavorText: |-
     This dream will never end.. 
+
+DoremyDefensiveDaydreamingRework:
+  Name: Defensive Daydreaming
+  Description: |-
+    Whenever a |Created| card is |Exiled| without being played, gain {Value1} |Barrier|.
+  FlavorText: |-
+    Huh? What was that? You hit me? Oh, sorry, I wasn't paying attention.  

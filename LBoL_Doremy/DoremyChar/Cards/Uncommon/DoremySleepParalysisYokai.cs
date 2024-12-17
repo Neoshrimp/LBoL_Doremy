@@ -28,22 +28,25 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             var con = DefaultConfig();
             con.Rarity = Rarity.Uncommon;
 
-            con.Type = LBoL.Base.CardType.Skill;
-            con.TargetType = TargetType.SingleEnemy;
+            con.Type = LBoL.Base.CardType.Defense;
+            con.TargetType = TargetType.Self;
 
 
             con.Colors = new List<ManaColor>() { ManaColor.Blue };
-            con.Cost = new ManaGroup() { Blue = 2, Any = 2 };
+            con.Cost = new ManaGroup() { Blue = 2, Any = 1 };
             con.UpgradedCost = new ManaGroup() { Blue = 1, Any = 1 };
 
+
+            con.Block = 14;
+            con.UpgradedBlock = 16;
 
 
             con.Value1 = 2;
             //con.UpgradedValue1 = 5;
 
 
-            con.RelativeEffects = new List<string>() { nameof(TempFirepowerNegative), nameof(DC_NightmareSE) };
-            con.UpgradedRelativeEffects = new List<string>() { nameof(TempFirepowerNegative), nameof(DC_NightmareSE) };
+            //con.RelativeEffects = new List<string>() { nameof(TempFirepowerNegative), nameof(DC_NightmareSE) };
+            //con.UpgradedRelativeEffects = new List<string>() { nameof(TempFirepowerNegative), nameof(DC_NightmareSE) };
 
             return con;
         }
@@ -56,22 +59,26 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 
         public int DreamLevelCapped => Math.Min(Value1, DreamLevel);
 
-        public string NMDmgDesc => GetPendingNMDmgDesc(lv => NMDmg(lv).RoundToInt(MidpointRounding.AwayFromZero));
+        //public string NMDmgDesc => GetPendingNMDmgDesc(lv => NMDmg(lv).RoundToInt(MidpointRounding.AwayFromZero));
 
-        public float NMDmg(int nightmareLevel) => nightmareLevel / 3f;
+        //public float NMDmg(int nightmareLevel) => nightmareLevel / 3f;
+        //Each enemy loses life equal to a <b>third</b>{NMDmgDesc} of its |Nightmare|. 
 
         public string DreamLevelCappedDesc => Battle == null ? "" : $" ({LB}{DreamLevelCapped}{CC})";
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
-            foreach (var e in UnitSelector.AllEnemies.GetEnemies(Battle))
-            {
-                if (Battle.BattleShouldEnd)
-                    yield break;
-                if (e.TryGetStatusEffect<DC_NightmareSE>(out var nightmare))
-                { 
-                    yield return new DamageAction(Battle.Player, e, DamageInfo.HpLose(NMDmg(nightmare.Level)));
-                }
-            }
+            foreach (var a in base.Actions(selector, consumingMana, precondition))
+                yield return a;
+
+            /* foreach (var e in UnitSelector.AllEnemies.GetEnemies(Battle))
+             {
+                 if (Battle.BattleShouldEnd)
+                     yield break;
+                 if (e.TryGetStatusEffect<DC_NightmareSE>(out var nightmare))
+                 { 
+                     yield return new DamageAction(Battle.Player, e, DamageInfo.HpLose(NMDmg(nightmare.Level)));
+                 }
+             }*/
         }
 
         public override void OnDLChanged(DreamLevelArgs args)

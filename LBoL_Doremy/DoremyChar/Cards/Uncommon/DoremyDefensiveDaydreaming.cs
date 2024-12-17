@@ -15,7 +15,7 @@ using System.Text;
 
 namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 {
-    public sealed class DoremyDefensiveDaydreamingDef : DCardDef
+    public /*sealed*/ class DoremyDefensiveDaydreamingDef : DCardDef
     {
         public override CardConfig PreConfig()
         {
@@ -37,8 +37,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
     }
 
 
-    [EntityLogic(typeof(DoremyDefensiveDaydreamingDef))]
-    public sealed class DoremyDefensiveDaydreaming : DCard
+    //[EntityLogic(typeof(DoremyDefensiveDaydreamingDef))]
+    public /*sealed*/ class DoremyDefensiveDaydreaming : DCard
     {
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
@@ -47,7 +47,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
     }
 
 
-    public sealed class DoremyDefensiveDaydreamingSEDEf : DStatusEffectDef
+    public /*sealed*/ class DoremyDefensiveDaydreamingSEDEf : DStatusEffectDef
     {
         public override StatusEffectConfig PreConfig()
         {
@@ -57,8 +57,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
         }
     }
 
-    [EntityLogic(typeof(DoremyDefensiveDaydreamingSEDEf))]
-    public sealed class DoremyDefensiveDaydreamingSE : DStatusEffect
+    //[EntityLogic(typeof(DoremyDefensiveDaydreamingSEDEf))]
+    public /*sealed*/ class DoremyDefensiveDaydreamingSE : DStatusEffect
     {
         protected override void OnAdded(Unit unit)
         {

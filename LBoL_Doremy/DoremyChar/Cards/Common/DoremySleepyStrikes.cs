@@ -59,9 +59,9 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
             if (Battle.BattleShouldEnd)
                 yield break;
 
-            var cards = Battle.RollCards(new CardWeightTable(RarityWeightTable.OnlyCommon, OwnerWeightTable.Valid, CardTypeWeightTable.CanBeLoot), Value2, cc => cc.Type == CardType.Attack /*&& cc.Id != Id*/);
+            var cards = Battle.RollCards(new CardWeightTable(RarityWeightTable.OnlyCommon, OwnerWeightTable.Valid, CardTypeWeightTable.CanBeLoot), Value2, cc => cc.Type == CardType.Attack && cc.Id != Id);
 
-            //  DetailText: "{SelfName} cannot be generated this way."
+            
 
             if (cards.Length != 0)
             {

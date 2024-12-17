@@ -29,16 +29,16 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 
             con.Colors = new List<ManaColor>() { ManaColor.White };
             con.Cost = new ManaGroup() { White = 1, Any = 2 };
-            con.UpgradedCost = new ManaGroup() { Any = 3 };
+            //con.UpgradedCost = new ManaGroup() { Any = 3 };
 
 
             con.Damage = 10;
-            con.UpgradedDamage = 13;
+            con.UpgradedDamage = 14;
 
             con.Value1 = 10;
-            con.UpgradedValue1 = 13;
+            con.UpgradedValue1 = 14;
 
-            con.Mana = new ManaGroup() { Philosophy = 3 };
+            con.Mana = new ManaGroup() { Philosophy = 2 };
 
 
 

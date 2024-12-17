@@ -26,6 +26,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
 
             con.Colors = new List<ManaColor>() { ManaColor.White };
             con.Cost = new ManaGroup() { White = 1, Any = 1 };
+            con.UpgradedCost = new ManaGroup() { White = 1 };
+
 
 
             con.Value1 = 2;

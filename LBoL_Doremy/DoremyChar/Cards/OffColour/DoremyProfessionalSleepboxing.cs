@@ -21,7 +21,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.OffColour
 
             con.Type = LBoL.Base.CardType.Attack;
             con.TargetType = TargetType.RandomEnemy;
-            con.Rarity = Rarity.Rare;
+            con.Rarity = Rarity.Uncommon;
 
             con.GunName = "颠茄B";
 

@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using LBoL.Core.StatusEffects;
 
 namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 {
@@ -29,17 +30,20 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             con.GunName = "Sweet01";
 
             con.Colors = new List<ManaColor>() { ManaColor.White };
-            con.Cost = new ManaGroup() { White = 1, Any = 1 };
-            
+            con.Cost = new ManaGroup() { White = 2,};
+            con.UpgradedCost = new ManaGroup() { White = 1, Any = 1 };
+
+
 
 
             con.Damage = 15;
-            con.UpgradedDamage = 10;
+            con.UpgradedDamage = 20;
 
             con.Value1 = 1;
-            con.UpgradedValue1 = 2;
+            con.UpgradedValue1 = 1;
 
-            con.UpgradedKeywords = Keyword.Accuracy;
+            con.Keywords = Keyword.Exile;
+            con.UpgradedKeywords = Keyword.Exile | Keyword.Expel;
 
 
             con.RelativeKeyword = Keyword.CopyHint | Keyword.Ability;
@@ -59,6 +63,22 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             CardGuns = new Guns(GunName, Value1);
         }
 
+        public string UpgradeDesc => IsUpgraded ? LocalizeProperty("UpgradeTxt", true, true).RuntimeFormat(FormatWrapper) : "";
+
+        protected override void OnEnterBattle(BattleController battle)
+        {
+            ReactBattleEvent<DieEventArgs>(Battle.EnemyDied, Expel);
+        }
+
+        private IEnumerable<BattleAction> Expel(DieEventArgs args)
+        {
+            if (args.DieSource == this && !args.Unit.HasStatusEffect<Servant>())
+            {
+                var copy = this.CloneBattleCard();
+                yield return new AddCardsToHandAction(copy);
+            }
+        }
+
         public override Interaction Precondition()
         {
             List<Card> list = base.Battle.HandZone.Where((Card hand) => hand != this && hand.CanBeDuplicated).ToList<Card>();
@@ -71,8 +91,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
-            foreach (var a in base.Actions(selector, consumingMana, precondition))
-                yield return a;
+            
 
             if (precondition != null)
             {
@@ -86,6 +105,12 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
                 }
             }
 
+            foreach (var a in base.Actions(selector, consumingMana, precondition))
+                yield return a;
+
+
         }
+
+
     }
 }

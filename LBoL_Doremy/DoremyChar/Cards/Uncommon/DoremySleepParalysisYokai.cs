@@ -38,7 +38,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 
 
 
-            con.Value1 = 3;
+            con.Value1 = 2;
             //con.UpgradedValue1 = 5;
 
 

@@ -64,6 +64,9 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
                     return 0;
 
                 var count = RealBattle.HandZone.Where(c => c.WasGenerated() && c != RealCard).Count();
+                if (RealCard.WasGenerated())
+                    count++;
+
                 /*if (IsUpgraded)
                     count += RealBattle.DrawZone.Where(c => c.WasGenerated() && c != RealCard).Count();*/
 

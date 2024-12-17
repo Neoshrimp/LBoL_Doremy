@@ -34,8 +34,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             con.Keywords = Keyword.Exile;
             con.UpgradedKeywords = Keyword.Exile;
 
-            con.RelativeKeyword = Keyword.TempMorph;
-            con.UpgradedRelativeKeyword = Keyword.TempMorph;
+            con.RelativeKeyword = Keyword.TempMorph | Keyword.Ethereal;
+            con.UpgradedRelativeKeyword = Keyword.TempMorph | Keyword.Ethereal;
 
 
 
@@ -56,6 +56,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             if (card != null)
             {
                 card.SetTurnCost(Mana);
+                card.IsEthereal = true;
                 yield return new AddCardsToHandAction(new Card[] { card });
             }
         }

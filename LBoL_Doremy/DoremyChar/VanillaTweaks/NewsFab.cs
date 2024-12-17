@@ -102,7 +102,7 @@ namespace LBoL_Doremy.DoremyChar.VanillaTweaks
                 yield return a;
 
             if(card.GameRun?.Player.Id == nameof(DoremyCavalier))
-                yield return new NightmareAction(card.Battle.Player, card.Battle.Player, new NightmareInfo(7, true), 0.15f);
+                yield return new NightmareAction(card.Battle.Player, card.Battle.Player, new NightmareInfo(5, true), 0.15f);
         }
     }
 

@@ -28,7 +28,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
             con.TargetType = TargetType.AllEnemies;
 
             con.Colors = new List<ManaColor>() { ManaColor.White, ManaColor.Blue };
-            con.Cost = new ManaGroup() { Any = 0 };
+            con.Cost = new ManaGroup() { Hybrid = 1, HybridColor = 0 };
 
             con.Value1 = 1;
             con.UpgradedValue1 = 2;

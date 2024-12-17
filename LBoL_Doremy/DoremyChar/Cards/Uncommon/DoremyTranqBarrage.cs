@@ -3,6 +3,7 @@ using LBoL.Base;
 using LBoL.ConfigData;
 using LBoL.Core;
 using LBoL.Core.Battle;
+using LBoL.Core.Battle.BattleActions;
 using LBoL_Doremy.DoremyChar.Actions;
 using LBoL_Doremy.DoremyChar.BattleTracking;
 using LBoL_Doremy.DoremyChar.Keywords;
@@ -59,7 +60,9 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             { 
                 if (Battle.BattleShouldEnd)
                     yield break;
-                yield return NightmareAction(UnitSelector.RandomEnemy.GetEnemy(Battle), NM2Apply, occupationTime: 0.05f);
+                var e = UnitSelector.RandomEnemy.GetEnemy(Battle);
+                yield return PerformAction.Gun(Battle.Player, e, "颠茄B");
+                yield return NightmareAction(e, NM2Apply, occupationTime: 0.05f);
             }
         }
     }

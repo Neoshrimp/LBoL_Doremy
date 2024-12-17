@@ -226,7 +226,7 @@ DoremyThreeLayeredPhantasm:
 DoremyWhiteNoise:
   Name: White Noise
   Description: |-
-    Add a random Ability to the hand. It |temporarily costs| {Mana}.
+    Add a random Ability to the hand. It |temporarily costs| {Mana} and gains |Ethereal|.
   FlavorText: |-
     Some humans in the outside world use it to help them sleep, maybe you should add some to your Danmaku?
 
@@ -244,6 +244,8 @@ DoremyLabyrinthineConfusion:
     Gain {Block} |Block| and apply {NM2Apply} |Nightmare| to each enemy.{TimesHint}
   Times: |-
     ({LB}{GenCount}{CC} time{GenCount:plural one='' other='s'})
+  DetailText: |-
+    {SelfName} counts itself if it was |Created|!
   FlavorText: |-
     Wait, was the exit to the dream this way, or- (Psychedelic added to deck.)
 
@@ -280,8 +282,8 @@ DoremyEnergeticMovement:
 DoremyDiverseDreaming:
   Name: Diverse Dreaming
   Description: |-
-    Add {Value1} |{Ritual}| to the hand.
-    Add 1 random non-Rare Attack, Defense and Skill to the hand. They gain |Ethereal| and |Exile|.
+    |Create| random non-Rare Attack, Defense and Skill cards. They gain |Ethereal| and |Exile|.
+    Add attack, {Ritual}, defense and skill to the hand.
   FlavorText: |-
     Why choose when you can add them all?
 
@@ -297,8 +299,9 @@ DoremyPhantasmalDouble:
   Name: Phantasmal Double
   Description: |-
     Deal {Damage} damage{DoTimes}.
-    Choose a card in the hand to |Copy|. If it is an |Ability| or has |Exile|, the original also becomes a |Copy|.
+    Choose a card in the hand to |Copy|. If it is an |Ability| or has |Exile|, the original also becomes a |Copy|.{UpgradeDesc}
   Times: " {TimesVal} times"
+  UpgradeTxt: "\n|Expel|: add a |Copy| of |e:this| card to the hand."
   FlavorText: |-
     One dream self, one real self.
 
@@ -571,6 +574,12 @@ DC_FinalConfirmationOption:
   Name: Proceed   
   Description: |-
     Choose {RollAmount} cards from {PoolSize} total.
+
+DC_WUltErrata:
+  Name: Ruling Clarification
+  Description: |-
+    |Dream Soul| exhibit does <b>not</b> affect the cost of the |Created| card as this card is |Created| by a Spellcard.
+    Game will be autosaved after this point and <sprite="Point" name="Power"\> committed to this Spellcard will be lost forever. <i>Can be disabled in mod config.</i>
 
 DoremyDreamTeam:
   Name: Dream Team

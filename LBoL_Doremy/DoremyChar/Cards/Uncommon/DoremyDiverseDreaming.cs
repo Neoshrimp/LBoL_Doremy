@@ -55,10 +55,10 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 
             var skill = Battle.RollCard(new CardWeightTable(RarityWeightTable.NoneRare, OwnerWeightTable.Valid, CardTypeWeightTable.CanBeLoot), cc => cc.Type == CardType.Skill);
 
-            var cards = new Card[] { attack, defense, skill };
+            var cards = new Card[] { attack, EnumerateRelativeCards().First(), defense, skill };
             cards.Do(c => { c.IsExile = true; c.IsEthereal = true; });
 
-            yield return new AddCardsToHandAction(EnumerateRelativeCards().Concat(cards));
+            yield return new AddCardsToHandAction(cards);
 
 
 

@@ -19,12 +19,11 @@ DC_SelfNightmareTooltipSE:
 DC_ExileQueueTooltipSE:
   Name: Queue
   Brief: |- 
-    At the start of {PlayerName}'s turn, remove cards from the queue in the order they were queued, duplicate (copy disregarding |Copy| keyword) and add them to the hand. If they couldn't be added, they remain queued and await the next opportunity to be added.
-    Summoned |Teammates|, |Limited| and battle non-discoverable cards are moved to hand instead of being duplicated.
+    At the start of {PlayerName}'s turn, add to the hand as many queued cards as the handspace allows. Remove added cards from the queue.
+    All added cards except Summoned |Teammates|, |Limited| and battle non-discoverable cards are considered to be |Created|.
   NotInExile: "{0} is no longer in battle."
   OverQ: " and |e:{0}| more"
   Nothing: "no cards"
-
 
 DoremyExtraDrawSE:
   Name: Extra Draw
@@ -44,7 +43,8 @@ DC_DLKwSE:
   Name: "{DL}"
   Brief: |-
     Card's attack damage dealt, |Block|/|Barrier| gained and |Nightmare| applied is increased by |e:{DLMulDesc}|% per {DL} stack. 
-    After being played, |Copied| cards with {DL} apply |Self Nightmare| equal to <b>twice</b> the {DL} stacks.
+    {DL} is capped at |e:10| stacks but "on gain {DL}" effects can still trigger at the stack limit.
+    {DL} carries over to |Copies|, but |Copied| cards with {DL} apply |Self Nightmare| equal to <b>twice</b> the {DL} stacks.
 
 DoremyDefensiveDaydreamingSE:
   Name: Defensive Daydreaming
@@ -215,7 +215,7 @@ DoremyEverWitheringMidsummerLavenderSE:
 
 
 DC_VanillaLocHelper:
-  NewsFab: "\nGain |e:7| |Self Nightmare|."
+  NewsFab: "\nGain |e:5| |Self Nightmare|."
 
 DC_VanillaExTooltipSE:
   Name: "{PlayerName} Exclusive"

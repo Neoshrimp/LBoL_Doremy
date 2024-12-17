@@ -42,7 +42,6 @@ using System.Text;
 namespace LBoL_Doremy.DoremyChar.Ults
 {
 
-    // 2do anti save scum
     public sealed class DoremyCavalierWUltDef : DUltimateSkillDef
     {
         public override UltimateSkillConfig MakeConfig()
@@ -223,7 +222,7 @@ namespace LBoL_Doremy.DoremyChar.Ults
 
             PoolSize = GameRun.CreateValidCardsPool(weightTable, null, false, false, false, filter).Count();
 
-            var confirmation = new SelectCardInteraction(1, 1, Library.CreateCards<DC_FinalConfirmationOption>(1)) { Source = this };
+            var confirmation = new SelectCardInteraction(1, 1, new Card[] { Library.CreateCard<DC_FinalConfirmationOption>(), Library.CreateCard<DC_WUltErrata>() }) { Source = this };
 
             yield return new InteractionActionPlus(confirmation, true, new ViewSelectCardResolver(() => {
                 var panel = UiManager.GetPanel<SelectCardPanel>();
@@ -354,18 +353,25 @@ namespace LBoL_Doremy.DoremyChar.Ults
 
             if (cardChosen != null)
             {
-                if (!cardChosen.IsXCost)
+/*                if (!cardChosen.IsXCost)
                     cardChosen.SetBaseCost(new ManaGroup() { Any = cardChosen.BaseCost.Amount });
                 else
                 {
-/*                    cardChosen.Config = cardChosen.Config.Copy();
-                    cardChosen.Config.Cost = ManaGroup.Anys(cardChosen.Config.Cost.Amount);
-                    if(cardChosen.Config.UpgradedCost != null)
-                        cardChosen.Config.UpgradedCost = ManaGroup.Anys(cardChosen.Config.UpgradedCost.Value.Amount);*/
-                }
+                }*/
+
+                // set cost
+                cardChosen.Config = cardChosen.Config.Copy();
+                cardChosen.Config.Cost = ManaGroup.Anys(cardChosen.Config.Cost.Amount);
+                if (cardChosen.Config.UpgradedCost != null)
+                    cardChosen.Config.UpgradedCost = ManaGroup.Anys(cardChosen.Config.UpgradedCost.Value.Amount);
+                else
+                    cardChosen.Config.UpgradedCost = ManaGroup.Anys(cardChosen.Config.Cost.Amount);
+
+                cardChosen._baseCost = cardChosen.ConfigCost;
                 yield return new AddCardsToHandAction(cardChosen);
                 
             }
+
 
 
             PoolSize = 0;
@@ -580,4 +586,31 @@ namespace LBoL_Doremy.DoremyChar.Ults
         public int RollAmount { get; internal set; } = 0;
         public int PoolSize { get; internal set; } = 0;
     }
+
+
+    public sealed class DC_WUltErrataDef : OptionCardDef
+    {
+        public override CardImages LoadCardImages()
+        {
+            var ci = new CardImages(Sources.imgsSource);
+            ci.main = ResourceLoader.LoadTexture(nameof(DOBToptionP) + ".png", Sources.imgsSource);
+            return ci;
+        }
+
+        public override CardConfig PreConfig()
+        {
+            var con = base.PreConfig();
+            con.Rarity = Rarity.Rare;
+            con.Owner = "";
+            return con;
+        }
+
+    }
+    [EntityLogic(typeof(DC_WUltErrataDef))]
+    public sealed class DC_WUltErrata : Card
+    {
+
+    }
+
+
 }

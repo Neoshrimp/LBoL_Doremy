@@ -42,16 +42,22 @@ namespace LBoL_Doremy.DoremyChar.Keywords
 
 
 
+
     public class DLKeyword : CardKeyword
     {
 
         int _dreamLevel = 0;
+
+        public const int maxDL = 10;
+
         public int DreamLevel
         {
             get => _dreamLevel;
             internal set
             {
-                _dreamLevel = value; _dreamLevel = Math.Max(0, _dreamLevel);
+                _dreamLevel = value; 
+                _dreamLevel = Math.Clamp(_dreamLevel, 0, maxDL);
+                
             }
         }
 

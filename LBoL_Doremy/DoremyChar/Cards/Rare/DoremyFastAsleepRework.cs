@@ -74,6 +74,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
             con.HasLevel = true;
             con.HasCount = true;
 
+            con.Order = DC_ExileQueueSE.exileQueuePriority + 1;
+
             return con;
         }
     }
@@ -115,9 +117,9 @@ namespace LBoL_Doremy.DoremyChar.Cards.Rare
         {
             if (unit is PlayerUnit pu)
             {
-                ReactOwnerEvent(Battle.CardMovingToDrawZone, OnShufflingIntoDrawpile);
-                ReactOwnerEvent(Battle.CardsAddedToDrawZone, OnAddingIntoDrawpile);
-                ReactOwnerEvent(pu.TurnStarted, TurnStarted, (GameEventPriority)exileQueuePriority);
+                ReactOwnerEvent(Battle.CardMovingToDrawZone, OnShufflingIntoDrawpile, (GameEventPriority)10);
+                ReactOwnerEvent(Battle.CardsAddedToDrawZone, OnAddingIntoDrawpile, (GameEventPriority)10);
+                ReactOwnerEvent(pu.TurnStarted, TurnStarted, (GameEventPriority)exileQueuePriority + 1);
                 ReactOwnerEvent(pu.TurnEnding, TurnEnding, (GameEventPriority)(DreamLayerHandlers.bouncePriority - 2));
             }
         }

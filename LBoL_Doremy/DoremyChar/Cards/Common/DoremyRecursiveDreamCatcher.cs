@@ -34,8 +34,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
             con.Block = 6;
             con.UpgradedBlock = 8;
 
-            con.Value1 = 2;
-            con.UpgradedValue1 = 1;
+            //con.Value1 = 2;
+            //con.UpgradedValue1 = 1;
 
 
             con.RelativeEffects = new List<string>() { nameof(DC_NightmareSE), nameof(DC_SelfNightmareTooltipSE) };
@@ -73,7 +73,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
                 yield return a;
 
 
-            yield return NightmareAction(Battle.Player, NM2Apply, 0f);
+            //yield return NightmareAction(Battle.Player, NM2Apply, 0f);
             
 
             if (consumingMana.Total > ManaGroup.Empty.Total)

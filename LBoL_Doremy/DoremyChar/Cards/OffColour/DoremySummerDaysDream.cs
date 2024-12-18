@@ -100,6 +100,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.OffColour
             con.HasCount = true;
             con.HasLevel = false;
 
+            con.Order = DC_ExileQueueSE.exileQueuePriority+2;
+
 
             return con;
         }
@@ -134,7 +136,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.OffColour
             base.OnAdded(unit);
             if (unit is PlayerUnit pu)
             {
-                ReactOwnerEvent(pu.TurnStarted, TurnStarted, (GameEventPriority)exileQueuePriority);
+                ReactOwnerEvent(pu.TurnStarted, TurnStarted, (GameEventPriority)exileQueuePriority+2);
             }
         }
 

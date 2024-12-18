@@ -93,7 +93,6 @@ DoremyRecursiveDreamCatcher:
   Name: Recursive Dream Catcher
   Description: |-
     Gain {Block} |Block|.
-    Gain {NM2Apply} |Self Nightmare|.
     If mana was paid to play {SelfName}, add |Recursive Dream Catcher{Plus}| to the hand.
     Remove {SelfName} from combat after playing it.
   FlavorText: 'Can never have too many!'
@@ -220,6 +219,7 @@ DoremyThreeLayeredPhantasm:
   Description: |-
     Deal {Damage} damage. 
     Add {Value1} of {Value2} random Attacks to the hand. They cost {LB}1{CC} random mana less, and gain |Ethereal| and |Exile|.
+  UpTo: "\n|Choose <b>up to</b> {Value1} card{Value1:plural one='' other='s'}|"
   DetailText: "{SelfName} cannot be generated this way."
   FlavorText: |-
     Technically there's only two layers until you upgrade it.
@@ -285,10 +285,10 @@ DoremyDiverseDreaming:
   Name: Diverse Dreaming
   Description: |-
     |Create| random non-Rare Attack and Defense cards. They gain |Ethereal| and |Exile|.
-    Add attack, {Ritual}, defense and skill to the hand.
+    Add attack, |{Ritual}| and defense to the hand.
   UpgradeDescription: |-
     |Create| random non-Rare Attack, Defense and Skill cards. They gain |Ethereal| and |Exile|.
-    Add attack, {Ritual}, defense and skill to the hand.
+    Add attack, |{Ritual}|, defense and skill to the hand.
   DetailText: |-
     {SelfName} cannot be generated this way.
   FlavorText: |-

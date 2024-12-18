@@ -122,9 +122,14 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             }
         }
 
+        public override void Initialize()
+        {
+            base.Initialize();
+            CanCopy = CheckCanCopy();
+        }
+
         protected override void OnEnterBattle(BattleController battle)
         {
-            CanCopy = CheckCanCopy();
             HandleBattleEvent(Battle.CardUsed, OnCardUsed);
             HandleBattleEvent(Battle.CardPlayed, OnCardUsed);
 

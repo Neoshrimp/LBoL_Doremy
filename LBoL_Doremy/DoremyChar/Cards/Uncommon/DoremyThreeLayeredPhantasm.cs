@@ -28,7 +28,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             con.TargetType = TargetType.SingleEnemy;
 
             con.Colors = new List<ManaColor>() { ManaColor.White };
-            con.Cost = new ManaGroup() { White = 1, Any = 1 };
+            con.Cost = new ManaGroup() { White = 1, Any = 2 };
 
             con.GunName = "Sweet01";
 
@@ -66,8 +66,10 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             {
                 var interaction = new SelectCardInteraction(1, Value1, cards)
                 {
-                    Source = this
+                    Source = this,
+                    Description = Name + (IsUpgraded ? "+" : "") + LocalizeProperty("UpTo", true).RuntimeFormat(FormatWrapper)
                 };
+
                 yield return new InteractionAction(interaction, false);
 
                 foreach (var c in interaction.SelectedCards)

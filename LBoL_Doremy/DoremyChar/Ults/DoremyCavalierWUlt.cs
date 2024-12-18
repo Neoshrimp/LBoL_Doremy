@@ -373,7 +373,6 @@ namespace LBoL_Doremy.DoremyChar.Ults
             }
 
 
-
             PoolSize = 0;
             RollAmount = 0;
         }

@@ -96,6 +96,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Common
             con.HasCount = true;
             con.HasLevel = false;
 
+            con.Order = DC_ExileQueueSE.exileQueuePriority;
+
 
             return con;
         }

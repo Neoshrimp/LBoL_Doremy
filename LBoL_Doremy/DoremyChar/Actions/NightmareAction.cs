@@ -32,7 +32,7 @@ namespace LBoL_Doremy.DoremyChar.Actions
 
         public override void MainPhase()
         {
-            if (Args.target.IsInvalidTarget)
+            if (Args.target?.IsInvalidTarget ?? true)
             {
                 Args.ForceCancelBecause(LBoL.Core.CancelCause.InvalidTarget);
                 return;

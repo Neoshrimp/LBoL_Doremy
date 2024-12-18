@@ -1,3 +1,4 @@
+#### 0.5.51:
 - Make Queue wording more clear 
 - DL Copy clause clarification.
 - Band aid Dream On dmg, Nightmare 13 => 14; generates as much P as mana amount spent on it
@@ -19,3 +20,8 @@
 - W ult, Lucent Genesis: add crystal clear explanation about autosave and lack of Dream Soul interaction. Autosave can be disabled in mod config. There are better ways to solve this problem.
 - W ult, Lucent Genesis: cost transformation to created card upgrade too. I.e., Spread Amulet+ would cost 3 instead of 4.
 - Cap DL at 10 stacks but don't forbid trigger effects.
+#### 0.5.52:
+- Recursive Catcher no longer applies self Nightmare
+- Buff Exploit Fear a slightly
+- Increase Three Layered Phantasm cost 1W => 2W
+- Some UI fixes

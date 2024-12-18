@@ -12,6 +12,7 @@ DoremyCavalierWUlt:
   Description: |-
     Pick at least {MinOrigins} card origins and at least {MinTypes} card types to form a card pool
     Randomly roll {Value1} cards from the pool. <b>The number is modified by the choices made.</b>
+    Gain {Mana}.
     Choose one of the rolled cards, add it to the hand. Mana of any color can be spend to pay its mana cost.
   NotEnoughChat: Only {0} cards were found which match the criteria.
   ChooseOrigin: |-

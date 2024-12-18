@@ -45,13 +45,18 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
     }
 
 
+
     [EntityLogic(typeof(DoremyRapidEyeMovementsDef))]
     public sealed class DoremyRapidEyeMovements : DCard
     {
 
         public override Interaction Precondition()
         {
-            return new SelectCardInteraction(1, Value1, EnumerateRelativeCards());
+            var selection = new SelectCardInteraction(1, Value1, EnumerateRelativeCards());
+            if (IsUpgraded)
+                selection.Description = Name + (IsUpgraded ? "+" : "") + LocalizeProperty("UpTo", true).RuntimeFormat(FormatWrapper);
+
+            return selection;
         }
 
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)

@@ -256,6 +256,7 @@ DoremyRapidEyeMovements:
   Description: |-
     Gain {Block} |Block|. 
     Add {Value1} of {Value2} |Movements| to the hand.
+  UpTo: "\n|Choose from {LB}1{CC} to {Value1} card{Value1:plural one='' other='s'}|"
   FlavorText: |-
     R.E.M. for short.
 
@@ -389,7 +390,8 @@ DoremyCreepingBullet:
 DoremyDreamDraw:
   Name: Dream Draw
   Description: |-
-    Draw {Value1} cards. For each {DL}, draw an additional card.
+    Draw {Value1} cards. For each {DL}, draw an additional card {ExtraDrawDesc}.
+  ExtraDrawTxt: "(|e:{TotalDraw}| in total)"
   FlavorText: |-
     Slow, but it sure can draw a lot of cards.
 

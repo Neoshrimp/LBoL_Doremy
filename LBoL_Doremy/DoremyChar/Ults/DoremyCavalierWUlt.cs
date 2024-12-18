@@ -68,6 +68,8 @@ namespace LBoL_Doremy.DoremyChar.Ults
     public sealed class DoremyCavalierWUlt : UltimateSkill
     {
 
+        public ManaGroup Mana => new ManaGroup() { Philosophy = 2 };
+
         public DoremyCavalierWUlt()
         {
             TargetType = TargetType.Nobody;
@@ -343,6 +345,7 @@ namespace LBoL_Doremy.DoremyChar.Ults
                     Log.LogWarning("GameRunSaveData is null.");
                 //------
                 yield return PerformAction.Spell(Owner, Id);
+                yield return new GainManaAction(Mana);
                 yield return new InteractionActionPlus(cardSelection, false, new ViewSelectCardResolver(() => {
                     var panel = UiManager.GetPanel<SelectCardPanel>();
                     panel.titleTmp.text += LocalizeProperty("RollAmount", true).RuntimeFormat(FormatWrapper);

@@ -25,3 +25,5 @@
 - Buff Exploit Fear a slightly
 - Increase Three Layered Phantasm cost 1W => 2W
 - Some UI fixes
+#### 0.5.53:
+- Buff Lucent Genesis to give PP mana on use.

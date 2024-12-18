@@ -40,6 +40,11 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
     [EntityLogic(typeof(DoremyDreamDrawDef))]
     public sealed class DoremyDreamDraw : NaturalDreamLayerCard
     {
+
+        public string ExtraDrawDesc => Battle == null ? "" : LocalizeProperty("ExtraDrawTxt", true).RuntimeFormat(FormatWrapper);
+
+        public int TotalDraw => DreamLevel + Value1;
+
         protected override IEnumerable<BattleAction> Actions(UnitSelector selector, ManaGroup consumingMana, Interaction precondition)
         {
             yield return new DrawManyCardAction(Value1 + DreamLevel);

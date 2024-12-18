@@ -57,7 +57,7 @@ TODO: Draw propper art of decent quality for all cards, create a Doremy Sweet Ac
 #### Changelog
 ----
 
-`0.5.51` Add changes based to the feedback. Changelog [here](https://github.com/Neoshrimp/LBoL_Doremy/blob/master/LBoL_Doremy/0_5_5changeLog.md).
+`0.5.5x` Add changes based to the feedback. Changelog [here](https://github.com/Neoshrimp/LBoL_Doremy/blob/master/LBoL_Doremy/0_5_5changeLog.md).
 
 `0.5.12` Fix assets unloading.
 

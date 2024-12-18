@@ -18,7 +18,7 @@
 - Increase Dream Eater cost 3W(3) => 3W(4)
 - Rework Defensive Day Dreaming
 - W ult, Lucent Genesis: add crystal clear explanation about autosave and lack of Dream Soul interaction. Autosave can be disabled in mod config. There are better ways to solve this problem.
-- W ult, Lucent Genesis: cost transformation to created card upgrade too. I.e., Spread Amulet+ would cost 3 instead of 4.
+- W ult, Lucent Genesis: cost transformation applies to created card upgrade too. I.e., Spread Amulet+ would cost 3 instead of 4.
 - Cap DL at 10 stacks but don't forbid trigger effects.
 #### 0.5.52:
 - Recursive Catcher no longer applies self Nightmare

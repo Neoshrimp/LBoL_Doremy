@@ -12,6 +12,7 @@ using LBoL_Doremy.StaticResources;
 using LBoLEntitySideloader.Attributes;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
@@ -76,6 +77,8 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 
         private IEnumerable<BattleAction> ApplyNightmare()
         {
+            if (Battle.BattleShouldEnd)
+                yield break;
             NotifyActivating();
             var e = UnitSelector.RandomEnemy.GetEnemy(Battle);
             //foreach (var e in UnitSelector.AllEnemies.GetEnemies(Battle))
@@ -84,14 +87,20 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 
         private IEnumerable<BattleAction> OnCardsAdded(Card[] cards, GameEventArgs args)
         {
-            foreach(var c in cards)
-                foreach(var a in ApplyNightmare())
+            foreach (var c in cards)
+            { 
+                if (Battle.BattleShouldEnd)
+                    yield break;
+                foreach (var a in ApplyNightmare())
                     yield return a;
+            }
         }
 
 
         private IEnumerable<BattleAction> OnDLApplied(DreamLevelArgs arg)
         {
+            if (Battle.BattleShouldEnd)
+                return Enumerable.Empty<BattleAction>();
             return ApplyNightmare();
         }
     }

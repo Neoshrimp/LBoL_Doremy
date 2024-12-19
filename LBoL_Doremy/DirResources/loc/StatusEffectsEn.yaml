@@ -44,7 +44,7 @@ DC_DLKwSE:
   Brief: |-
     Card's attack damage dealt, |Block|/|Barrier| gained and |Nightmare| applied is increased by |e:{DLMulDesc}|% per {DL} stack. 
     {DL} is capped at |e:10| stacks but "on gain {DL}" effects can still trigger at the stack limit.
-    {DL} carries over to |Copies|, but |Copied| cards with {DL} apply |Self Nightmare| equal to <b>twice</b> the {DL} stacks.
+    {DL} carries over to |Copies|, but |Copied| cards with {DL} apply |Self Nightmare| equal to {DL} stacks.
 
 DoremyDefensiveDaydreamingSE:
   Name: Defensive Daydreaming

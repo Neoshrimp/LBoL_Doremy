@@ -53,7 +53,8 @@ namespace LBoL_Doremy.DoremyChar.DreamManagers
 
         public static bool IsDLCorrupted(this Card card) => card.IsCopy;
 
-        public static NightmareInfo SelfNM2Apply(int dlLevel) => new NightmareInfo(dlLevel * 2, true);
+        public static NightmareInfo SelfNM2Apply(int dlLevel) => new NightmareInfo(dlLevel /** 2*/, true);
+        //<b>twice</b> the
 
         private static void OnCardUsed(CardUsingEventArgs args)
         {
@@ -62,10 +63,14 @@ namespace LBoL_Doremy.DoremyChar.DreamManagers
 
         public static void CorruptedDLPenalty(Card card, int levelCap = int.MaxValue)
         {
+            var battle = EventManager.Battle;
+            if (battle.BattleShouldEnd)
+                return;
             if (card.IsDLCorrupted()
                 && card.TryGetCustomKeyword(DoremyKw.dLId, out DLKeyword DL))
             {
-                var battle = EventManager.Battle;
+
+
                 var selfNM = SelfNM2Apply(Math.Min(DL.DreamLevel, levelCap));
                 if(selfNM.toApply > 0)
                     battle.React(new NightmareAction(battle.Player, battle.Player, selfNM, 0.015f), card, ActionCause.Card);

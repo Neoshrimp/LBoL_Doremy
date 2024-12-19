@@ -27,3 +27,8 @@
 - Some UI fixes
 #### 0.5.53:
 - Buff Lucent Genesis to give PP mana on use.
+#### 0.5.55:
+- Reduce DL Self Nightmare to 1 per DL stack. This idea will eventually be phased out.
+- Make DL copy penalty not resolve if battle should end.
+- Fix issue Phantasm Double copies created in battle.
+

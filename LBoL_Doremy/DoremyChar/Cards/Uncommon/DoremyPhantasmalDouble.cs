@@ -16,6 +16,7 @@ using System.Linq;
 using LBoL.Core.StatusEffects;
 using HarmonyLib;
 using LBoL_Doremy.DoremyChar.Cards.Rare;
+using LBoL.Presentation;
 
 namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
 {
@@ -89,7 +90,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.Uncommon
             set => _canCopy = value;
         }
 
-        public int MaxUseCount => (GameRun?.BaseDeck.Count(c => c.Id == this.Id) ?? 0) + 1;
+        public int MaxUseCount => (GameMaster.Instance.CurrentGameRun?.BaseDeck.Count(c => c.Id == this.Id) ?? 0) + 1;
 
         public int RemainingUseCount { get => !CanCopy ? 0 : Math.Max(0, MaxUseCount - useCount); }
 

@@ -91,6 +91,8 @@ namespace NoMetaScaling.Core
             NoMetaScalinAPI.ExemptFromBanIfPlayed(nameof(BuyPeace));
             NoMetaScalinAPI.ExemptFromBanIfPlayed(nameof(PoisonTeaParty));
 
+            NoMetaScalinAPI.AddBanByDefault(nameof(FakeMoon));
+
 
             RegisterCommonHandlers(OnCardCreated);
 

@@ -76,6 +76,8 @@ It's defined in [`NoMetaScalinAPI`](https://github.com/Neoshrimp/LBoL_Doremy/blo
 *Change log*
 
 ------
+`1.1.8` Fix cards copied by False Moons providing resources in certain cases.
+
 `1.1.7` Fix Spirits not providing meta resources in rare cases.
 
 `1.1.6` Exempt Dubious Tea Party.

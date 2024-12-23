@@ -23,7 +23,7 @@ namespace NoMetaScaling.Core.EnemyGroups
         public static void RegisterHandlers()
         {
             NoMetaScalinAPI.AddOrOverwriteSummoner(nameof(Rin), 21);
-            NoMetaScalinAPI.AddOrOverwriteSummoner(nameof(Kokoro), 9);
+            NoMetaScalinAPI.AddOrOverwriteSummoner(nameof(Kokoro), 6);
             NoMetaScalinAPI.AddOrOverwriteSummoner(nameof(Clownpiece), 3);
 
 

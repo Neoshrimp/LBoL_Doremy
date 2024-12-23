@@ -206,22 +206,29 @@ namespace NoMetaScaling.Core
                     bool doBan = true;
                     BanReason reason = BanReason.CardWasGenerated;
 
+
+
                     // real gen clause
                     if (PConfig.AllowFirstTimeDeckedGen 
                         //&& args.ActionSource is Card // source is an actual card, not SE
                         && !sourceCard.IsBanned(out var _) && !sourceCard.WasGenerated()
-                        && addedCard.Id != nameof(FakeMoon)
+                        && !banData.IsGeneratorBanned(sourceCard)
                         )
                     {
-                        banData.QueueBan(sourceCard, BanReason.CardWasAlreadyUsed);
-                        continue;
+                        banData.QueueGenBan(sourceCard);
+                        if (addedCard.Id == nameof(FakeMoon))
+                            doBan = true;
+                        else
+                            continue;
                     }
 
                     // natural echo clause
                     if (!sourceCard.IsBanned(out var _) && sourceCard.InvokedEcho() 
                         && (sourceCard.IsNaturalEcho() || sourceCard.IsNaturalPermaEcho()))
                     { 
-                        banData.QueueBan(sourceCard, BanReason.CardWasAlreadyUsed);
+                        if(sourceCard.IsNaturalPermaEcho())
+                            banData.QueueBan(sourceCard, BanReason.CardWasAlreadyUsed);
+
                         continue;
                     }
 
@@ -299,6 +306,11 @@ namespace NoMetaScaling.Core
             foreach (var kv in pendingBan)
                 BanCard(kv.Key, kv.Value);
             pendingBan.Clear();
+
+            foreach (var c in pendingGeneratorBan)
+                BanGenerator(c);
+
+            pendingGeneratorBan.Clear();
         }
 
         public void QueueBan(Card card, BanReason reason)
@@ -330,6 +342,23 @@ namespace NoMetaScaling.Core
 
             CopiedTimes[card] += increase;
         }
+
+        public void QueueGenBan(Card card)
+        {
+            pendingGeneratorBan.Add(card);
+        }
+
+        public void BanGenerator(Card card)
+        {
+            bannedGenerators.Add(card);
+        }
+
+        public bool IsGeneratorBanned(Card card) => bannedGenerators.Contains(card);
+
+
+        HashSet<Card> pendingGeneratorBan = new HashSet<Card>();
+
+        HashSet<Card> bannedGenerators = new HashSet<Card>();
 
         Dictionary<Card, BanReason> pendingBan = new Dictionary<Card, BanReason>();
 

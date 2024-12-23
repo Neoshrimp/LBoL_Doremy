@@ -35,7 +35,7 @@ namespace NoMetaScaling.Core
                 yield break;
 
 
-            if (UnityEngine.Random.Range(0, 1f) > 0.96f)
+            if (UnityEngine.Random.Range(0, 1f) > 0.98f)
                 yield return PerformAction.Chat(player, $"I'M A DEGENERATE", 1.75f);
             else
             {

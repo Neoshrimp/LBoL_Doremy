@@ -23,7 +23,9 @@ namespace NoMetaScaling.Core.Trackers
             var useCardDelegateType = typeof(UseCardAction).GetNestedTypes(AccessTools.allDeclared).Single(t => t.Name.Contains("DisplayClass17_0"));
             yield return AccessTools.FirstMethod(useCardDelegateType, mi => mi.Name.Contains("GetPhases>b__4"));
 
-            var playCardDelegateType = typeof(PlayCardAction).GetNestedTypes(AccessTools.allDeclared).Single(t => t.Name.Contains("DisplayClass18_0"));
+
+            // formerly DisplayClass18_0
+            var playCardDelegateType = typeof(PlayCardAction).GetNestedTypes(AccessTools.allDeclared).Single(t => t.Name.Contains("DisplayClass22_0"));
 
             yield return AccessTools.FirstMethod(playCardDelegateType, mi => mi.Name.Contains("GetPhases>b__2"));
 

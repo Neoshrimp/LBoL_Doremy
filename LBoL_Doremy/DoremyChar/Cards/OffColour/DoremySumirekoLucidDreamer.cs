@@ -25,6 +25,7 @@ using LBoL.Presentation;
 using LBoL.EntityLib.Cards.Neutral.TwoColor;
 using LBoL.EntityLib.StatusEffects.Enemy;
 using LBoL_Doremy.DoremyChar.Actions;
+using System.Reflection;
 
 namespace LBoL_Doremy.DoremyChar.Cards.OffColour
 {
@@ -203,9 +204,13 @@ namespace LBoL_Doremy.DoremyChar.Cards.OffColour
                 yield return new RemoveStatusEffectAction(this, occupationTime: 0f);
         }
 
-        [HarmonyPatch(typeof(Graze), nameof(Graze.OnOwnerTurnStarted))]
+        //[HarmonyPatch(typeof(Graze), nameof(Graze.OnOwnerTurnStarted))]
+        [HarmonyPatch(typeof(Graze), nameof(Graze.LoseGraze))]
+        //<GetPhases>d__10
         class Graze_Patch
         {
+
+
             static bool Prefix(Graze __instance)
             {
                 if (__instance.Owner.TryGetStatusEffect<DoremySumirekoDontLoseGrazeNextTurnSE>(out var se))

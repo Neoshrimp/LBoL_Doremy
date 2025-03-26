@@ -76,6 +76,8 @@ It's defined in [`NoMetaScalinAPI`](https://github.com/Neoshrimp/LBoL_Doremy/blo
 *Change log*
 
 ------
+`1.2.1` Update for LBoL 1.7.0. Fix some generated misfortunes not providing meta resources.
+
 `1.2.0` Update for LBoL 1.6.1 beta.
 
 `1.1.9` Fix Meiling teammate not providing hp in certain circumstances.

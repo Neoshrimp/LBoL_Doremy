@@ -55,6 +55,11 @@ namespace LBoL_Doremy.DoremyChar.DoremyPU
                 ModleName: nameof(DoremyCavalier),
                 NarrativeColor: Color,
                 IsSelectable: true,
+
+                BasicRingOrder: 1,
+                LeftColor: ManaColor.White,
+                RightColor: ManaColor.Blue,
+
                 MaxHp: 70,
                 InitialMana: new ManaGroup() { White = 2, Blue = 2 },
                 InitialMoney: 100,
@@ -72,7 +77,10 @@ namespace LBoL_Doremy.DoremyChar.DoremyPU
                     nameof(DoremyCavalierDefenseW), nameof(DoremyCavalierDefenseW), nameof(DoremyCavalierDefenseW),
                     nameof(DoremyDreamblast) },
                 DifficultyA: 3,
-                DifficultyB: 2);
+                DifficultyB: 2,
+
+                HasHomeName: false
+                );
             return con;
         }
     }

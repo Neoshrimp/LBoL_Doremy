@@ -83,12 +83,15 @@ namespace NoMetaScaling.Core
         public static void RegisterHandlers()
         {
             NoMetaScalinAPI.ExemptFromBanIfGenerated(nameof(PurpleMogu));
+            NoMetaScalinAPI.ExemptFromBanIfGenerated(nameof(BuyPeace));
+            NoMetaScalinAPI.ExemptFromBanIfGenerated(nameof(Psychedelic));
+            NoMetaScalinAPI.ExemptFromBanIfGenerated(nameof(PoisonTeaParty));
 
             NoMetaScalinAPI.ExemptFromBanIfPlayed(nameof(VampireShoot1));
             NoMetaScalinAPI.ExemptFromBanIfPlayed(nameof(VampireShoot2));
 
-            NoMetaScalinAPI.ExemptFromBanIfPlayed(nameof(Psychedelic));
             NoMetaScalinAPI.ExemptFromBanIfPlayed(nameof(BuyPeace));
+            NoMetaScalinAPI.ExemptFromBanIfPlayed(nameof(Psychedelic));
             NoMetaScalinAPI.ExemptFromBanIfPlayed(nameof(PoisonTeaParty));
 
             NoMetaScalinAPI.AddBanByDefault(nameof(FakeMoon));

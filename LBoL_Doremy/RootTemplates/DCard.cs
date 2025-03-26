@@ -77,6 +77,8 @@ namespace LBoL_Doremy.RootTemplates
                 Cost: default(ManaGroup),
 
                 UpgradedCost: null,
+                Kicker: null,
+                UpgradedKicker: null,
                 MoneyCost: null,
                 Damage: null,
                 UpgradedDamage: null,

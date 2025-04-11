@@ -28,6 +28,7 @@ using System.Reflection.Emit;
 using LBoL.EntityLib.Cards.Neutral.Blue;
 using LBoL.EntityLib.Cards.Misfortune;
 using LBoL.EntityLib.Cards.Neutral.TwoColor;
+using LBoL.EntityLib.Cards.Adventure;
 
 namespace NoMetaScaling.Core
 {
@@ -89,6 +90,8 @@ namespace NoMetaScaling.Core
 
             NoMetaScalinAPI.ExemptFromBanIfPlayed(nameof(VampireShoot1));
             NoMetaScalinAPI.ExemptFromBanIfPlayed(nameof(VampireShoot2));
+            NoMetaScalinAPI.ExemptFromBanIfPlayed(nameof(NewsPositive));
+
 
             NoMetaScalinAPI.ExemptFromBanIfPlayed(nameof(BuyPeace));
             NoMetaScalinAPI.ExemptFromBanIfPlayed(nameof(Psychedelic));

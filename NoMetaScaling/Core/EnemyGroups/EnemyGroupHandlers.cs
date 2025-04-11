@@ -24,7 +24,11 @@ namespace NoMetaScaling.Core.EnemyGroups
         {
             NoMetaScalinAPI.AddOrOverwriteSummoner(nameof(Rin), 21);
             NoMetaScalinAPI.AddOrOverwriteSummoner(nameof(Kokoro), 6);
-            NoMetaScalinAPI.AddOrOverwriteSummoner(nameof(Clownpiece), 3);
+
+            if(PConfig.MorePissResources)
+                NoMetaScalinAPI.AddOrOverwriteSummoner(nameof(Clownpiece), 6);
+            else
+                NoMetaScalinAPI.AddOrOverwriteSummoner(nameof(Clownpiece), 3);
 
 
             CHandlerManager.RegisterBattleEventHandler(bt => bt.BattleStarted, OnBattleStarted);

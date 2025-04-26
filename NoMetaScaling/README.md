@@ -76,6 +76,8 @@ It's defined in [`NoMetaScalinAPI`](https://github.com/Neoshrimp/LBoL_Doremy/blo
 *Change log*
 
 ------
+`1.2.3` Fix defrogged cards being banned.
+
 `1.2.2` Fix issue with Positive News giving P only once per fight. Add optional config toggle to increase number of Clownpiece summons which will drop resources.
 
 `1.2.1` Update for LBoL 1.7.0. Fix some generated misfortunes not providing meta resources.

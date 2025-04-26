@@ -29,6 +29,7 @@ using LBoL.EntityLib.Cards.Neutral.Blue;
 using LBoL.EntityLib.Cards.Misfortune;
 using LBoL.EntityLib.Cards.Neutral.TwoColor;
 using LBoL.EntityLib.Cards.Adventure;
+using LBoL.EntityLib.Cards.Enemy;
 
 namespace NoMetaScaling.Core
 {
@@ -99,6 +100,7 @@ namespace NoMetaScaling.Core
 
             NoMetaScalinAPI.AddBanByDefault(nameof(FakeMoon));
 
+            
 
             RegisterCommonHandlers(OnCardCreated);
 
@@ -204,8 +206,16 @@ namespace NoMetaScaling.Core
             if (args.ActionSource.TrickleDownActionSource() is Card sourceCard)
             {
                 var banData = GetBanData(Battle);
+
+                if (sourceCard.Id == nameof(Frog))
+                    goto end;
+
                 foreach (var addedCard in cards)
                 {
+                    // will never be true as addCardAction assigns new instance id
+                    /*if (!addedCard.WasGenerated())
+                        continue;*/
+
                     if (!sourceCard.IsBanned(out var _) && ExposedStatics.exemptFromGenBan.Contains(addedCard.Id))
                         continue;
 
@@ -249,8 +259,9 @@ namespace NoMetaScaling.Core
 
 
                 }
-
             }
+            end:
+                return;
         }
 
         static void RegisterCommonHandlers(Action<Card[], GameEventArgs> handler, GameEventPriority priority = GameEventPriority.ConfigDefault)

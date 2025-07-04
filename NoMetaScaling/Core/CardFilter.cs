@@ -30,6 +30,8 @@ using LBoL.EntityLib.Cards.Misfortune;
 using LBoL.EntityLib.Cards.Neutral.TwoColor;
 using LBoL.EntityLib.Cards.Adventure;
 using LBoL.EntityLib.Cards.Enemy;
+using LBoL.EntityLib.Cards.Character.Reimu;
+using LBoL.EntityLib.Cards.Neutral.Black;
 
 namespace NoMetaScaling.Core
 {
@@ -85,6 +87,7 @@ namespace NoMetaScaling.Core
         public static void RegisterHandlers()
         {
             NoMetaScalinAPI.ExemptFromBanIfGenerated(nameof(PurpleMogu));
+
             NoMetaScalinAPI.ExemptFromBanIfGenerated(nameof(BuyPeace));
             NoMetaScalinAPI.ExemptFromBanIfGenerated(nameof(Psychedelic));
             NoMetaScalinAPI.ExemptFromBanIfGenerated(nameof(PoisonTeaParty));
@@ -92,6 +95,11 @@ namespace NoMetaScaling.Core
             NoMetaScalinAPI.ExemptFromBanIfPlayed(nameof(VampireShoot1));
             NoMetaScalinAPI.ExemptFromBanIfPlayed(nameof(VampireShoot2));
             NoMetaScalinAPI.ExemptFromBanIfPlayed(nameof(NewsPositive));
+
+            NoMetaScalinAPI.ExemptFromBanIfPlayed(nameof(ReimuSakura));
+            NoMetaScalinAPI.ExemptFromBanIfPlayed(nameof(QingeUpgrade));
+            NoMetaScalinAPI.ExemptFromBanIfPlayed(nameof(XingMoney));
+            NoMetaScalinAPI.ExemptFromBanIfPlayed(nameof(Shengyan));
 
 
             NoMetaScalinAPI.ExemptFromBanIfPlayed(nameof(BuyPeace));

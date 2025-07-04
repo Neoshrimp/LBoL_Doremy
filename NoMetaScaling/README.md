@@ -76,6 +76,8 @@ It's defined in [`NoMetaScalinAPI`](https://github.com/Neoshrimp/LBoL_Doremy/blo
 *Change log*
 
 ------
+`1.2.4` Prevent 'real' Expel cards and Blossoming Fantasy Seal from banning themselves after being played. This enables capitalizing on bounce-backs from exile.
+
 `1.2.3` Fix defrogged cards being banned.
 
 `1.2.2` Fix issue with Positive News giving P only once per fight. Add optional config toggle to increase number of Clownpiece summons which will drop resources.

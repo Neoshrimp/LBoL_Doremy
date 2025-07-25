@@ -97,7 +97,7 @@ namespace LBoL_Doremy.DoremyChar.Cards.OffColour
             int totalDmg = 0;
             foreach (var e in Battle.AllAliveEnemies)
             {
-                foreach (var i in e.Intentions.Where(i => !i.HiddenInBattle))
+                foreach (var i in e.Intentions.Where(i => !i.HiddenFinal))
                 {
                     if (i is AttackIntention ai)
                         totalDmg += ai.TotalDamage;

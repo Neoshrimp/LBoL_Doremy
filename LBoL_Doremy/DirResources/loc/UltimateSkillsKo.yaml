@@ -1,0 +1,25 @@
+DoremyCavalierUUlt:
+  Title: 몽부
+  Content: '"몽아몽중"'
+  Description: |-
+    모든 적에게 {Value1} |악몽|을 줍니다.
+    각 적에게 해당 |악몽|의 <b>절반</b>에 해당하는 피해를 줍니다.
+    |명중|
+
+DoremyCavalierWUlt:
+  Title: 꿈의 지배자
+  Content: '"빛나는 기원의 시작"'
+  Description: |-
+    최소 {MinOrigins}개의 카드 기원과 최소 {MinTypes}개의 카드 유형을 선택해 카드 풀을 구성합니다.
+    해당 풀에서 무작위로 {Value1}장의 카드를 뽑습니다. <b>선택에 따라 수량이 달라집니다.</b>
+    {Mana}를 얻습니다.
+    뽑힌 카드 중 하나를 선택하여 손에 넣습니다. 어떤 색의 마나로든 그 카드의 마나 비용을 지불할 수 있습니다.
+  NotEnoughChat: 조건에 맞는 카드는 {0}장뿐입니다.
+  ChooseOrigin: |-
+    선택한 기원의 수에 따른 뽑기 수 보정:
+    +0, +1, +3, +6, +10, +15
+  ChooseType: 카드 유형을 최소 |e:{MinTypes}|개 선택하세요.
+  RollAmount: "\n(뽑기 수: |e:{RollAmount}|, 카드 풀 크기: |e:{PoolSize}|)"
+  FinalChoice: |-
+    당신의 |힘|이 스며드는 것을 느낍니다.
+    이제 되돌릴 수 없는 선택입니다.

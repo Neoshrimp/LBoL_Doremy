@@ -56,6 +56,8 @@ TODO: Draw propper art of decent quality for all cards, create a Doremy Sweet Ac
 
 #### Changelog
 ----
+`0.5.70` Add Korean translation, thanks to *Raspberry_caffeine_monster*.
+
 `0.5.60` Update for LBoL 1.7.0
 
 `0.5.5x` Add changes based to the feedback. Changelog [here](https://github.com/Neoshrimp/LBoL_Doremy/blob/master/LBoL_Doremy/0_5_5changeLog.md).

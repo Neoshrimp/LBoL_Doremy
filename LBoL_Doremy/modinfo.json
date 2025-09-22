@@ -1,0 +1,19 @@
+{
+  "Title": "Doremy Sweet",
+  "Description": "Collab mod which adds Doremy Sweet as playable character (beta).",
+  "Brief": "Collab mod which adds Doremy Sweet as playable character (beta).",
+  "Changelog": [
+    "v0.5.71: \nInitial Release."
+  ],
+  "Version": "0.5.71",
+  "Author": "Neo",
+  "Tags": [
+    "Character",
+    "Content"
+  ],
+  "PublishedFileId": 0,
+  "AuthorId": 0,
+  "GUID": "neoCollab.lbol.char.Doremy",
+  "Dependencies": [ "BepInEx-BepInExPack-5.4.2100", "neo.lbol.frameworks.entitySideloader" ],
+  "LastUpdateTime": 0
+}

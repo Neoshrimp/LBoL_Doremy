@@ -1,0 +1,19 @@
+{
+  "Title": "NoMoreMetaScaling",
+  "Description": "Removes meta scaling with the least impact to vanilla experience.",
+  "Brief": "Removes meta scaling with the least impact to vanilla experience.",
+  "Changelog": [
+    "v1.2.4: \nInitial Release."
+  ],
+  "Version": "1.2.4",
+  "Author": "Neo",
+  "Tags": [
+    "Misc",
+    "Gameplay"
+  ],
+  "PublishedFileId": 0,
+  "AuthorId": 0,
+  "GUID": "neo.lbol.modifiers.noMetaScaling",
+  "Dependencies": [ "BepInEx-BepInExPack-5.4.2100", "neo.lbol.frameworks.entitySideloader" ],
+  "LastUpdateTime": 0
+}

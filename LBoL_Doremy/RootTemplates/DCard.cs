@@ -116,6 +116,7 @@ namespace LBoL_Doremy.RootTemplates
                 UpgradedRelativeCards: new List<string>(),
 
                 Owner: nameof(DoremyCavalier),
+                Pack: "",
 
                 ImageId: null,
                 UpgradeImageId: null,

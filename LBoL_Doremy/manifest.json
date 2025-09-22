@@ -1,6 +1,6 @@
 {
   "name": "Doremy_Sweet",
-  "version_number": "0.5.70",
+  "version_number": "0.5.71",
   "website_url": "https://github.com/Neoshrimp/LBoL_Doremy",
   "description": "Collab mod which adds Doremy Sweet as playable character (beta).",
   "dependencies": [ "BepInEx-BepInExPack-5.4.2100", "TeamNeo-Sideloader-0.5.0", "TeamNeo-NoMoreMetaScaling-0.5.0" ]

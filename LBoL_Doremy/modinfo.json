@@ -11,7 +11,7 @@
     "Character",
     "Content"
   ],
-  "PublishedFileId": 0,
+  "PublishedFileId": 3573087059,
   "AuthorId": 0,
   "GUID": "neoCollab.lbol.char.Doremy",
   "Dependencies": [ "BepInEx-BepInExPack-5.4.2100", "neo.lbol.frameworks.entitySideloader" ],

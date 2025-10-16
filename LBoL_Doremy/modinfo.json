@@ -5,13 +5,13 @@
   "Changelog": [
     "v0.5.71: \nInitial Release."
   ],
-  "Version": "0.5.71",
+  "Version": "0.5.72",
   "Author": "Neo",
   "Tags": [
     "Character",
     "Content"
   ],
-  "PublishedFileId": 3573087059,
+  "PublishedFileId": 3573085876,
   "AuthorId": 0,
   "GUID": "neoCollab.lbol.char.Doremy",
   "Dependencies": [ "BepInEx-BepInExPack-5.4.2100", "neo.lbol.frameworks.entitySideloader" ],

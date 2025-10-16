@@ -723,7 +723,7 @@ DoremyNightmareForm:
 DoremyFaintingFeint:
   Name: Fainting Feint
   Description: |-
-    Whenever the {PlayerName} would deal attack damage, apply that much |Nightmare| instead.
+    Whenever {PlayerName} would deal attack damage, apply that much |Nightmare| instead.
   FlavorText: |-
     This feint isn't for the faint of heart.
 

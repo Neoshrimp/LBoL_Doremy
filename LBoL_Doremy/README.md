@@ -56,6 +56,8 @@ TODO: Draw propper art of decent quality for all cards, create a Doremy Sweet Ac
 
 #### Changelog
 ----
+`0.5.72` Fix Fainting Feint dealing damage to block and barrier.
+
 `0.5.71` Workshop update.
 
 `0.5.70` Add Korean translation, thanks to *Raspberry_caffeine_monster*.

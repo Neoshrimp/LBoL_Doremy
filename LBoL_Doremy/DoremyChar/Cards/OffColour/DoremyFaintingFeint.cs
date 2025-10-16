@@ -97,31 +97,21 @@ namespace LBoL_Doremy.DoremyChar.Cards.OffColour
                     Log.LogError($"{this.Name} can't react outside of action resolving state. Aborting");
                     return;
                 }
-                React(Convert2NMSequence(args));
 
-                var nm = new NightmareInfo(args.DamageInfo.Damage, false);
-                React(new NightmareAction(Owner, args.Target, nm, 0f));
+                var nm = new NightmareInfo(args.DamageInfo.Amount, false);
+                if(nm > 0)
+                    React(new NightmareAction(Owner, args.Target, nm, 0f));
 
-                args.DamageInfo = args.DamageInfo.ReduceActualDamageBy(args.DamageInfo.Damage.CeilingToInt());
+                args.DamageInfo = new DamageInfo(0f, 0f, 0f, DamageType.Attack);
+                    //args.DamageInfo.ReduceBy(args.DamageInfo.Amount.CeilingToInt());
 
                 // doesnt do anything
-                /*if (args.Target.IsDead || args.Target.IsDying)
-                    args.CancelBy(this);*/
+                if (args.Target.IsDead || args.Target.IsDying)
+                    args.CancelBy(this);
             }
 
         }
 
-        private IEnumerable<BattleAction> Convert2NMSequence(DamageEventArgs args)
-        {
-            var nm = new NightmareInfo(args.DamageInfo.Damage, false);
-            yield return new NightmareAction(Owner, args.Target, nm, 0f);
 
-            args.DamageInfo = args.DamageInfo.ReduceActualDamageBy(args.DamageInfo.Damage.CeilingToInt());
-
-            if (args.Target.IsDead || args.Target.IsDying)
-            {
-                args.CancelBy(this);
-            }
-        }
     }
 }

@@ -34,7 +34,9 @@ namespace NoMetaScaling.Core
                     return;
 
 
-                if (action.Args.ActionSource?.TrickleDownActionSource() is Card card)
+                //if (action.Args.ActionSource?.TrickleDownActionSource() is Card card)
+                // doesnt cover a case where problematic SE would be added by a SE
+                if (action.Args.ActionSource is Card card)
                 {
                     if (ExposedStatics.splitableSE_CARD_ids.Contains(card.Id))
                     {

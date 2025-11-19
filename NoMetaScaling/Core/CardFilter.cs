@@ -32,6 +32,7 @@ using LBoL.EntityLib.Cards.Adventure;
 using LBoL.EntityLib.Cards.Enemy;
 using LBoL.EntityLib.Cards.Character.Reimu;
 using LBoL.EntityLib.Cards.Neutral.Black;
+using LBoL.EntityLib.Cards.Character.Cirno;
 
 namespace NoMetaScaling.Core
 {
@@ -91,6 +92,9 @@ namespace NoMetaScaling.Core
             NoMetaScalinAPI.ExemptFromBanIfGenerated(nameof(BuyPeace));
             NoMetaScalinAPI.ExemptFromBanIfGenerated(nameof(Psychedelic));
             NoMetaScalinAPI.ExemptFromBanIfGenerated(nameof(PoisonTeaParty));
+
+            NoMetaScalinAPI.ExemptFromBanIfGenerated(nameof(SnowconeTdm));
+
 
             NoMetaScalinAPI.ExemptFromBanIfPlayed(nameof(VampireShoot1));
             NoMetaScalinAPI.ExemptFromBanIfPlayed(nameof(VampireShoot2));

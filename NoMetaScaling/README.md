@@ -76,6 +76,8 @@ It's defined in [`NoMetaScalinAPI`](https://github.com/Neoshrimp/LBoL_Doremy/blo
 *Change log*
 
 ------
+`1.2.5` Fix double firepower bug with Meihong Power, unban Daiyousei Snowcone.
+
 `1.2.4` Prevent 'real' Expel cards and Blossoming Fantasy Seal from banning themselves after being played. This enables capitalizing on bounce-backs from exile.
 
 `1.2.3` Fix defrogged cards being banned.

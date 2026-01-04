@@ -234,7 +234,7 @@ namespace NoMetaScaling.Core
                     bool doBan = true;
                     BanReason reason = BanReason.CardWasGenerated;
 
-
+                    
 
                     // real gen clause
                     if (PConfig.AllowFirstTimeDeckedGen 
@@ -346,6 +346,9 @@ namespace NoMetaScaling.Core
         {
             if (ExposedStatics.exemptFromPlayBan.Contains(card.Id))
                 return;
+            if (card.DeckCounter != null)
+                return;
+
             if (card.CardType == LBoL.Base.CardType.Friend
                 && card.Summoned
                 && !GetBanData(Battle).alreadySummoned.Contains(card))
